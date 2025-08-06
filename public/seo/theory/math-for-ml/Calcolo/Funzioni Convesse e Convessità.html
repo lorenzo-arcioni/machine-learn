@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convessità | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, model, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Convessità">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Calcolo/Funzioni Convesse e Convessità">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convessità">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Calcolo/Funzioni Convesse e Convessità">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Convessità",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Calcolo/Funzioni Convesse e Convessità",
+      "datePublished": "2025-08-06T20:12:10.708Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Calcolo/Funzioni Convesse e Convessità" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Convessità</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione">Introduzione</h2>
+<p>Nel contesto dell&rsquo;ottimizzazione, il problema generale che vogliamo risolvere è:</p>
+$$
+\min_{\Theta} \ell(\Theta)
+$$
+<p>dove $\Theta$ rappresenta i parametri del modello e $\ell(\Theta)$ è la funzione di perdita. Trovare i minimizzatori per una funzione di perdita generale è un problema aperto nel campo dell&rsquo;ottimizzazione. Il metodo di ottimizzazione dipende dalle proprietà specifiche della funzione di perdita e, in alcuni casi, potrebbero esserci vincoli sui parametri. Tuttavia, tratteremo principalmente problemi non vincolati.</p>
+<h2 id="funzioni-convesse">Funzioni Convesse</h2>
+<p>Una classe di funzioni particolarmente facile da minimizzare (o massimizzare) è quella delle <strong>funzioni convesse</strong>, definite dalla <strong>disuguaglianza di Jensen</strong>:</p>
+$$
+f(\alpha x + (1 - \alpha)y) \leq \alpha f(x) + (1 - \alpha)f(y), \quad \forall x, y \text{ e } \alpha \in [0, 1]
+$$
+<p>Questa disuguaglianza afferma che la trasformazione convessa di una media è minore o uguale alla media applicata dopo la trasformazione convessa. Per due punti, significa che la linea secante di una funzione convessa giace sopra il grafico della funzione.</p>
+<p><img alt="Jensen's Inequality" src="/images/posts/1200px-ConvexFunction.svg.png" /></p>
+<p><em>Figura 2.4: La disuguaglianza di Jensen generalizza l&rsquo;affermazione che la linea secante di una funzione convessa giace sopra il grafico.</em></p>
+<h2 id="perche-le-funzioni-convesse-sono-facili-da-minimizzare">Perché le funzioni convesse sono facili da minimizzare?</h2>
+<p>Guardando il grafico sopra, possiamo intuire che esiste sempre un <strong>minimo unico</strong>. Se ricordiamo un po&rsquo; di calcolo delle scuole superiori, sappiamo anche che il punto in cui tale minimo è raggiunto è il punto (ancora unico) in cui la derivata della funzione è zero.</p>
+<p>Un&rsquo;importante assunzione che spesso facciamo è che la funzione di perdita $\ell$ sia <strong>differenziabile</strong>, in modo da poter calcolare la sua derivata $\frac{d\ell}{dx}$ in tutti i punti $x$.</p>
+<h2 id="formalizzazione-della-convessita">Formalizzazione della Convessità</h2>
+<p>Per spiegare formalmente, riscriviamo la disuguaglianza di Jensen in una forma diversa:</p>
+$$
+f(x + \alpha(y - x)) \leq (1 - \alpha)f(x) + \alpha f(y), \quad \forall x, y \text{ e } \alpha \in (0, 1)
+$$
+<p>Effettuando alcune manipolazioni algebriche, otteniamo:</p>
+$$
+\frac{f(x + \alpha(y - x))}{\alpha} \leq \frac{(1 - \alpha)f(x) + \alpha f(y)}{\alpha}
+$$
+$$
+\frac{f(x + \alpha(y - x))}{\alpha} \leq \frac{f(x)}{\alpha} - f(x) + f(y) \quad (\text{espandendo il prodotto } (1 - \alpha)f(x))
+$$
+$$
+\frac{f(x + \alpha(y - x)) - f(x)}{\alpha} + f(x) \leq f(y)
+$$
+<p>Prendendo il limite per $\alpha \to 0$, notiamo che l&rsquo;espressione assomiglia alla definizione di derivata di una funzione, ovvero il limite del rapporto incrementale:</p>
+$$
+\frac{df}{dx} = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}
+$$
+<p>Per completare l&rsquo;espressione, abbiamo bisogno di un fattore $(y - x)$:</p>
+$$
+\lim_{\alpha \to 0} \frac{f(x + \alpha(y - x)) - f(x)}{\alpha(y - x)} (y - x) + f(x) \leq f(y), \quad \forall x, y
+$$
+<p>Poiché $(y - x)$ è uno scalare, possiamo estrarlo dal limite, e l&rsquo;intero limite rappresenta la derivata di $f$:</p>
+$$
+\frac{df(x)}{dx} (y - x) + f(x) \leq f(y), \quad \forall x, y
+$$
+<p>Notiamo che il lato sinistro della disuguaglianza è l&rsquo;approssimazione di Taylor del primo ordine di $f$ nel punto $x$, ovvero la migliore approssimazione lineare di $f$ in quel punto.</p>
+<p><img alt="Taylor Approximation" src="/images/posts/Taylor_Approximation_of_sin%28x%29.jpeg" /></p>
+<p><em>Figura 2.5: Approssimazione di Taylor.</em></p>
+<h2 id="minimizzazione-di-funzioni-convesse">Minimizzazione di Funzioni Convesse</h2>
+<p>Se vogliamo trovare un minimizzatore per una funzione convessa $f$, basta calcolare la sua derivata $\frac{df}{dx}$, imporla $= 0$ e risolvere per $x$. Come abbiamo mostrato, il punto $x$ soddisfa la disuguaglianza:</p>
+$$
+\underbrace{\frac{df(x)}{dx} (y - x)}_{=0} + f(x) \leq f(y), \quad \forall y
+$$
+<p>quindi</p>
+$$
+f(x) \leq f(y), \quad \forall y
+$$
+<p>e dunque $x$ è il <strong>minimizzatore globale</strong> della funzione.</p>
+<p>In generale, per trovare un minimizzatore per una funzione convessa $f$, è sufficiente calcolare la sua derivata $\frac{df}{dx}$, impostarla a zero e risolvere per $x$. Il punto $x$ sarà quindi il minimizzatore globale della funzione.</p>
+<h2 id="convessita-e-la-seconda-derivata">Convessità e la Seconda Derivata</h2>
+<h3 id="nel-caso-univariato">Nel Caso Univariato</h3>
+<p>Se $f(x)$ è due volte differenziabile, il <strong>test della seconda derivata</strong> stabilisce che:</p>
+<ul>
+<li>Se $f''(x) \geq 0$ per ogni $x$, la funzione è convessa.</li>
+<li>Se $f''(x) > 0$ per ogni $x$, la funzione è strettamente convessa.</li>
+</ul>
+<p><strong>Spiegazione Dettagliata e Motivazione Matematica</strong></p>
+<p>In questa sezione approfondiremo, dal punto di vista matematico, perché le proprietà relative alla curvatura, alla tangente e alla monotonia del gradiente garantiscono la convessità di una funzione $f(x)$.</p>
+<h4 id="1-curvatura-e-seconda-derivata">1. Curvatura e Seconda Derivata</h4>
+<p><strong>Concetto:</strong>
+La seconda derivata $f''(x)$ misura la curvatura della funzione. Se $f''(x) \geq 0$ in ogni punto, la funzione &ldquo;si piega verso l&rsquo;alto&rdquo; ovunque.</p>
+<p><strong>Motivazione Matematica:</strong></p>
+<p>Consideriamo la definizione di derivata seconda:
+$$
+f''(x) = \lim_{h \to 0} \frac{f'(x+h) - f'(x)}{h}.
+$$
+Se $f''(x) \geq 0$ per ogni $x$, significa che per ogni incremento $h > 0$ (piccolo), il valore $f'(x+h)$ è almeno pari a $f'(x)$. Quindi il gradiente non diminuisce mai: $f'(x)$ è <strong>monotono non decrescente</strong>.</p>
+<p><strong>Interpretazione:</strong>
+- Quando la funzione è &ldquo;piegata verso l&rsquo;alto&rdquo;, la variazione del suo tasso di crescita è tale da non permettere inversioni di curvatura che potrebbero generare minimi o massimi locali multipli.
+- In termini geometrici, il grafico di $f(x)$ non può avere &ldquo;fianchi discendenti&rdquo; improvvisi che si ripiegano verso il basso, garantendo l&rsquo;unicità del minimo (se esiste).</p>
+<h4 id="2-tangente-e-approssimazione-lineare">2. Tangente e Approssimazione Lineare</h4>
+<p><strong>Concetto:</strong>
+La retta tangente a $f(x)$ in un punto $x_0$ è data da:
+$$
+L(x) = f(x_0) + f'(x_0)(x - x_0).
+$$
+Se $f''(x) \geq 0$, il grafico di $f(x)$ si trova sempre al di sopra della retta tangente in $x_0$.</p>
+<p><strong>Motivazione Matematica (Teorema di Taylor):</strong></p>
+<p>Utilizziamo l&rsquo;espansione in serie di Taylor al primo ordine per $f(x)$ intorno a $x_0$. Per un $x$ arbitrario, esiste un punto $\xi$ compreso tra $x_0$ e $x$ tale che:
+$$
+f(x) = \underbrace{f(x_0) + f'(x_0)(x - x_0)}_{L(x)} + \frac{1}{2} f''(\xi)(x - x_0)^2.
+$$
+Se $f''(\xi) \geq 0$, allora
+$$
+\frac{1}{2} f''(\xi)(x - x_0)^2 \geq 0.
+$$
+Pertanto:
+$$
+\underbrace{f(x_0) + f'(x_0)(x - x_0) + \frac{1}{2} f''(\xi)(x - x_0)^2}_{f(x)} \geq f(x_0) + f'(x_0)(x - x_0) = L(x).
+$$
+Questo mostra che la retta tangente $L(x)$ è un <strong>supporto</strong> per $f(x)$ – il grafico della funzione non scende mai al di sotto della sua tangente. Questa proprietà è essenziale per la convessità, perché implica che la funzione è sempre &ldquo;sopra&rdquo; ogni approssimazione lineare locale.</p>
+<h4 id="3-monotonia-del-gradiente">3. Monotonia del Gradiente</h4>
+<p><strong>Concetto:</strong>
+La condizione $f''(x) \geq 0$ implica che il gradiente $f'(x)$ è monotono non decrescente.</p>
+<p><strong>Motivazione Matematica (<a href="/theory/math-for-ml/Calcolo/Teorema di Lagrange" class="text-blue-600 hover:underline">Teorema di Lagrange</a> o del Valore Medio):</strong></p>
+<p>Sia $x_1 < x_2$ e applichiamo il Teorema del Valore Medio a $f'(x)$ su $[x_1, x_2]$. Esiste un punto $\xi \in (x_1, x_2)$ tale che:
+$$
+f'(x_2) - f'(x_1) = f''(\xi)(x_2 - x_1).
+$$
+Poiché $x_2 - x_1 > 0$ e $f''(\xi) \geq 0$, ne consegue che:
+$$
+f'(x_2) - f'(x_1) \geq 0 \quad \Rightarrow \quad f'(x_2) \geq f'(x_1).
+$$
+Quindi, il gradiente non diminuisce mai al crescere di $x$. Questa monotonia del gradiente è fondamentale perché significa che, una volta che il gradiente raggiunge il valore zero, non può tornare a valori negativi che indicherebbero una nuova discesa. Così, se $f'(x_0) = 0$ per qualche $x_0$, $x_0$ è il <strong>minimo globale</strong>.</p>
+<h4 id="sintesi-della-motivazione-matematica">Sintesi della Motivazione Matematica</h4>
+<ul>
+<li>
+<p><strong>Curvatura:</strong><br />
+  La condizione $f''(x) \geq 0$ assicura che la funzione non abbia inversioni di curvatura, mantenendo una forma &ldquo;aperta verso l&rsquo;alto&rdquo; e prevenendo l&rsquo;esistenza di multipli minimi locali.</p>
+</li>
+<li>
+<p><strong>Tangente:</strong><br />
+  L&rsquo;approssimazione lineare (tangente) fornisce un limite inferiore al grafico di $f(x)$ quando $f''(x) \geq 0$. Questo significa che il grafico di $f(x)$ è sempre al di sopra della sua tangente, caratteristica che semplifica l&rsquo;analisi della funzione e l&rsquo;identificazione del minimo globale.</p>
+</li>
+<li>
+<p><strong>Monotonia del Gradiente:</strong><br />
+  Con $f''(x) \geq 0$, il gradiente $f'(x)$ cresce o rimane costante. Questo impedisce oscillazioni che potrebbero generare più soluzioni stazionarie, garantendo così l&rsquo;unicità del punto in cui $f'(x) = 0$ e rendendo quel punto il minimo globale.</p>
+</li>
+</ul>
+<p>Questi punti, insieme, formano la base teorica che spiega perché le funzioni con $f''(x) \geq 0$ sono convexi e perché questa condizione rende il problema di ottimizzazione (ovvero, trovare il minimo globale) molto più semplice da risolvere.</p>
+<h3 id="estensione-al-caso-multivariato">Estensione al Caso Multivariato</h3>
+<p>Per una funzione $f: \mathbb{R}^n \to \mathbb{R}$ due volte differenziabile, la condizione di convessità si generalizza attraverso la <strong>Hessiana</strong> $\nabla^2 f(\mathbf{x})$, la matrice delle derivate seconde. La funzione $f$ è convessa se e solo se, per ogni vettore $\mathbf{v} \in \mathbb{R}^n$:</p>
+$$
+\mathbf{v}^\top \nabla^2 f(\mathbf{x}) \, \mathbf{v} \geq 0, \quad \forall \mathbf{x}.
+$$
+<p>Questo significa che la Hessiana è <strong>positiva semidefinita</strong>. L&rsquo;interpretazione è la stessa: la funzione ha una curvatura non negativa in tutte le direzioni, estendendo il concetto della seconda derivata non negativa dal caso univariato.</p>
+<h2 id="riassunto-intuitivo">Riassunto Intuitivo</h2>
+<ul>
+<li>
+<p><strong>Funzioni a Una Variabile:</strong><br />
+  Se $f''(x) \geq 0$ in ogni punto, la funzione è sempre &ldquo;inclinata verso l&rsquo;alto&rdquo;. La retta tangente in ogni punto funge da supporto, e la funzione non presenta inversioni di curvatura. Quindi, il punto in cui $f'(x) = 0$ è il minimo globale.</p>
+</li>
+<li>
+<p><strong>Funzioni Multivariate:</strong><br />
+  Se la Hessiana $\nabla^2 f(\mathbf{x})$ è positiva semidefinita, la funzione possiede una curvatura non negativa in ogni direzione. Questo garantisce l&rsquo;unicità del minimo locale (che è anche globale) e semplifica la risoluzione dei problemi di ottimizzazione.</p>
+</li>
+</ul>
+<h2 id="conclusione">Conclusione</h2>
+<p>La caratterizzazione della convessità mediante la disuguaglianza di Jensen e il test della seconda derivata (o della Hessiana nel caso multivariato) fornisce strumenti fondamentali per l&rsquo;analisi e la risoluzione di problemi di ottimizzazione. Le funzioni convesse, avendo un unico minimo globale, permettono l&rsquo;utilizzo di algoritmi efficienti e garantiscono che ogni minimo locale sia effettivamente globale, semplificando notevolmente il processo di minimizzazione.</p>
+<p><em>Nota: Questa spiegazione si basa su concetti classici dell&rsquo;analisi matematica e dell&rsquo;ottimizzazione. Per ulteriori approfondimenti si consiglia lo studio di testi specifici di calcolo avanzato e teoria dell&rsquo;ottimizzazione.</em></p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, model, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Calcolo/Funzioni Convesse e Convessità">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Convessità',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Calcolo/Funzioni Convesse e Convessità'
+        });
+      }
+    </script>
+</body>
+</html>

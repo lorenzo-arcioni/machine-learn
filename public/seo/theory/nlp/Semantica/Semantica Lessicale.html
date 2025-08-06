@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 **Semantica Lessicale** | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="📝 **Semantica Lessicale**">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Semantica/Semantica Lessicale">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="📝 **Semantica Lessicale**">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Semantica/Semantica Lessicale">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "📝 **Semantica Lessicale**",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Semantica/Semantica Lessicale",
+      "datePublished": "2025-08-06T20:12:10.800Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Semantica/Semantica Lessicale" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>📝 **Semantica Lessicale**</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>semantica lessicale</strong> è una branca fondamentale della linguistica che si occupa dello studio del significato delle parole in una lingua naturale. Per comprendere il significato di una frase o di un testo, è necessario partire dal significato delle singole parole. Questo approccio è essenziale anche nel campo dell&rsquo;elaborazione del linguaggio naturale (Natural Language Processing), dove la corretta comprensione delle parole è cruciale per l&rsquo;analisi del significato complessivo di un enunciato.</p>
+<h2 id="definizioni-fondamentali">Definizioni Fondamentali</h2>
+<p>Per iniziare, è utile definire alcuni concetti relativi alle parole e ai loro significati:</p>
+<ul>
+<li><strong>Lessico</strong>: una lista finita di parole di una lingua.</li>
+<li><strong>Lemma</strong>: la forma grammaticale base di una parola, utilizzata nei dizionari. Ad esempio, &ldquo;peach&rdquo; è il lemma di &ldquo;peaches&rdquo;.</li>
+<li><strong>Forma della parola</strong>: qualsiasi forma grammaticale di una parola. Ad esempio, &ldquo;eat&rdquo;, &ldquo;eats&rdquo;, &ldquo;ate&rdquo; sono tutte forme della parola &ldquo;eat&rdquo;.</li>
+</ul>
+<h3 id="lemmatizzazione">Lemmatizzazione</h3>
+<p>Il processo di conversione delle forme delle parole nel loro lemma si chiama <strong>lemmatizzazione</strong>. Questo processo non è sempre deterministico, poiché può dipendere dal contesto. Ad esempio, la parola &ldquo;bind&rdquo; può avere significati diversi a seconda della frase:</p>
+<ul>
+<li><strong>Lemma</strong>: bind (constringere)  </li>
+<li>
+<p>&ldquo;They bound the parties to observe neutrality.&rdquo;</p>
+</li>
+<li>
+<p><strong>Lemma</strong>: bound (saltare)  </p>
+</li>
+<li>&ldquo;The horses were found to bound across the meadows.&rdquo;</li>
+</ul>
+<p>Le forme lessicali possono anche cambiare a seconda della parte del discorso, come nel caso di &ldquo;purchase&rdquo;:</p>
+<ul>
+<li>&ldquo;They closed the purchase with a handshake.&rdquo;</li>
+<li>&ldquo;They are about to purchase a flat.&rdquo;</li>
+</ul>
+<h2 id="sensi-delle-parole">Sensi delle Parole</h2>
+<p>Le parole hanno <strong>sensi</strong> differenti, che possono avere significati diversi a seconda del contesto.</p>
+<h3 id="monosemia-vs-polisemia">Monosemia vs. Polisemia</h3>
+<p>Una parola è <strong>monosemica</strong> se ha un solo significato. Ad esempio:
+- Internet
+- Plant life</p>
+<p>Una parola è <strong>polisemica</strong> se ha più di un significato. Alcuni esempi di parole polisemiche includono:
+- <strong>Bank</strong>: può significare &ldquo;banca&rdquo; o &ldquo;sponda del fiume&rdquo;.
+- <strong>Plane</strong>: può significare &ldquo;aereo&rdquo; o &ldquo;piano&rdquo;.
+- <strong>Bass</strong>: può significare &ldquo;basso&rdquo; come in uno strumento musicale, o &ldquo;basso&rdquo; come nella specie di pesce.</p>
+<h3 id="altri-concetti-relativi-ai-sensi-delle-parole">Altri Concetti Relativi ai Sensi delle Parole</h3>
+<ul>
+<li><strong>Omonimia</strong>: fenomeno per cui due parole hanno la stessa forma ma significati diversi (ad esempio, &ldquo;bank&rdquo; intesa come istituto finanziario e &ldquo;bank&rdquo; intesa come sponda di un fiume).</li>
+<li>
+<p><strong>Metonimia</strong>: quando una parola viene usata per rappresentare un altro concetto a causa di una relazione di contiguità (ad esempio, &ldquo;la Casa Bianca ha rilasciato una dichiarazione&rdquo;). Qui &ldquo;Casa Bianca&rdquo; rappresenta <strong>l’amministrazione statunitense</strong> o <strong>il governo degli Stati Uniti</strong>, in quanto sede fisica del potere esecutivo. La relazione non è di somiglianza, ma di prossimità o associazione logica tra luogo e istituzione, contenente e contenuto, strumento e agente, ecc.</p>
+<p>Esempi comuni:
+- &ldquo;Bevo un bicchiere&rdquo; → si intende <strong>il contenuto</strong>, non il contenitore.
+- &ldquo;Ho letto Shakespeare&rdquo; → si intende <strong>un’opera scritta da Shakespeare</strong>, non la persona fisica.</p>
+</li>
+<li>
+<p><strong>Metafora</strong>: l&rsquo;uso di una parola in un contesto che implica una somiglianza simbolica, come in &ldquo;un mare di problemi&rdquo;.</p>
+</li>
+<li><strong>Personificazione</strong>: attribuire caratteristiche umane a concetti astratti o oggetti inanimati (ad esempio, &ldquo;Il vento sussurrava tra gli alberi&rdquo;).</li>
+<li><strong>Sinestesia</strong>: un fenomeno linguistico in cui sensazioni appartenenti a diversi sensi vengono mescolate, come in &ldquo;un dolce suono&rdquo;.</li>
+</ul>
+<h2 id="distinzione-dei-sensi">Distinzione dei Sensi</h2>
+<p>Un aspetto centrale della semantica lessicale è come rappresentare i diversi sensi di una parola. Un approccio comune è l&rsquo;uso di un <strong>inventario fisso dei sensi</strong> di una parola, che enumera tutte le possibili interpretazioni di un termine.</p>
+<h3 id="esempio-di-inventario-dei-sensi-knife">Esempio di Inventario dei Sensi: &ldquo;Knife&rdquo;</h3>
+<p>Un possibile inventario dei sensi per la parola &ldquo;knife&rdquo; potrebbe includere:
+1. Un utensile da cucina utilizzato per tagliare.
+2. Una lama utilizzata come parte di una macchina.
+3. Un&rsquo;arma tagliente.</p>
+<p>La domanda è: dovremmo aggiungere un ulteriore senso per &ldquo;una lama che fa parte di una macchina&rdquo;? E, inoltre, i sensi delle parole sono applicabili indipendentemente dal contesto?</p>
+<h2 id="interpretazione-dei-sensi-questioni-aperte">Interpretazione dei Sensi: Questioni Aperte</h2>
+<p>Un problema aperto nella rappresentazione del significato lessicale è se si debba introdurre <strong>nuovi sensi</strong> ogni volta che una parola viene usata in un contesto leggermente diverso. Ad esempio:</p>
+<blockquote>
+<p><em>Should we add a further sense to the inventory for “a cutting blade forming part of a machine”?</em></p>
+</blockquote>
+<p>Oppure, possiamo dire che i sensi sono <strong>astratti e applicabili in modo indipendente dal contesto</strong>?</p>
+<blockquote>
+<p><em>Are word senses application-independent?</em></p>
+</blockquote>
+<p>In realtà, le evidenze suggeriscono che i <strong>sensi non sempre hanno confini netti</strong>, ma si distribuiscono lungo un continuum, analogamente all’appartenenza categoriale nella mente umana.</p>
+<h3 id="graded-word-sense-assignment">Graded Word Sense Assignment</h3>
+<p>Uno studio di riferimento è quello di <strong>Erk e McCarthy (2009)</strong>, in cui si chiede agli annotatori di giudicare <strong>quanto ogni senso</strong> di una parola si applica in un certo contesto, su una scala graduata.</p>
+<h4 id="esempio-di-frase">Esempio di frase:</h4>
+<blockquote>
+<p><em>This question provoked arguments in America about the Norton Anthology of Literature by Women, some of the contents of which were said to have had little value as literature.</em></p>
+</blockquote>
+<p>Annotazioni possibili (scala da 1 a 5 per ogni senso):</p>
+<table>
+<thead>
+<tr>
+<th>Annotatore</th>
+<th>Senso 1</th>
+<th>Senso 2</th>
+<th>Senso 3</th>
+<th>Senso 4</th>
+<th>Senso 5</th>
+<th>Senso 6</th>
+<th>Senso 7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ann. 1</td>
+<td>4</td>
+<td>5</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Ann. 2</td>
+<td>1</td>
+<td>4</td>
+<td>5</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Ann. 3</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+</tbody>
+</table>
+<p>Questo approccio <strong>sfuma</strong> il concetto di senso, trattandolo come una <strong>funzione continua</strong> più che come una categoria discreta:</p>
+$$
+\text{Applicabilità}(s_i, c) \in [0, 1] \quad \text{dove } s_i \text{ è il senso } i \text{ e } c \text{ è il contesto}
+$$
+<h3 id="generative-lexicon-lapproccio-di-pustejovsky-1991">Generative Lexicon: L&rsquo;Approccio di Pustejovsky (1991)</h3>
+<p>Nel modello del <strong>Generative Lexicon</strong>, i sensi non sono semplicemente enumerati ma <strong>generati</strong> da strutture semantiche regolari, chiamate <strong>strutture qualia</strong>.</p>
+<h4 id="esempio-knife">Esempio: &ldquo;knife&rdquo;</h4>
+$$
+\begin{align*}
+\text{TYPE}_{\text{STR}} &= 
+\begin{bmatrix}
+\text{ARG}_1 = \text{x (artefatto, strumento)} \\
+\text{ARG}_2 = \text{w (oggetto fisico)} \\
+\text{ARG}_3 = \text{y (umano)} \\
+\end{bmatrix}\\
+\text{QUALIA} &= 
+\begin{cases}
+\text{FORMAL}: \text{utensile da taglio} \\
+\text{CONSTITUTIVE}: \text{lama, manico, ...} \\
+\text{TELIC}: \text{funzione di tagliare} \\
+\text{AGENTIVE}: \text{atto di produzione, fabbricazione} \\
+\end{cases}
+\end{align*}
+$$
+<p>Questa rappresentazione permette di spiegare perché “knife” possa riferirsi a:
+- un <strong>utensile da cucina</strong> (focus su TELIC),
+- una <strong>parte di una macchina</strong> (focus su FORMAL e CONSTITUTIVE),
+- oppure una <strong>lama usata come arma</strong> (focus su uso e contesto pragmatico).</p>
+<h2 id="codifica-dei-sensi-delle-parole">Codifica dei Sensi delle Parole</h2>
+<h3 id="il-modo-umano-dizionari">Il Modo Umano: Dizionari</h3>
+<p>Nel contesto umano, i <strong>dizionari</strong> rappresentano la forma tradizionale per codificare i sensi delle parole. Questi contengono:</p>
+<ul>
+<li><strong>Lemma</strong>: forma base della parola (es. <em>dictator</em>)</li>
+<li><strong>Pronuncia</strong>: indicazione fonetica</li>
+<li><strong>Parte del discorso</strong>: (nome, verbo, aggettivo, ecc.)</li>
+<li><strong>Informazioni morfologiche</strong></li>
+<li><strong>Definizioni testuali</strong> (gloss)</li>
+<li><strong>Informazioni d’uso</strong>: esempi, collocazioni, registri, ecc.</li>
+</ul>
+<h4 id="esempio-dal-lemma-dictator">Esempio: dal lemma <em>dictator</em></h4>
+<blockquote>
+<p><em>Dictator</em> (n.)<br />
+1. A ruler with total power over a country, typically one who has obtained control by force.<br />
+2. A person who behaves in an autocratic way.<br />
+Etimologia: dal latino <em>dictator</em>, da <em>dicere</em> (“dire, ordinare”).</p>
+</blockquote>
+<p>L&rsquo;etimologia mostra il collegamento sistematico tra parole con la stessa radice:</p>
+$$
+\text{dico, dicere, dictus} \Rightarrow \text{dictator, dictation, dictionary, predict, contradict}
+$$
+<p>Dizionari storici come l’Oxford English Dictionary organizzano i sensi secondo l’evoluzione diacronica, mentre quelli moderni possono usare un ordinamento per frequenza d’uso.</p>
+<h3 id="il-modo-computazionale">Il Modo Computazionale</h3>
+<p>Nel trattamento automatico del linguaggio (NLP), la rappresentazione dei sensi avviene tramite <strong>risorse lessicali strutturate</strong>, come:</p>
+<h4 id="1-thesauri-computazionali">1. <strong>Thesauri computazionali</strong></h4>
+<p>Liste di parole organizzate per <strong>similarità semantica</strong> (sinonimi, contrari), come nel <em>Roget’s Thesaurus</em>.</p>
+<blockquote>
+<p>Esempio:
+- <em>booklet, manual, pamphlet, guide, tract, brochure</em> → gruppo di sinonimi</p>
+</blockquote>
+<h4 id="2-dizionari-leggibili-dalla-macchina">2. <strong>Dizionari leggibili dalla macchina</strong></h4>
+<p>Rappresentano le versioni digitali dei dizionari cartacei, con struttura formalizzata:</p>
+$$
+\text{Word} \rightarrow \{ \text{POS}, \text{Senses}, \text{Gloss}, \text{Usage}, \text{Examples} \}
+$$
+<h4 id="3-lessici-computazionali">3. <strong>Lessici computazionali</strong></h4>
+<p>Sono risorse più sofisticate, come <strong>WordNet</strong>, <strong>FrameNet</strong> o <strong>VerbNet</strong>, in cui i sensi sono integrati in una rete concettuale:</p>
+<ul>
+<li>Gerarchie semantiche (iperonimia, meronimia)</li>
+<li>Relazioni sintattico-semantiche</li>
+<li>Ruoli tematici</li>
+</ul>
+<blockquote>
+<p>Esempio in WordNet:
+- <em>dictator.n.01</em>: a ruler who is unconstrained by law
+- <em>dictator.n.02</em>: a person who behaves in an autocratic way</p>
+</blockquote>
+<p>Le informazioni sono spesso strutturate come <strong>grafi lessicali</strong>:</p>
+$$
+\text{Synset} = \{ \text{lemma}_1, \text{lemma}_2, ..., \text{gloss}, \text{relations} \}
+$$
+<p>E le relazioni includono:</p>
+<ul>
+<li>$\text{hypernym}(x)$: categoria generale</li>
+<li>$\text{hyponym}(x)$: sottocategoria</li>
+<li>$\text{meronym}(x)$: parte di x</li>
+<li>$\text{antonym}(x)$: opposto</li>
+</ul>
+<p><a href="/theory/nlp/Semantica/WordNet" class="text-blue-600 hover:underline">WordNet</a> e <a href="/theory/nlp/Semantica/BabelNet" class="text-blue-600 hover:underline">BabelNet</a> sono esempi di lessici computazionali, ovvero risorse strutturate che rappresentano informazioni semantiche e sintattiche sulle parole. </p>
+<p>Queste risorse permettono di:</p>
+<ul>
+<li>organizzare i sensi delle parole in insiemi di sinonimi (WordNet),</li>
+<li>collegare concetti attraverso più lingue e fonti enciclopediche (BabelNet),</li>
+<li>supportare compiti di <a href="/theory/nlp/Semantica/Word Sense Disambiguation" class="text-blue-600 hover:underline">Word Sense Disambiguation</a> e <span class="text-gray-600">Semantic Similarity</span>,</li>
+<li>costruire grafi semantici navigabili e interoperabili in applicazioni NLP.</li>
+</ul>
+<p>Entrambe le risorse si collocano nel più ampio panorama delle risorse linguistiche computazionali utilizzate nella semantica lessicale computazionale.</p>
+<h3 id="confronto-umano-vs-computazionale">Confronto Umano vs. Computazionale</h3>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dizionari Umani</th>
+<th>Risorse Computazionali</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forma</td>
+<td>Testo naturale</td>
+<td>Struttura formale / database</td>
+</tr>
+<tr>
+<td>Etimologia</td>
+<td>Spesso presente</td>
+<td>Raramente presente</td>
+</tr>
+<tr>
+<td>Definizione</td>
+<td>Esplicita e discorsiva</td>
+<td>Compatta e normalizzata</td>
+</tr>
+<tr>
+<td>Relazioni semantiche</td>
+<td>Limitate</td>
+<td>Esplicite e navigabili</td>
+</tr>
+<tr>
+<td>Applicabilità in NLP</td>
+<td>Manuale (per lettura)</td>
+<td>Automatizzabile e scalabile</td>
+</tr>
+</tbody>
+</table>
+<h3 id="domanda-aperta">Domanda Aperta</h3>
+<blockquote>
+<p><strong>Come rappresentare computazionalmente la polisemia in modo flessibile?</strong><br />
+La risposta più moderna implica l’uso di <strong>modelli contestuali</strong> come BERT, che assegnano vettori differenti alla stessa parola in contesti diversi:</p>
+</blockquote>
+$$
+\text{embedding}(\text{bank}_{\text{financial}}) \neq \text{embedding}(\text{bank}_{\text{river}})
+$$
+<p>Ciò supera la rigidità degli inventari fissi di sensi.</p>
+<h2 id="conclusione">Conclusione</h2>
+<p>La semantica lessicale rappresenta un pilastro teorico e applicativo per lo studio del significato delle parole, tanto in ambito linguistico quanto nell&rsquo;elaborazione del linguaggio naturale. Abbiamo visto come i sensi delle parole non siano entità statiche e isolate, ma si manifestino come fenomeni dinamici, influenzati dal contesto, dalla pragmatica e dalla struttura concettuale sottostante.</p>
+<p>Dagli inventari di sensi discreti ai modelli distribuzionali contestuali, passando per le strutture qualia e le risorse computazionali come <a href="/theory/nlp/Semantica/WordNet" class="text-blue-600 hover:underline">WordNet</a> e <a href="/theory/nlp/Semantica/BabelNet" class="text-blue-600 hover:underline">BabelNet</a>, il campo mostra una continua evoluzione verso rappresentazioni più flessibili, scalabili e coerenti con la complessità del linguaggio umano.</p>
+<p>Nel panorama attuale, comprendere e modellare la polisemia non è più un semplice esercizio accademico, ma una sfida centrale per lo sviluppo di sistemi intelligenti capaci di comprendere, disambiguare e ragionare semanticamente. La semantica lessicale, quindi, non è solo una teoria del significato, ma una chiave per l&rsquo;accesso computazionale alla comprensione profonda del linguaggio.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Semantica/Semantica Lessicale">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: '📝 **Semantica Lessicale**',
+          page_location: 'http://localhost:3000/theory/nlp/Semantica/Semantica Lessicale'
+        });
+      }
+    </script>
+</body>
+</html>

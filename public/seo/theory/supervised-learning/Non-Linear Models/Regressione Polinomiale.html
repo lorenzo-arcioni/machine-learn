@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>**Regressione Polinomiale** | Supervised Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="supervised learning, labeled data, classification, regression, model, data, training">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="**Regressione Polinomiale**">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="**Regressione Polinomiale**">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "**Regressione Polinomiale**",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale",
+      "datePublished": "2025-08-06T20:12:10.777Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>**Regressione Polinomiale**</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Supervised Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>regressione polinomiale</strong> è un&rsquo;estensione della regressione lineare che permette di modellare relazioni non lineari tra le variabili indipendenti e la variabile dipendente. Questo viene fatto introducendo termini polinomiali delle variabili indipendenti nel modello. La regressione polinomiale è particolarmente utile quando la relazione tra le variabili non è lineare, ma può essere approssimata da una funzione polinomiale.</p>
+<h2 id="formulazione-del-modello"><strong>Formulazione del Modello</strong></h2>
+<p>Consideriamo una variabile indipendente $x$ e una variabile dipendente $y$. Il nostro dataset di riferimento sarà quindi $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^n$. Il modello di regressione polinomiale di grado $k$ è dato da:</p>
+$$
+y_i = b + \sum_{j=1}^k a_j x_i^j + \epsilon_i \quad \text{per tutti i punti dati } i = 1, \dots, n
+$$
+<p>Dove:
+- $y_i$ è il valore osservato della variabile dipendente.
+- $x_i$ è il valore della variabile indipendente.
+- $b$ è l&rsquo;intercetta.
+- $a_j$ sono i coefficienti del polinomio.
+- $\epsilon_i$ è l&rsquo;errore (rumore) associato alla $i$-esima osservazione.</p>
+<h3 id="notazione-matriciale"><strong>Notazione Matriciale</strong></h3>
+<p>Il modello può essere espresso in notazione matriciale come:</p>
+$$
+\mathbf{y} = \mathbf{X} \mathbf w + \boldsymbol{\epsilon}
+$$
+<p>Dove:
+- $\mathbf{y}$ è il vettore delle osservazioni della variabile dipendente (dimensioni $n \times 1$).
+- $\mathbf{X}$ è la matrice delle variabili indipendenti con i termini polinomiali (dimensioni $n \times (k+1)$).
+- $\mathbf w$ è il vettore dei coefficienti (dimensioni $(k+1) \times 1$).
+- $\boldsymbol{\epsilon}$ è il vettore degli errori (dimensioni $n \times 1$).</p>
+<p>La matrice $\mathbf{X}$ è definita come:</p>
+$$
+\mathbf{X} = \begin{pmatrix}
+x_1^k & x_1^{k-1} & \dots & x_1 & 1 \\
+x_2^k & x_2^{k-1} & \dots & x_2 & 1 \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+x_n^k & x_n^{k-1} & \dots & x_n & 1
+\end{pmatrix}
+$$
+<p><span class="text-gray-600">Qui</span> è possibile trovare una descrizione completa della notazione matriciale utilizzata nel modello di regressione polinomiale.</p>
+<h2 id="teorema-di-stone-weierstrass"><strong>Teorema di Stone-Weierstrass</strong></h2>
+<p>Il <strong>teorema di Stone-Weierstrass</strong> fornisce una base teorica per l&rsquo;uso della regressione polinomiale. Il teorema afferma che:</p>
+<p><strong>Teorema 3.1 (Stone-Weierstrass)</strong>: Se $f$ è una funzione continua sull&rsquo;intervallo $[a, b]$, allora per ogni $\epsilon > 0$ esiste un polinomio $p$ tale che $|f(x) - p(x)| < \epsilon$ per tutti gli $x$ nell&rsquo;intervallo.</p>
+<p>Questo teorema ci dice che, data una funzione reale $f$ su un intervallo, esiste un polinomio $p$ (di grado non noto) che approssima $f$ con la precisione desiderata. L&rsquo;approssimazione è misurata in termini di errore assoluto.</p>
+<h2 id="scelta-del-grado-del-polinomio"><strong>Scelta del Grado del Polinomio</strong></h2>
+<p>Il grado del polinomio $k$ non è un parametro da apprendere, ma un <strong>iperparametro</strong> che codifica una previsione iniziale (prior) che stabiliamo. Ad esempio, potremmo aspettarci che i dati seguano una distribuzione cubica.</p>
+<p>La scelta del grado del polinomio è cruciale per evitare due fenomeni comuni: <a href="/theory/introduction/Overfitting e Underfitting" class="text-blue-600 hover:underline">Overfitting e Underfitting</a>.</p>
+<h2 id="minimi-quadrati-ordinari-ols"><strong>Minimi Quadrati Ordinari (OLS)</strong></h2>
+<p>Per stimare i coefficienti del modello di regressione polinomiale, possiamo utilizzare il metodo dei <strong>minimi quadrati ordinari (OLS)</strong>. La funzione di perdita è data da:</p>
+$$
+\ell(\mathbf w) = \|\mathbf{y} - \mathbf{X} \mathbf w\|_2^2
+$$
+<p>La soluzione ottimale è:</p>
+$$
+\mathbf w = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}
+$$
+<h2 id="limiti-della-regressione-polinomiale"><strong>Limiti della Regressione Polinomiale</strong></h2>
+<p>Nonostante i polinomi possano approssimare qualsiasi funzione continua (grazie al <strong>Teorema di Stone-Weierstrass</strong>), ci sono diverse ragioni per cui non sono sufficienti:</p>
+<ol>
+<li><strong>Perdite più complesse</strong>: Alcune funzioni di perdita non sono esprimibili come MSE.</li>
+<li><strong>Difficoltà nella regolarizzazione</strong>: La regressione polinomiale non è facile da regolarizzare.</li>
+<li><strong>Conoscenza aggiuntiva</strong>: Potremmo avere conoscenze aggiuntive, oltre ai dati di training, che vorremmo incorporare nel modello.</li>
+<li><strong>Feature intermedie</strong>: Alcuni modelli producono feature intermedie che sono molto utili per affrontare determinati compiti.</li>
+<li><strong>Flessibilità</strong>: La facilità di accesso e sperimentazione con il modello.</li>
+</ol>
+<h2 id="conclusione"><strong>Conclusione</strong></h2>
+<p>La regressione polinomiale è uno strumento potente per modellare relazioni non lineari nei dati. Tuttavia, è importante bilanciare la complessità del modello con la quantità di dati disponibili per evitare underfitting e overfitting. La scelta del grado del polinomio è un passo cruciale per ottenere previsioni accurate e interpretabili.</p>
+<h2 id="collegamenti-correlati"><strong>Collegamenti Correlati</strong></h2>
+<ul>
+<li><a href="/theory/supervised-learning/Linear Models/Regressione Lineare" class="text-blue-600 hover:underline">Regressione Lineare</a></li>
+<li><span class="text-gray-600">Minimi Quadrati Ordinari (OLS)</span></li>
+<li><span class="text-gray-600">Underfitting e Overfitting</span></li>
+<li><span class="text-gray-600">Teorema di Stone-Weierstrass</span></li>
+<li><span class="text-gray-600">Selezione del Modello</span></li>
+</ul>
+<h2 id="riferimenti"><strong>Riferimenti</strong></h2>
+<ul>
+<li>Figura 3.3: Fit data with different poly degree.</li>
+<li>Teorema 3.1 (Stone-Weierstrass): https://en.wikipedia.org/wiki/Stone%E2%80%93Weierstrass_theorem</li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> supervised learning, labeled data, classification, regression, model, data, training</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: '**Regressione Polinomiale**',
+          page_location: 'http://localhost:3000/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale'
+        });
+      }
+    </script>
+</body>
+</html>

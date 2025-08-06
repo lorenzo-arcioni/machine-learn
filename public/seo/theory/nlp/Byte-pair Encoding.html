@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte-Pair Encoding (BPE): Algoritmo e Esempio Pratico | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Byte-Pair Encoding (BPE): Algoritmo e Esempio Pratico">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Byte-pair Encoding">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Byte-Pair Encoding (BPE): Algoritmo e Esempio Pratico">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Byte-pair Encoding">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Byte-Pair Encoding (BPE): Algoritmo e Esempio Pratico",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Byte-pair Encoding",
+      "datePublished": "2025-08-06T20:12:10.781Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Byte-pair Encoding" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Byte-Pair Encoding (BPE): Algoritmo e Esempio Pratico</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>Il <strong>Byte-Pair Encoding</strong> (BPE) è un algoritmo di tokenizzazione sub-lessicale ampiamente utilizzato in NLP per ridurre le dimensioni del vocabolario e gestire parole rare o non viste. Si basa sulla fusione iterativa delle coppie di caratteri/sottoparole più frequenti in un corpus.  </p>
+$$
+\text{BPE}(C, k) = \{ \text{token}_1, \text{token}_2, \text{token}_3, \ldots \}
+$$
+<h2 id="algoritmo-bpe-in-pseudocodice"><strong>Algoritmo BPE in Pseudocodice</strong></h2>
+<p><strong>Input</strong>:<br />
+- <code>C</code>: Corpus suddiviso in token iniziali (es. caratteri o parole).<br />
+- <code>k</code>: Numero di fusioni da eseguire.  </p>
+<p><strong>Output</strong>:<br />
+- <code>V</code>: Vocabolario finale con token sub-lessicali.  </p>
+<p><strong>Passaggi</strong>:  </p>
+<ol>
+<li><strong>Inizializzazione del vocabolario</strong>:  </li>
+<li>Suddividi ogni parola nel corpus in caratteri individuali.  </li>
+<li>Aggiungi un simbolo speciale <code>_</code> (spesso usato per indicare la fine di una parola).  </li>
+<li>
+<p><code>V</code> ← Insieme di tutti i caratteri unici presenti in <code>C</code>.  </p>
+</li>
+<li>
+<p><strong>Iterazione per <code>k</code> fusioni</strong>:<br />
+   Per <code>i</code> da 1 a <code>k</code>:  </p>
+</li>
+<li><strong>Calcola le frequenze delle coppie adiacenti</strong>:<br />
+     Conta tutte le coppie di token consecutivi nel corpus.  </li>
+<li><strong>Seleziona la coppia più frequente</strong>:<br />
+     Sia <code>(tL, tR)</code> la coppia con la massima frequenza.  </li>
+<li><strong>Crea un nuovo token</strong>:<br />
+<code>tNEW</code> ← <code>tL + tR</code> (concatenazione dei due token).  </li>
+<li><strong>Aggiorna il vocabolario</strong>:<br />
+<code>V</code> ← <code>V ∪ {tNEW}</code>.  </li>
+<li>
+<p><strong>Modifica il corpus</strong>:<br />
+     Sostituisci ogni occorrenza di <code>tL</code> seguito da <code>tR</code> con <code>tNEW</code> in tutte le parole.  </p>
+</li>
+<li>
+<p><strong>Restituisci</strong> <code>V</code>.  </p>
+</li>
+</ol>
+$$
+\begin{aligned}
+& \textbf{Algoritmo: Byte-Pair Encoding} \\
+& \textbf{Input:} \\
+& \quad - \text{Corpus } C \text{ (token iniziali)} \\
+& \quad - \text{Numero di fusioni } k \\
+& \textbf{Output:} \\
+& \quad - \text{Vocabolario } V \text{ (token sub-lessicali)} \\
+& \\
+& \text{1: Inizializza } V \gets \text{ tutti i caratteri unici in } C \\
+& \text{2: Aggiungi il simbolo speciale } \texttt{"_"} \text{ a } V \text{ (delimitatore di fine parola)} \\
+& \text{3: Suddividi ogni parola in } C \text{ in caratteri singoli + } \texttt{_} \\
+& \text{4: For } i = 1 \text{ to } k \text{ do:} \\
+& \quad \text{4.1: Calcola frequenze di tutte le coppie adiacenti } (t_L, t_R) \text{ in } C \\
+& \quad \text{4.2: Seleziona la coppia } (t_L, t_R) \text{ con frequenza massima} \\
+& \quad \text{4.3: Crea nuovo token } t_{\text{NEW}} = t_L \oplus t_R \text{ (concatenazione)} \\
+& \quad \text{4.4: Aggiorna } V \leftarrow V \cup \{ t_{\text{NEW}} \} \\
+& \quad \text{4.5: Sostituisci ogni occorrenza di } t_L t_R \text{ con } t_{\text{NEW}} \text{ in } C \\
+& \text{5: Restituisci } V
+\end{aligned}
+$$
+<h2 id="esempio-pratico"><strong>Esempio Pratico</strong></h2>
+<h3 id="dati-iniziali">Dati Iniziali</h3>
+<p><strong>Corpus</strong> (con frequenze):<br />
+5 <code>l o w _</code><br />
+2 <code>l o w e s t _</code><br />
+6 <code>n e w e r _</code><br />
+3 <code>w i d e r _</code><br />
+2 <code>n e w _</code>  </p>
+<p><strong>Vocabolario iniziale</strong>:<br />
+<code>V = { _, d, e, i, l, n, o, r, s, t, w }</code>  </p>
+<hr />
+<h3 id="esecuzione-dellalgoritmo-k-3-fusioni">Esecuzione dell&rsquo;Algoritmo (k = 3 fusioni)</h3>
+<h4 id="fusione-1"><strong>Fusione 1</strong></h4>
+<ul>
+<li><strong>Coppia più frequente</strong>: <code>(e, r)</code>  </li>
+<li>Presente in:<br />
+    6 <code>n e w e r _</code> (6 occorrenze)<br />
+    3 <code>w i d e r _</code> (3 occorrenze)  </li>
+<li><strong>Totale</strong>: 9 occorrenze  </li>
+<li><strong>Nuovo token</strong>: <code>er</code>  </li>
+<li><strong>Vocabolario aggiornato</strong>:<br />
+<code>V = { _, d, e, i, l, n, o, r, s, t, w, er }</code>  </li>
+<li><strong>Nuovo corpus</strong>:<br />
+  5 <code>l o w _</code><br />
+  2 <code>l o w e s t _</code><br />
+  6 <code>n e w er _</code><br />
+  3 <code>w i d er _</code><br />
+  2 <code>n e w _</code>  </li>
+</ul>
+<h4 id="fusione-2"><strong>Fusione 2</strong></h4>
+<ul>
+<li><strong>Coppia più frequente</strong>: <code>(er, _)</code>  </li>
+<li>Presente in:<br />
+    6 <code>n e w er _</code> (6 occorrenze)<br />
+    3 <code>w i d er _</code> (3 occorrenze)  </li>
+<li><strong>Totale</strong>: 9 occorrenze  </li>
+<li><strong>Nuovo token</strong>: <code>er_</code>  </li>
+<li><strong>Vocabolario aggiornato</strong>:<br />
+<code>V = { _, d, e, i, l, n, o, r, s, t, w, er, er_ }</code>  </li>
+<li><strong>Nuovo corpus</strong>:<br />
+  5 <code>l o w _</code><br />
+  2 <code>l o w e s t _</code><br />
+  6 <code>n e w er_</code><br />
+  3 <code>w i d er_</code><br />
+  2 <code>n e w _</code>  </li>
+</ul>
+<h4 id="fusione-3"><strong>Fusione 3</strong></h4>
+<ul>
+<li><strong>Coppia più frequente</strong>: <code>(n, e)</code>  </li>
+<li>Presente in:<br />
+    6 <code>n e w er_</code> (6 occorrenze)<br />
+    2 <code>n e w _</code> (2 occorrenze)  </li>
+<li><strong>Totale</strong>: 8 occorrenze  </li>
+<li><strong>Nuovo token</strong>: <code>ne</code>  </li>
+<li><strong>Vocabolario finale</strong>:<br />
+<code>V = { _, d, e, i, l, n, o, r, s, t, w, er, er_, ne}</code>    </li>
+<li><strong>Corpus finale</strong>:<br />
+  5 <code>l o w _</code><br />
+  2 <code>l o w e s t _</code><br />
+  6 <code>ne w er_</code><br />
+  3 <code>w i d er_</code><br />
+  2 <code>ne w _</code>  </li>
+</ul>
+<h4 id="fusione-4"><strong>Fusione 4</strong></h4>
+<ul>
+<li><strong>Coppia più frequente</strong>: <code>(ne, w)</code>  </li>
+<li>Presente in:<br />
+    6 <code>ne w er_</code> (6 occorrenze)<br />
+    2 <code>ne w _</code> (2 occorrenze)  </li>
+<li><strong>Totale</strong>: 8 occorrenze  </li>
+<li><strong>Nuovo token</strong>: <code>new</code>  </li>
+<li><strong>Vocabolario aggiornato</strong>:<br />
+<code>V = { _, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new }</code>  </li>
+<li><strong>Nuovo corpus</strong>:<br />
+  5 <code>l o w _</code><br />
+  2 <code>l o w e s t _</code><br />
+  6 <code>new er_</code><br />
+  3 <code>w i d er_</code><br />
+  2 <code>new _</code>  </li>
+</ul>
+<h4 id="fusione-5"><strong>Fusione 5</strong></h4>
+<ul>
+<li><strong>Coppia più frequente</strong>: <code>(l, o)</code>  </li>
+<li>Presente in:<br />
+    5 <code>l o w _</code> (5 occorrenze)<br />
+    2 <code>l o w e s t _</code> (2 occorrenze)  </li>
+<li><strong>Totale</strong>: 7 occorrenze  </li>
+<li><strong>Nuovo token</strong>: <code>lo</code>  </li>
+<li><strong>Vocabolario aggiornato</strong>:<br />
+<code>V = { _, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new, lo }</code>  </li>
+<li><strong>Nuovo corpus</strong>:<br />
+  5 <code>lo w _</code><br />
+  2 <code>lo w e s t _</code><br />
+  6 <code>new er_</code><br />
+  3 <code>w i d er_</code><br />
+  2 <code>new _</code>  </li>
+</ul>
+<h4 id="fusione-6"><strong>Fusione 6</strong></h4>
+<ul>
+<li><strong>Coppia più frequente</strong>: <code>(lo, w)</code>  </li>
+<li>Presente in:<br />
+    5 <code>lo w _</code> (5 occorrenze)<br />
+    2 <code>lo w e s t _</code> (2 occorrenze)  </li>
+<li><strong>Totale</strong>: 7 occorrenze  </li>
+<li><strong>Nuovo token</strong>: <code>low</code>  </li>
+<li><strong>Vocabolario aggiornato</strong>:<br />
+<code>V = { ..., lo, low }</code>  </li>
+<li><strong>Nuovo corpus</strong>:<br />
+  5 <code>low _</code><br />
+  2 <code>low e s t _</code><br />
+  6 <code>new er_</code><br />
+  3 <code>w i d er_</code><br />
+  2 <code>new _</code>  </li>
+</ul>
+<h4 id="fusione-7"><strong>Fusione 7</strong></h4>
+<ul>
+<li><strong>Coppia più frequente</strong>: <code>(new, er_)</code>  </li>
+<li>Presente in:<br />
+    6 <code>new er_</code> (6 occorrenze)  </li>
+<li><strong>Totale</strong>: 6 occorrenze  </li>
+<li><strong>Nuovo token</strong>: <code>newer_</code>  </li>
+<li><strong>Vocabolario aggiornato</strong>:<br />
+<code>V = { ..., new, er_, newer_ }</code>  </li>
+<li><strong>Nuovo corpus</strong>:<br />
+  5 <code>low _</code><br />
+  2 <code>low e s t _</code><br />
+  6 <code>newer_</code>  <!-- Fusione di "new" + "er_" --><br />
+  3 <code>w i d er_</code><br />
+  2 <code>new _</code>  </li>
+</ul>
+<h4 id="fusione-8"><strong>Fusione 8</strong></h4>
+<ul>
+<li><strong>Coppia più frequente</strong>: <code>(low, _)</code>  </li>
+<li>Presente in:<br />
+    5 <code>low _</code> (5 occorrenze)  </li>
+<li><strong>Totale</strong>: 5 occorrenze  </li>
+<li><strong>Nuovo token</strong>: <code>low_</code>  </li>
+<li><strong>Vocabolario finale</strong>:<br />
+<code>V = { _, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new, lo, low, newer_, low_ }</code>  </li>
+<li><strong>Corpus finale</strong>:<br />
+  5 <code>low_</code>  <!-- Fusione di "low" + "_" --><br />
+  2 <code>low e s t _</code><br />
+  6 <code>newer_</code><br />
+  3 <code>w i d er_</code><br />
+  2 <code>new _</code>  </li>
+</ul>
+<p>Quindi, dopo 8 fusioni (iterazioni), il vocabolario finale contiene 19 token e il corpus finale contiene 12 token. E queste sono le regole apprese dall&rsquo;algoritmo:</p>
+<ul>
+<li>e r -&gt; er</li>
+<li>er _ -&gt; er_</li>
+<li>n e -&gt; ne</li>
+<li>ne w-&gt; new</li>
+<li>l o -&gt; lo</li>
+<li>lo w -&gt; low</li>
+<li>new er_ -&gt; newer_</li>
+<li>low _ -&gt; low_</li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Byte-pair Encoding">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Byte-Pair Encoding (BPE): Algoritmo e Esempio Pratico',
+          page_location: 'http://localhost:3000/theory/nlp/Byte-pair Encoding'
+        });
+      }
+    </script>
+</body>
+</html>

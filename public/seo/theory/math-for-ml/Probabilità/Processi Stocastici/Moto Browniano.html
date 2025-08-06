@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, model, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Untitled">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Moto Browniano">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Untitled">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Moto Browniano">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Untitled",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Moto Browniano",
+      "datePublished": "2025-08-06T20:12:10.744Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Moto Browniano" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Untitled</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h1 id="il-moto-browniano-una-descrizione-matematica-e-intuitiva"><strong>Il Moto Browniano: Una Descrizione Matematica e Intuitiva</strong></h1>
+<h2 id="1-introduzione-al-modello-matematico"><strong>1. Introduzione al Modello Matematico</strong></h2>
+<p>Immaginiamo una particella immersa in un fluido, soggetta a urti casuali dalle molecole circostanti. Se proviamo a modellare questo movimento in modo matematico, possiamo iniziare con un semplice <strong>modello discreto</strong> di random walk e poi passare al <strong>limite continuo</strong>, ottenendo il moto Browniano.</p>
+<hr />
+<h2 id="2-random-walk-un-modello-discreto"><strong>2. Random Walk: Un Modello Discreto</strong></h2>
+<p>Consideriamo una particella che si muove su una linea retta (unidimensionale). Definiamo il suo movimento in base alle seguenti regole:</p>
+<ul>
+<li>La particella parte dall&rsquo;origine:<br />
+  $$
+  X_0 = 0
+  $$</li>
+<li>A intervalli di tempo $\Delta t$, la particella si sposta di una quantità fissa $\Delta x$ a destra o a sinistra con probabilità uguale a $\frac{1}{2}$.</li>
+<li>Gli spostamenti sono indipendenti l&rsquo;uno dall&rsquo;altro.</li>
+</ul>
+<p>Formalmente, definiamo una sequenza di variabili casuali $B_k$ con:
+$$
+B_k =
+\begin{cases} 
++1, & \text{con probabilità } \frac{1}{2}, \\
+-1, & \text{con probabilità } \frac{1}{2}.
+\end{cases}
+$$
+Dopo $N$ passi, la posizione della particella è data da:
+$$
+X_N = \sum_{k=1}^{N} B_k \cdot \Delta x.
+$$</p>
+<h3 id="21-proprieta-della-random-walk"><strong>2.1. Proprietà della Random Walk</strong></h3>
+<ul>
+<li><strong>Valore atteso</strong>:<br />
+  $$
+  \mathbb{E}[X_N] = 0
+  $$
+  perché, in media, la particella si sposta tanto a destra quanto a sinistra.</li>
+<li><strong>Varianza</strong>:<br />
+  $$
+  \mathbb{V}[X_N] = N (\Delta x)^2.
+  $$
+  Questo indica che, man mano che aumentiamo $N$, la dispersione della posizione cresce.</li>
+</ul>
+<h3 id="22-esempio-pratico"><strong>2.2. Esempio Pratico</strong></h3>
+<p>Supponiamo di avere $N = 4$ passi e $\Delta x = 1$. Alcuni possibili percorsi della particella potrebbero essere:
+- $(+1, +1, -1, +1)$ → $X_4 = 2$
+- $(+1, -1, -1, +1)$ → $X_4 = 0$
+- $(-1, -1, +1, -1)$ → $X_4 = -2$</p>
+<p>Più aumenta $N$, più la distribuzione delle posizioni finali assomiglia a una <strong>distribuzione normale</strong>. </p>
+<p>Possiamo verificarlo formalmente usando il <strong>Teorema del Limite Centrale (TLC)</strong>. Il <strong>Teorema del Limite Centrale (TLC)</strong> è uno dei risultati più importanti nella teoria della probabilità. Esso afferma che, se sommiamo un grande numero di variabili casuali indipendenti e identicamente distribuite (iid), la loro somma, opportunamente normalizzata, converge in distribuzione a una variabile casuale con distribuzione normale (gaussiana), indipendentemente dalla distribuzione originale delle variabili.</p>
+<p>Nel contesto della <strong>random walk</strong> (passeggiata casuale), consideriamo una particella che si muove in una dimensione, compiendo passi di lunghezza fissa $\Delta x$ in direzione casuale (ad esempio, a sinistra o a destra con uguale probabilità). La posizione della particella dopo $N$ passi può essere espressa come:</p>
+$$
+X_N = \sum_{k=1}^{N} B_k \cdot \Delta x,
+$$
+<p>dove $B_k$ è una variabile casuale che rappresenta il risultato del $k$-esimo passo. Assumiamo che $B_k$ possa assumere valori $\pm 1$ con probabilità $1/2$, rendendo $B_k$ una variabile casuale di Bernoulli con media $\mathbb{E}[B_k] = 0$ e varianza $\mathbb{V}[B_k] = 1$.</p>
+<hr />
+<h4 id="1-calcolo-del-valore-atteso-math_inline_47">1. Calcolo del valore atteso $\mathbb{E}[X_N]$</h4>
+<p>Il valore atteso della posizione $X_N$ è dato da:</p>
+$$
+\mathbb{E}[X_N] = \mathbb{E}\left[\sum_{k=1}^{N} B_k \cdot \Delta x\right].
+$$
+<p>Poiché il valore atteso è lineare, possiamo portare la somma fuori dall&rsquo;operatore di valore atteso:</p>
+$$
+\mathbb{E}[X_N] = \sum_{k=1}^{N} \mathbb{E}[B_k] \cdot \Delta x.
+$$
+<p>Sapendo che $\mathbb{E}[B_k] = 0$ per ogni $k$, otteniamo:</p>
+$$
+\mathbb{E}[X_N] = \sum_{k=1}^{N} 0 \cdot \Delta x = 0.
+$$
+<p>Quindi, il valore atteso della posizione dopo $N$ passi è <strong>zero</strong>.</p>
+<hr />
+<h4 id="2-calcolo-della-varianza-math_inline_52">2. Calcolo della varianza $\mathbb{V}[X_N]$</h4>
+<p>La varianza della posizione $X_N$ è data da:</p>
+$$
+\mathbb{V}[X_N] = \mathbb{V}\left[\sum_{k=1}^{N} B_k \cdot \Delta x\right].
+$$
+<p>Poiché le variabili $B_k$ sono indipendenti, la varianza della somma è uguale alla somma delle varianze:</p>
+$$
+\mathbb{V}[X_N] = \sum_{k=1}^{N} \mathbb{V}[B_k] \cdot (\Delta x)^2.
+$$
+<p>Sapendo che $\mathbb{V}[B_k] = 1$ per ogni $k$, otteniamo:</p>
+$$
+\mathbb{V}[X_N] = \sum_{k=1}^{N} 1 \cdot (\Delta x)^2 = N (\Delta x)^2.
+$$
+<p>Quindi, la varianza della posizione dopo $N$ passi è $N (\Delta x)^2$.</p>
+<hr />
+<h4 id="3-standardizzazione-della-variabile-math_inline_59">3. Standardizzazione della variabile $X_N$</h4>
+<p>Per applicare il Teorema del Limite Centrale, definiamo una variabile standardizzata $Z_N$ come:</p>
+$$
+Z_N = \frac{X_N}{\sqrt{N} \Delta x}.
+$$
+<p>Questa standardizzazione ha due effetti:
+1. <strong>Valore atteso</strong>: Il valore atteso di $Z_N$ è:
+   $$
+   \mathbb{E}[Z_N] = \frac{\mathbb{E}[X_N]}{\sqrt{N} \Delta x} = \frac{0}{\sqrt{N} \Delta x} = 0.
+   $$
+2. <strong>Varianza</strong>: La varianza di $Z_N$ è:
+   $$
+   \mathbb{V}[Z_N] = \mathbb{V}\left[\frac{X_N}{\sqrt{N} (\Delta x)}\right] = \frac{\mathbb{V}[X_N]}{N (\Delta x)^2} = \frac{N (\Delta x)^2}{N (\Delta x)^2} = 1.
+   $$</p>
+<p>Quindi, $Z_N$ ha valore atteso <strong>0</strong> e varianza <strong>1</strong>, indipendentemente da $N$.</p>
+<hr />
+<h4 id="4-applicazione-del-teorema-del-limite-centrale">4. Applicazione del Teorema del Limite Centrale</h4>
+<p>Secondo il Teorema del Limite Centrale, quando $N$ (il numero di passi) tende all&rsquo;infinito, la distribuzione della variabile standardizzata $Z_N$ converge in distribuzione a una variabile casuale con distribuzione normale standard $\mathcal{N}(0,1)$. In formule:</p>
+$$
+Z_N \xrightarrow{d} \mathcal{N}(0,1),
+$$
+<p>dove $\xrightarrow{d}$ indica la convergenza in distribuzione.</p>
+<hr />
+<h4 id="5-interpretazione-e-collegamento-al-moto-browniano">5. Interpretazione e collegamento al moto Browniano</h4>
+<p>Questo risultato è fondamentale per il passaggio dalla <strong>random walk discreta</strong> al <strong>moto Browniano</strong>, che è un processo stocastico continuo. Nel limite in cui:
+- Il numero di passi $N$ diventa molto grande,
+- La lunghezza di ciascun passo $\Delta x$ diventa molto piccola,
+- Il tempo tra un passo e l&rsquo;altro tende a zero,</p>
+<p>la random walk converge a un <strong>processo di Wiener</strong>, che è la descrizione matematica del moto Browniano. Questo risultato è alla base della modellizzazione di molti fenomeni fisici (come il movimento delle particelle in un fluido) e finanziari (come l&rsquo;andamento dei prezzi delle azioni).</p>
+<hr />
+<h4 id="riassunto-dei-passaggi">Riassunto dei passaggi:</h4>
+<ol>
+<li>La posizione $X_N$ è la somma di $N$ variabili casuali $B_k \cdot \Delta x$.</li>
+<li>Il valore atteso di $X_N$ è $0$ e la sua varianza è $N (\Delta x)^2$.</li>
+<li>Standardizzando $X_N$, otteniamo $Z_N = \frac{X_N}{\sqrt{N} \Delta x}$, con $\mathbb{E}[Z_N] = 0$ e $\mathbb{V}[Z_N] = 1$.</li>
+<li>Per $N \to \infty$, $Z_N$ converge in distribuzione a una normale standard $\mathcal{N}(0,1)$.</li>
+<li>Questo risultato collega la random walk discreta al moto Browniano continuo.</li>
+</ol>
+<hr />
+<h2 id="3-limite-continuo-il-moto-browniano"><strong>3. Limite Continuo: Il Moto Browniano</strong></h2>
+<p>Se riduciamo la dimensione dei passi $\Delta x$ e il tempo tra i passi $\Delta t$, mantenendo costante il rapporto:
+$$
+\frac{(\Delta x)^2}{\Delta t} = \sigma^2,
+$$
+otteniamo nel limite un processo continuo chiamato <strong>moto Browniano</strong>, indicato con $B_t$.</p>
+<p>Il moto Browniano è quindi il <strong>limite</strong> di una random walk opportunamente scalata.</p>
+<h3 id="31-proprieta-del-moto-browniano"><strong>3.1. Proprietà del Moto Browniano</strong></h3>
+<p>Il processo $B_t$ soddisfa le seguenti condizioni:
+1. <strong>Incrementi indipendenti</strong>: gli spostamenti $B_t - B_s$ sono indipendenti per ogni $0 \leq s < t$.
+2. <strong>Incrementi normali</strong>: la differenza tra due istanti segue una distribuzione normale:
+   $$
+   B_t - B_s \sim \mathcal{N}(0, t - s).
+   $$
+3. <strong>Traiettorie continue</strong>: il percorso $t \mapsto B_t$ è una funzione continua in $t$.
+4. <strong>Varianza lineare nel tempo</strong>:<br />
+   $$
+   \mathbb{V}[B_t] = t.
+   $$</p>
+<h3 id="32-esempio-pratico"><strong>3.2. Esempio Pratico</strong></h3>
+<p>Supponiamo che una particella inizi da $B_0 = 0$ e il tempo sia misurato in secondi. Dopo 5 secondi, la posizione $B_5$ segue una distribuzione normale con media 0 e varianza 5, ovvero:
+$$
+B_5 \sim \mathcal{N}(0,5).
+$$
+Ciò significa che, in media, la particella rimane vicino a 0, ma ha una deviazione standard di $\sqrt{5} \approx 2.23$, quindi la probabilità che si trovi tra -4 e +4 è molto alta.</p>
+<hr />
+<h2 id="4-distribuzione-delle-posizioni-nel-tempo"><strong>4. Distribuzione delle Posizioni nel Tempo</strong></h2>
+<p>Dal punto di vista probabilistico, la distribuzione della posizione di una particella che segue un moto Browniano è data dalla <strong>densità della normale</strong>:
+$$
+p(x,t) = \frac{1}{\sqrt{2\pi t}} e^{-x^2 / (2t)}.
+$$
+Questa equazione mostra che la probabilità di trovare la particella in $x$ diminuisce esponenzialmente con $x^2$, quindi è più probabile trovare la particella vicino all&rsquo;origine.</p>
+<h3 id="41-esempio-di-simulazione"><strong>4.1. Esempio di Simulazione</strong></h3>
+<p>Se generiamo più traiettorie di $B_t$ con una simulazione numerica, vedremo che tutte iniziano da 0, ma si diffondono nel tempo con una forma simile a una campana.</p>
+<hr />
+<h2 id="5-relazione-con-lequazione-del-calore"><strong>5. Relazione con l&rsquo;Equazione del Calore</strong></h2>
+<p>Il moto Browniano è strettamente legato all&rsquo;<strong>equazione del calore</strong>, che descrive la diffusione del calore in un solido. La funzione di densità $p(x,t)$ soddisfa:
+$$
+\frac{\partial p}{\partial t} = \frac{1}{2} \frac{\partial^2 p}{\partial x^2}.
+$$
+Questo mostra che il moto di una particella Browniana è analogo alla diffusione del calore in un materiale.</p>
+<hr />
+<h2 id="6-conclusioni"><strong>6. Conclusioni</strong></h2>
+<p>Il moto Browniano è un modello matematico fondamentale per descrivere movimenti casuali continui. La sua costruzione parte da una semplice random walk e porta, nel limite, a un processo con proprietà precise e ben definite.  </p>
+<p>Le sue applicazioni spaziano dalla <strong>fisica</strong> (diffusione molecolare) alla <strong>finanza</strong> (modelli di prezzo delle azioni), fino alla <strong>biologia</strong> (movimenti cellulari). 🚀</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, model, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Moto Browniano">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Untitled',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Moto Browniano'
+        });
+      }
+    </script>
+</body>
+</html>

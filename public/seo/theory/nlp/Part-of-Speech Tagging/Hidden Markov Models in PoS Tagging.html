@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Markov Models in PoS Tagging | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data, neural, training">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hidden Markov Models in PoS Tagging">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hidden Markov Models in PoS Tagging">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Hidden Markov Models in PoS Tagging",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging",
+      "datePublished": "2025-08-06T20:12:10.849Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Hidden Markov Models in PoS Tagging</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>A partire dagli anni &lsquo;70, il <strong>PoS tagging</strong> ha iniziato a essere affrontato anche con <strong>metodi probabilistici</strong>, cioè <strong>stocastici</strong>.</p>
+<p>L&rsquo;idea alla base è semplice: usare i <strong>modelli di Markov nascosti (HMM)</strong> per selezionare la <strong>sequenza di etichette grammaticale più probabile</strong> data una sequenza di parole.</p>
+<p>Formalmente, il problema può essere formulato come segue:</p>
+$$
+\hat{t}_1^n = \underset{t_1^n \in \text{Tagset}^n}{\arg\max} \ P(t_1^n \mid w_1^n)
+$$
+<p>In altre parole, cerchiamo la sequenza di tag $t_1^n$ che <strong>massimizza la probabilità condizionata</strong> dato l&rsquo;input $w_1^n$, ovvero la sequenza di parole osservate.</p>
+<h2 id="teorema-di-bayes">Teorema di Bayes</h2>
+<p>Per calcolare questa probabilità, possiamo ricorrere al <strong>teorema di Bayes</strong>:</p>
+$$
+P(x \mid y) = \frac{P(y \mid x) \cdot P(x)}{P(y)}
+$$
+<p>Applicandolo al nostro problema:</p>
+$$
+P(t_1^n \mid w_1^n) = \frac{P(w_1^n \mid t_1^n) \cdot P(t_1^n)}{P(w_1^n)}
+$$
+<p>Poiché $P(w_1^n)$ è costante rispetto ai tag $t_1^n$, possiamo ignorarlo nel calcolo dell&rsquo;$\arg\max$. Otteniamo quindi:</p>
+$$
+\hat{t}_1^n = \underset{t_1^n \in \text{Tagset}^n}{\arg\max} \ \frac{P(w_1^n \mid t_1^n) \cdot P(t_1^n)}{P(w_1^n)} \approx \underset{t_1^n \in \text{Tagset}^n}{\arg\max} P(w_1^n \mid t_1^n) \cdot P(t_1^n)
+$$
+<p>Dove:
+- $P(w_1^n \mid t_1^n)$ è la <strong>verosimiglianza</strong> (<em>likelihood</em>): probabilità di osservare le parole date le etichette.
+- $P(t_1^n)$ è la <strong>probabilità a priori</strong> (<em>prior</em>) delle etichette grammaticali.</p>
+<p>In pratica, cerchiamo la sequenza di PoS tag che <strong>spiega meglio le parole osservate</strong>, tenendo anche conto di quanto sia <strong>probabile a priori</strong> quella sequenza di tag. Ma come calcolare queste probabilità?</p>
+<h2 id="assunzione-1-la-parola-dipende-solo-dal-suo-pos-tag">Assunzione 1: La parola dipende solo dal suo PoS tag</h2>
+<p>Per semplificare il calcolo della <strong>verosimiglianza</strong> $P(w_1^n \mid t_1^n)$, si fa la seguente assunzione:</p>
+<blockquote>
+<p>Ogni parola $w_i$ dipende solo dal suo corrispondente tag $t_i$.</p>
+</blockquote>
+<p>Formalmente:</p>
+$$
+P(w_1^n \mid t_1^n) = \prod_{i=1}^{n} P(w_i \mid t_i)
+$$
+<p>Questa è un’<strong>assunzione di indipendenza condizionata</strong>: ci permette di calcolare la probabilità delle parole in modo <strong>locale</strong>, tag per tag, invece che sull&rsquo;intera sequenza.</p>
+<h2 id="assunzione-2-ogni-tag-dipende-solo-dal-tag-precedente">Assunzione 2: Ogni tag dipende solo dal tag precedente</h2>
+<p>Per semplificare il calcolo della <strong>prior</strong> $P(t_1^n)$, si assume che ogni tag dipenda <strong>solo dal tag precedente</strong>:</p>
+<blockquote>
+<p>Questo è noto come <strong>bigram model</strong> o <strong>Markov assumption di primo ordine</strong>.</p>
+</blockquote>
+<p>Formalmente:</p>
+$$
+P(t_1^n) = \prod_{i=1}^{n} P(t_i \mid t_{i-1})
+$$
+<p>Questo significa che la sequenza dei tag viene modellata come una <strong>catena di Markov</strong>: non consideriamo tutta la storia passata dei tag, ma solo quello immediatamente precedente.</p>
+<h2 id="combinazione-delle-due-assunzioni">Combinazione delle due assunzioni</h2>
+<p>Applicando insieme le due assunzioni precedenti otteniamo:</p>
+$$
+P(w_1^n \mid t_1^n) \cdot P(t_1^n) = \prod_{i=1}^{n} P(w_i \mid t_i) \cdot P(t_i \mid t_{i-1})
+$$
+<p>Questo prodotto è il cuore del PoS tagging stocastico: stimiamo la <strong>probabilità congiunta</strong> della sequenza parole-tag usando stime locali.</p>
+<h2 id="stima-delle-probabilita-dai-corpora">Stima delle probabilità dai corpora</h2>
+<p>Grazie a <strong>corpora annotati</strong> (es. Penn Treebank, Universal Dependencies), possiamo stimare le due componenti:</p>
+<ul>
+<li>
+<p><strong>Probabilità di emissione</strong> (likelihood):<br />
+  $$
+  P(w_i \mid t_i) = \frac{\text{conteggio}(t_i, w_i)}{\text{conteggio}(t_i)}
+  $$</p>
+</li>
+<li>
+<p><strong>Probabilità di transizione</strong> (prior):<br />
+  $$
+  P(t_i \mid t_{i-1}) = \frac{\text{conteggio}(t_{i-1}, t_i)}{\text{conteggio}(t_{i-1})}
+  $$</p>
+</li>
+</ul>
+<p>Queste stime si basano sulla <strong>frequenza relativa</strong> osservata nei corpus PoS-annotati.</p>
+<h2 id="come-trovare-la-sequenza-di-tag-ottimale">Come trovare la sequenza di tag ottimale?</h2>
+<p>Ora abbiamo:
+- le probabilità $P(w_i \mid t_i)$ → emissione
+- le probabilità $P(t_i \mid t_{i-1})$ → transizione</p>
+<p>Ma dobbiamo trovare la <strong>sequenza di tag $\hat{t}_1^n$</strong> che <strong>massimizza il prodotto</strong> di questi termini.</p>
+<p>Questo è un problema classico di <strong>decodifica in modelli di Markov nascosti</strong>.</p>
+<h2 id="utilizzo-degli-hidden-markov-models">Utilizzo degli Hidden Markov Models</h2>
+<p>Per risolvere il problema del PoS tagging — ovvero associare la sequenza di parole a una sequenza di tag grammaticale — si può modellare il processo come un <strong>Hidden Markov Model (HMM)</strong>.</p>
+<p>Un HMM è un modello statistico in cui:
+- Esiste una <strong>sequenza nascosta di stati</strong> (nel nostro caso, i <strong>tag</strong> grammaticali).
+- Ogni stato emette un&rsquo;<strong>osservazione</strong> (nel nostro caso, una <strong>parola</strong> del testo).
+- Le transizioni tra stati e le emissioni sono regolate da <strong>probabilità</strong>.</p>
+<p><strong>Formalmente</strong>:</p>
+<ul>
+<li>
+<p>$Q = q_1 q_2 \dots q_N$  <strong>un insieme di $N$ stati</strong></p>
+</li>
+<li>
+<p>$A = a_{11} \dots a_{ij} \dots a_{NN}$ <strong>una matrice di probabilità di transizione</strong> $A$, dove ogni $a_{ij}$ rappresenta la probabilità<br />
+  di passare dallo stato $i$ allo stato $j$, tale che $\sum_{j=1}^N a_{ij} = 1 \quad \forall i$</p>
+</li>
+<li>
+<p>$O = o_1 o_2 \dots o_T$ <strong>una sequenza di $T$ osservazioni</strong>, ciascuna presa da un vocabolario $V = v_1, v_2, \dots, v_V$</p>
+</li>
+<li>
+<p>$B = b_i(o_t)$ <strong>una sequenza di probabilità di osservazione</strong>, dette anche <strong>probabilità di emissione</strong>, ognuna delle quali esprime la probabilità che un&rsquo;osservazione $o_t$ venga generata dallo stato $q_i$</p>
+</li>
+<li>
+<p>$\pi = \pi_1, \pi_2, \dots, \pi_N$ <strong>una distribuzione di probabilità iniziale</strong> sugli stati. $\pi_i$ è la probabilità che la catena di Markov inizi nello stato $i$. Alcuni stati $j$ possono avere $\pi_j = 0$,<br />
+  cioè non possono essere stati iniziali. Inoltre, $\sum_{i=1}^n \pi_i = 1$</p>
+</li>
+</ul>
+<h3 id="due-assunzioni-fondamentali-di-un-hmm-di-primo-ordine">Due assunzioni fondamentali di un HMM di primo ordine</h3>
+<ol>
+<li>
+<p><strong>Assunzione di Markov</strong>:<br />
+   Ogni stato (tag) dipende solo dallo <strong>stato precedente</strong>:
+   $$
+   P(t_i \mid t_1^{i-1}) \approx P(t_i \mid t_{i-1})
+   $$</p>
+</li>
+<li>
+<p><strong>Assunzione di emissione indipendente</strong>:<br />
+   Ogni parola dipende solo dal <strong>tag corrente</strong>, non dagli altri tag o parole:
+   $$
+   P(w_i \mid t_1^n, w_1^{i-1}) \approx P(w_i \mid t_i)
+   $$</p>
+</li>
+</ol>
+<p>Applicando queste due assunzioni otteniamo la formula:
+$$
+\hat{t}_1^n = \arg\max_{t_1^n \in Tagset^n} \prod_{i=1}^n P(w_i \mid t_i) \cdot P(t_i \mid t_{i-1})
+$$</p>
+<p><span class="text-gray-600">Qui</span> è diposnibile una descrizione dettagliata degli HMM.</p>
+<h3 id="esempio-jason-eisner-task-2002">Esempio: Jason Eisner task (2002)</h3>
+<p>Un esempio classico per spiegare gli HMM è il <strong>&ldquo;Jason Eisner task&rdquo;</strong>:</p>
+<blockquote>
+<p>Jason tiene un diario con il numero di gelati mangiati ogni giorno dell&rsquo;estate.
+Il suo obiettivo è ricostruire, a partire da questi numeri, se ogni giorno era caldo (<strong>H</strong>) o freddo (<strong>C</strong>).</p>
+</blockquote>
+<p>Formalmente:
+- La sequenza <strong>osservata</strong> $O$ è il numero di gelati mangiati ogni giorno.
+- La sequenza <strong>nascosta</strong> $Q$ è la condizione meteorologica (<strong>H</strong>ot o <strong>C</strong>old).
+- Ogni giorno Jason sceglie quanti gelati mangiare <strong>in base al meteo</strong>.
+- L’obiettivo è <strong>inferire la sequenza di stati</strong> che ha prodotto le osservazioni.</p>
+<p>Questo è del tutto analogo al PoS tagging:
+- Le <strong>osservazioni</strong> sono le parole del testo.
+- Gli <strong>stati nascosti</strong> sono i tag grammaticali.
+- L’obiettivo è inferire la <strong>sequenza di tag più probabile</strong> dato il testo osservato.</p>
+<h3 id="riassunto-dei-componenti-di-un-hmm-per-il-pos-tagging">Riassunto dei componenti di un HMM per il PoS tagging</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Significato NLP</th>
+<th>Simbolo</th>
+<th>Come si calcola</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stati $Q$</td>
+<td>Tag PoS</td>
+<td>$t_i$</td>
+<td>Predefiniti nel tagset</td>
+</tr>
+<tr>
+<td>Osservazioni $O$</td>
+<td>Parole del testo</td>
+<td>$w_i$</td>
+<td>Input della frase</td>
+</tr>
+<tr>
+<td>Transizione</td>
+<td>$P(t_i \mid t_{i-1})$</td>
+<td>Tag → Tag</td>
+<td>Frequenze nei corpora</td>
+</tr>
+<tr>
+<td>Emissione</td>
+<td>$P(w_i \mid t_i)$</td>
+<td>Tag → Parola</td>
+<td>Frequenze nei corpora</td>
+</tr>
+<tr>
+<td>Iniziale $\pi(t_1)$</td>
+<td>Probabilità iniziale di ogni tag</td>
+<td>$P(t_1)$</td>
+<td>Conta quanti tag iniziali in corpus</td>
+</tr>
+</tbody>
+</table>
+<h3 id="obiettivo-finale">Obiettivo finale</h3>
+<p>Data una frase (sequenza di parole), vogliamo trovare:</p>
+$$
+\hat{t}_1^n = \arg\max_{t_1^n} P(w_1^n \mid t_1^n) \cdot P(t_1^n)
+$$
+<p>Dove $P(w_1^n \mid t_1^n)$ e $P(t_1^n)$ sono le <strong>verosimiglianze</strong> e <strong>probabilità a priori</strong>.</p>
+<h3 id="esempio-pratico">Esempio pratico</h3>
+<p>Supponiamo di avere il seguente <strong>corpus annotato</strong> (PoS-tagged):</p>
+<div class="codehilite"><pre><span></span><code>the/DT dog/NN barks/VBZ
+the/DT can/NN falls/VBZ
+we/PRP can/MD win/VB
+book/NN the/DT book/VB
+dogs/NNS bark/VBP
+cats/NNS sleep/VBP
+the/DT can/MD run/VB
+can/MD you/PRP run/VB
+some/DT dogs/NNS bark/VBP
+</code></pre></div>
+
+<h4 id="1-insieme-dei-tag-e-parole">1. Insieme dei tag e parole</h4>
+<ul>
+<li><strong>Tag (Q)</strong> = { <code>DT</code>, <code>PRP</code>, <code>NN</code>, <code>NNS</code>, <code>MD</code>, <code>VBZ</code>, <code>VBP</code>, <code>VB</code> }  </li>
+<li><strong>Parole (O)</strong> = { the, some, we, you, dog, dogs, cat(s), can, book, bark, barks, falls, sleep, run, win }</li>
+</ul>
+<h4 id="2-probabilita-di-transizione">2. Probabilità di transizione</h4>
+<table>
+<thead>
+<tr>
+<th>Transizione</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⟨s⟩ → DT</td>
+<td>4</td>
+<td>4/9 ≃ 0.44</td>
+</tr>
+<tr>
+<td>⟨s⟩ → PRP</td>
+<td>1</td>
+<td>1/9 ≃ 0.11</td>
+</tr>
+<tr>
+<td>⟨s⟩ → NN</td>
+<td>1</td>
+<td>1/9 ≃ 0.11</td>
+</tr>
+<tr>
+<td>⟨s⟩ → NNS</td>
+<td>2</td>
+<td>2/9 ≃ 0.22</td>
+</tr>
+<tr>
+<td>⟨s⟩ → MD</td>
+<td>1</td>
+<td>1/9 ≃ 0.11</td>
+</tr>
+<tr>
+<td>DT → NN</td>
+<td>2</td>
+<td>2/5 = 0.40</td>
+</tr>
+<tr>
+<td>DT → MD</td>
+<td>1</td>
+<td>1/5 = 0.20</td>
+</tr>
+<tr>
+<td>DT → NNS</td>
+<td>1</td>
+<td>1/5 = 0.20</td>
+</tr>
+<tr>
+<td>DT → VB</td>
+<td>1</td>
+<td>1/5 = 0.20</td>
+</tr>
+<tr>
+<td>PRP → MD</td>
+<td>1</td>
+<td>1/2 = 0.50</td>
+</tr>
+<tr>
+<td>PRP → VB</td>
+<td>1</td>
+<td>1/2 = 0.50</td>
+</tr>
+<tr>
+<td>NN → VBZ</td>
+<td>2</td>
+<td>2/3 ≃ 0.67</td>
+</tr>
+<tr>
+<td>NN → DT</td>
+<td>1</td>
+<td>1/3 ≃ 0.33</td>
+</tr>
+<tr>
+<td>NNS → VBP</td>
+<td>2</td>
+<td>3/3 = 1.00</td>
+</tr>
+<tr>
+<td>MD → VB</td>
+<td>2</td>
+<td>2/3 ≃ 0.67</td>
+</tr>
+<tr>
+<td>MD → PRP</td>
+<td>1</td>
+<td>1/3 ≃ 0.33</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-probabilita-di-emissione">3. Probabilità di emissione</h4>
+<p><strong>DT</strong> (5 occorrenze)</p>
+<table>
+<thead>
+<tr>
+<th>Parola</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>the</td>
+<td>4</td>
+<td>4/5 = 0.80</td>
+</tr>
+<tr>
+<td>some</td>
+<td>1</td>
+<td>1/5 = 0.20</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PRP</strong> (2 occorrenze)</p>
+<table>
+<thead>
+<tr>
+<th>Parola</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>we</td>
+<td>1</td>
+<td>1/2 = 0.50</td>
+</tr>
+<tr>
+<td>you</td>
+<td>1</td>
+<td>1/2 = 0.50</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NN</strong> (4 occorrenze)</p>
+<table>
+<thead>
+<tr>
+<th>Parola</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dog</td>
+<td>1</td>
+<td>1/3 ≈ 0.333</td>
+</tr>
+<tr>
+<td>can</td>
+<td>1</td>
+<td>1/3 ≈ 0.333</td>
+</tr>
+<tr>
+<td>book</td>
+<td>1</td>
+<td>1/3 ≈ 0.333</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NNS</strong> (3 occorrenze)</p>
+<table>
+<thead>
+<tr>
+<th>Parola</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dogs</td>
+<td>2</td>
+<td>2/3 ≃ 0.67</td>
+</tr>
+<tr>
+<td>cats</td>
+<td>1</td>
+<td>1/3 ≃ 0.33</td>
+</tr>
+</tbody>
+</table>
+<p><strong>MD</strong> (3 occorrenze)</p>
+<table>
+<thead>
+<tr>
+<th>Parola</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>can</td>
+<td>3</td>
+<td>3/3 = 1.00</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VBZ</strong> (2 occorrenze)</p>
+<table>
+<thead>
+<tr>
+<th>Parola</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>barks</td>
+<td>1</td>
+<td>1/2 = 0.50</td>
+</tr>
+<tr>
+<td>falls</td>
+<td>1</td>
+<td>1/2 = 0.50</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VBP</strong> (2 occorrenze)</p>
+<table>
+<thead>
+<tr>
+<th>Parola</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bark</td>
+<td>2</td>
+<td>2/3 ≈ 0.667</td>
+</tr>
+<tr>
+<td>sleep</td>
+<td>1</td>
+<td>1/3 ≈ 0.333</td>
+</tr>
+</tbody>
+</table>
+<p><strong>VB</strong> (4 occorrenze)</p>
+<table>
+<thead>
+<tr>
+<th>Parola</th>
+<th>Conteggio</th>
+<th>Probabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>win</td>
+<td>1</td>
+<td>1/4 = 0.25</td>
+</tr>
+<tr>
+<td>book</td>
+<td>1</td>
+<td>1/4 = 0.25</td>
+</tr>
+<tr>
+<td>run</td>
+<td>2</td>
+<td>2/4 = 0.50</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4-rappresentazione-tikz-del-modello-hmm">4. Rappresentazione TikZ del modello HMM</h4>
+<p><img src="/images/tikz/3bfdc9c4c841833e4ad94f4100c0c1d9.svg" style="display: block; width: 100%; height: auto; max-height: 600px;" class="tikz-svg" /></p>
+<h4 id="conclusione">Conclusione</h4>
+<p>Questo è un semplice esempio pratico che mostra come costruire un HMM da un corpus annotato, calcolare tutte le probabilità, e disegnare il grafo corrispondente. Nella realtà si lavora su tagset e vocabolari molto più grandi, ma il concetto è lo stesso.</p>
+<h2 id="pos-decoding">PoS Decoding</h2>
+<p>Nel contesto dei modelli <strong>HMM</strong>, il <strong>decoding</strong> è il processo per determinare la sequenza più probabile di stati nascosti (in questo caso, i PoS tag) dati una sequenza osservata di parole.</p>
+<p><br></p>
+<blockquote>
+<p><strong>Decoding</strong>: Dato in input un HMM $\lambda = (A, B)$ e una sequenza di osservazioni $O = o_1, o_2, \dots, o_T$, il compito è trovare la sequenza di stati $Q = q_1 q_2 q_3 \dots q_T$ più probabile.</p>
+</blockquote>
+<p>Nel caso del <strong>PoS tagging</strong>, le <strong>osservazioni</strong> corrispondono alle parole, mentre gli <strong>stati</strong> rappresentano i corrispondenti PoS tag. L&rsquo;obiettivo è quindi assegnare ad ogni parola il PoS tag più plausibile secondo il modello HMM.</p>
+<h3 id="algoritmo-di-viterbi">Algoritmo di Viterbi</h3>
+<p>Il <strong>decoding</strong> viene eseguito tramite l&rsquo;<strong>algoritmo di Viterbi</strong>, che trova il percorso di stati più probabile (la sequenza di tag PoS più plausibile) che ha generato la sequenza osservata.</p>
+<p>L&rsquo;algoritmo lavora in tre fasi:</p>
+<ul>
+<li>
+<p><strong>Inizializzazione</strong>: calcola la probabilità iniziale per ciascuno stato, moltiplicando la probabilità iniziale $\pi_s$ per la probabilità di emissione della prima osservazione.</p>
+</li>
+<li>
+<p><strong>Ricorsione</strong>: per ogni parola nella sequenza (dalla seconda in poi), si aggiorna la matrice delle probabilità di percorso considerando il massimo tra tutti i possibili stati precedenti.</p>
+</li>
+<li>
+<p><strong>Terminazione</strong>: si seleziona il percorso con la probabilità totale più alta.</p>
+</li>
+</ul>
+<blockquote>
+<p>Output: <code>bestpath</code>, la sequenza più probabile di stati (PoS tag), e <code>bestpathprob</code>, la sua probabilità.</p>
+</blockquote>
+$$
+\begin{aligned}
+\textbf{VITERBI}(O = o_1, o_2, \dots, o_T; \lambda = (A, B)) &\Rightarrow \text{best-path}, \text{path-prob} \\
+\\
+\textbf{Inizializzazione:} \quad &\text{crea una matrice } \textit{viterbi}[N, T]\\
+\quad &\text{per ogni stato } s = 1 \dots N \\
+&\quad \textit{viterbi}[s, 1] \leftarrow \pi_s \cdot b_s(o_1) \\
+&\quad \textit{backpointer}[s, 1] \leftarrow 0 \\
+\\
+\textbf{Ricorsione:} \quad &\text{per ogni } t = 2 \dots T \\
+&\quad \text{per ogni stato } s = 1 \dots N \\
+&\quad \quad \textit{viterbi}[s, t] \leftarrow \max_{s'} \left( \textit{viterbi}[s', t-1] \cdot a_{s', s} \cdot b_s(o_t) \right) \\
+&\quad \quad \textit{backpointer}[s, t] \leftarrow \mathop{\arg\max}\limits_{s'} \left( \textit{viterbi}[s', t-1] \cdot a_{s', s} \cdot b_s(o_t) \right) \\
+\\
+\textbf{Terminazione:} \quad &\text{bestpathprob} \leftarrow \max_{s=1}^N \left( \textit{viterbi}[s, T] \right) \\
+&\text{bestpathpointer} \leftarrow \mathop{\arg\max}\limits_{s=1}^{N} \left( \textit{viterbi}[s, T] \right) \\
+&\text{Ricostruzione del percorso usando } \textit{backpointer} \\
+\end{aligned}
+$$
+<p><strong>Spiegazione Intuitiva</strong></p>
+<p>L&rsquo;algoritmo di Viterbi si basa su un principio semplice ma potente: invece di considerare <strong>tutti</strong> i possibili percorsi attraverso la rete di stati (cosa computazionalmente proibitiva), calcola <strong>ricorsivamente</strong> il percorso più probabile che porta a ciascuno stato in ogni istante di tempo. Così facendo, sfrutta il principio di <strong>ottimalità</strong> della programmazione dinamica.</p>
+<p>Ecco l&rsquo;idea chiave:</p>
+<ul>
+<li>Se vogliamo sapere qual è la sequenza di stati più probabile che ha generato una sequenza di osservazioni, possiamo costruirla passo dopo passo, <strong>tenendo traccia solo dei percorsi migliori</strong> verso ciascuno stato.</li>
+<li>In ogni momento, per uno stato corrente $s$, si calcola la <strong>probabilità massima di arrivare lì</strong> da uno qualsiasi degli stati precedenti $s'$, <strong>moltiplicando</strong>:</li>
+<li>la probabilità del miglior percorso fino a $s'$ al tempo $t-1$</li>
+<li>la probabilità di transizione da $s'$ a $s$ ($a_{s', s}$)</li>
+<li>la probabilità di emissione dell&rsquo;osservazione corrente da $s$ ($b_s(o_t)$)</li>
+</ul>
+<p>Questo approccio si basa su un&rsquo;importante assunzione del modello di Markov (HMM):</p>
+<ul>
+<li>La <strong>probabilità di uno stato</strong> dipende <strong>solo</strong> dallo stato precedente (Markoviano)</li>
+<li>L&rsquo;<strong>osservazione</strong> dipende <strong>solo</strong> dallo stato attuale</li>
+</ul>
+<p><strong>Perché funziona?</strong><br />
+Perché grazie alla struttura a stati e alle probabilità condizionate dell’HMM, possiamo decomporre un problema complesso (trovare il percorso globale ottimo) in tanti sottoproblemi più semplici (trovare il miglior percorso fino a un certo stato in un certo istante), e riutilizzare le soluzioni ai sottoproblemi precedenti. Questo è esattamente ciò che fa la programmazione dinamica.</p>
+<p>Infine, una volta costruita la matrice <code>viterbi</code>, usiamo <code>backpointer</code> per ricostruire <strong>all’indietro</strong> la sequenza ottimale degli stati, partendo dallo stato finale con la massima probabilità.</p>
+<p>In sintesi:</p>
+<ul>
+<li>Non esplora tutti i percorsi possibili.</li>
+<li>Sfrutta solo i percorsi migliori a ogni passo.</li>
+<li>È efficiente (tempo lineare nella lunghezza della sequenza).</li>
+<li>È esatto (garantisce il percorso più probabile).</li>
+</ul>
+<h3 id="applicazione-dellalgoritmo-di-viterbi-per-la-sequenza-we-can-run">Applicazione dell&rsquo;Algoritmo di Viterbi per la sequenza &ldquo;we can run&rdquo;</h3>
+<p>Questo documento illustra passo dopo passo l&rsquo;applicazione dell&rsquo;algoritmo di Viterbi per trovare la sequenza di tag POS (Part-Of-Speech) più probabile per la frase &ldquo;we can run&rdquo;. </p>
+<p><strong>Parametri di Input</strong>
+- <strong>Sequenza di osservazioni</strong>:<br />
+  $$O = (o_1, o_2, o_3) = (\text{we},\, \text{can},\, \text{run})$$<br />
+  Dove $T = 3$ è la lunghezza della sequenza.</p>
+<ul>
+<li>
+<p><strong>Insieme degli stati (tag POS)</strong>:<br />
+  $$Q = \{\text{DT}, \text{PRP}, \text{NN}, \text{NNS}, \text{MD}, \text{VBZ}, \text{VBP}, \text{VB}\}$$<br />
+  Alcuni stati (VBZ, VBP, VB) hanno probabilità iniziale $\pi_s = 0$.</p>
+</li>
+<li>
+<p><strong>Parametri</strong>:</p>
+</li>
+<li>$\pi_s$: Probabilità iniziali degli stati.</li>
+<li>$A = [a]_{i,j}$: Matrice di transizione tra stati.</li>
+<li>$B = b_i(o_t)$: Matrice di emissione (probabilità che uno stato $i$ emetta una parola $o_t$).</li>
+</ul>
+<p><strong>1. Inizializzazione ($t=1$)</strong></p>
+<p>Calcoliamo le probabilità $v[s,1]$ per tutti gli stati al primo passo temporale ($t=1$), usando la formula:<br />
+$$v[s,1] = \pi_s \cdot b_s(\text{we})$$</p>
+<p><strong>Spiegazione</strong>:
+- $v[s,1]$: Probabilità del percorso più probabile che termina nello stato $s$ al tempo $t=1$.
+- Solo gli stati con $\pi_s > 0$ <strong>e</strong> $b_s(\text{we}) > 0$ contribuiscono.  </p>
+<table>
+<thead>
+<tr>
+<th>Stato $s$</th>
+<th>$\pi_s$</th>
+<th>$b_s(\text{we})$</th>
+<th>$v[s,1]$</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DT</td>
+<td>$4/9 \approx 0.444$</td>
+<td>0</td>
+<td>$0$</td>
+<td>Emissione nulla per &ldquo;we&rdquo;</td>
+</tr>
+<tr>
+<td>PRP</td>
+<td>$1/9 \approx 0.111$</td>
+<td>$0.50$</td>
+<td>$\frac{1}{18} \approx 0.0556$</td>
+<td>Unico stato con probabilità non nulla</td>
+</tr>
+<tr>
+<td>NN</td>
+<td>$1/9$</td>
+<td>0</td>
+<td>$0$</td>
+<td>Emissione nulla</td>
+</tr>
+<tr>
+<td>NNS</td>
+<td>$2/9$</td>
+<td>0</td>
+<td>$0$</td>
+<td>Emissione nulla</td>
+</tr>
+<tr>
+<td>MD</td>
+<td>$1/9$</td>
+<td>0</td>
+<td>$0$</td>
+<td>Emissione nulla</td>
+</tr>
+<tr>
+<td>VBZ</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>Probabilità iniziale nulla</td>
+</tr>
+<tr>
+<td>VBP</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>Probabilità iniziale nulla</td>
+</tr>
+<tr>
+<td>VB</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>Probabilità iniziale nulla</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Chiarimenti</strong>:
+- Lo stato PRP è l&rsquo;unico attivo a $t=1$ perché ha sia $\pi_s > 0$ che $b_s(\text{we}) > 0$.
+- I valori di $\pi_s$ per VBZ, VBP, VB sono zero (non presenti nel training data iniziale).</p>
+<h3 id="2-fase-ricorsiva">2. Fase Ricorsiva</h3>
+<h4 id="passo-math_inline_125-osservazione-can">Passo $t=2$ (osservazione: &ldquo;can&rdquo;)</h4>
+<p><strong>Emissioni rilevanti</strong>:<br />
+- $b_{\text{NN}}(\text{can}) = 0.25$<br />
+- $b_{\text{MD}}(\text{can}) = 1.00$  </p>
+<p>Calcoliamo $v[s,2]$ solo per NN e MD (unici stati con emissione non nulla):</p>
+<ol>
+<li><strong>Per lo stato NN</strong>:<br />
+   $$v[\text{NN},2] = \max_{s'} \left( v[s',1] \cdot a_{s',\text{NN}} \cdot 0.25 \right)$$  </li>
+<li>$s'$ può essere solo PRP (unico stato con $v[s',1] > 0$).  </li>
+<li>$a_{\text{PRP},\text{NN}} = 0$ (transizione PRP→NN non consentita).  </li>
+<li>
+<p>Risultato: $v[\text{NN},2] = 0.0556 \cdot 0 \cdot 0.25 = 0$.</p>
+</li>
+<li>
+<p><strong>Per lo stato MD</strong>:<br />
+   $$v[\text{MD},2] = \max_{s'} \left( v[s',1] \cdot a_{s',\text{MD}} \cdot 1.00 \right)$$  </p>
+</li>
+<li>$a_{\text{PRP},\text{MD}} = 0.5$ (transizione PRP→MD consentita).  </li>
+<li>Risultato: $v[\text{MD},2] = 0.0556 \cdot 0.5 \cdot 1 = 0.0278$.  </li>
+<li>Backpointer: $bp[\text{MD},2] = \text{PRP}$ (stato precedente ottimale).</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Stato $s$</th>
+<th>$v[s,2]$</th>
+<th>$bp[s, 2]$</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MD</td>
+<td>$\frac{1}{36} \approx 0.0278$</td>
+<td>PRP</td>
+<td>Unico stato attivo a $t=2$</td>
+</tr>
+<tr>
+<td>NN</td>
+<td>$0$</td>
+<td>—</td>
+<td>Probabilità nulla</td>
+</tr>
+<tr>
+<td>Altri</td>
+<td>$0$</td>
+<td>—</td>
+<td>Emissione nulla</td>
+</tr>
+</tbody>
+</table>
+<h4 id="passo-math_inline_143-osservazione-run">Passo $t=3$ (osservazione: &ldquo;run&rdquo;)</h4>
+<p><strong>Emissioni rilevanti</strong>:<br />
+- $b_{\text{VB}}(\text{run}) = 0.50$ (solo VB emette &ldquo;run&rdquo;).  </p>
+<p>Calcoliamo $v[\text{VB},3]$:<br />
+$$v[\text{VB},3] = \max_{s'} \left( v[s',2] \cdot a_{s',\text{VB}} \cdot 0.50 \right)$$  </p>
+<ul>
+<li>$s'$ può essere solo MD (unico stato con $v[s',2] > 0$).  </li>
+<li>$a_{\text{MD},\text{VB}} = \frac{2}{3}$ (transizione MD→VB consentita).  </li>
+<li>Risultato:<br />
+  $$v[\text{VB},3] = 0.0278 \cdot \frac{2}{3} \cdot 0.5 = \frac{1}{108} \approx 0.00926$$  </li>
+<li>Backpointer: $bp[\text{VB},3] = \text{MD}$.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Stato $s$</th>
+<th>$v[s,3]$</th>
+<th>$bp[s, 3]$</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VB</td>
+<td>$\frac{1}{108} \approx 0.00926$</td>
+<td>MD</td>
+<td>Unico stato attivo a $t=3$</td>
+</tr>
+<tr>
+<td>Altri</td>
+<td>$0$</td>
+<td>—</td>
+<td>Emissione nulla</td>
+</tr>
+</tbody>
+</table>
+<p>Alla fine, abbiamo la tabella di valori ottimali:</p>
+<table>
+<thead>
+<tr>
+<th>Stato</th>
+<th>$o_1$=&rdquo;we&rdquo; (t=1)</th>
+<th>$o_2$=&rdquo;can&rdquo; (t=2)</th>
+<th>$o_3$=&rdquo;run&rdquo; (t=3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DT</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>PRP</td>
+<td>$\frac{1}{18} \approx 0.0556$</td>
+<td>$0$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>NN</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>NNS</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>MD</td>
+<td>$0$</td>
+<td>$\frac{1}{36} \approx 0.0278$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>VBZ</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>VBP</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>VB</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$\frac{1}{108} \approx 0.00926$</td>
+</tr>
+</tbody>
+</table>
+<p>e la tabella di backpointers:</p>
+<table>
+<thead>
+<tr>
+<th>Stato</th>
+<th>$o_1$=&rdquo;we&rdquo; (t=1)</th>
+<th>$o_2$=&rdquo;can&rdquo; (t=2)</th>
+<th>$o_3$=&rdquo;run&rdquo; (t=3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DT</td>
+<td>$0$</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>PRP</td>
+<td>$0$</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>NN</td>
+<td>$0$</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>NNS</td>
+<td>$0$</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>MD</td>
+<td>$0$</td>
+<td><strong>PRP</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>VBZ</td>
+<td>$0$</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>VBP</td>
+<td>$0$</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>VB</td>
+<td>$0$</td>
+<td>—</td>
+<td><strong>MD</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-terminazione-e-ricostruzione-del-percorso">3. Terminazione e Ricostruzione del Percorso</h4>
+<ol>
+<li><strong>Terminazione</strong>:  </li>
+<li>Troviamo lo stato finale ottimale:<br />
+     $$\text{bestpathprob} = \max_{s} v[s,T] = \max_{s} v[s,3] = v[\text{VB},3] \approx 0.00926$$  </li>
+<li>
+<p>Stato finale: $s^* = \text{VB}$.</p>
+</li>
+<li>
+<p><strong>Ricostruzione all&rsquo;indietro</strong> (backtracking):  </p>
+</li>
+<li>$\hat{s}_3 = \text{VB}$  </li>
+<li>$\hat{s}_2 = bp[\text{VB},3] = \text{MD}$  </li>
+<li>$\hat{s}_1 = bp[\text{MD},2] = \text{PRP}$  </li>
+</ol>
+<p><strong>Sequenza ottimale</strong>:<br />
+$$(\text{PRP},\, \text{MD},\, \text{VB}) \quad \text{con probabilità } \approx 0.926\%$$  </p>
+<p><strong>Interpretazione linguistica</strong>:<br />
+- <strong>PRP</strong>: Pronome personale (&ldquo;we&rdquo;).<br />
+- <strong>MD</strong>: Verbo modale (&ldquo;can&rdquo;).<br />
+- <strong>VB</strong>: Verbo base (&ldquo;run&rdquo;).</p>
+<h2 id="conclusione-hmm-e-viterbi-nel-pos-tagging">Conclusione: HMM e Viterbi nel PoS Tagging</h2>
+<h3 id="punti-chiave">🔍 Punti Chiave</h3>
+<ol>
+<li><strong>Modellazione Contestuale</strong>: Gli HMM catturano le dipendenze sequenziali tra i tag attraverso le probabilità di transizione  </li>
+<li><strong>Efficienza Computazionale</strong>: L&rsquo;algoritmo di Viterbi riduce la complessità da esponenziale a lineare grazie alla programmazione dinamica  </li>
+<li><strong>Addestramento Data-Driven</strong>: Le probabilità sono stimate direttamente da corpora annotati, garantendo adattabilità a diversi domini linguistici  </li>
+</ol>
+<h3 id="limiti-pratici">🛑 Limiti Pratici</h3>
+<ul>
+<li><strong>Sparsità dei Dati</strong>: Transizioni/emissioni non osservate nei dati di training ricevono probabilità zero (problema dello smoothing)  </li>
+<li><strong>Contesto Limitato</strong>: L&rsquo;assunzione markoviana di primo ordine ignora dipendenze a lungo raggio  </li>
+<li><strong>Ambiguity Resolution</strong>: Difficoltà con parole polisemiche che richiederebbero contesto semantico  </li>
+</ul>
+<h4 id="soluzioni-ibride-moderne">💡 Soluzioni Ibride Moderne</h4>
+<ol>
+<li><strong>Integrazione con Reti Neurali</strong>  </li>
+<li>Usare HMM per la struttura sequenziale + Embedding neurali per rappresentazioni contestuali  </li>
+<li>
+<p>Esempio: <strong>BiLSTM-CRF</strong> combinano la potenza delle reti ricorrenti con modelli grafici  </p>
+</li>
+<li>
+<p><strong>Transformer-Based Taggers</strong>  </p>
+</li>
+<li>Modelli come BERT sfruttano l&rsquo;attenzione globale per catturare dipendenze complesse  </li>
+<li>
+<p>Accuracy &gt;98% sul Penn Treebank contro il 95-97% degli HMM classici  </p>
+</li>
+<li>
+<p><strong>Active Learning</strong>  </p>
+</li>
+<li>Ridurre la dipendenza da grandi corpora annotati attraverso annotazioni mirate  </li>
+<li>Particolarmente utile per lingue low-resource o domini specialistici  </li>
+</ol>
+<h4 id="riferimenti">📚 Riferimenti</h4>
+<ul>
+<li><a href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">Penn Treebank</a></li>
+<li><a href="https://web.stanford.edu/~jurafsky/slp3/">Jurafsky and Martin - Speech and Language Processing</a></li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data, neural, training</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Hidden Markov Models in PoS Tagging',
+          page_location: 'http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging'
+        });
+      }
+    </script>
+</body>
+</html>

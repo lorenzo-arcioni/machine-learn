@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Tecniche di Pesatura in NLP | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="🎯 Tecniche di Pesatura in NLP">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🎯 Tecniche di Pesatura in NLP">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "🎯 Tecniche di Pesatura in NLP",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting",
+      "datePublished": "2025-08-06T20:12:10.804Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>🎯 Tecniche di Pesatura in NLP</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="frequencies-are-not-enough">Frequencies Are Not Enough!</h2>
+<p>In Natural Language Processing (NLP), contare semplicemente la frequenza di co-occorrenza delle parole non è sufficiente per ottenere rappresentazioni semanticamente significative.<br />
+Infatti, parole ad alta frequenza come articoli (&ldquo;the&rdquo;, &ldquo;a&rdquo;), pronomi (&ldquo;it&rdquo;, &ldquo;he&rdquo;) o preposizioni (&ldquo;in&rdquo;, &ldquo;on&rdquo;) possono comparire frequentemente accanto a molte parole senza apportare reale informazione semantica.</p>
+<p>➡️ <strong>Esempi</strong>:
+- ✔️ <em>Buona co-occorrenza</em>: la parola “sugar” appare frequentemente vicino ad “apricot” → relazione semantica plausibile.
+- ❌ <em>Cattiva co-occorrenza</em>: parole funzionali come “it” o “the” appaiono ovunque → <strong>rumore</strong> semantico.</p>
+<p>🔎 <strong>Conclusione</strong>: <strong>Serve una tecnica di pesatura</strong> che vada oltre il semplice conteggio delle occorrenze per <strong>valorizzare</strong> le co-occorrenze semantiche significative e <strong>penalizzare</strong> quelle banali.</p>
+<h2 id="tf-idf-term-frequency-inverse-document-frequency">📊 TF-IDF (Term Frequency - Inverse Document Frequency)</h2>
+<p>Una tecnica robusta e ampiamente utilizzata per la pesatura delle parole nei documenti è <strong>TF-IDF</strong>, proposta da Salton e Buckley (1988).</p>
+<p><strong>Idea di fondo</strong>:<br />
+- Premiare le parole <strong>specifiche</strong> di un documento.<br />
+- Penalizzare le parole <strong>comuni</strong> a tutti i documenti.</p>
+<h3 id="definizione">Definizione</h3>
+<p>TF-IDF è il <strong>prodotto</strong> di due componenti:</p>
+<ol>
+<li><strong>Term Frequency (tf)</strong>:  </li>
+<li>Misura quanto frequentemente una parola $t$ appare in un documento $d$.</li>
+<li>Spesso trasformato usando il logaritmo per attenuare l&rsquo;effetto delle parole molto frequenti.</li>
+<li>
+<p>Formula:<br />
+     $$
+     tf(t,d) = \text{frequenza di } t \text{ in } d = \begin{cases}
+     1+ \log_{10} count(t, d) & \text{se } count(t, d) > 0, \\
+     0 & \text{altrimenti}
+     \end{cases}
+     $$</p>
+</li>
+<li>
+<p><strong>Inverse Document Frequency (idf)</strong>:  </p>
+</li>
+<li>Misura l’importanza della parola in tutto il corpus.</li>
+<li>Penalizza le parole comuni in molti documenti.</li>
+<li>Formula:<br />
+     $$
+     idf(t) = \log \left( \frac{N}{df(t)} \right)
+     $$
+     dove $N$ è il numero totale di documenti e $df(t)$ è il numero di documenti contenenti il termine $t$.</li>
+</ol>
+<h3 id="interpretazione">Interpretazione</h3>
+<ul>
+<li>Se una parola appare in <strong>molti documenti</strong>, il suo IDF è <strong>basso</strong> → <strong>poco informativa</strong>.</li>
+<li>Se una parola appare in <strong>pochi documenti</strong>, il suo IDF è <strong>alto</strong> → <strong>molto informativa</strong>.</li>
+</ul>
+<p>📈 <strong>TF-IDF finale</strong>:
+$$
+tf\text{-}idf(t,d) = tf(t,d) \cdot idf(t) = w_{t, d}
+$$</p>
+<p>I valori di $tf$ sono calcolati per ogni coppia di parola e documento, mentre $idf$ viene calcolato una sola volta per ogni parola nel corpus. Il valore $idf$ non dipende dal documento specifico, quindi si può calcolare una volta sola per ogni parola nel corpus.</p>
+<h2 id="esempio-di-calcolo-tf-idf">📝 Esempio di Calcolo TF-IDF</h2>
+<p>Corpus:
+- d1: “Frodo accidentally stabbed Sam and then some orcs”
+- d2: “Frodo was stabbing regular orcs but never stabbed super orcs – Uruk-Hais”
+- d3: “Sam was having a barbecue with some friendly orcs”</p>
+<p>Calcolo:</p>
+<ul>
+<li>$tf(\text{"Frodo"}, d1) = 1$</li>
+<li>$idf(\text{"Frodo"}) = \log_{10}\left(\frac{3}{2}\right) \approx 0.176$</li>
+<li>$tf\text{-}idf(\text{"Frodo"}, d1) = 1 \times 0.176 = 0.176$</li>
+</ul>
+<p>Analogamente per altre parole.</p>
+<h2 id="pointwise-mutual-information-pmi">🔎 Pointwise Mutual Information (PMI)</h2>
+<p>Un&rsquo;altra tecnica fondamentale per valutare la co-occorrenza di parole è la <strong>Pointwise Mutual Information (PMI)</strong>.</p>
+<p><strong>Idea</strong>:
+- Misura quanto è <strong>informativa</strong> l&rsquo;associazione tra due parole rispetto all&rsquo;ipotesi di indipendenza statistica.</p>
+<p><strong>Formula PMI</strong>:
+$$
+PMI(w_1, w_2) = \log \left( \frac{P(w_1, w_2)}{P(w_1) P(w_2)} \right)
+$$
+dove:
+- $P(w_1, w_2)$ è la probabilità congiunta delle due parole.
+- $P(w_1)$, $P(w_2)$ sono le probabilità marginali.</p>
+<p>🔵 <strong>Interpretazione</strong>:
+- PMI &gt; 0 → le parole co-occorrono <strong>più del previsto</strong>.
+- PMI &lt; 0 → le parole co-occorrono <strong>meno del previsto</strong>.</p>
+<p>📚 <strong>PMI in NLP</strong>:
+- Utilizzato per costruire matrici di co-occorrenza pesate tra termini e contesti.
+- Stimato da modelli bigrammi/unigrammi.</p>
+<h2 id="positive-pmi-ppmi">➕ Positive PMI (PPMI)</h2>
+<p>Poiché valori negativi di PMI sono spesso poco affidabili (soprattutto su corpora piccoli), si utilizza una variante: <strong>Positive PMI (PPMI)</strong>.</p>
+<p><strong>Definizione</strong>:
+$$
+PPMI(w_1, w_2) = \max(PMI(w_1, w_2), 0)
+$$</p>
+<p>🔎 <strong>Vantaggi</strong>:
+- Ignora co-occorrenze meno frequenti di quanto atteso.
+- Focalizza solo su associazioni <strong>significative</strong>.</p>
+<h2 id="esercizio-ppmi-pointwise-mutual-information">🏗️ Esercizio PPMI (Pointwise Mutual Information)</h2>
+<h3 id="introduzione">📋 Introduzione</h3>
+<p>In questo esercizio, partiamo da una <strong>term-context matrix</strong> $F$, che contiene il numero di volte in cui una parola $w_i$ appare in un contesto $c_j$.</p>
+<p><strong>Obiettivo:</strong><br />
+Costruire la matrice <strong>PPMI</strong> (Positive Pointwise Mutual Information) seguendo questi passi:</p>
+<h3 id="step-1-matrice-dei-conteggi-math_inline_38">🔢 Step 1: Matrice dei conteggi $F(w, context)$</h3>
+<table>
+<thead>
+<tr>
+<th>parola</th>
+<th style="text-align: center;">computer</th>
+<th style="text-align: center;">data</th>
+<th style="text-align: center;">pinch</th>
+<th style="text-align: center;">result</th>
+<th style="text-align: center;">sugar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>apricot</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td><strong>pineapple</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td><strong>digital</strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td><strong>information</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-2-calcolo-delle-probabilita">🛠️ Step 2: Calcolo delle probabilità</h3>
+<h4 id="a-calcolare-il-totale-complessivo-delle-occorrenze">a) Calcolare il totale complessivo delle occorrenze</h4>
+$$
+\text{Totale} = \text{somma di tutte le celle di F}
+$$
+<p>Sommiamo tutti i numeri della tabella:</p>
+$$
+\text{Totale} = (0 + 0 + 1 + 0 + 1) + (0 + 0 + 1 + 0 + 1) + (2 + 1 + 0 + 1 + 0) + (1 + 6 + 0 + 4 + 0)
+$$
+$$
+\text{Totale} = 2 + 2 + 4 + 11 = 19
+$$
+<p>Quindi:</p>
+$$
+\text{Totale} = 19
+$$
+<h4 id="b-calcolare-math_inline_39-probabilita-congiunta">b) Calcolare $p(w, c)$ (probabilità congiunta)</h4>
+<p>Ogni elemento:</p>
+$$
+p(w, c) = \frac{\text{conteggio}(w, c)}{19}
+$$
+<p>Per esempio:
+- $p(\text{apricot, pinch}) = \frac{1}{19} \approx 0.0526$</p>
+<p>E così via per tutte le celle.</p>
+<h4 id="c-calcolare-math_inline_41-probabilita-della-parola">c) Calcolare $p(w)$ (probabilità della parola)</h4>
+<p>Sommiamo le righe:</p>
+<ul>
+<li>$p(\text{apricot}) = \frac{0 + 0 + 1 + 0 + 1}{19} = \frac{2}{19} \approx 0.105$</li>
+<li>$p(\text{pineapple}) = \frac{2}{19} \approx 0.105$</li>
+<li>$p(\text{digital}) = \frac{2 + 1 + 0 + 1 + 0}{19} = \frac{4}{19} \approx 0.211$</li>
+<li>$p(\text{information}) = \frac{1 + 6 + 0 + 4 + 0}{19} = \frac{11}{19} \approx 0.579$</li>
+</ul>
+<h4 id="d-calcolare-math_inline_46-probabilita-del-contesto">d) Calcolare $p(c)$ (probabilità del contesto)</h4>
+<p>Sommiamo le colonne:</p>
+<ul>
+<li>$p(\text{computer}) = \frac{0 + 0 + 2 + 1}{19} = \frac{3}{19} \approx 0.158$</li>
+<li>$p(\text{data}) = \frac{0 + 0 + 1 + 6}{19} = \frac{7}{19} \approx 0.368$</li>
+<li>$p(\text{pinch}) = \frac{1 + 1 + 0 + 0}{19} = \frac{2}{19} \approx 0.105$</li>
+<li>$p(\text{result}) = \frac{0 + 0 + 1 + 4}{19} = \frac{5}{19} \approx 0.263$</li>
+<li>$p(\text{sugar}) = \frac{1 + 1 + 0 + 0}{19} = \frac{2}{19} \approx 0.105$</li>
+</ul>
+<p>Quindi ora abbiamo la seguente tabella di probabilità congiunte $p(w, context)$:</p>
+<table>
+<thead>
+<tr>
+<th>parola</th>
+<th style="text-align: center;">computer</th>
+<th style="text-align: center;">data</th>
+<th style="text-align: center;">pinch</th>
+<th style="text-align: center;">result</th>
+<th style="text-align: center;">sugar</th>
+<th style="text-align: center;">$P(w)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>apricot</strong></td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0.11</td>
+</tr>
+<tr>
+<td><strong>pineapple</strong></td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0.11</td>
+</tr>
+<tr>
+<td><strong>digital</strong></td>
+<td style="text-align: center;">0.11</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.21</td>
+</tr>
+<tr>
+<td><strong>information</strong></td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0.32</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.21</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.58</td>
+</tr>
+</tbody>
+</table>
+<p>Le probabilità marginali dei contesti $P(context)$ sono:</p>
+<table>
+<thead>
+<tr>
+<th>context</th>
+<th style="text-align: center;">$P(c)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>computer</td>
+<td style="text-align: center;">0.16</td>
+</tr>
+<tr>
+<td>data</td>
+<td style="text-align: center;">0.37</td>
+</tr>
+<tr>
+<td>pinch</td>
+<td style="text-align: center;">0.11</td>
+</tr>
+<tr>
+<td>result</td>
+<td style="text-align: center;">0.26</td>
+</tr>
+<tr>
+<td>sugar</td>
+<td style="text-align: center;">0.11</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-3-calcolo-della-ppmi">🔥 Step 3: Calcolo della PPMI</h3>
+<p>Per ogni cella $(w, c)$:</p>
+<ol>
+<li><strong>Se</strong> il conteggio è 0, PPMI = 0.</li>
+<li><strong>Altrimenti</strong>, calcoliamo:</li>
+</ol>
+$$
+PPMI(w, c) = \max\left( \log_2\left( \frac{p(w,c)}{p(w) \times p(c)} \right), 0 \right)
+$$
+<h4 id="esempio-di-calcolo-apricot-e-pinch">Esempio di calcolo: &ldquo;apricot&rdquo; e &ldquo;pinch&rdquo;</h4>
+<ul>
+<li>$p(\text{apricot, pinch}) = 0.0526$</li>
+<li>$p(\text{apricot}) = 0.105$</li>
+<li>$p(\text{pinch}) = 0.105$</li>
+</ul>
+<p>Allora:</p>
+$$
+\frac{p(w,c)}{p(w)p(c)} = \frac{0.0526}{0.105 \times 0.105} \approx \frac{0.0526}{0.011025} \approx 4.77
+$$
+<p>Poi:</p>
+$$
+\log_2(4.77) \approx 2.25
+$$
+<p>Infine:</p>
+$$
+PPMI(\text{apricot, pinch}) = 2.25
+$$
+<h3 id="step-4-costruzione-della-matrice-finale-ppmi">✅ Step 4: Costruzione della matrice finale PPMI</h3>
+<p>Ripetiamo il procedimento per ogni cella della matrice.</p>
+<ul>
+<li>Dove il conteggio è 0, scriviamo &ldquo;-&ldquo;.</li>
+<li>Dove il conteggio è &gt;0, calcoliamo il valore come sopra.</li>
+</ul>
+<p>La matrice PPMI risultante è:</p>
+<table>
+<thead>
+<tr>
+<th>parola</th>
+<th style="text-align: center;">computer</th>
+<th style="text-align: center;">data</th>
+<th style="text-align: center;">pinch</th>
+<th style="text-align: center;">result</th>
+<th style="text-align: center;">sugar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>apricot</strong></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">2.25</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">2.25</td>
+</tr>
+<tr>
+<td><strong>pineapple</strong></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">2.25</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">2.25</td>
+</tr>
+<tr>
+<td><strong>digital</strong></td>
+<td style="text-align: center;">1.66</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td><strong>information</strong></td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.57</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-0.47</td>
+<td style="text-align: center;">-</td>
+</tr>
+</tbody>
+</table>
+<p><em>(Nota: i valori negativi diventano 0 nel PPMI.)</em></p>
+<h3 id="conclusione">🎯 Conclusione</h3>
+<p>Ora abbiamo la matrice <strong>PPMI</strong> costruita a partire <strong>dai conteggi</strong> iniziali!</p>
+<h2 id="problemi-di-pmi-e-ppmi">🚨 Problemi di PMI e PPMI</h2>
+<p>Nonostante la PMI e la PPMI siano strumenti potenti per pesare la co-occorrenza di parole, presentano <strong>alcuni problemi</strong> importanti da considerare.</p>
+<h3 id="problema-sovrastima-degli-eventi-rari">⚠️ Problema: Sovrastima degli Eventi Rari</h3>
+<p>La PMI tende a <strong>sovrastimare</strong> le associazioni che coinvolgono parole o contesti <strong>molto rari</strong>.</p>
+<p>📌 <strong>Esempio</strong>:
+- Se una parola rara appare anche <strong>una sola volta</strong> con un certo contesto, il valore di PMI può risultare <strong>molto alto</strong>, anche se quell&rsquo;associazione è dovuta al caso. Questo porta a <strong>valori anomali</strong> che inquinano la rappresentazione semantica.</p>
+<p><strong>Motivo</strong>:
+- Se $P(w)$ o $P(c)$ sono molto piccoli, il denominatore nella formula di PMI è minuscolo, facendo esplodere il valore del logaritmo.</p>
+<h2 id="soluzioni-correzione-della-probabilita">🛠️ Soluzioni: Correzione della Probabilità</h2>
+<p>Per mitigare questo problema, possiamo <strong>modificare le probabilità</strong>:</p>
+<h3 id="1-smoothing-delle-probabilita">1. Smoothing delle Probabilità</h3>
+<p>Una tecnica è il <strong>Laplace Smoothing</strong>, in cui si aggiunge una piccola quantità (ad esempio 1) a tutti i conteggi, per evitare zeri e ridurre l’impatto dei rari.</p>
+<p>Formula di smoothing:</p>
+$$
+count'(w, c) = count(w, c) + \lambda
+$$
+<p>dove $\lambda > 0$ è una costante (tipicamente $\lambda = 1$).</p>
+<p>Con questo trucco:
+- Le parole molto rare ricevono una <strong>penalizzazione</strong>.
+- Il denominatore della PMI diventa più stabile.</p>
+<h3 id="2-ppmi-con-probabilita-modificate-math_inline_64">2. PPMI con Probabilità Modificate ($PPMI^{\alpha}$)</h3>
+<p>Una soluzione ancora più raffinata proposta da <strong>Levy et al. (2015)</strong> consiste nel modificare la probabilità dei contesti $P(c)$.</p>
+<p><strong>Idea</strong>:
+- Innalzare i contesti rari artificialmente, rendendoli meno &ldquo;speciali&rdquo;.
+- Applicare un <strong>esponente $\alpha$ (tipicamente $\alpha=0.75$)</strong> sulle frequenze dei contesti.</p>
+<p>Formula modificata:</p>
+$$
+P^{\alpha}(c) = \frac{count(c)^{\alpha}}{\sum_{c'}count(c')^{\alpha}}
+$$
+<p>e la <strong>PPMI corretta ($PPMI^{\alpha}$)</strong> diventa:</p>
+$$
+PPMI^{\alpha}(w, c) = \max\left( \log_2 \left( \frac{P(w,c)}{P(w) \cdot P^{\alpha}(c)} \right), 0 \right)
+$$
+<h3 id="interpretazione_1">🧠 Interpretazione</h3>
+<ul>
+<li><strong>Se $c$ è raro</strong>, $P^{\alpha}(c)$ sarà <strong>più grande</strong> di $P(c)$ normale.</li>
+<li>Questo <strong>riduce</strong> il valore di PMI per associazioni sospette con contesti rari.</li>
+<li>I contesti molto frequenti (grandi $count(c)$) sono <strong>penalizzati meno</strong>.</li>
+</ul>
+<h3 id="esempio-numerico">📚 Esempio Numerico</h3>
+<p>Supponiamo:</p>
+<ul>
+<li>Contesto $a$: $count(a) = 99$</li>
+<li>Contesto $b$: $count(b) = 1$</li>
+<li>Numero totale di contesti: $N = 100$</li>
+</ul>
+<p>Calcoliamo le probabilità normali:</p>
+$$
+P(a) = 0.99, \quad P(b) = 0.01
+$$
+<p>Ora applichiamo $\alpha = 0.75$:</p>
+<ul>
+<li>$count(a)^{0.75} = 99^{0.75} \approx 31.4$</li>
+<li>$count(b)^{0.75} = 1^{0.75} = 1$</li>
+</ul>
+<p>Totale normalizzato:</p>
+$$
+\sum_{c}count(c)^{0.75} = 31.4 + 1 = 32.4
+$$
+<p>Quindi:</p>
+$$
+P^{0.75}(a) = \frac{31.4}{32.4} \approx 0.97
+$$
+$$
+P^{0.75}(b) = \frac{1}{32.4} \approx 0.03
+$$
+<p>➡️ <strong>Conclusione</strong>: anche se $b$ era rarissimo, ora la sua probabilità effettiva non è più 0.01 ma circa 0.03, <strong>riducendo l&rsquo;esplosione di PMI</strong> su contesti rari.</p>
+<h2 id="riassunto-finale">🧩 Riassunto Finale</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Metodo</th>
+<th style="text-align: left;">Vantaggi</th>
+<th style="text-align: left;">Problemi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>TF (Term Frequency)</strong></td>
+<td style="text-align: left;">Semplice da calcolare; riflette l&rsquo;importanza locale di una parola in un documento</td>
+<td style="text-align: left;">Non distingue tra parole informative e parole molto comuni (es. &ldquo;the&rdquo;, &ldquo;is&rdquo;)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>IDF (Inverse Document Frequency)</strong></td>
+<td style="text-align: left;">Penalizza parole troppo comuni; migliora la discriminatività delle parole</td>
+<td style="text-align: left;">Può assegnare punteggi estremi a parole molto rare</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>TF-IDF</strong></td>
+<td style="text-align: left;">Combina importanza locale (TF) e globale (IDF); migliora la qualità delle rappresentazioni testuali</td>
+<td style="text-align: left;">Non cattura le relazioni tra le parole; insensibile alla semantica</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>PMI</strong></td>
+<td style="text-align: left;">Misura precisa della forza di associazione tra parola e contesto</td>
+<td style="text-align: left;">Sovrastima eventi rari; instabile su piccoli corpora</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>PPMI</strong></td>
+<td style="text-align: left;">Ignora associazioni negative; maggiore robustezza rispetto a PMI</td>
+<td style="text-align: left;">Comunque vulnerabile a rumore da contesti rari</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>PPMI$^{\alpha}$</strong></td>
+<td style="text-align: left;">Migliora la gestione dei contesti rari applicando smoothing parametrico; più bilanciato</td>
+<td style="text-align: left;">Richiede una scelta accurata del parametro $\alpha$; maggiore complessità computazionale</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusioni">🧠 Conclusioni</h2>
+<ul>
+<li><strong>TF-IDF</strong> è estremamente efficace per la rappresentazione di documenti rispetto a corpus di testi.</li>
+<li><strong>PMI</strong> e <strong>PPMI</strong> sono strumenti potenti per analizzare la semantica fine delle relazioni tra parole.</li>
+<li>In NLP moderno, queste tecniche di pesatura rimangono fondamentali per la costruzione di rappresentazioni sparse e semantiche significative delle parole.</li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: '🎯 Tecniche di Pesatura in NLP',
+          page_location: 'http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting'
+        });
+      }
+    </script>
+</body>
+</html>

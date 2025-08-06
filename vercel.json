@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build:seo",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": null,
+  "functions": {},
+  "rewrites": [
+    {
+      "source": "/theory/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(bot|crawler|spider|crawling|google|bing|yahoo|duckduckbot|baiduspider|yandex|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator|whatsapp).*"
+        }
+      ],
+      "destination": "/seo/theory/$1.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/theory",
+      "destination": "/theory/introduction",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/seo/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options", 
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ]
+}

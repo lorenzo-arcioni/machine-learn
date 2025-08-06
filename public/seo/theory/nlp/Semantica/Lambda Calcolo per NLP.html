@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧑‍💻 Lambda Calcolo per NLP | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="🧑‍💻 Lambda Calcolo per NLP">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Semantica/Lambda Calcolo per NLP">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🧑‍💻 Lambda Calcolo per NLP">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Semantica/Lambda Calcolo per NLP">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "🧑‍💻 Lambda Calcolo per NLP",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Semantica/Lambda Calcolo per NLP",
+      "datePublished": "2025-08-06T20:12:10.795Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Semantica/Lambda Calcolo per NLP" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>🧑‍💻 Lambda Calcolo per NLP</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>Il <strong>lambda calcolo</strong> è un sistema matematico inventato da <strong>Alonzo Church</strong> negli anni &lsquo;30 per descrivere in modo preciso cosa significa <strong>eseguire un calcolo</strong>.<br />
+È una base teorica della programmazione (soprattutto funzionale) e trova <strong>applicazioni importanti nel Natural Language Processing (NLP)</strong>, ovvero nella comprensione e rappresentazione del linguaggio naturale da parte dei computer.</p>
+<h2 id="concetti-base-del-lambda-calcolo">🧩 Concetti Base del Lambda Calcolo</h2>
+<p>Il lambda calcolo è costruito su <strong>3 concetti fondamentali</strong>:</p>
+<h3 id="1-variabili">1️⃣ Variabili</h3>
+<p>Una <strong>variabile</strong> è un simbolo (come $x$, $y$, $z$) che rappresenta un valore o un&rsquo;entità generica.</p>
+<p>📌 Esempio:</p>
+<ul>
+<li>$x$ può rappresentare un numero, una parola, un concetto, ecc.</li>
+</ul>
+<h3 id="2-astrazione-definizione-di-funzione">2️⃣ Astrazione (Definizione di funzione)</h3>
+<p>L&rsquo;<strong>astrazione</strong> è il modo per <strong>definire una funzione anonima</strong> (cioè senza nome).<br />
+Si scrive così:</p>
+$$
+\lambda x.t
+$$
+<p>Significa: &ldquo;una funzione che prende $x$ e restituisce il risultato dell&rsquo;espressione $t$&rdquo;.</p>
+<p>📌 Esempio:</p>
+$$
+\lambda x. x + 1
+$$
+<p>Questa è una funzione che prende un numero $x$ e restituisce $x + 1$.</p>
+<h3 id="3-applicazione-uso-della-funzione">3️⃣ Applicazione (Uso della funzione)</h3>
+<p>L&rsquo;<strong>applicazione</strong> è quando <strong>si fornisce un argomento (input)</strong> a una funzione.</p>
+<p>📌 Esempio:</p>
+$$
+(\lambda x. x + 1) \ 5
+$$
+<p>Significa: &ldquo;applica la funzione $\lambda x. x + 1$ all&rsquo;argomento $5$&rdquo;.</p>
+<p>👉 Risultato:</p>
+$$
+5 + 1 = 6
+$$
+<h2 id="operazioni-importanti-nel-lambda-calcolo">🔄 Operazioni Importanti nel Lambda Calcolo</h2>
+<p>Per manipolare le espressioni, si usano principalmente due operazioni:</p>
+<h3 id="alpha-conversion-rinominare-variabili">🔁 Alpha Conversion (Rinominare variabili)</h3>
+<p>Serve per <strong>evitare conflitti tra variabili</strong>.<br />
+Puoi cambiare il nome di una <strong>variabile legata</strong> (cioè usata dentro una funzione) senza cambiare il significato.</p>
+<p>📌 Esempio:</p>
+$$
+\lambda x.x \equiv \lambda y.y
+$$
+<p>Queste due funzioni sono <strong>equivalenti</strong>: entrambe prendono un input e lo restituiscono senza modificarlo.</p>
+<h3 id="beta-reduction-applicare-una-funzione">🧮 Beta Reduction (Applicare una funzione)</h3>
+<p>È l’operazione principale: <strong>esegue effettivamente la funzione</strong>.</p>
+<p>Se hai una funzione:</p>
+$$
+(\lambda x.t) \ s
+$$
+<p>Si sostituisce la variabile $x$ con il valore $s$ nell’espressione $t$:</p>
+$$
+t(s)
+$$
+<p>📌 Esempio $t(x) = x+1$:</p>
+$$
+(\lambda x.t) \ 4 \Rightarrow (\lambda x. x + 1) \ 4 \Rightarrow t(4) \Rightarrow 4 + 1 = 5
+$$
+<h2 id="esempi-pratici-di-lambda-espressioni">🔍 Esempi Pratici di Lambda Espressioni</h2>
+<p>Vediamo alcune funzioni comuni scritte con il lambda calcolo:</p>
+<h3 id="identita">✅ Identità</h3>
+<p>Restituisce l&rsquo;input senza modificarlo:</p>
+$$
+\lambda x. x
+$$
+<p>📌 Esempio:</p>
+$$
+(\lambda x.x)\ 7 = 7
+$$
+<h3 id="funzione-costante">🔢 Funzione Costante</h3>
+<p>Restituisce sempre lo stesso valore, ignorando l&rsquo;input:</p>
+$$
+\lambda x. y
+$$
+<p>📌 Esempio:<br />
+$$
+(\lambda x.42)\ 100 = 42
+$$</p>
+<h3 id="funzione-quadrato">⏹️ Funzione Quadrato</h3>
+<p>Restituisce il quadrato del numero dato:</p>
+$$
+\lambda x. x \cdot x
+$$
+<p>📌 Esempio:</p>
+$$
+(\lambda x. x \cdot x) \ 4 = 4 \cdot 4 = 16
+$$
+<h3 id="funzione-con-piu-argomenti">➕ Funzione con più argomenti</h3>
+<p>Una funzione che moltiplica due numeri può essere scritta usando <strong>funzioni nidificate</strong>:</p>
+$$
+\lambda x. \lambda y. x \cdot y
+$$
+<p>📌 Esempio di applicazione:</p>
+$$
+((\lambda x. \lambda y. x \cdot y) \ 3) \ 4 = (\lambda y. 3 \cdot y) \ 4 = 12
+$$
+<h2 id="lambda-calcolo-in-linguistica">🇮🇹 Lambda Calcolo in Linguistica</h2>
+<p>In <strong>NLP</strong>, il lambda calcolo viene utilizzato per rappresentare le espressioni semantiche del linguaggio naturale. Ciò implica l&rsquo;uso di costanti, connettivi e quantificatori per modellare il significato delle frasi.</p>
+<h3 id="costanti-linguistiche">Costanti Linguistiche</h3>
+<p>Per costruire frasi, utilizziamo costanti come &ldquo;due&rdquo;, &ldquo;rosso&rdquo;, &ldquo;ama&rdquo;, &ldquo;mangiato&rdquo;, &ldquo;Giovanni&rdquo;, &ldquo;Maria&rdquo;, ecc. Ogni parola o concetto nel linguaggio può essere rappresentato come una costante nel lambda calcolo.</p>
+<h3 id="connettivi-e-quantificatori">Connettivi e Quantificatori</h3>
+<p>Nel linguaggio naturale, possiamo avere connettivi logici come <strong>o</strong>, <strong>e</strong>, <strong>non</strong>, <strong>se &hellip; allora</strong>, <strong>per tutti</strong>, <strong>esiste</strong>. Questi connettivi sono rappresentati in lambda calcolo come combinazioni di astrazioni e applicazioni.</p>
+<p>Esempio di una frase:
+$$ loves(John, Mary) $$</p>
+<p>In lambda calcolo, questa potrebbe essere rappresentata come:
+$$ \lambda x.\lambda y.loves(x, y)(John)(Mary) $$</p>
+<h4 id="esempio-di-frase-complessa">Esempio di Frase Complessa</h4>
+<p>Consideriamo una frase come:
+&ldquo;<strong>Mozzarella è rossa e Giovanni ha mangiato mozzarella.</strong>&rdquo;
+In lambda calcolo, possiamo rappresentarlo come:
+$$
+(\lambda x.mozzarella(x) \land \lambda x.rossa(x) \land \lambda x.ate(giovanni, x))(m)
+$$</p>
+<p>Qui, ogni verbo e aggettivo viene trattato come una funzione che applica determinati predicati (come <code>mozarella</code>, <code>rossa</code>, <code>ate</code>) ai rispettivi argomenti.</p>
+<p>Applicando le $\beta$-riduzioni a queste funzioni, otteniamo la frase complessa rappresentata in logica FOL:</p>
+$$
+mozzarella(m) \land rossa(m) \land ate(giovanni, m).
+$$
+<h2 id="lambda-calcolo-e-modellizzazione-degli-eventi">Lambda Calcolo e Modellizzazione degli Eventi</h2>
+<p>Il lambda calcolo è anche molto utile per rappresentare eventi temporali. Un evento può essere definito come una relazione tra un&rsquo;azione e il tempo in cui essa si verifica.</p>
+<p>Esempio di evento nel lambda calcolo:</p>
+$$
+\begin{aligned}
+\mathrm{MANGIARE} &= \lambda e.\;\mathrm{mangiare}(e)\\
+\mathrm{AGENTE}  &= \lambda x.\;\lambda e.\;\mathrm{agente}(e,x)\\
+\mathrm{TEMA}    &= \lambda y.\;\lambda e.\;\mathrm{tema}(e,y)\\
+\mathrm{TEMPO}   &= \lambda t.\;\lambda e.\;\mathrm{tempo}(e,t)\\
+\mathrm{AND}     &= \lambda P.\;\lambda Q.\;\lambda z.\;P(z)\land Q(z)
+\end{aligned}
+$$
+<p>Componiamo queste funzioni per rappresentare:</p>
+<blockquote>
+<p><strong>“Giovanni ha mangiato una mela alle 12.”</strong></p>
+</blockquote>
+$$
+(\mathrm{AND}\;\mathrm{MANGIARE}\;
+  (\mathrm{AND}\;(\mathrm{AGENTE}\;\mathit{giovanni})\;
+    (\mathrm{AND}\;(\mathrm{TEMA}\;\mathit{mela})\;
+      (\mathrm{TEMPO}\;12)
+    )
+  )
+)
+$$
+<p>Applicando le β‐riduzioni otteniamo la funzione evento:</p>
+$$
+\exists e \;\mathrm{mangiare}(e)\;\land\;\mathrm{agente}(e,\mathit{Giovanni})\;\land\;\mathrm{tema}(e,\mathit{mela})\;\land\;\mathrm{tempo}(e,12)
+$$
+<p>Questo modello semantico rappresenta un evento in cui Giovanni mangia una mela, con un&rsquo;azione che avviene nel passato. Ogni argomento dell&rsquo;evento è rappresentato da un termine del lambda calcolo, permettendo una rappresentazione formale dell&rsquo;evento.</p>
+<h2 id="come-estrarre-la-semantica-dalle-frasi">🧠 Come estrarre la semantica dalle frasi?</h2>
+<p>Il <strong>processo di composizione semantica</strong> in NLP si basa sull&rsquo;idea che il significato di una frase possa essere derivato in modo <strong>composizionale</strong>, partendo dal significato delle parole singole e combinandole secondo la struttura sintattica.</p>
+<h3 id="tabella-grammar-rule-semantic-attachment">📚 Tabella: Grammar Rule + Semantic Attachment</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Grammar Rule</strong></th>
+<th><strong>Semantic Attachment</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$S \rightarrow NP\ VP$</td>
+<td>$\{NP.sem(VP.sem)\}$</td>
+</tr>
+<tr>
+<td>$NP \rightarrow Det\ Nominal$</td>
+<td>$\{Det.sem(Nominal.sem)\}$</td>
+</tr>
+<tr>
+<td>$NP \rightarrow ProperNoun$</td>
+<td>$\{ProperNoun.sem\}$</td>
+</tr>
+<tr>
+<td>$Nominal \rightarrow Noun$</td>
+<td>$\{Noun.sem\}$</td>
+</tr>
+<tr>
+<td>$VP \rightarrow Verb$</td>
+<td>$\{Verb.sem\}$</td>
+</tr>
+<tr>
+<td>$VP \rightarrow Verb\ NP$</td>
+<td>$\{Verb.sem(NP.sem)\}$</td>
+</tr>
+<tr>
+<td>$Det \rightarrow every$</td>
+<td>$\{\lambda P.\lambda Q.\forall x[P(x) \Rightarrow Q(x)]\}$</td>
+</tr>
+<tr>
+<td>$Det \rightarrow a$</td>
+<td>$\{\lambda P.\lambda Q.\exists x[P(x) \land Q(x)]\}$</td>
+</tr>
+<tr>
+<td>$Noun \rightarrow restaurant$</td>
+<td>$\{\lambda r.\ Restaurant(r)\}$</td>
+</tr>
+<tr>
+<td>$ProperNoun \rightarrow Matthew$</td>
+<td>$\{\lambda m.\ m(\text{Matthew})\}$</td>
+</tr>
+<tr>
+<td>$ProperNoun \rightarrow Franco$</td>
+<td>$\{\lambda f.\ f(\text{Franco})\}$</td>
+</tr>
+<tr>
+<td>$ProperNoun \rightarrow Frasca$</td>
+<td>$\{\lambda f.\ f(\text{Frasca})\}$</td>
+</tr>
+<tr>
+<td>$Verb \rightarrow closed$</td>
+<td>$\{\lambda x.\exists e[\text{Closing}(e) \land \text{Closed}(e,x)]\}$</td>
+</tr>
+<tr>
+<td>$Verb \rightarrow opened$</td>
+<td>$\{\lambda w.\lambda z.\ w(\lambda x.\exists e[\text{Opening}(e) \land \text{Opener}(e,z) \land \text{Opened}(e,x)])\}$</td>
+</tr>
+</tbody>
+</table>
+<p>Ecco i <strong>passaggi fondamentali</strong> per costruire la semantica di una frase tramite il lambda calcolo:</p>
+<h3 id="1-analisi-sintattica-costruzione-dellalbero-sintattico">1️⃣ Analisi sintattica: costruzione dell&rsquo;albero sintattico</h3>
+<p>La frase viene prima <strong>analizzata sintatticamente</strong> per produrre un <strong>albero di parsing</strong>.<br />
+Ogni nodo dell&rsquo;albero rappresenta una categoria grammaticale (come S, NP, VP, ecc.).</p>
+<p>📌 <strong>Esempio:</strong></p>
+<blockquote>
+<p><em>Franco opened a restaurant</em></p>
+</blockquote>
+<p>L&rsquo;albero generato avrà struttura:</p>
+<p><img src="/images/tikz/db082d3fc019182e48a347e0a02abda7.svg" style="display: block; width: 100%; height: auto; max-height: 600px;" class="tikz-svg" /></p>
+<h3 id="2-semantica-lessicale-assegnazione-di-significati-ai-terminali">2️⃣ Semantica lessicale: assegnazione di significati ai terminali</h3>
+<p>A ciascun <strong>terminale dell&rsquo;albero</strong> (cioè ogni parola) viene assegnata una <strong>forma semantica in lambda calcolo</strong>.</p>
+<h4 id="terminali-foglie-dellalbero">📌 Terminali (foglie dell’albero)</h4>
+<ul>
+<li>
+<p><code>Franco</code><br />
+  $$ \lambda f.\,f(\text{Franco}) $$</p>
+</li>
+<li>
+<p><code>opened</code><br />
+  $$ \lambda w.\lambda z.\,w(\lambda x.\exists e\,[Opening(e) \land Opener(e,z) \land Opened(e,x)]) $$</p>
+</li>
+<li>
+<p><code>a</code><br />
+  $$ \lambda P.\lambda Q.\,\exists x\,[P(x) \land Q(x)] $$</p>
+</li>
+<li>
+<p><code>restaurant</code><br />
+  $$ \lambda r.\,Restaurant(r) $$</p>
+</li>
+</ul>
+<h4 id="composizione-semantica-bottom-up">📌 Composizione semantica (Bottom-up)</h4>
+<ul>
+<li>
+<p><strong>Nominal → Noun</strong><br />
+  $$ \text{Nominal.sem} = \text{Noun.sem} = \lambda r.\,Restaurant(r) $$</p>
+</li>
+<li>
+<p><strong>Det + Nominal → NP</strong><br />
+  $$ \text{NP.sem} = \text{Det.sem}(\text{Nominal.sem}) $$
+  $$ = (\lambda P.\lambda Q.\,\exists x\,[P(x) \land Q(x)])(\lambda r.\,Restaurant(r)) $$
+  $$ = \lambda Q.\,\exists x\,[Restaurant(x) \land Q(x)] $$</p>
+</li>
+<li>
+<p><strong>VP → Verb + NP</strong><br />
+  $$ \text{VP.sem} = \text{Verb.sem}(\text{NP.sem}) $$
+  $$ = (\lambda w.\lambda z.\,w(\lambda x.\exists e\,[Opening(e) \land Opener(e,z) \land Opened(e,x)]))(\lambda Q.\,\exists x\,[Restaurant(x) \land Q(x)]) $$
+  $$ = \lambda z.\,(\lambda Q.\,\exists x\,[Restaurant(x) \land Q(x)])(\lambda x.\exists e\,[Opening(e) \land Opener(e,z) \land Opened(e,x)]) $$
+  $$ = \lambda z.\,\exists x\,[Restaurant(x) \land \exists e\,[Opening(e) \land Opener(e,z) \land Opened(e,x)]] $$</p>
+</li>
+<li>
+<p><strong>NP → ProperNoun (<code>Franco</code>)</strong><br />
+  $$ \lambda f.\,f(\text{Franco}) $$</p>
+</li>
+<li>
+<p><strong>S → NP + VP</strong><br />
+  $$ \text{S.sem} = \text{NP.sem}(\text{VP.sem}) $$
+  $$ = (\lambda f.\,f(\text{Franco}))(\lambda z.\,\exists x\,[Restaurant(x) \land \exists e\,[Opening(e) \land Opener(e,z) \land Opened(e,x)]]) $$
+  $$ = \exists x\,[Restaurant(x) \land \exists e\,[Opening(e) \land Opener(e,\text{Franco}) \land Opened(e,x)]] $$</p>
+</li>
+</ul>
+<p>✅ <strong>Risultato finale (Semantica della frase)</strong></p>
+<p><strong>Franco opened a restaurant</strong><br />
+$$ \exists x\,[Restaurant(x) \land \exists e\,[Opening(e) \land Opener(e,\text{Franco}) \land Opened(e,x)]] $$</p>
+<h2 id="limiti-dellapproccio-composizionale-basato-sul-lambda-calcolo">⚠️ Limiti dell&rsquo;approccio composizionale basato sul Lambda Calcolo</h2>
+<p>Sebbene il lambda calcolo sia uno strumento molto potente per rappresentare la <strong>semantica formale</strong> del linguaggio naturale, presenta diversi limiti importanti quando viene applicato direttamente in NLP.</p>
+<h3 id="1-e-difficile">1️⃣ È Difficile!</h3>
+<p>L&rsquo;analisi semantica formale richiede:</p>
+<ul>
+<li>Conoscenze avanzate di logica e lambda calcolo.</li>
+<li>Una grammatica sintattica/semantica dettagliata e ben definita.</li>
+<li>Un processo di parsing robusto per generare alberi sintattici corretti.</li>
+<li>Meccanismi per eseguire <strong>beta-riduzioni</strong> e <strong>composizione funzionale</strong> tra i costituenti.</li>
+</ul>
+<p>➡️ Anche per frasi semplici, la derivazione formale può diventare <strong>complessa e poco scalabile</strong>.</p>
+<h3 id="2-assunzioni-semplificative-e-pericolose">2️⃣ Assunzioni semplificative (e pericolose!)</h3>
+<p>Una semplificazione comune è quella di assumere che <strong>ogni terminale</strong> (cioè ogni parola) abbia <strong>un solo significato preciso</strong>.</p>
+<p>🔴 Esempi:</p>
+<ul>
+<li><code>Franco</code> → $\text{Franco}$  </li>
+<li><code>Opening</code> → $\text{Opening}(e)$  </li>
+<li><code>Restaurant</code> → $\text{Restaurant}(x)$  </li>
+</ul>
+<p>❗ In realtà, <strong>le parole sono ambigue</strong>:<br />
+- <code>Opening</code> può essere un verbo (es. &ldquo;he is opening&rdquo;) o un nome (&ldquo;the grand opening&rdquo;).
+- <code>Bank</code> può indicare un edificio o il lato di un fiume.
+- <code>Franco</code> potrebbe anche essere un aggettivo (&ldquo;un tono franco&rdquo;).</p>
+<h3 id="3-serve-la-semantica-lessicale">3️⃣ Serve la Semantica Lessicale</h3>
+<p>Per trattare <strong>l’ambiguità del significato delle parole</strong>, dobbiamo <strong>andare oltre la semantica composizionale</strong> e occuparci della <strong><a href="/theory/nlp/Semantica/Semantica Lessicale" class="text-blue-600 hover:underline">semantica lessicale</a></strong>:</p>
+<ul>
+<li>Capire <strong>i diversi sensi di una parola</strong> in base al contesto.</li>
+<li>Costruire <strong>rappresentazioni concettuali</strong> (come frame, ontologie, word sense).</li>
+<li>Integrare risorse come <strong>WordNet</strong>, <strong>FrameNet</strong>, o modelli <strong>word embeddings</strong>.</li>
+</ul>
+<h3 id="conclusione">✅ Conclusione</h3>
+<p>Il lambda calcolo è fondamentale per modellare la <strong>composizione del significato</strong>, ma da solo <strong>non basta</strong>. Per interpretare correttamente una frase, dobbiamo prima <strong>capire le parole</strong>, poi possiamo comporre i loro significati.</p>
+<div class="codehilite"><pre><span></span><code><span class="gi">+ Prima la semantica lessicale, poi quella composizionale!</span>
+</code></pre></div>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Semantica/Lambda Calcolo per NLP">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: '🧑‍💻 Lambda Calcolo per NLP',
+          page_location: 'http://localhost:3000/theory/nlp/Semantica/Lambda Calcolo per NLP'
+        });
+      }
+    </script>
+</body>
+</html>

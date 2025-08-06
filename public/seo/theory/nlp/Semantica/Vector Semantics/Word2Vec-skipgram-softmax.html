@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skip-gram con Softmax | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data, training, learning">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Skip-gram con Softmax">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Skip-gram con Softmax">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Skip-gram con Softmax",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax",
+      "datePublished": "2025-08-06T20:12:10.813Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Skip-gram con Softmax</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>Il modello <strong>Skip-gram</strong> di <em>word2vec</em> con softmax è una tecnica di apprendimento non supervisionato usata per generare vettori densi (embedding) che rappresentano parole in uno spazio continuo a dimensione $D$.</p>
+<p>Vediamo nel dettaglio tutti i passaggi e le componenti del modello.</p>
+<h2 id="parametri-da-apprendere-in-skip-gram-con-softmax">Parametri da apprendere in Skip-Gram con Softmax</h2>
+<p>Nel modello Skip-Gram di word2vec, l&rsquo;obiettivo principale è imparare rappresentazioni dense (embedding) delle parole che catturino il loro significato in relazione al contesto in cui appaiono. Per fare ciò, dobbiamo definire e apprendere dei parametri, che rappresentano queste strutture vettoriali.</p>
+<h3 id="definizione-dei-parametri">Definizione dei parametri</h3>
+<p>Sia $V$ il vocabolario di parole del modello, e sia $D$ la dimensione dello spazio di embedding, cioè il numero di componenti o caratteristiche usate per rappresentare ciascuna parola come un vettore numerico continuo. Ogni dimensione può essere interpretata come un &ldquo;tema&rdquo; o una caratteristica latente che cattura aspetti semantici o sintattici della parola.</p>
+<p>Indichiamo con:</p>
+$$\large
+\bm{\theta} =
+\begin{bmatrix}
+\bm{\theta}_W \\[0.3em] \hline \\[-0.9em]
+\bm{\theta}_C
+\end{bmatrix}
+\quad\text{con}\quad
+\bm{\theta}_W \in \mathbb{R}^{|V| \times D},\quad
+\bm{\theta}_C \in \mathbb{R}^{|V| \times D}
+$$
+<p>l&rsquo;insieme dei parametri del modello, suddiviso in due matrici principali:</p>
+<ul>
+<li>
+<p><strong>$\bm{\theta}_W$</strong> (matrice degli embedding delle parole centro):</p>
+<ul>
+<li><strong>Dimensione:</strong> $|V| \times D$</li>
+<li>Ogni riga di $\bm{\theta}_W$ è un vettore che rappresenta una parola specifica <strong>nel ruolo di parola centrale</strong> all’interno di una finestra di contesto. Questo significa che il vettore codifica le proprietà della parola quando è il punto focale della previsione del modello.</li>
+<li>Il vettore di embedding in $\bm{\theta}_W$ viene usato dal modello per cercare di predire le parole di contesto che la circondano: ad esempio, dato un vettore centrale, il modello calcola la probabilità di ogni parola nel vocabolario come possibile parola di contesto.</li>
+<li>Questa rappresentazione è fondamentale perché permette al modello di apprendere relazioni tra parole basate sulle co-occorrenze: parole con significati simili o usi simili tendono ad avere vettori vicini nello spazio degli embedding.</li>
+<li>È importante notare che la stessa parola avrà vettori distinti in $\bm{\theta}_W$ e in $\bm{\theta}_C$, poiché il suo ruolo nel modello cambia (centro vs contesto). Questo permette una rappresentazione più ricca e flessibile del linguaggio.</li>
+</ul>
+</li>
+<li>
+<p><strong>$\bm{\theta}_C$</strong> (matrice degli embedding delle parole contesto):</p>
+<ul>
+<li><strong>Dimensione:</strong> $|V| \times D$</li>
+<li>Ogni riga di $\bm{\theta}_C$ è un vettore che rappresenta una parola <strong>quando essa agisce come contesto</strong> di una parola centrale. In altre parole, questi vettori sono usati per modellare le parole che circondano la parola centrale nella finestra di contesto.</li>
+<li>La funzione di $\bm{\theta}_C$ è catturare le proprietà semantiche e sintattiche delle parole nel loro ruolo di contesto, cioè come &ldquo;indizi&rdquo; o segnali che aiutano a prevedere la parola centrale.</li>
+<li>Ad esempio, la parola &ldquo;delicious&rdquo; avrà un embedding in $\bm{\theta}_C$ che riflette il suo uso frequente vicino a parole legate al cibo, mentre la stessa parola avrà un embedding differente in $\bm{\theta}_W$ quando appare come parola centrale.</li>
+<li>Questa doppia rappresentazione consente al modello di distinguere come una parola si comporta quando è il fulcro della previsione (centro) rispetto a quando è un &ldquo;supporto&rdquo; per predire altre parole (contesto).</li>
+<li>Grazie a $\bm{\theta}_C$, il modello impara a riconoscere quali parole di contesto sono più probabili dati i vettori delle parole centrali, migliorando così la capacità di rappresentare le relazioni semantiche tra parole.</li>
+</ul>
+</li>
+</ul>
+<p>Questa suddivisione di parametri consente al modello di catturare dinamiche diverse, come il significato di una parola quando appare come centro o quando appare come contesto nella finestra di contesto.</p>
+<p><img src="/images/tikz/a24d8ddc52dc38d45e29d9fd9070e6a1.svg" style="display: block; width: 100%; height: auto; max-height: 600px;" class="tikz-svg" /></p>
+<h3 id="perche-due-matrici-distinte">Perché due matrici distinte?</h3>
+<ul>
+<li>
+<p><strong>Ruoli diversi</strong>: </p>
+</li>
+<li>
+<p>$\bm{\theta}_W$: embedding quando la parola è <strong>centro</strong> (target da cui si predice).  </p>
+</li>
+<li>
+<p>$\bm{\theta}_C$: embedding quando la parola è <strong>contesto</strong> (segnale per la previsione).</p>
+</li>
+<li>
+<p><strong>Esempio</strong> (“Il <strong>gatto</strong> nero dorme…”):</p>
+</li>
+<li>
+<p>“gatto” → $\bm{\theta}_W$ cattura come “gatto” governa il contesto (“nero”, “dorme”).  </p>
+</li>
+<li>“nero”, “dorme” → $\bm{\theta}_C$ catturano come questi agiscono da indizi per “gatto”.</li>
+</ul>
+<h3 id="problemi-con-un-singolo-embedding">⚠️ Problemi con un singolo embedding</h3>
+<ol>
+<li>
+<p><strong>Ruolo funzionale perso</strong></p>
+</li>
+<li>
+<p>Ogni parola può comparire sia come <strong>centrale</strong> sia come <strong>di contesto</strong>.</p>
+</li>
+<li>
+<p>Esempio:</p>
+<ul>
+<li>“<strong>book</strong>” come centrale (es. <em>&ldquo;I read a book about history.&rdquo;</em>) → predice parole come <em>read</em>, <em>history</em>.</li>
+<li>“<strong>book</strong>” come contesto (es. <em>&ldquo;She put the book on the table.&rdquo;</em>) → aiuta a predire <em>put</em>, <em>table</em>.</li>
+</ul>
+</li>
+<li>
+<p>Se usiamo <strong>un solo embedding</strong>, non distinguiamo questi ruoli → perdiamo informazione funzionale importante.</p>
+</li>
+<li>
+<p><strong>Relazioni asimmetriche non modellate</strong></p>
+</li>
+<li>
+<p>Il significato delle relazioni cambia a seconda della direzione:</p>
+<ul>
+<li>“<strong>eat</strong>” → “<strong>food</strong>” = tipico: il verbo suggerisce l’oggetto (cosa si mangia).</li>
+<li>“<strong>food</strong>” → “<strong>eat</strong>” = più debole: “food” potrebbe comparire in molti altri contesti (buy, cook, smell…).</li>
+</ul>
+</li>
+<li>
+<p>Se usiamo lo stesso embedding per “food” in entrambi i ruoli, non possiamo catturare questa asimmetria.</p>
+</li>
+<li>
+<p>Due matrici permettono:</p>
+<ul>
+<li>$\theta_W$(eat) → embedding ottimizzato per predire cibo.</li>
+<li>$\theta_C$(food) → embedding ottimizzato per essere predetto da verbi come <em>eat</em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Embedding meno precisi</strong></p>
+</li>
+<li>
+<p>Un solo embedding deve essere &ldquo;tuttofare&rdquo; → media tra ruoli e significati.</p>
+</li>
+<li>Risultato: vettori <strong>più confusi, meno specializzati</strong>, e performance peggiori in downstream tasks.</li>
+<li>Due matrici aiutano a ottenere rappresentazioni <strong>più informative e discriminative</strong>.</li>
+</ol>
+<h3 id="numero-totale-di-parametri">Numero totale di parametri</h3>
+<p>Il numero complessivo di parametri del modello è dato dalla somma degli elementi di entrambe le matrici:</p>
+$$
+2 \cdot |V| \times D
+$$
+<p>Ovvero:</p>
+<ul>
+<li>$|V| \times D$ parametri per gli embedding come centro,</li>
+<li>$|V| \times D$ parametri per gli embedding come contesto.</li>
+</ul>
+<h3 id="visualizzazione-intuitiva">Visualizzazione intuitiva</h3>
+<p>Immagina il vocabolario come una lista di parole:</p>
+<table>
+<thead>
+<tr>
+<th>Indice</th>
+<th>Parola</th>
+<th>Embedding Centro ($\bm{\theta}_W$)</th>
+<th>Embedding Contesto ($\bm{\theta}_C$)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>&ldquo;lemon&rdquo;</td>
+<td>vettore in $\mathbb{R}^D$</td>
+<td>vettore in $\mathbb{R}^D$</td>
+</tr>
+<tr>
+<td>2</td>
+<td>&ldquo;tablespoon&rdquo;</td>
+<td>vettore in $\mathbb{R}^D$</td>
+<td>vettore in $\mathbb{R}^D$</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td>|V|</td>
+<td>&ldquo;jam&rdquo;</td>
+<td>vettore in $\mathbb{R}^D$</td>
+<td>vettore in $\mathbb{R}^D$</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Quando &ldquo;tablespoon&rdquo; è parola centro, useremo la riga 2 di $\bm{\theta}_W$.</li>
+<li>Quando &ldquo;tablespoon&rdquo; è nel contesto, useremo la riga 2 di $\bm{\theta}_C$.</li>
+</ul>
+<h3 id="perche-sono-vettori">Perché sono vettori?</h3>
+<p>Rappresentare le parole come vettori in uno spazio continuo di dimensione $D$ consente al modello di apprendere relazioni semantiche e sintattiche tra parole, ad esempio:</p>
+<ul>
+<li>Parole con significati simili tendono ad avere vettori vicini nello spazio,</li>
+<li>Relazioni di analogia possono essere rappresentate come vettori differenza, es. vettore(&ldquo;re&rdquo;) - vettore(&ldquo;uomo&rdquo;) + vettore(&ldquo;donna&rdquo;) ≈ vettore(&ldquo;regina&rdquo;).</li>
+</ul>
+<h3 id="riassumendo">Riassumendo:</h3>
+<ul>
+<li>$\bm{\theta}_W$ e $\bm{\theta}_C$ sono matrici di embedding distinte per parola centro e contesto.</li>
+<li>Entrambe hanno dimensione $|V| \times D$.</li>
+<li>Complessivamente abbiamo $2 \cdot |V| \times D$ parametri da imparare.</li>
+<li>Questo doppio embedding è la chiave per modellare le relazioni tra parole in un modo più ricco e flessibile.</li>
+</ul>
+<p>Questa struttura di parametri sarà la base su cui il modello Skip-Gram costruirà la sua funzione di probabilità e la sua funzione di perdita durante l&rsquo;addestramento.</p>
+<h2 id="il-concetto-di-self-supervision-nello-skip-gram">Il concetto di self-supervision nello Skip-gram</h2>
+<p>Il training si basa su un grande corpus di testo, ad esempio:<br />
+<code>... lemon, a tablespoon of apricot jam, a pinch ...</code></p>
+<p>Il modello considera una finestra di contesto di ampiezza $m$ (ad esempio $m=2$) centrata sulla parola al tempo $t$:</p>
+<ul>
+<li>La parola centrale è $w_t$, nel nostro esempio &ldquo;apricot&rdquo;.</li>
+<li>Le parole del contesto sono quelle all’interno della finestra di dimensione $2m$ intorno a $w_t$:</li>
+<li>$w_{t-2}$, $w_{t-1}$ a sinistra,</li>
+<li>$w_{t+1}$, $w_{t+2}$ a destra.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">~~lemon~~</th>
+<th style="text-align: center;">~~a~~</th>
+<th style="text-align: center;">[tablespoon</th>
+<th style="text-align: center;">of</th>
+<th style="text-align: center;"><strong>apricot</strong></th>
+<th style="text-align: center;">jam</th>
+<th style="text-align: center;">a]</th>
+<th style="text-align: center;">~~pinch~~</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">$w_{t-2}$</td>
+<td style="text-align: center;">$w_{t-1}$</td>
+<td style="text-align: center;"><strong>$w_t$</strong></td>
+<td style="text-align: center;">$w_{t+1}$</td>
+<td style="text-align: center;">$w_{t+2}$</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>È detto <strong>self-supervision</strong> perché non usa etichette esterne, ma sfrutta il contesto delle parole all’interno del testo come se fosse un’etichetta. 😃</p>
+<p>Il modello <strong>Skip-gram</strong> classico (e anche il CBOW) non cattura la posizione precisa delle parole nel contesto rispetto alla parola centrale, cioè non distingue se una parola del contesto sta a sinistra o a destra, o a quale distanza esatta.</p>
+<h2 id="obiettivo-del-modello">Obiettivo del modello</h2>
+<p>Vogliamo modellare la probabilità congiunta di osservare le parole di contesto data la parola centrale $w_t$, ossia:</p>
+$$\mathbb P(w_{t-2}, w_{t-1}, w_{t+1}, w_{t+2} \mid w_t; \bm{\theta}) $$
+<p>Per semplicità si assume una <strong>forte indipendenza condizionata</strong> tra le parole di contesto dato il centro:</p>
+$$ \mathbb P(w_{t-2}, w_{t-1}, w_{t+1}, w_{t+2} \mid w_t; \bm{\theta}) \approx \prod_{j=-m, j \neq 0}^{m} \mathbb P(w_{t+j} \mid w_t; \bm{\theta})$$
+<p>Questo significa che ogni parola di contesto è indipendente dalle altre data la parola centrale.</p>
+<h2 id="come-si-calcola-math_inline_117">Come si calcola $\mathbb P(w_{t+j}\mid w_t)$?</h2>
+<p>Dato un centro $w_t$, vogliamo predire la parola di contesto $w_{t+j}$. Questa probabilità è modellata come una distribuzione categorica su tutto il vocabolario $V$.</p>
+<ol>
+<li>Prendiamo l&rsquo;embedding della parola centro: se $i$ è l&rsquo;indice di $w_t$ in $\bm{\theta}_W$, consideriamo il vettore riga $\bm{\theta}_W^i$ (di dimensione $1 \times |D|$).</li>
+<li>Calcoliamo i punteggi (logits) per tutte le parole del vocabolario come prodotto scalare tra ogni vettore di contesto in $\bm{\theta}_C$ e l&rsquo;embedding del centro:</li>
+</ol>
+$$
+   \underbrace{\mathbf{z}_i}_{|V|\times 1}=\overbrace{\underbrace{\bm{\theta}_C}_{|V|\times D}}^{\text{as context}}\cdot\overbrace{\underbrace{{\bm{\theta}_{W}^i}^T}_{D\times 1}}^{\text{as center}}
+   $$
+<p>dove $\mathbf{z}$ è un vettore di dimensione $|V|$, con ogni elemento che rappresenta la similarità (dot product) tra la parola centro e una possibile parola di contesto.</p>
+<ol>
+<li>Applichiamo la funzione <strong>softmax</strong> ai logits per ottenere una distribuzione di probabilità:</li>
+</ol>
+$$
+  \mathbf{p}_i = \text{softmax}(\mathbf{z}_i) = \begin{bmatrix}
+  p_1 \\
+  \\
+  \vdots \\
+  \\
+  p_{|V|}
+  \\[0.45em]
+  \end{bmatrix}= \begin{bmatrix}
+  \mathbb P(w_{t+j} = \text{`apple`} | w_t = \text{`apricot`}) \\
+  \\
+  \vdots \\
+  \\
+  \mathbb P(w_{t+j} = \text{`zucchini`} | w_t = \text{`apricot`})
+  \end{bmatrix}
+  =  
+  \Large\begin{bmatrix}
+  \frac{e^{z_1}}{\sum_{i=1}^{|V|} e^{z_{i}}} \\
+  \\
+  \vdots \\
+  \\
+  \frac{e^{z_{|V|}}}{\sum_{i=1}^{|V|} e^{z_{i}}}
+  \end{bmatrix}
+  $$
+<p>Così otteniamo la probabilità di ogni parola del vocabolario come contesto dato il centro $w_t$.</p>
+<p><strong>Remark.</strong> L&rsquo;indice della parola $w_t$ nella matrice $\bm{\theta}_W$ è $i$.</p>
+<h2 id="massimizzazione-della-likelihood-su-tutta-la-finestra">Massimizzazione della likelihood su tutta la finestra</h2>
+<p>Per ogni parola centrale $w_t$, la probabilità congiunta di osservare tutte le parole di contesto nella finestra è:</p>
+$$
+\prod_{j=-m, j \neq 0}^{m} \mathbb P(w_{t+j} | w_t; \bm{\theta})
+$$
+<p>Il nostro obiettivo è trovare i parametri $\bm{\theta}$ che massimizzano la likelihood su tutto il corpus, ossia:</p>
+$$
+\bm{\theta}^* = \arg\max_{\bm{\theta}} \prod_{t=1}^T \prod_{j=-m, j \neq 0}^m \mathbb P(w_{t+j} | w_t; \bm{\theta})
+$$
+<h2 id="funzione-di-perdita-loss-derivata-dalla-likelihood">Funzione di perdita (loss) derivata dalla likelihood</h2>
+<p>L’obiettivo dell&rsquo;addestramento è massimizzare la <strong>likelihood</strong> dei dati osservati, ovvero la probabilità di osservare le parole di contesto dato il centro, su tutto il corpus:</p>
+$$
+L(\bm{\theta}) = \prod_{t=1}^T \prod_{j=-m, j \neq 0}^{m} \mathbb P(w_{t+j} \mid w_t; \bm{\theta})
+$$
+<p>Lavorare direttamente con la likelihood può essere numericamente instabile, quindi passiamo al <strong>logaritmo della likelihood</strong> (log-likelihood), che è una trasformazione monotona e rende il prodotto una somma:</p>
+$$
+\log L(\bm{\theta}) = \sum_{t=1}^T \sum_{j=-m, j \neq 0}^{m} \log \mathbb P(w_{t+j} \mid w_t; \bm{\theta})
+$$
+<p>Il nostro obiettivo è quindi <strong>massimizzare</strong> questa log-likelihood:</p>
+$$
+\bm{\theta}^* = \arg\max_{\bm{\theta}} \log L(\bm{\theta})
+$$
+<p>In pratica, però, gli algoritmi di ottimizzazione numerica (come la discesa del gradiente) lavorano meglio se formuliamo il problema come <strong>minimizzazione</strong>. Per questo motivo, definiamo la <strong>funzione di perdita</strong> come l&rsquo;opposto della log-likelihood:</p>
+$$
+\mathcal{L}(\bm{\theta}) = - \sum_{t=1}^T \sum_{j=-m, j \neq 0}^{m} \log \mathbb P(w_{t+j} \mid w_t; \bm{\theta})
+$$
+<p>Così facendo, possiamo minimizzare la funzione $\mathcal {L}$ per ottenere i parametri $\bm{\theta}^*$ che massimizzano la log-likelihood.</p>
+<p>Possiamo ora esplicitare $\mathbb P(w_{t+j} \mid w_t)$ usando la softmax, come visto in precedenza. Supponiamo che:
+- $\mathbf u_{w_t}$ sia l&rsquo;embedding della parola centrale $w_t$, quindi la riga corrispondente a $w_t$ della matrice $\bm{\theta}_W$
+- $\mathbf v_{w_{t+j}}$ sia l&rsquo;embedding della parola di contesto $w_{t+j}$, quindi la riga corrispondente a $w_{t+j}$ della matrice $\bm{\theta}_C$</p>
+<p>Allora la probabilità predetta dal modello è:</p>
+$$
+\mathbb P(w_{t+j} \mid w_t)
+= \frac{
+    \exp\!\bigl(\mathbf{v}_{\,w_{t+j}}^\top \,\mathbf{u}_{\,w_t}\bigr)
+  }{
+    \displaystyle \sum_{w' \in V}
+      \exp\!\bigl(\mathbf{v}_{\,w'}^\top \,\mathbf{u}_{\,w_t}\bigr)
+  }
+$$
+<p>Sostituendo nella funzione di perdita otteniamo:</p>
+$$
+\mathcal{L}(\bm{\theta})
+= - \sum_{t=1}^{T} \sum_{\substack{j=-m \\ j \neq 0}}^{m}
+    \log
+    \frac{
+      \exp\!\bigl(\mathbf{v}_{\,w_{t+j}}^\top \,\mathbf{u}_{\,w_t}\bigr)
+    }{
+      \displaystyle \sum_{w' \in V}
+        \exp\!\bigl(\mathbf{v}_{\,w'}^\top \,\mathbf{u}_{\,w_t}\bigr)
+    }
+$$
+<p>Applicando le proprietà del logaritmo, la loss per una singola coppia $(w_t, w_{t+j})$ diventa:</p>
+$$
+\mathcal{L}(w_{t+j}, w_t; \bm{\theta}) = - \log
+    \frac{
+      \exp\!\bigl(\mathbf{v}_{\,w_{t+j}}^\top \,\mathbf{u}_{\,w_t}\bigr)
+    }{
+      \displaystyle \sum_{w' \in V}
+        \exp\!\bigl(\mathbf{v}_{\,w'}^\top \,\mathbf{u}_{\,w_t}\bigr)
+    }
+$$
+<p>che si può riscrivere come:</p>
+$$
+\mathcal{L}(w_{t+j}, w_t; \bm{\theta})
+= -\,\underbrace{\mathbf{v}_{\,w_{t+j}}^\top \,\mathbf{u}_{\,w_t}}_\text{Similarità contesto-parola}
+  \;+\;
+  \underbrace{\log
+  \sum_{w' \in V}
+    \exp\!\bigl(\mathbf{v}_{\,w'}^\top \,\mathbf{u}_{\,w_t}\bigr)}_\text{Similarità di tutti gli altri contesti con la stessa parola}
+$$
+<p>Questa formula evidenzia il trade-off tra massimizzare la similarità centro-contesto della parola corretta e normalizzare le probabilità su tutto il vocabolario.</p>
+<p>Infine, la <strong>loss media</strong> su tutto il corpus è:</p>
+$$
+\mathcal{L}(\bm{\theta})
+= -\frac{1}{T}
+  \sum_{t=1}^{T} \sum_{\substack{j=-m \\ j \neq 0}}^{m}
+    \log \mathbb P(w_{t+j} \mid w_t; \bm{\theta})
+= -\frac{1}{T}
+  \sum_{t=1}^{T} \sum_{\substack{j=-m \\ j \neq 0}}^{m}
+    \log
+    \frac{
+      \exp\!\bigl(\mathbf{v}_{\,w_{t+j}}^\top \,\mathbf{u}_{\,w_t}\bigr)
+    }{
+      \displaystyle \sum_{w' \in V}
+        \exp\!\bigl(\mathbf{v}_{\,w'}^\top \,\mathbf{u}_{\,w_t}\bigr)
+    }
+$$
+<p>che coincide con la cross-entropy fra la distribuzione softmax predetta e la distribuzione one-hot vera.</p>
+<h2 id="ottimizzazione-tramite-sgd">Ottimizzazione tramite SGD</h2>
+<p>🧠 <em>Prima di continuare, vedi la nota dedicata sul funzionamento dello SGD: <a href="/theory/math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente" class="text-blue-600 hover:underline">Discesa del Gradiente</a>.</em></p>
+<p>L’addestramento del modello Skip-gram con softmax consiste nell’ottimizzare i parametri $\bm{\theta} = \begin{bmatrix} \bm{\theta}_W \\ \bm{\theta}_C \end{bmatrix}$ per massimizzare la probabilità delle parole di contesto osservate, dato ciascun centro $w_t$ nel corpus.</p>
+<p>L’obiettivo è <strong>minimizzare la loss media</strong> dei dati, ovvero la somma della log-probabilità dei contesti osservati dato ogni parola centrale, moltiplicata per $-\frac{1}{T}$. Formalmente:</p>
+$$
+\mathcal{L}(\bm{\theta}) = -\frac{1}{T} \sum_{t=1}^T \sum_{\substack{j = -m \\ j \ne 0}}^m \log \mathbb{P}(w_{t+j} \mid w_t; \bm{\theta})
+$$
+<p>dove:</p>
+<ul>
+<li>$T$ è il numero totale di parole nel corpus,</li>
+<li>$m$ è l&rsquo;ampiezza della finestra di contesto,</li>
+<li>$\mathbb{P}(w_{t+j} \mid w_t; \bm{\theta})$ è la probabilità (softmax) di osservare $w_{t+j}$ dato il centro $w_t$, definita come:</li>
+</ul>
+$$
+\mathbb{P}(w_{t+j} \mid w_t; \bm{\theta}) = \frac{\exp\left( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} \right)}{\sum_{k=1}^{|V|} \exp\left( \mathbf v_{w_k} \cdot \mathbf u_{w_t} \right)}
+$$
+<p>con:</p>
+<ul>
+<li>$w_t$: parola centrale (indice $c$),</li>
+<li>$w_{t+j}$: parola di contesto (indice $o$),</li>
+<li>$\mathbf u_{w_t} \in \mathbb{R}^D$: vettore embedding della parola centro $w_t$,</li>
+<li>$\mathbf v_{w_{t+j}} \in \mathbb{R}^D$: vettore embedding della parola contesto $w_{t+j}$.</li>
+</ul>
+<h3 id="come-si-ottimizza">Come si ottimizza?</h3>
+<p>Poiché la somma al denominatore del softmax scorre su tutto il vocabolario ($|V|$ è molto grande), il calcolo diretto è troppo costoso. Tuttavia, per ora assumiamo di usare il <strong>softmax esatto</strong>, per chiarezza.</p>
+<p>Il modello viene ottimizzato tramite <strong>Stochastic Gradient Descent (SGD)</strong>, cioè:</p>
+<ol>
+<li>Si considera una coppia $(w_t, w_{t+j})$ (parola centro + parola di contesto osservata),</li>
+<li>Si calcola la <strong>loss negativa log-likelihood</strong> per quella coppia:</li>
+</ol>
+$$
+\mathcal{L}(w_{t+j}, w_t; \bm{\theta}) = -\log \mathbb{P}(w_{t+j} \mid w_t; \bm{\theta}) = -\log \frac{\exp\left( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} \right)}{\sum_{k=1}^{|V|} \exp\left( \mathbf v_{w_k} \cdot \mathbf u_{w_t} \right)}
+$$
+<ol>
+<li>Si calcola il <strong>gradiente</strong> della loss rispetto a $\bm{\theta}$,</li>
+<li>Si aggiorna $\bm{\theta}$ secondo la regola standard dello SGD:</li>
+</ol>
+$$
+\bm{\theta} \leftarrow \bm{\theta} - \eta \cdot \nabla_{\bm{\theta}}\mathcal{L}(w_{t+j}, w_t; \bm{\theta})
+$$
+<p>dove $\eta$ è il learning rate.</p>
+<h3 id="calcolo-del-gradiente">Calcolo del gradiente</h3>
+<p>Calcoliamo ora il gradiente della funzione di loss rispetto ai vettori di embedding coinvolti, assumendo sempre l’uso del softmax esatto.</p>
+<p>Fissiamo una singola coppia $(w_t, w_{t+j})$, cioè una parola centrale e una parola di contesto. La loss associata a questa coppia è:</p>
+$$
+\underbrace{\mathcal{L}_{(t,j)}}_{\mathcal{L}(w_{t+j}, w_t; \bm{\theta})} = -\log \mathbb{P}(w_{t+j} \mid w_t; \bm{\theta})
+= -\log \left( \frac{\exp\left( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} \right)}{\sum_{k=1}^{|V|} \exp\left( \mathbf v_{w_k} \cdot \mathbf u_{w_t} \right)} \right)
+$$
+<p>Dove:</p>
+<ul>
+<li>$\mathbf u_{w_t} \in \mathbb{R}^D$: vettore della parola <strong>centro</strong> (da $\bm{\theta}_W$),</li>
+<li>$\mathbf v_{w_k} \in \mathbb{R}^D$: vettori delle parole <strong>contesto</strong> (da $\bm{\theta}_C$),</li>
+<li>$|V|$: dimensione del vocabolario.</li>
+</ul>
+<h4 id="gradiente-rispetto-al-vettore-della-parola-centro-math_inline_174">Gradiente rispetto al vettore della parola centro $\mathbf u_{w_t}$</h4>
+<p>Vogliamo calcolare il gradiente della loss rispetto al vettore centro $\mathbf u_{w_t}$ per la coppia $(w_t, w_{t+j})$:</p>
+$$
+\nabla_{\mathbf u_{w_t}} \mathcal{L}_{(t,j)} =
+- \nabla_{\mathbf u_{w_t}} \left( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t}
+- \log \sum_{k=1}^{|V|} \exp\left( \mathbf v_{w_k} \cdot \mathbf u_{w_t} \right) \right)
+$$
+<ol>
+<li><strong>Derivata del primo termine</strong> (prodotto scalare):</li>
+</ol>
+$$
+  \nabla_{\mathbf u_{w_t}} \left( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} \right)
+  = \mathbf v_{w_{t+j}}
+  $$
+<p>Motivo: la derivata di un prodotto scalare $\mathbf a^\top \mathbf x$ rispetto a $\mathbf x$ è $\mathbf a$.</p>
+<ol>
+<li><strong>Derivata del secondo termine</strong> (log-somma-esponenziali + chain rule):</li>
+</ol>
+$$
+  \nabla_{\mathbf u_{w_t}} \left( \log \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) \right)
+  $$
+<p><strong>Passo 1</strong> – Applichiamo la derivata del logaritmo:</p>
+$$
+  \nabla_{\mathbf u_{w_t}} \log f(\mathbf u_{w_t}) = \frac{1}{f(\mathbf u_{w_t})} \cdot \nabla_{\mathbf u_{w_t}} f(\mathbf u_{w_t})
+  $$
+<p>Dove $f(\mathbf u_{w_t}) = \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} )$</p>
+<p><strong>Passo 2</strong> – Derivata della somma:</p>
+$$
+  \nabla_{\mathbf u_{w_t}} \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) = \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) \cdot \mathbf v_{w_k}
+  $$
+<p><strong>Passo 3</strong> – Mettiamo tutto insieme:</p>
+$$
+  \nabla_{\mathbf u_{w_t}} \log \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} )
+  = \frac{ \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) \cdot \mathbf v_{w_k} }
+  { \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) }
+  = \sum_{k=1}^{|V|} \mathbb{P}(w_k \mid w_t) \cdot \mathbf v_{w_k}
+  $$
+<p>dove:</p>
+$$
+  \mathbb{P}(w_k \mid w_t) = \frac{\exp(\mathbf v_{w_k} \cdot \mathbf u_{w_t})}{\sum_{j=1}^{|V|} \exp(\mathbf v_{w_j} \cdot \mathbf u_{w_t})}
+  $$
+<p><strong>Combinazione</strong> dei due termini:</p>
+$$
+  \nabla_{\mathbf u_{w_t}} \mathcal{L}_{(t,j)}
+  = - \left( \mathbf v_{w_{t+j}} - \sum_{k=1}^{|V|} \mathbb{P}(w_k \mid w_t) \cdot \mathbf v_{w_k} \right)
+  $$
+<h4 id="gradiente-rispetto-al-vettore-contesto-corretto-math_inline_181-con-math_inline_182">Gradiente rispetto al vettore contesto corretto $\mathbf v_{w_{k}}$ con $k = t + j$</h4>
+<p>Calcoliamo:</p>
+$$
+\nabla_{\mathbf v_{w_{t+j}}} \mathcal{L}_{(t,j)} =
+- \nabla_{\mathbf v_{w_{t+j}}} \left( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t}
+- \log \sum_{i=1}^{|V|} \exp( \mathbf v_{w_i} \cdot \mathbf u_{w_t} ) \right)
+$$
+<ol>
+<li><strong>Derivata del primo termine</strong>:</li>
+</ol>
+$$
+\nabla_{\mathbf v_{w_{t+j}}} \left( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} \right)
+= \mathbf u_{w_t}
+$$
+<ol>
+<li><strong>Derivata del secondo termine</strong>:</li>
+</ol>
+<p>Solo il termine $k = t+j$ dipende da $\mathbf v_{w_{t+j}}$, ma deriviamo comunque la somma intera, trattando ogni termine:</p>
+$$
+\nabla_{\mathbf v_{w_{t+j}}} \log \left( \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) \right)
+= \frac{1}{\sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} )} \cdot 
+\nabla_{\mathbf v_{w_{t+j}}} \left( \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) \right)
+$$
+<p>Solo il termine $k = t+j$ sopravvive:</p>
+$$
+\nabla_{\mathbf v_{w_{t+j}}} \left( \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) \right) 
+= \nabla_{\mathbf v_{w_{t+j}}} \left( \exp( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) \right)
+= \exp( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) \cdot \mathbf u_{w_t}.
+$$
+<p>Mettendo quindi tutto insieme otteniamo:</p>
+$$
+\nabla_{\mathbf v_{w_{t+j}}} \log \left( \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) \right)
+=
+\frac{ \exp( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) \cdot \mathbf u_{w_t} }
+{ \sum_{k=1}^{|V|} \exp( \mathbf v_{w_k} \cdot \mathbf u_{w_t} ) }
+= \mathbb{P}(w_{t+j} \mid w_t) \cdot \mathbf u_{w_t}
+$$
+<p><strong>Combinazione</strong> dei due termini:</p>
+$$
+\nabla_{\mathbf v_{w_{t+j}}} \mathcal{L}_{(t,j)}
+= - \left( \mathbf u_{w_t} - \mathbb{P}(w_{t+j} \mid w_t) \cdot \mathbf u_{w_t} \right)
+= \left( \mathbb{P}(w_{t+j} \mid w_t) - 1 \right) \cdot \mathbf u_{w_t}
+$$
+<h4 id="gradiente-rispetto-agli-altri-vettori-contesto-math_inline_186-con-math_inline_187">Gradiente rispetto agli altri vettori contesto $\mathbf v_{w_k}$ con $k \ne t+j$</h4>
+<p>Sia la loss per la coppia $(w_t, w_{t+j})$:</p>
+$$
+\mathcal{L}_{(t,j)}
+= -\Bigl(\mathbf v_{w_{t+j}}\!\cdot\!\mathbf u_{w_t}\Bigr)
+  + \log \sum_{i=1}^{|V|} \exp\!\bigl(\mathbf v_{w_i}\!\cdot\!\mathbf u_{w_t}\bigr).
+$$
+<p>Vogliamo calcolare 
+$\nabla_{\mathbf v_{w_k}} \mathcal{L}_{(t,j)}$
+per un indice $k\neq t+j$.</p>
+<ol>
+<li><strong>Derivata del primo termine</strong>  </li>
+</ol>
+<p>Il <strong>primo termine</strong> dipende <strong>solo</strong> da $\mathbf v_{w_{t+j}}$, non da $\mathbf v_{w_k}$ quando $k\ne t+j$.  </p>
+$$
+   \nabla_{\mathbf v_{w_k}}
+   \bigl(\mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t}\bigr)
+   = 0
+   \quad\text{per }k \ne t+j.
+   $$
+<ol>
+<li><strong>Derivata del secondo termine</strong>  </li>
+</ol>
+<p>Il <strong>secondo termine</strong> è
+   $$
+   F(\mathbf v_{w_i})
+   = \log \sum_{i=1}^{|V|} \exp\!\bigl(\mathbf v_{w_i} \cdot \mathbf u_{w_t}\bigr).
+   $$</p>
+<ul>
+<li>
+<p><strong>Passo 2.1</strong>: applichiamo la derivata del logaritmo:
+     $$
+     \nabla_{\mathbf v_{w_k}}\,F
+     = \frac{1}{\displaystyle \sum_{i=1}^{|V|} \exp(\mathbf v_{w_i}\!\cdot\!\mathbf u_{w_t})}
+       \;\nabla_{\mathbf v_{w_k}}
+       \sum_{i=1}^{|V|} \exp(\mathbf v_{w_i}\!\cdot\!\mathbf u_{w_t}).
+     $$</p>
+</li>
+<li>
+<p><strong>Passo 2.2</strong>: derivata della somma di esponenziali. In questa somma, ogni termine indice $i$ è
+     $\exp(\mathbf v_{w_i}\!\cdot\!\mathbf u_{w_t})$. Solo quando $i=k$ l’esponenziale dipende da $\mathbf v_{w_k}$.  </p>
+$$
+     \nabla_{\mathbf v_{w_k}}
+     \sum_{i=1}^{|V|} \exp(\mathbf v_{w_i}\!\cdot\!\mathbf u_{w_t})
+     = \nabla_{\mathbf v_{w_k}}
+       \exp(\mathbf v_{w_k}\!\cdot\!\mathbf u_{w_t})
+     = \exp(\mathbf v_{w_k}\!\cdot\!\mathbf u_{w_t}) \;\mathbf u_{w_t}.
+     $$
+</li>
+<li>
+<p><strong>Passo 2.3</strong>: sostituiamo nella regola del log:
+     $$
+     \nabla_{\mathbf v_{w_k}}\,F
+     = \frac{\exp(\mathbf v_{w_k}\!\cdot\!\mathbf u_{w_t}) \;\mathbf u_{w_t}}
+            {\displaystyle \sum_{i=1}^{|V|} \exp(\mathbf v_{w_i}\!\cdot\!\mathbf u_{w_t})}
+     = \mathbb{P}(w_k \mid w_t)\;\mathbf u_{w_t}.
+     $$</p>
+</li>
+<li>
+<p><strong>Combinazione dei termini</strong>  </p>
+</li>
+</ul>
+<p>Sommando le due derivazioni (primo termine zero + secondo termine):</p>
+$$
+   \nabla_{\mathbf v_{w_k}} \mathcal{L}_{(t,j)}
+   = 0 + \mathbb{P}(w_k \mid w_t)\;\mathbf u_{w_t}
+   = \mathbb{P}(w_k \mid w_t)\;\mathbf u_{w_t}.
+   $$
+<h4 id="riassunto-aggiornamenti">Riassunto aggiornamenti</h4>
+<p>Per ogni coppia $(w_t, w_{t+j})$, aggiorniamo:</p>
+<ul>
+<li>Il vettore <strong>centro</strong> $\mathbf u_{w_t}$ secondo:</li>
+</ul>
+$$
+  \mathbf u_{w_t} \leftarrow \mathbf u_{w_t} - \eta \cdot \nabla_{\mathbf u_{w_t}} \mathcal{L}_{(t,j)}
+  $$
+<ul>
+<li>Il vettore <strong>contesto corretto</strong> $\mathbf v_{w_{t+j}}$ secondo:</li>
+</ul>
+$$
+  \mathbf v_{w_{t+j}} \leftarrow \mathbf v_{w_{t+j}} - \eta \cdot \nabla_{\mathbf v_{w_{t+j}}} \mathcal{L}_{(t,j)}
+  $$
+<ul>
+<li>Gli altri vettori <strong>contesto</strong> $\mathbf v_{w_k}$ con $k \ne t+j$, opzionalmente:</li>
+</ul>
+$$
+  \mathbf v_{w_k} \leftarrow \mathbf v_{w_k} - \eta \cdot \nabla_{\mathbf v_{w_k}} \mathcal{L}_{(t,j)}
+  $$
+<p>In pratica, si usa <strong>Negative Sampling</strong> per evitare l&rsquo;aggiornamento su tutto il vocabolario.</p>
+<h3 id="negative-sampling">Negative Sampling</h3>
+<p>L’obiettivo del <strong>Negative Sampling</strong> è approssimare in modo efficiente la funzione di perdita originale basata sulla softmax, che richiede una somma su tutto il vocabolario $|V|$ — troppo costosa per vocabolari grandi.</p>
+<p>Invece di calcolare la probabilità normalizzata per tutte le parole, si trasforma il problema in una <strong>serie di classificazioni binarie</strong>.</p>
+<h4 id="strategia">Strategia</h4>
+<ul>
+<li>La coppia <strong>positiva</strong> $(w_t, w_{t+j})$ (parola centrale e parola di contesto reale) è trattata come un esempio <strong>positivo</strong>, con <strong>target = 1</strong>.</li>
+<li>Si campionano $K$ parole <strong>negative</strong> $w_1', \dots, w_K'$ da una distribuzione rumorosa (noise distribution), e si trattano come esempi <strong>negativi</strong>, con <strong>target = 0</strong>.</li>
+</ul>
+<h4 id="notazione">Notazione</h4>
+<ul>
+<li>$\mathbf u_{w_t}$: vettore embedding della parola centrale (input)</li>
+<li>$\mathbf v_{w_{t+j}}$: embedding della parola di contesto positiva (output)</li>
+<li>$\mathbf v_{w_k'}$: embedding delle parole negative</li>
+<li>$\sigma(x) = \frac{1}{1 + e^{-x}}$: funzione sigmoide</li>
+</ul>
+<h4 id="loss-per-una-singola-coppia-math_inline_211-e-math_inline_212-parole-negative">Loss per una singola coppia $(w_t, w_{t+j})$ e $K$ parole negative:</h4>
+$$
+\mathcal{L}_{\text{NS}}^{(t,j)} =
+- \log \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} )
+- \sum_{k=1}^K \log \sigma( - \mathbf v_{w_k'} \cdot \mathbf u_{w_t} )
+$$
+<ul>
+<li>Il primo termine spinge $\mathbf u_{w_t}$ e $\mathbf v_{w_{t+j}}$ ad avere un <strong>prodotto scalare alto</strong>, quindi un’alta probabilità.</li>
+<li>Il secondo termine penalizza $\mathbf u_{w_t}$ e i vettori negativi $\mathbf v_{w_k'}$ se il loro prodotto scalare è troppo alto.</li>
+</ul>
+<h3 id="calcolo-dei-gradienti">Calcolo dei Gradienti</h3>
+<p>La loss per una singola coppia $(w_t, w_{t+j})$ e $K$ parole negative è:</p>
+$$
+\mathcal{L}_{\text{NS}}^{(t,j)} =
+- \log \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} )
+- \sum_{k=1}^K \log \sigma( - \mathbf v_{w_k'} \cdot \mathbf u_{w_t} )
+$$
+<p>Dove:
+- $\sigma(x) = \frac{1}{1 + e^{-x}}$
+- La derivata della sigmoide: $\sigma'(x) = \sigma(x)(1 - \sigma(x))$</p>
+<h4 id="1-derivata-rispetto-a-math_inline_221-embedding-della-parola-centrale">1. Derivata rispetto a $\mathbf u_{w_t}$ (embedding della parola centrale)</h4>
+<p>Partiamo dalla derivata della loss rispetto a $\mathbf u_{w_t}$:</p>
+$$
+\nabla_{\mathbf u_{w_t}} \mathcal{L}_{\text{NS}}^{(t,j)} =
+\frac{\partial}{\partial \mathbf u_{w_t}} \left(
+- \log \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} )
+- \sum_{k=1}^K \log \sigma( - \mathbf v_{w_k'} \cdot \mathbf u_{w_t} )
+\right)
+$$
+<h5 id="primo-termine-positivo">Primo termine (positivo):</h5>
+$$
+\frac{\partial}{\partial \mathbf u_{w_t}} \left[ - \log \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) \right]
+$$
+<p>Applichiamo la chain rule:</p>
+<ol>
+<li>$x = \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t}$  </li>
+<li>
+<p>$\frac{d}{dx}[-\log \sigma(x)] = - \frac{\sigma'(x)}{\sigma(x)} = - (1 - \sigma(x))$</p>
+</li>
+<li>
+<p>$\frac{\partial x}{\partial \mathbf u_{w_t}} = \mathbf v_{w_{t+j}}$</p>
+</li>
+</ol>
+<p>Quindi:</p>
+$$
+= - (1 - \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} )) \cdot \mathbf v_{w_{t+j}} 
+= ( \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) - 1 ) \cdot \mathbf v_{w_{t+j}}
+$$
+<h5 id="secondo-termine-negativi">Secondo termine (negativi):</h5>
+<p>Ogni termine nella somma:</p>
+$$
+\frac{\partial}{\partial \mathbf u_{w_t}} \left[ - \log \sigma( - \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \right]
+$$
+<p>Applichiamo la regola della catena:</p>
+<ol>
+<li>$x = - \mathbf v_{w_k'} \cdot \mathbf u_{w_t}$  </li>
+<li>$\sigma(x)' = \sigma(x)(1 - \sigma(x))$  </li>
+<li>$\frac{d}{dx}[-\log \sigma(x)] = - (1 - \sigma(x))$</li>
+</ol>
+<p>Ma attenzione: deriviamo rispetto a $\mathbf u_{w_t}$, quindi:</p>
+$$
+\frac{\partial}{\partial \mathbf u_{w_t}} \left[ - \log \sigma( - \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \right]
+= \sigma( \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \cdot \mathbf v_{w_k'}
+$$
+<p>Perché:</p>
+<ul>
+<li>$\sigma(-x) = 1 - \sigma(x)$</li>
+<li>$\frac{d}{dx}[-\log(1 - \sigma(x))] = \sigma(x)$</li>
+</ul>
+<p>Sommiamo su $k$:</p>
+$$
+\sum_{k=1}^K \sigma( \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \cdot \mathbf v_{w_k'}
+$$
+<h5 id="totale">Totale:</h5>
+$$
+\nabla_{\mathbf u_{w_t}} \mathcal{L}_{\text{NS}}^{(t,j)} =
+( \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) - 1 ) \cdot \mathbf v_{w_{t+j}} +
+\sum_{k=1}^K \sigma( \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \cdot \mathbf v_{w_k'}
+$$
+<h4 id="2-derivata-rispetto-a-math_inline_233-embedding-del-contesto-positivo">2. Derivata rispetto a $\mathbf v_{w_{t+j}}$ (embedding del contesto positivo)</h4>
+$$
+\frac{\partial}{\partial \mathbf v_{w_{t+j}}} \left[ - \log \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) \right]
+$$
+<p>Stesso ragionamento:</p>
+<ol>
+<li>$x = \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t}$</li>
+<li>$\frac{d}{dx}[-\log \sigma(x)] = - (1 - \sigma(x))$</li>
+</ol>
+<p>Derivata rispetto a $\mathbf v_{w_{t+j}}$:</p>
+$$
+= ( \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) - 1 ) \cdot \mathbf u_{w_t}
+$$
+<p>Nella somma non compare l&rsquo;embedding del contesto positivo. Quindi la derivata rispetto a $\mathbf v_{w_{t+j}}$ è nulla.</p>
+<h4 id="3-derivata-rispetto-ad-ogni-math_inline_238-embedding-delle-parole-negative">3. Derivata rispetto ad ogni $\mathbf v_{w_k'}$ (embedding delle parole negative)</h4>
+$$
+\frac{\partial}{\partial \mathbf v_{w_k'}} \left[ - \log \sigma( - \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \right]
+$$
+<p>Come sopra:</p>
+<ul>
+<li>$\sigma(-x)' = - \sigma(x)(1 - \sigma(x))$</li>
+<li>$- \log \sigma(-x) = - \log (1 - \sigma(x))$</li>
+</ul>
+<p>Quindi:</p>
+$$
+= \sigma( \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \cdot \mathbf u_{w_t}
+$$
+<h4 id="riepilogo-dei-gradienti">Riepilogo dei Gradienti</h4>
+<ul>
+<li><strong>Parola centrale $\mathbf u_{w_t}$</strong>:</li>
+</ul>
+$$
+\nabla_{\mathbf u_{w_t}} \mathcal{L}_{\text{NS}}^{(t,j)}=
+( \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) - 1 ) \cdot \mathbf v_{w_{t+j}} 
++ \sum_{k=1}^K \sigma( \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \cdot \mathbf v_{w_k'}
+$$
+<ul>
+<li><strong>Parola positiva $\mathbf v_{w_{t+j}}$</strong>:</li>
+</ul>
+$$
+\nabla_{\mathbf v_{w_{t+j}}} \mathcal{L}_{\text{NS}}^{(t,j)} =
+( \sigma( \mathbf v_{w_{t+j}} \cdot \mathbf u_{w_t} ) - 1 ) \cdot \mathbf u_{w_t}
+$$
+<ul>
+<li><strong>Parola negativa $\mathbf v_{w_k'}$</strong>:</li>
+</ul>
+$$
+\nabla_{\mathbf v_{w_k'}} \mathcal{L}_{\text{NS}}^{(t,j)} =
+\sigma( \mathbf v_{w_k'} \cdot \mathbf u_{w_t} ) \cdot \mathbf u_{w_t}
+$$
+<h3 id="intuizione-finale">Intuizione Finale</h3>
+<ul>
+<li>Il gradiente rispetto alla parola <strong>positiva</strong> cerca di <strong>avvicinare</strong> gli embedding $\mathbf u_{w_t}$ e $\mathbf v_{w_{t+j}}$.</li>
+<li>I gradienti rispetto alle parole <strong>negative</strong> cercano di <strong>allontanare</strong> $\mathbf u_{w_t}$ da $\mathbf v_{w_k'}$, se sono troppo simili.</li>
+<li>In questo modo, la rete impara a <strong>distinguerle</strong> — creando spazi semantici utili per rappresentare significato e contesto.</li>
+</ul>
+<h3 id="perche-il-negative-sampling-funziona">Perché il Negative Sampling funziona?</h3>
+<p>In un training tradizionale con softmax, ogni parola nel vocabolario è considerata in ogni update: inefficiente e inutile, perché la maggior parte delle parole <strong>non sono rilevanti</strong> nel contesto dato.</p>
+<p>Il negative sampling funziona bene <strong>anche campionando solo poche parole negative</strong> perché:</p>
+<ul>
+<li>La maggior parte delle parole nel vocabolario <strong>non appaiono nel contesto locale</strong>. È sufficiente penalizzarne alcune per rappresentare questo &ldquo;mare di parole irrilevanti&rdquo;.</li>
+<li>L’aggiornamento stocastico su $K$ parole negative scelte a caso <strong>approssima il gradiente medio</strong> su tutte le parole negative.</li>
+<li>Il modello impara a <strong>differenziare le parole &ldquo;giuste&rdquo; da quelle &ldquo;sbagliate&rdquo;</strong>, non a predire ogni parola nel vocabolario.</li>
+<li>Inoltre, campionando le negative da una distribuzione “disturbata” (es. proporzionale a $P(w)^{3/4}$), si aumenta l’efficacia dei campioni più informativi.</li>
+</ul>
+<p>➡️ <strong>In sintesi</strong>: invece di imparare su tutto il vocabolario, impariamo da un campione ben scelto. L&rsquo;efficienza migliora enormemente senza perdita significativa in qualità. Perché, in effetti, ad ogni iterazione ci interessa molto di più la relazione tra parola <strong>centro</strong> e <strong>contesto</strong> che quella tra parola <strong>centro</strong> e parole <strong>non-contesto</strong>.</p>
+<h3 id="negative-sampling-vs-softmax-differenze-chiave">Negative Sampling vs Softmax: differenze chiave</h3>
+<p>Con il <strong>Negative Sampling</strong> non si calcola più una vera distribuzione di probabilità normalizzata su tutto il vocabolario, come avviene con la softmax classica.</p>
+<ul>
+<li>
+<p><strong>Softmax classico:</strong><br />
+  Calcola la probabilità che una parola sia nel contesto dato il centro, considerando <em>tutte</em> le parole del vocabolario. Questo è costoso ma produce una distribuzione completa.</p>
+</li>
+<li>
+<p><strong>Negative Sampling:</strong><br />
+  Trasforma il problema in una serie di classificazioni binarie:  </p>
+</li>
+<li>Le coppie (parola centro, parola contesto reale) sono esempi positivi.  </li>
+<li>Le coppie con parole negative campionate casualmente sono esempi negativi.  </li>
+</ul>
+<p>Il modello impara a distinguere parole di contesto “vere” da parole “false”, ma non produce una distribuzione completa su tutte le parole.</p>
+<p>Con Negative Sampling, il modello cerca invece una funzione che spinge gli embeddings di coppie (centro, positivo) a essere simili (dot product alto) e quelli (centro, negativi) a essere dissimili (dot product basso).</p>
+<p><strong>In pratica:</strong><br />
+Negative Sampling ottimizza l’efficienza concentrandosi solo su alcune parole negative per update, ma non fornisce probabilità normalizzate su tutto il vocabolario come la softmax.</p>
+<p>Se servono probabilità vere, si usano softmax o sue varianti (hierarchical softmax), ma a costo computazionale maggiore.</p>
+<h3 id="effetto-dellottimizzazione">Effetto dell’ottimizzazione</h3>
+<p>Iterando su molte coppie $(w_t, w_{t+j})$ osservate dal corpus, il modello:</p>
+<ul>
+<li>rafforza le associazioni tra centri e contesti frequenti (es. “eat” → “food”),</li>
+<li>indebolisce associazioni tra parole che non co-occorrono.</li>
+</ul>
+<p>Alla convergenza, gli embedding $\bm{\theta}_W$ e $\bm{\theta}_C$ riflettono <strong>strutture semantiche</strong> e <strong>sintattiche</strong> apprese dai dati: parole con significati simili finiscono in regioni vicine dello spazio vettoriale.</p>
+<h2 id="conclusioni">Conclusioni</h2>
+<p>Il modello <strong>Skip-gram con softmax</strong> rappresenta un approccio fondamentale nell&rsquo;ambito dell&rsquo;apprendimento non supervisionato per la rappresentazione distribuita delle parole. Utilizzando due matrici distinte — una per le parole <em>centro</em> e una per le parole <em>contesto</em> — il modello riesce a catturare in modo più preciso le relazioni semantiche e sintattiche nel linguaggio naturale.</p>
+<p>Questa separazione consente di modellare efficacemente le <strong>asimmetrie</strong> e i <strong>ruoli funzionali</strong> delle parole, migliorando la qualità degli embedding e le prestazioni in numerosi compiti downstream come il POS tagging, il parsing o il semantic similarity.</p>
+<p>La formulazione probabilistica basata su <strong>softmax</strong> permette di interpretare le previsioni come distribuzioni categoriali su tutto il vocabolario, sebbene a un costo computazionale elevato. Questo ha motivato lo sviluppo di tecniche più efficienti come il <strong>Negative Sampling</strong> e la <strong>Hierarchical Softmax</strong>, che estendono il framework Skip-gram per corpus di grandi dimensioni.</p>
+<h3 id="risorse-utili-e-approfondimenti">Risorse utili e approfondimenti</h3>
+<ul>
+<li>
+<p>Dan Jurafsky &amp; James H. Martin, <em>Speech and Language Processing</em>, 3rd Edition (draft):<br />
+  https://web.stanford.edu/~jurafsky/slp3/  </p>
+</li>
+<li>
+<p>Mikolov et al. (2013), <em>Efficient Estimation of Word Representations in Vector Space</em><br />
+<a href="https://arxiv.org/abs/1301.3781">https://arxiv.org/abs/1301.3781</a></p>
+</li>
+<li>
+<p>Goldberg &amp; Levy (2014), <em>word2vec Explained: Deriving Mikolov et al.&rsquo;s Negative-Sampling Word-Embedding Method</em><br />
+<a href="https://arxiv.org/abs/1402.3722">https://arxiv.org/abs/1402.3722</a></p>
+</li>
+<li>
+<p>TensorFlow Tutorial: <em>Word2Vec Skip-gram</em><br />
+<a href="https://www.tensorflow.org/tutorials/text/word2vec">https://www.tensorflow.org/tutorials/text/word2vec</a></p>
+</li>
+<li>
+<p>Chris McCormick, <em>Word2Vec Tutorial</em> (con codice e spiegazioni passo-passo)<br />
+<a href="https://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/">https://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/</a></p>
+</li>
+<li>
+<p>Blog di Jay Alammar, <em>The Illustrated Word2Vec</em><br />
+<a href="https://jalammar.github.io/illustrated-word2vec/">https://jalammar.github.io/illustrated-word2vec/</a></p>
+</li>
+</ul>
+<p>Questa panoramica costituisce la base concettuale per affrontare estensioni più sofisticate e ottimizzazioni del modello, fondamentali per lavorare con corpus molto ampi o con vocabolari di grandi dimensioni.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data, training, learning</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Skip-gram con Softmax',
+          page_location: 'http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax'
+        });
+      }
+    </script>
+</body>
+</html>

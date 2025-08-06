@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelli di Linguaggio | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data, neural, training">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Modelli di Linguaggio">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Modelli di Linguaggio/Modelli di Linguaggio">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Modelli di Linguaggio">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Modelli di Linguaggio/Modelli di Linguaggio">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Modelli di Linguaggio",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Modelli di Linguaggio/Modelli di Linguaggio",
+      "datePublished": "2025-08-06T20:12:10.828Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Modelli di Linguaggio/Modelli di Linguaggio" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Modelli di Linguaggio</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>I modelli di linguaggio sono sistemi di intelligenza artificiale addestrati per comprendere, generare e manipolare il linguaggio umano. Utilizzano architetture avanzate (come i <strong><span class="text-gray-600">transformers</span></strong>) per prevedere sequenze di parole o caratteri basandosi sul contesto. In particolare, sono distribuzioni probabilistiche sulle sequenze di parole, che permettono di prevedere il prossimo token in base al contesto precedente.</p>
+<p>Per un approfondimento sui linguaggi, <span class="text-gray-600">qui</span>.</p>
+<h2 id="perche-distribuzioni-probabilistiche">Perché Distribuzioni Probabilistiche?</h2>
+<h3 id="limiti-delle-grammatiche-formali">Limiti delle Grammatiche Formali</h3>
+<ul>
+<li><strong>Modelli &ldquo;Binari&rdquo;</strong>:<br />
+  Le grammatiche formali (es. regolari, context-free) definiscono regole rigide per determinare se una frase è <em>legal</em> o meno in una lingua (approccio <strong>0/1</strong>).<br />
+  → <strong>Problema</strong>: Il linguaggio naturale è ambiguo, flessibile e dipendente dal contesto.<br />
+  Esempio: <em>&ldquo;Leggo un libro sul volo&rdquo;</em> può essere interpretato in modo diverso (lettura <em>su</em> un argomento vs. lettura <em>fisicamente sopra</em> un oggetto).</li>
+</ul>
+<h3 id="vantaggi-dei-modelli-probabilistici">Vantaggi dei Modelli Probabilistici</h3>
+<ol>
+<li>
+<p><strong>Gestione dell&rsquo;incertezza</strong>:<br />
+   Assegnano una <strong>probabilità</strong> a ogni frase/stringa, riflettendo la sua &ldquo;naturalezza&rdquo; o plausibilità nel contesto reale.<br />
+   → Utile per: disambiguazione, ranking di ipotesi, generazione fluida.</p>
+</li>
+<li>
+<p><strong>Adattabilità al mondo reale</strong>:  </p>
+</li>
+<li>Modellano variazioni linguistiche (dialetti, errori ortografici, slang).  </li>
+<li>
+<p>Tengono conto di correlazioni statistiche tra parole (es. <em>&ldquo;caffè&rdquo;</em> → alta probabilità di <em>&ldquo;bere&rdquo;</em> o <em>&ldquo;tazzina&rdquo;</em>).</p>
+</li>
+<li>
+<p><strong>Fondamento per NLP moderno</strong>:<br />
+   Consentono di:  </p>
+</li>
+<li>Addestrare modelli su corpora non perfetti (es. web text con rumore).  </li>
+<li>Ottimizzare task come traduzione o riconoscimento vocale tramite massimizzazione della likelihood.</li>
+</ol>
+<blockquote>
+<p>📊 <strong>Esempio Pratico</strong>:<br />
+Un modello probabilistico può assegnare:<br />
+- P(<em>&ldquo;Il gatto corre sul tetto&rdquo;</em>) = 0.85<br />
+- P(<em>&ldquo;Il tetto corre sul gatto&rdquo;</em>) = 0.02<br />
+Pur essendo entrambe frasi <em>sintatticamente corrette</em>, la probabilità riflette la plausibilità semantica.</p>
+</blockquote>
+<h3 id="confronto-chiave">Confronto Chiave</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Approccio</strong></th>
+<th>Grammatiche Formali</th>
+<th>Modelli Probabilistici</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Output</strong></td>
+<td>Binario (accetta/rigetta)</td>
+<td>Probabilità continua</td>
+</tr>
+<tr>
+<td><strong>Flessibilità</strong></td>
+<td>Bassa (regole fisse)</td>
+<td>Alta (apprendimento dati)</td>
+</tr>
+<tr>
+<td><strong>Gestione Ambiguità</strong></td>
+<td>Limitata</td>
+<td>Ottimizzata</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Compilatori, parser semplici</td>
+<td>NLP, generazione testo</td>
+</tr>
+</tbody>
+</table>
+<p>Prima di proseguire, è bene aver compreso a pieno le <a href="/theory/math-for-ml/Probabilità/Basi di Probabilità" class="text-blue-600 hover:underline">Basi di Probabilità</a>.</p>
+<h2 id="previsione-probabilistica-del-completamento-delle-frasi">Previsione Probabilistica del completamento delle frasi</h2>
+<p>Un modello linguistico supporta la previsione del completamento di una frase:
+- <strong>Esempi</strong>:
+  - <em>Please turn off your cell _____</em>
+  - <em>Your program does not ______</em>
+  - I sistemi di input predittivo possono indovinare ciò che stai scrivendo e suggerire opzioni di completamento.</p>
+<h3 id="approccio-statistico-alla-previsione-delle-parole">Approccio statistico alla previsione delle parole</h3>
+<p>L&rsquo;obiettivo è prevedere la parola successiva in una frase o correggere un errore ortografico utilizzando <strong>probabilità condizionate</strong> basate sul contesto precedente.</p>
+<p><strong>Definizioni</strong>:</p>
+<ul>
+<li>
+<p>$w$: una data parola.</p>
+</li>
+<li>
+<p>$\mathbb{P}(w_1, \ldots, w_n)$: rappresenta la <strong>probabilità congiunta</strong> dell’intera sequenza di parole $(w_1, w_2, \dots, w_n)$, ovvero la probabilità di ottenere proprio questa specifica sequenza di parole in un dato contesto (per esempio, un modello di linguaggio).</p>
+</li>
+<li>$\mathbb P(w_n | w_1, w_2, ..., w_{n-1})$: è la probabilità che, data la sequenza di parole $w_1, \ldots, w_{n-1}$ (già presenti nel contesto), la prossima parola sia $w_n$.</li>
+</ul>
+<p><strong>Esempio</strong>: Se consideriamo una frase come <em>&ldquo;oggi piove molto&rdquo;</em>, la probabilità congiunta $\mathbb{P}(\text{"oggi"}, \text{"piove"}, \text{"molto"})$ indica quanto questa sequenza sia comune nel linguaggio naturale.</p>
+<p><strong>Esempio</strong>: Se consideriamo una frase come <em>&ldquo;the pen is on the&rdquo;</em>, la probabilità che la prossima parola sia &ldquo;table&rdquo; è $\mathbb P("table" | "the", "pen", "is", "on", "the")$.</p>
+<h3 id="stima-delle-frequenze-relative">Stima delle frequenze relative</h3>
+<p>Per stimare queste probabilità su un <strong>corpus molto ampio</strong>:
+1. <strong>Probabilità congiunta</strong> (sequenza completa). Si conta il numero totale di parole $N$:
+   $$\mathbb P(w_1, ..., w_n) = \frac{\text{Conteggio della sequenza } w_1, ..., w_n}{\text{Conteggio della sequenza } w_1, ..., w_{n-1}} = \frac{C(w_1, ..., w_n)}{N}$$
+2. <strong>Probabilità condizionata</strong> (parola successiva). Si conta quante volte una sequenza specifica occorre:
+   $$\mathbb P(w_n | w_1, ..., w_{n-1}) = \frac{\text{Conteggio della sequenza } w_1, ..., w_n}{\text{Conteggio della sequenza } w_1, ..., w_{n-1}} = \frac{C(w_1, ..., w_{n-1}, w_n)}{C(w_1, ..., w_{n-1})}$$
+   Questo metodo è chiamato <strong>stima della frequenza relativa</strong>.</p>
+<h3 id="vantaggi-e-svantaggi-della-stima-a-frequenza-relativa">Vantaggi e svantaggi della stima a frequenza relativa</h3>
+<p><strong>Vantaggi</strong>:
+- La stima a frequenza relativa è una <em>Stima di Massima Verosimiglianza (MLE)</em>:
+  - Dato un modello, l&rsquo;MLE produce la probabilità massima ottenibile dai dati disponibili.</p>
+<p><strong>Svantaggi</strong>:
+- Richiede un corpus <strong>ESTREMAMENTE GRANDE</strong> per stime accurate.
+- Computazionalmente impraticabile per sequenze lunghe o contesti complessi.</p>
+<p>Ci serve un modo più efficiente per stimare $\mathbb{P}(w_1, \ldots, w_n)$.</p>
+<h3 id="math_inline_25-grams-models">$N$-grams models</h3>
+<p>L&rsquo;idea alla base dei modelli N-grams è <strong>semplificare il calcolo delle probabilità linguistiche</strong> evitando di considerare l&rsquo;intera storia del contesto. Si utilizza invece un&rsquo;approssimazione basata sulla <strong>proprietà di Markov</strong>:</p>
+<blockquote>
+<p>&ldquo;La probabilità di una parola dipende solo dalle ultime $N-1$ parole precedenti&rdquo;</p>
+</blockquote>
+<p><strong>Formula generale</strong>:
+$$\mathbb P(w_n | w_1, ..., w_{n-1}) \approx P(w_n | w_{n-N+1}, ..., w_{n-1})$$</p>
+<p>Utilizziamo l&rsquo;indice $N-1$ perché $N$ rappresenta il numero di parole considerate, ma dato che una è l&rsquo;$n$-esima (quella che dobbiamo predire), dobbiamo considerare il contesto precedente di $N-1$ parole. </p>
+<p>Questo significa che per predire la prossima parola $w_n$, ci basiamo sulle $N-1$ precedenti, ovvero $w_{n-N+1}, ..., w_{n-1}$. Che intuitivamente ha senso, in quanto la parola $w_n$ sarà molto più fortemente influenzata dalle precedenti più vicine che da quelle più distanti.</p>
+<p>Quindi, grazie alla <strong>proprietà di Markov</strong>, abbiamo che </p>
+$$
+\mathbb{P}(w_1, \ldots, w_n) \approx \prod_{k=1}^n \mathbb P(w_k \mid w_{k-N+1}, \ldots, w_{k-1})
+$$
+<p>Qui stiamo approssimando la probabilità congiunta usando un&rsquo;ipotesi di dipendenza limitata. </p>
+<p>Cosa significa questa espressione?<br />
+- Si tratta di un <strong>prodotto</strong> di probabilità condizionate.<br />
+- Ogni termine $\mathbb{P}(w_k \mid w_{k-N+1}, \ldots, w_{k-1})$ rappresenta <strong>la probabilità che la parola $w_k$ appaia, dato il contesto delle $N-1$ parole precedenti</strong>.<br />
+- Stiamo assumendo che la probabilità di una parola dipenda solo dalle ultime $N-1$ parole, e non dall&rsquo;intera sequenza precedente.  </p>
+<p><strong>Interpretazione intuitiva</strong>:<br />
+- Invece di considerare tutta la sequenza passata, <strong>usiamo solo una finestra di dimensione $N-1$</strong> per predire la parola successiva.<br />
+- Questo semplifica i calcoli e rende il modello computazionalmente gestibile.  </p>
+<p><strong>Esempio</strong> (modello bigramma, $N=2$):<br />
+Se vogliamo stimare la probabilità di <em>&ldquo;oggi piove molto&rdquo;</em>, e assumiamo che ogni parola dipenda solo dalla precedente (<strong>modello bigramma</strong>), la formula diventa:  </p>
+$$
+\mathbb{P}(\text{"oggi"}, \text{"piove"}, \text{"molto"}) \approx \mathbb{P}(\text{"oggi"}) \cdot \mathbb{P}(\text{"piove"} \mid \text{"oggi"}) \cdot \mathbb{P}(\text{"molto"} \mid \text{"piove"})
+$$
+<ul>
+<li><strong>$\mathbb{P}(\text{"oggi"})$</strong>: probabilità che inizi la frase con &ldquo;oggi&rdquo;.  </li>
+<li><strong>$\mathbb{P}(\text{"piove"} \mid \text{"oggi"})$</strong>: probabilità che &ldquo;piove&rdquo; segua &ldquo;oggi&rdquo;.  </li>
+<li><strong>$\mathbb{P}(\text{"molto"} \mid \text{"piove"})$</strong>: probabilità che &ldquo;molto&rdquo; segua &ldquo;piove&rdquo;.  </li>
+</ul>
+<p>In un <strong>modello trigramma</strong> ($N=3$), invece, avremmo:  </p>
+$$
+\mathbb{P}(\text{"oggi"}, \text{"piove"}, \text{"molto"}) \approx \mathbb{P}(\text{"oggi"}) \cdot \mathbb{P}(\text{"piove"} \mid \text{"oggi"}) \cdot \mathbb{P}(\text{"molto"} \mid \text{"oggi"}, \text{"piove"})
+$$
+<p>Qui, ogni parola dipende <strong>da entrambe le precedenti</strong>, anziché solo dall&rsquo;ultima.  </p>
+<h3 id="perche-questa-approssimazione">Perché questa approssimazione?</h3>
+<ul>
+<li><strong>Motivazione computazionale</strong>: Calcolare la probabilità esatta di una sequenza lunga è <strong>impraticabile</strong> perché: </li>
+<li>Se il nostro vocabolario ha, per esempio, <strong>20.000 parole</strong>, allora una sequenza di 5 parole può teoricamente assumere $20.000^5 = 3.2 \times 10^{23}$ combinazioni possibili! Questo significa che per stimare accuratamente tutte le probabilità congiunte necessarie, dovremmo raccogliere un <strong>enorme numero di esempi</strong> per coprire tutte le possibili frasi. Con questa approssimazione, invece, <strong>riduciamo drasticamente la complessità</strong>, poiché stimiamo ogni parola solo in base a un numero <strong>limitato</strong> di parole precedenti.  </li>
+<li><strong>Motivazione linguistica</strong>: In molti casi il contesto rilevante è <strong>localizzato</strong> (es. in italiano &ldquo;fare ___ colazione&rdquo; richiede quasi sempre &ldquo;la&rdquo;) e molti costrutti grammaticali si basano solo su &ldquo;poche&rdquo; parole precedenti. Questo significa che la <strong>proprietà di Markov</strong> funziona bene per stimare le probabilità linguistiche.</li>
+</ul>
+<h3 id="differenze-nei-valori-di-math_inline_46">Differenze nei valori di $N$</h3>
+<p>Un aspetto fondamentale nei modelli basati su n-grammi è il valore di $N$. Questo parametro determina quante parole precedenti vengono considerate nel calcolo della probabilità di una parola successiva.  </p>
+<ul>
+<li><strong>Un valore più grande di $N$ implica che:</strong>  </li>
+<li>Il modello ha <strong>più informazioni sul contesto</strong>, poiché considera una finestra più ampia di parole precedenti.  </li>
+<li>Questo porta a una <strong>maggiore capacità discriminativa</strong>, cioè il modello è più preciso nel prevedere la parola successiva in base a un contesto più dettagliato.  </li>
+<li>
+<p>Tuttavia, <strong>cresce il problema della scarsità dei dati</strong> (<em>data sparseness</em>):  </p>
+<ul>
+<li>Le combinazioni di parole diventano più numerose, quindi molte sequenze potrebbero non comparire mai nel dataset di addestramento.  </li>
+<li>Questo porta a difficoltà nella stima delle probabilità, poiché alcuni n-grammi potrebbero avere conteggi molto bassi o addirittura nulli.</li>
+<li>Le tecniche di <a href="/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici" class="text-blue-600 hover:underline">smoothing</a> diventano cruciali e complesse.</li>
+</ul>
+</li>
+<li>
+<p><strong>Un valore più piccolo di $N$ implica che:</strong>  </p>
+</li>
+<li>Il modello ha <strong>meno precisione</strong>, poiché considera un contesto più limitato.  </li>
+<li>Tuttavia, ci sono <strong>più esempi nel dataset</strong> che corrispondono a ciascun n-gramma.  </li>
+<li>Questo rende le <strong>stime probabilistiche più affidabili</strong>, poiché è meno probabile che ci siano sequenze con frequenza nulla.  </li>
+</ul>
+<p>In pratica, c&rsquo;è un <strong>compromesso</strong> nella scelta di $N$:<br />
+- Un valore più grande di $N$ aiuta a catturare meglio la struttura del linguaggio ma aumenta il rischio di dati insufficienti.<br />
+- Un valore più piccolo riduce la precisione ma garantisce un modello più stabile e generalizzabile.  </p>
+<p>Per affrontare il problema della scarsità dei dati nei modelli con $N$ elevato, si utilizzano tecniche come <strong><a href="/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici" class="text-blue-600 hover:underline">smoothing</a></strong>, <strong><a href="/theory/nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici" class="text-blue-600 hover:underline">backoff</a></strong>, <strong><a href="/theory/nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici" class="text-blue-600 hover:underline">interpolazione</a></strong> e <strong>modelli neurali</strong> come le reti ricorrenti (<em>RNN</em>) o i Transformer.</p>
+<h3 id="riassumendo">Riassumendo</h3>
+<p>I modelli <strong>N-gram</strong> approssimano la probabilità di sequenze di parole utilizzando contesti limitati di $N-1$ parole precedenti.  Se consideriamo una sequenza di parole $w_{1}^n = w_1, w_2, ..., w_n$ con $n$ parole, abbiamo:
+- <strong>Regola della catena delle probabilità</strong>:<br />
+  $$
+  P(w_1^n) = \prod_{k=1}^n P(w_k \mid w_1^{k-1})
+  $$<br />
+  Calcola la probabilità di una frase scomponendola in probabilità condizionate di ogni parola dato l&rsquo;intero contesto precedente.  </p>
+<ul>
+<li><strong>Approssimazioni</strong>:  </li>
+<li><strong>Bigramma</strong> ($N=2$): Considera solo la parola precedente:<br />
+    $$
+    P(w_1^n) = \prod_{k=1}^n P(w_k \mid w_{k-1})
+    $$  </li>
+<li><strong>N-gramma</strong> ($N$ generico): Utilizza le ultime $N-1$ parole:<br />
+    $$
+    P(w_1^n) = \prod_{k=1}^n P(w_k \mid w_{k-N+1}^{k-1})
+    $$  </li>
+</ul>
+<h4 id="stima-delle-probabilita-con-frequenze-relative">Stima delle Probabilità con Frequenze Relative</h4>
+<p>Le probabilità condizionate si stimano dai conteggi delle sequenze nel corpus:<br />
+- <strong>Bigramma</strong>:<br />
+  $$
+  P(w_n \mid w_{n-1}) = \frac{C(w_{n-1}w_n)}{C(w_{n-1})}
+  $$<br />
+  Esempio: Se &ldquo;cane&rdquo; appare 100 volte e &ldquo;cane abbaia&rdquo; 30 volte, $P(\text{abbaia} \mid \text{cane}) = 0.3$.  </p>
+<ul>
+<li><strong>N-gramma</strong>:<br />
+  $$
+  P(w_n \mid w_{n-N+1}^{n-1}) = \frac{C(w_{n-N+1}^{n-1}w_n)}{C(w_{n-N+1}^{n-1})}
+  $$<br />
+  Esempio: Per un trigramma ($N=3$), $P(\text{mangia} \mid \text{il, cane}) = \frac{C(\text{il cane mangia})}{C(\text{il cane})}$.  </li>
+</ul>
+<p>Questo approccio si basa sulla <strong>frequenza relativa</strong> delle sequenze, rendendolo semplice ma sensibile alla sparsità dei dati per $N$ elevati.</p>
+<p><a href="/theory/nlp/Legge di Zipf" class="text-blue-600 hover:underline">Qui</a> è presente un approfondimento dettagliato sulla legge di Zipf. Che spiega la motivazione teorica dietro la sparsità dei dati nei modelli N-gram. La legge di Zipf mostra che in un corpus linguistico, la distribuzione delle parole segue una legge di potenza, dove poche parole (es. articoli, preposizioni) compaiono con frequenza estremamente alta, mentre la maggioranza delle parole è rara.</p>
+<h2 id="limiti-e-problematiche">Limiti e Problematiche</h2>
+<p>I modelli linguistici basati su n-grammi presentano diverse limitazioni intrinseche:</p>
+<h3 id="1-sparse-data-e-zero-probability">1. Sparse Data e Zero Probability</h3>
+<ul>
+<li><strong>N-grammi non osservati</strong>:<br />
+  Sequenze plausibili ma assenti nel training set ricevono probabilità zero:<br />
+  $$P(w_n | w_{n-N+1}, ..., w_{n-1}) = 0 \quad \text{se } C(w_{n-N+1}, ..., w_n) = 0$$<br />
+  → <strong>Impatto</strong>:  </li>
+<li>Frasi valide nel test set ottengono perplexity infinita.  </li>
+<li>Impossibilità di generalizzare a combinazioni non viste (es. <em>&ldquo;cane mangia kiwi&rdquo;</em>).  <blockquote>
+<p><em>Soluzione</em>: Tecniche di smoothing (approfondite in dettaglio <a href="/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici" class="text-blue-600 hover:underline">qui</a>).</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-finestra-contestuale-limitata">2. Finestra Contestuale Limitata</h3>
+<ul>
+<li><strong>Dipendenza da N fissato</strong>:
+  Con un modello basato su n-gram, il contesto considerato è limitato a $N-1$ parole.</li>
+<li>Con N=3 (trigrammi), il modello ignora parole oltre le ultime 2:<br />
+<em>&ldquo;Ieri ho visitato il museo egizio che ___&rdquo;</em> → Il contesto rilevante (&ldquo;museo&rdquo;) potrebbe essere troppo lontano.  </li>
+<li><strong>Esempio</strong>: In <em>&ldquo;La ragazza con gli occhiali da sole che ___&rdquo;</em>, la scelta di &ldquo;indossava&rdquo; vs &ldquo;rompe&rdquo; dipende da &ldquo;occhiali&rdquo;, non dalle ultime 2 parole (&ldquo;che&rdquo; e &ldquo;sole&rdquo;).</li>
+</ul>
+<h3 id="3-incapacita-di-modellare-strutture-complesse">3. Incapacità di Modellare Strutture Complesse</h3>
+<ul>
+<li><strong>Dipendenza dall&rsquo;ordine locale</strong>:<br />
+  Non catturano fenomeni linguistici che richiedono memoria a lungo termine:  </li>
+<li>Accordi verbali: <em>&ldquo;Le donne che hanno ___&rdquo;</em> (richiede accordo plurale)  </li>
+<li>
+<p>Riferimenti anaforici: <em>&ldquo;Marco disse a Luca di comprare il pane. Poi ___ uscì&rdquo;</em> (chi uscì?)</p>
+</li>
+<li>
+<p><strong>Ambiguità lessicale</strong>:<br />
+  Non distinguono significati multipli in base al contesto globale:<br />
+  $$P(\text{bank} | \text{river}) ≈ P(\text{bank} | \text{money})$$<br />
+  (manca comprensione semantica di &ldquo;bank&rdquo; come &ldquo;sponda&rdquo; vs &ldquo;banca&rdquo;).</p>
+</li>
+</ul>
+<h3 id="4-overhead-computazionale">4. Overhead Computazionale</h3>
+<ul>
+<li><strong>Crescita esponenziale dello spazio</strong>:<br />
+  Per un vocabolario di 50k parole:  </li>
+<li>Bigrammi: $50k^2 = 2.5$ miliardi di parametri  </li>
+<li>
+<p>Trigrammi: $50k^3 = 125$ trilioni di parametri<br />
+  → <strong>Problema</strong>: Memorizzazione e query inefficienti anche per N moderati.</p>
+<p>→ <strong>Soluzione</strong>: Utilizzare tecniche di compressione (es. Huffman coding) e pruning.</p>
+</li>
+</ul>
+<h3 id="5-sensibilita-al-corpus-di-training">5. Sensibilità al Corpus di Training</h3>
+<ul>
+<li><strong>Bias statistici</strong>:<br />
+  Riproducono stereotipi presenti nei dati:  </li>
+<li><em>&ldquo;L&rsquo;infermiere ___&rdquo;</em> → Probabilità alta per &ldquo;lei&rdquo; (se il corpus ha prevalenza femminile nel ruolo)  </li>
+<li>
+<p><em>&ldquo;Il CEO di successo ___&rdquo;</em> → Associazioni di genere/culturali distorte  </p>
+</li>
+<li>
+<p><strong>Out-Of-Vocabulary (OOV)</strong>:<br />
+  Parole nuove (slang, nomi propri, errori) non presenti nel training set vengono gestite male:<br />
+  $$
+  \mathbb P(\text{"Il nuovo NFT"}) = 0 \quad \text{se "NFT" non è nel vocabolario}
+  $$</p>
+</li>
+</ul>
+<h3 id="6-apprendimento-superficiale">6. Apprendimento Superficiale</h3>
+<ul>
+<li><strong>Modellano correlazioni, non causalità</strong>:<br />
+  Apprendono pattern statistici senza comprensione logica:  </li>
+<li><em>&ldquo;Se piove, prendo l&rsquo;ombrello&rdquo;</em> → Alta probabilità  </li>
+<li>
+<p><em>&ldquo;Se prendo l&rsquo;ombrello, piove&rdquo;</em> → Probabilità simile (manca relazione causale)  </p>
+</li>
+<li>
+<p><strong>Assenza di world knowledge</strong>:<br />
+  Non integrano informazioni esterne:<br />
+  $$P(\text{"Roma"} | \text{"La capitale d'Italia è"}) = 0$$<br />
+  Anche se &ldquo;Roma&rdquo; è l&rsquo;unica risposta corretta, il modello assegna probabilità basate solo sui bigrammi/trigrammi osservati.</p>
+</li>
+</ul>
+<h2 id="argomenti-collegati">Argomenti Collegati</h2>
+<ul>
+<li><a href="/theory/nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio" class="text-blue-600 hover:underline">Valutazione dei Modelli di Linguaggio</a></li>
+<li><a href="/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici" class="text-blue-600 hover:underline">Smoothing nei Modelli Linguistici</a></li>
+<li><span class="text-gray-600">Pruning e Compressione nei Modelli NLP</span></li>
+<li><span class="text-gray-600">Bias e Fairness nell&rsquo;Elaborazione del Linguaggio Naturale</span></li>
+</ul>
+<h2 id="conclusione">Conclusione</h2>
+<p>I modelli linguistici basati su n-gram hanno rappresentato una tappa fondamentale nello sviluppo dell&rsquo;NLP, ma presentano notevoli limitazioni: dalla gestione della sparsenza e del problema degli n-grammi non osservati, alla finestra contestuale limitata e alla difficoltà nel modellare strutture linguistiche complesse. Inoltre, l&rsquo;esponenziale crescita dello spazio delle combinazioni e la sensibilità ai bias del corpus di training evidenziano il bisogno di approcci più sofisticati. Questi limiti hanno favorito l&rsquo;evoluzione verso modelli neurali e architetture transformer, capaci di integrare contesto e conoscenza semantica in maniera più efficace, aprendo la strada a progressi significativi nel campo dell&rsquo;elaborazione del linguaggio naturale.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data, neural, training</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Modelli di Linguaggio/Modelli di Linguaggio">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Modelli di Linguaggio',
+          page_location: 'http://localhost:3000/theory/nlp/Modelli di Linguaggio/Modelli di Linguaggio'
+        });
+      }
+    </script>
+</body>
+</html>

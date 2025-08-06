@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodo dei Minimi Quadrati Ordinari (OLS) | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, model">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Metodo dei Minimi Quadrati Ordinari (OLS)">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Metodo dei Minimi Quadrati Ordinari (OLS)">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Metodo dei Minimi Quadrati Ordinari (OLS)",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari",
+      "datePublished": "2025-08-06T20:12:10.718Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Metodo dei Minimi Quadrati Ordinari (OLS)</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>Il <strong>metodo dei minimi quadrati ordinari (OLS, Ordinary Least Squares)</strong> è una tecnica di ottimizzazione utilizzata per stimare i parametri di un modello di regressione lineare. L&rsquo;obiettivo è trovare i coefficienti che minimizzano la somma dei quadrati degli errori tra i valori osservati e quelli previsti dal modello.</p>
+<h2 id="formulazione-del-problema">Formulazione del Problema</h2>
+<p>Consideriamo un modello di regressione lineare semplice, dove la variabile dipendente $y$ è legata alla variabile indipendente $x$ dalla relazione:</p>
+$$
+y_i = a x_i + b + \epsilon_i \quad \text{per } i = 1, \dots, n
+$$
+<p>Dove:
+- $y_i$ è il valore osservato della variabile dipendente.
+- $x_i$ è il valore della variabile indipendente.
+- $a$ e $b$ sono i coefficienti del modello (pendenza e intercetta).
+- $\epsilon_i$ è l&rsquo;errore (rumore) associato alla $i$-esima osservazione.</p>
+<p>L&rsquo;obiettivo è trovare i valori di $a$ e $b$ che minimizzano la <strong>funzione di perdita</strong> (loss function), definita come la somma dei quadrati degli errori:</p>
+$$
+\ell(a, b) = \sum_{i=1}^n (y_i - a x_i - b)^2 \quad (2.31)
+$$
+<h2 id="minimizzazione-della-funzione-di-perdita">Minimizzazione della Funzione di Perdita</h2>
+<p>La funzione di perdita $\ell(a, b)$ è una <strong>funzione quadratica</strong> e, quindi, <strong><span class="text-gray-600">convessa</span></strong>. Questo garantisce che esista un unico minimo globale. Per trovare i valori ottimali di $a$ e $b$, calcoliamo il <strong>gradiente</strong> della funzione di perdita rispetto a $a$ e $b$ e lo impostiamo uguale a zero.</p>
+<h3 id="calcolo-del-gradiente">Calcolo del Gradiente</h3>
+<p>Il gradiente della funzione di perdita rispetto a $a$ e $b$ è dato da:</p>
+$$
+\nabla \ell(a, b) = \begin{pmatrix}
+\frac{\partial \ell}{\partial a} \\
+\frac{\partial \ell}{\partial b}
+\end{pmatrix}
+$$
+<p>Calcoliamo le derivate parziali:</p>
+<ol>
+<li>
+<p><strong>Derivata rispetto a $a$</strong>:
+   $$
+   \frac{\partial \ell}{\partial a} = \sum_{i=1}^n 2 (y_i - a x_i - b) (-x_i) = -2 \sum_{i=1}^n x_i (y_i - a x_i - b)
+   $$</p>
+</li>
+<li>
+<p><strong>Derivata rispetto a $b$</strong>:
+   $$
+   \frac{\partial \ell}{\partial b} = \sum_{i=1}^n 2 (y_i - a x_i - b) (-1) = -2 \sum_{i=1}^n (y_i - a x_i - b)
+   $$</p>
+</li>
+</ol>
+<p>Impostando il gradiente uguale a zero, quindi $\nabla \ell(a, b) = \mathbf 0$, otteniamo un sistema di equazioni lineari:</p>
+$$
+\begin{cases}
+\sum_{i=1}^n x_i (y_i - a x_i - b) = 0 \\
+\sum_{i=1}^n (y_i - a x_i - b) = 0
+\end{cases}
+$$
+<p>Espandiamo i prodotti:  </p>
+$$  
+\begin{cases}  
+\sum_{i=1}^{n} (x_i y_i - a x_i^2 - b x_i) = 0 \\  
+\sum_{i=1}^{n} (y_i - a x_i - b) = 0  
+\end{cases}  
+$$
+<p>Distribuiamo la sommatoria:  </p>
+$$  
+\begin{cases}  
+\sum_{i=1}^{n} x_i y_i - \sum_{i=1}^{n} a x_i^2 - \sum_{i=1}^{n} b x_i = 0 \\  
+\sum_{i=1}^{n} y_i - \sum_{i=1}^{n} a x_i - \sum_{i=1}^{n} b = 0  
+\end{cases}  
+$$
+<p>Portiamo fuori le costanti $a$ e $b$:  </p>
+$$  
+\begin{cases}  
+\sum_{i=1}^{n} x_i y_i - a \sum_{i=1}^{n} x_i^2 - b \sum_{i=1}^{n} x_i = 0 \\  
+\sum_{i=1}^{n} y_i - a \sum_{i=1}^{n} x_i - b n = 0  
+\end{cases}  
+$$
+<h3 id="soluzione-del-sistema">Soluzione del Sistema</h3>
+<p>Risolvendo il sistema di equazioni, otteniamo le <strong>stime OLS</strong> per $a$ e $b$:</p>
+<ol>
+<li><strong>Stima di $a$</strong>:<br />
+   Partiamo dal sistema di equazioni:  </li>
+</ol>
+$$
+   \begin{cases}  
+   \sum_{i=1}^{n} x_i y_i - a \sum_{i=1}^{n} x_i^2 - b \sum_{i=1}^{n} x_i = 0 \\  
+   \sum_{i=1}^{n} y_i - a \sum_{i=1}^{n} x_i - b n = 0  
+   \end{cases}  
+   $$
+<p>Dalla seconda equazione, isoliamo $b$:  </p>
+$$
+   b = \frac{\sum_{i=1}^{n} y_i - a \sum_{i=1}^{n} x_i}{n}
+   $$
+<p>Sostituiamo questa espressione nella prima equazione:  </p>
+$$
+   \sum_{i=1}^{n} x_i y_i - a \sum_{i=1}^{n} x_i^2 - \sum_{i=1}^{n} x_i \cdot \frac{\sum_{i=1}^{n} y_i - a \sum_{i=1}^{n} x_i}{n} = 0
+   $$
+<p>Distribuiamo la sommatoria nel termine frazionario:  </p>
+$$
+   \sum_{i=1}^{n} x_i y_i - a \sum_{i=1}^{n} x_i^2 - \frac{\sum_{i=1}^{n} x_i \sum_{i=1}^{n} y_i}{n} + a \frac{\sum_{i=1}^{n} x_i \sum_{i=1}^{n} x_i}{n} = 0
+   $$
+<p>Raccogliamo i termini con $a$:  </p>
+$$
+   \sum_{i=1}^{n} x_i y_i - \frac{\sum_{i=1}^{n} x_i \sum_{i=1}^{n} y_i}{n} = a \left( \sum_{i=1}^{n} x_i^2 - \frac{\left( \sum_{i=1}^{n} x_i \right)^2}{n} \right)
+   $$
+<p>Infine, isoliamo $a$:  </p>
+$$
+   a = \frac{n \sum_{i=1}^n x_i y_i - \left( \sum_{i=1}^n x_i \right) \left( \sum_{i=1}^n y_i \right)}{n \sum_{i=1}^n x_i^2 - \left( \sum_{i=1}^n x_i \right)^2}
+   $$
+<ol>
+<li><strong>Stima di $b$</strong>:<br />
+   Usiamo l&rsquo;espressione già trovata per $b$:  </li>
+</ol>
+$$
+   b = \frac{\sum_{i=1}^{n} y_i - a \sum_{i=1}^{n} x_i}{n}
+   $$
+<p>Sostituiamo $a$:  </p>
+$$
+   b = \frac{\sum_{i=1}^{n} y_i - \frac{n \sum_{i=1}^n x_i y_i - \left( \sum_{i=1}^n x_i \right) \left( \sum_{i=1}^n y_i \right)}{n \sum_{i=1}^n x_i^2 - \left( \sum_{i=1}^n x_i \right)^2} \sum_{i=1}^{n} x_i}{n}
+   $$
+<p>Distribuiamo $\sum_{i=1}^{n} x_i$ nel numeratore:  </p>
+$$
+   b = \frac{\sum_{i=1}^{n} y_i - \frac{n \sum_{i=1}^{n} x_i y_i \sum_{i=1}^{n} x_i - \left( \sum_{i=1}^{n} x_i \right)^2 \sum_{i=1}^{n} y_i}{n \sum_{i=1}^{n} x_i^2 - \left( \sum_{i=1}^{n} x_i \right)^2}}{n}
+   $$
+<p>Semplificando, otteniamo la stessa espressione compatta:  </p>
+$$
+   b = \frac{\sum_{i=1}^n y_i - a \sum_{i=1}^n x_i}{n}
+   $$
+<h2 id="formulazione-matriciale">Formulazione Matriciale</h2>
+<p>Per generalizzare il metodo OLS a modelli con più variabili indipendenti, utilizziamo una <strong>formulazione matriciale</strong>. Consideriamo il modello:</p>
+$$
+\mathbf{y} = \mathbf{X} \mathbf{w} + \boldsymbol{\epsilon}
+$$
+<p>Dove:
+- $\mathbf{y} \in \mathbb{R}^{n \times 1}$ è il vettore delle osservazioni della variabile dipendente.
+- $\mathbf{X} \in \mathbb{R}^{n \times (m+1)}$ è la matrice delle variabili indipendenti, con una colonna di 1 per l&rsquo;intercetta.
+- $\mathbf{w} \in \mathbb{R}^{(m+1) \times 1}$ è il vettore dei coefficienti del modello.
+- $\boldsymbol{\epsilon} \in \mathbb{R}^{n \times 1}$ è il vettore degli errori.</p>
+<p>La funzione di perdita (errore quadratico) è definita come:</p>
+$$
+\ell(\mathbf{w}) = \|\mathbf{y} - \mathbf{X} \mathbf{w}\|_2^2
+$$
+<p>Espandiamo la norma euclidea:</p>
+$$
+\|\mathbf{y} - \mathbf{X} \mathbf{w}\|_2^2 = (\mathbf{y} - \mathbf{X} \mathbf{w})^\top (\mathbf{y} - \mathbf{X} \mathbf{w})
+$$
+<p>Sviluppiamo il prodotto scalare:</p>
+$$
+(\mathbf{y} - \mathbf{X} \mathbf{w})^\top (\mathbf{y} - \mathbf{X} \mathbf{w}) = \mathbf{y}^\top \mathbf{y} - 2 \mathbf{y}^\top \mathbf{X} \mathbf{w} + \mathbf{w}^\top \mathbf{X}^\top \mathbf{X} \mathbf{w}
+$$
+<p>Ora troviamo il minimo derivando rispetto a $\mathbf{w}$:</p>
+$$
+\frac{\partial \ell(\mathbf{w})}{\partial \mathbf{w}} = -2 \mathbf{X}^\top \mathbf{y} + 2 \mathbf{X}^\top \mathbf{X} \mathbf{w}
+$$
+<p>Imponiamo la condizione di ottimalità:</p>
+$$
+-2 \mathbf{X}^\top \mathbf{y} + 2 \mathbf{X}^\top \mathbf{X} \mathbf{w} = 0
+$$
+<p>Semplificando:</p>
+$$
+\mathbf{X}^\top \mathbf{X} \mathbf{w} = \mathbf{X}^\top \mathbf{y}
+$$
+<p>Se $\mathbf{X}^\top \mathbf{X}$ è invertibile, otteniamo la stima dei coefficienti:</p>
+$$
+\mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}
+$$
+<p>Questa è la soluzione <strong>OLS</strong> in forma matriciale.</p>
+<h2 id="caso-multidimensionale">Caso Multidimensionale</h2>
+<p>Nel caso in cui la variabile dipendente sia multidimensionale (ad esempio, $\mathbf{y}_i \in \mathbb{R}^d$), il modello diventa:</p>
+$$
+\mathbf{y}_i = \mathbf{x}_i^\top \mathbf{W}, \quad \text{per } i = 1, \dots, n
+$$
+<p>Dove:
+- $\mathbf{W} \in \mathbb{R}^{(m+1) \times d}$ è la matrice dei coefficienti.
+- $\mathbf{x}_i \in \mathbb{R}^{(m+1) \times 1}$ è il vettore delle variabili indipendenti per l&rsquo;osservazione $i$.
+- $\mathbf{y}_i \in \mathbb{R}^d$ è il vettore delle osservazioni per l&rsquo;osservazione $i$.</p>
+<h3 id="formulazione-matriciale_1">Formulazione Matriciale</h3>
+<p>Se consideriamo tutte le osservazioni simultaneamente, possiamo scrivere:</p>
+$$
+\mathbf{Y} = \mathbf{X} \mathbf{W}
+$$
+<p>Dove:
+- $\mathbf{Y} \in \mathbb{R}^{n \times d}$ è la matrice delle osservazioni.
+- $\mathbf{X} \in \mathbb{R}^{n \times (m+1)}$ è la matrice delle variabili indipendenti.
+- $\mathbf{W} \in \mathbb{R}^{(m+1) \times d}$ è la matrice dei coefficienti del modello.</p>
+<h3 id="funzione-di-perdita">Funzione di Perdita</h3>
+<p>La funzione di perdita generalizzata diventa:</p>
+$$
+\ell(\mathbf{W}) = \|\mathbf{Y} - \mathbf{X} \mathbf{W}\|_2^2
+$$
+<p>Espandiamo la norma euclidea:</p>
+$$
+\ell(\mathbf{W}) = (\mathbf{Y} - \mathbf{X} \mathbf{W})^\top (\mathbf{Y} - \mathbf{X} \mathbf{W})
+$$
+<p>Sviluppiamo il prodotto:</p>
+$$
+\ell(\mathbf{W}) = \mathbf{Y}^\top \mathbf{Y} - 2 \mathbf{W}^\top \mathbf{X}^\top \mathbf{Y} + \mathbf{W}^\top \mathbf{X}^\top \mathbf{X} \mathbf{W}
+$$
+<p>Ora calcoliamo la derivata rispetto a $\mathbf{W}$:</p>
+$$
+\frac{\partial \ell(\mathbf{W})}{\partial \mathbf{W}} = -2 \mathbf{X}^\top \mathbf{Y} + 2 \mathbf{X}^\top \mathbf{X} \mathbf{W}
+$$
+<p>Imponiamo la condizione di ottimalità:</p>
+$$
+-2 \mathbf{X}^\top \mathbf{Y} + 2 \mathbf{X}^\top \mathbf{X} \mathbf{W} = 0
+$$
+<p>Semplificando:</p>
+$$
+\mathbf{X}^\top \mathbf{X} \mathbf{W} = \mathbf{X}^\top \mathbf{Y}
+$$
+<p>Se $\mathbf{X}^\top \mathbf{X}$ è invertibile, la soluzione ottimale è:</p>
+$$
+\mathbf{W} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{Y}
+$$
+<p>Questa è la soluzione <strong>OLS</strong> nel caso multidimensionale.</p>
+<h3 id="problema-di-non-invertibilita-di-math_inline_87">Problema di Non Invertibilità di $\mathbf{X}^\top \mathbf{X}$</h3>
+<p>Se $\mathbf{X}^\top \mathbf{X}$ non è invertibile (singolare o mal condizionata), la soluzione OLS non è definita. Questo accade quando:
+- Ci sono più variabili indipendenti di osservazioni ($m+1 > n$).
+- Le colonne di $\mathbf{X}$ sono altamente correlate (multicollinearità).</p>
+<p>Per risolvere il problema, possiamo applicare la <strong>regolarizzazione di Tikhonov</strong>, nota anche come <strong>Ridge Regression</strong>.</p>
+<h3 id="regolarizzazione-ridge"><a href="/theory/introduction/Regolarizzazione" class="text-blue-600 hover:underline">Regolarizzazione</a> Ridge</h3>
+<p>Introduciamo un termine di regolarizzazione $\lambda > 0$ che penalizza la grandezza dei coefficienti, modificando il problema di minimizzazione in:</p>
+$$
+\ell_{\text{ridge}}(\mathbf{W}) = \|\mathbf{Y} - \mathbf{X} \mathbf{W}\|_2^2 + \lambda \|\mathbf{W}\|_2^2
+$$
+<p>Derivando e ponendo il gradiente uguale a zero, otteniamo la soluzione regolarizzata:</p>
+$$
+\mathbf{W} = (\mathbf{X}^\top \mathbf{X} + \lambda \mathbf{I})^{-1} \mathbf{X}^\top \mathbf{Y}
+$$
+<p>Dove:
+- $\mathbf{I}$ è la matrice identità di dimensione $(m+1) \times (m+1)$.
+- $\lambda$ è un iperparametro che controlla la quantità di regolarizzazione.</p>
+<h3 id="interpretazione-della-regolarizzazione">Interpretazione della Regolarizzazione</h3>
+<ul>
+<li>Se $\lambda = 0$, recuperiamo la soluzione OLS classica.</li>
+<li>Se $\lambda > 0$, la matrice $\mathbf{X}^\top \mathbf{X} + \lambda \mathbf{I}$ diventa sempre invertibile, garantendo una soluzione ben definita.</li>
+</ul>
+<p><a href="/theory/math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge" class="text-blue-600 hover:underline">Qui</a> è disponibile una dimostrazione dettagliata sul perché la matrice $\mathbf{X}^\top \mathbf{X} + \lambda \mathbf{I}$ sia sempre invertibile.</p>
+<h2 id="conclusione">Conclusione</h2>
+<p>Il metodo OLS è uno strumento potente per stimare i parametri di un modello di regressione lineare. La sua formulazione matriciale lo rende adatto a problemi con più variabili indipendenti e dipendenti. La soluzione analitica, ottenuta risolvendo l&rsquo;equazione normale, garantisce un&rsquo;unica soluzione ottimale grazie alla convessità della funzione di perdita.</p>
+<h2 id="collegamenti-correlati">Collegamenti Correlati</h2>
+<ul>
+<li><a href="/theory/supervised-learning/Linear Models/Regressione Lineare" class="text-blue-600 hover:underline">Regressione Lineare</a></li>
+<li><a href="/theory/math-for-ml/Algebra/Metriche, Norme e Distanze" class="text-blue-600 hover:underline">Metriche, Norme e Distanze</a></li>
+<li><span class="text-gray-600">Gradiente</span></li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, model</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Metodo dei Minimi Quadrati Ordinari (OLS)',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari'
+        });
+      }
+    </script>
+</body>
+</html>

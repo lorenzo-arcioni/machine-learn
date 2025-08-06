@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoothing nei Modelli Linguistici | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data, training">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Smoothing nei Modelli Linguistici">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Smoothing nei Modelli Linguistici">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Smoothing nei Modelli Linguistici",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici",
+      "datePublished": "2025-08-06T20:12:10.821Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Smoothing nei Modelli Linguistici</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione">Introduzione</h2>
+<p>Lo <strong>smoothing</strong> è una tecnica fondamentale per gestire il problema dei <strong>dati sparsi</strong> nei modelli di linguaggio. Senza smoothing:<br />
+- Gli <strong>n-grammi non osservati</strong> nel training ricevono probabilità zero, portando a <strong>perplessità infinita</strong> durante il test.<br />
+- Il modello non può generalizzare a sequenze plausibili ma mai viste.  </p>
+<p>L&rsquo;idea è <strong>ridistribuire la massa di probabilità</strong> dagli n-grammi frequenti a quelli rari o assenti (&ldquo;Rubare ai ricchi per dare ai poveri&rdquo;).  </p>
+<p>In alcune tecniche, viene utilizzato il concetto di sconto (discounting), che ora illustreremo.</p>
+<h3 id="discounting">Discounting</h3>
+<p>Uno <strong>sconto</strong> (discount) è una tecnica usata per ridurre la massa di probabilità di un evento, riconoscendo che il conteggio osservato in un corpus limitato potrebbe essere sottostimato rispetto alla reale probabilità che quell&rsquo;evento si verifichi in un corpus più grande. Formalmente, per un n-gramma con conteggio $c$ si definisce il conteggio ridistribuito $c^*$ come:</p>
+$$
+c^* = c - d \quad \text{con } d \in [0, c],
+$$
+<p>dove $d$ è il valore dello sconto. Il fattore di sconto relativo è quindi:</p>
+$$
+d_c = \frac{c^*}{c}.
+$$
+<p>Quando calcoliamo la probabilità di un n-gramma (dato un contesto $h$), usiamo il conteggio ridistribuito al posto del conteggio grezzo:</p>
+$$
+P(w|h) = \frac{c^*}{N(h)},
+$$
+<p>dove $N(h)$ è la somma totale dei conteggi degli n-grammi osservati per quel contesto.  </p>
+<p>Questo approccio ha due scopi fondamentali:<br />
+1. <strong>Ridurre la sovrastima</strong> degli n-grammi osservati frequentemente.<br />
+2. <strong>Riservare parte della massa probabilistica</strong> per quegli n-grammi non osservati, i quali potranno essere poi distribuiti uniformemente (o secondo qualche altra strategia) tra tutti gli eventi &ldquo;mai visti&rdquo; per garantire che ricevano probabilità non nulle.</p>
+<h3 id="un-esempio-pratico">Un Esempio Pratico</h3>
+<p>Immaginiamo un contesto $h$ in cui abbiamo i seguenti n-grammi con i relativi conteggi:</p>
+<table>
+<thead>
+<tr>
+<th>n-gramma</th>
+<th>Conteggio $c$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$w_1$</td>
+<td>10</td>
+</tr>
+<tr>
+<td>$w_2$</td>
+<td>5</td>
+</tr>
+<tr>
+<td>$w_3$</td>
+<td>2</td>
+</tr>
+<tr>
+<td>$w_4$</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Supponiamo di impostare uno sconto $d = 0.5$ per ciascun n-gramma osservato.<br />
+I conteggi ridistribuiti $c^*$ diventeranno:  </p>
+<ul>
+<li>Per $w_1$: $c^* = 10 - 0.5 = 9.5$  </li>
+<li>Per $w_2$: $c^* = 5 - 0.5 = 4.5$  </li>
+<li>Per $w_3$: $c^* = 2 - 0.5 = 1.5$  </li>
+<li>$w_4$, che non è mai stato osservato, non subisce discounting: la sua probabilità sarà determinata tramite la massa di probabilità riservata agli eventi non visti.</li>
+</ul>
+<p>La probabilità degli n-grammi osservati diventa quindi:</p>
+$$
+P(w|h) = \frac{c - d}{N(h)},
+$$
+<p>con $N(h) = 10 + 5 + 2 = 17$ (somma dei conteggi dei n-grammi osservati).</p>
+<p>Per gli n-grammi non osservati (ad esempio $w_4$), si calcola una probabilità separata utilizzando la massa di probabilità riservata, che è la somma degli sconti applicati:</p>
+$$
+\text{Massa riservata} = \frac{d \cdot N_{\text{unici}}(h)}{N(h)},
+$$
+<p>dove $N_{\text{unici}}(h)$ è il numero di n-grammi visti almeno una volta per quel contesto. In questo esempio $N_{\text{unici}}(h) = 3$.</p>
+<p>Quindi, la probabilità per un n-gramma non osservato potrebbe essere distribuita in base a questa massa:</p>
+$$
+P(w_{\text{non-osservato}}|h) = \frac{0.5 \times 3}{17}.
+$$
+<h3 id="conclusioni">Conclusioni</h3>
+<p>Il processo di discounting consente di:
+- <strong>Normalizzare</strong> la probabilità complessiva mantenendo la somma pari a 1.
+- Dare a quegli n-grammi che non sono mai stati osservati (ma che potrebbero verificarsi) una probabilità non nulla.
+- Affrontare il problema dei dati sparsi rendendo il modello più robusto e in grado di generalizzare a sequenze mai viste nel training.</p>
+<p>Questo approccio è essenziale per garantire che i modelli linguistici possano trattare con successo la varietà e la rarità degli eventi presenti nei dati reali.</p>
+<h2 id="tecniche-principali">Tecniche Principali</h2>
+<h3 id="1-laplace-add-one-smoothing">1. <strong>Laplace (Add-One) Smoothing</strong></h3>
+<p>Il Laplace Smoothing, noto anche come add-one smoothing, è una tecnica usata nei modelli di linguaggio probabilistici per gestire il problema degli zeri nelle stime di probabilità. Nei modelli basati su n-grammi, ad esempio, capita spesso che alcune combinazioni di parole non compaiano mai nel corpus di addestramento. Senza smoothing, queste combinazioni avrebbero probabilità pari a zero, il che può compromettere gravemente la generazione o la valutazione di frasi.</p>
+<p>Il Laplace Smoothing risolve questo problema aggiungendo 1 al conteggio di ogni possibile n-gramma. In pratica, anche gli n-grammi mai visti ottengono un conteggio minimo, evitando probabilità nulle. </p>
+<p>Sebbene semplice ed efficace per corpus piccoli, il Laplace Smoothing tende a sovrastimare la probabilità degli eventi rari, penalizzando quelli frequenti. Per questo motivo, in applicazioni avanzate si preferiscono metodi più sofisticati come Good-Turing o Kneser-Ney smoothing. Tuttavia, il Laplace rimane una base utile per comprendere il concetto di smoothing nei modelli di linguaggio.</p>
+<p><strong>Formula (Unigrammi):</strong><br />
+$$
+P_{\text{Laplace}}(w_i) = \frac{c(w_i) + 1}{N + V}
+$$<br />
+- $c(w_i)$: conteggio della parola $w_i$.<br />
+- $N$: numero totale di token nel corpus.<br />
+- $V$: dimensione del vocabolario. Questo semplicemente perché abbiamo aggiunto $+1$ per ogni parola.</p>
+<p><strong>Formula generale per n-grammi</strong>:<br />
+Per un n-gramma $w_1, w_2, \dots, w_n$:<br />
+$$
+P_{\text{Laplace}}(w_n | w_1, \dots, w_{n-1}) = \frac{c(w_1, \dots, w_n) + 1}{\sum_{w}c(w_1, \dots, w_{n-1} w)+ 1} = \frac{c(w_1, \dots, w_n) + 1}{c(w_1, \dots, w_{n-1}) + V}
+$$<br />
+dove $c(w_1, \dots, w_{n-1})$ è il conteggio del contesto $(w_1, \dots, w_{n-1})$ e $V$ la dimensione del vocabolario (sempre perché abbiamo aggiunto $+1$ per ogni n-gramma con prefix $(w_1, \dots, w_{n-1})$).</p>
+<p><strong>Ridistribuzione dei conteggi</strong>:</p>
+<p>Possiamo ottenere i conteggi risultati dall&rsquo;applicazione dello smoothing con la seguente formula:<br />
+$$
+P_{\text{Laplace}}(w_n | w_1, \dots, w_{n-1}) = \frac{c(w_1, \dots, w_n) + 1}{c(w_1, \dots, w_{n-1}) + V} = \frac{c^*(w_1, \dots, w_n)}{c(w_i, \ldots, w_{n-1})} \Rightarrow c^*(w_1, \dots, w_n) = \frac{(c(w_1, \dots, w_n) + 1) \cdot c(w_1, \dots, w_{n-1})}{c(w_1, \dots, w_{n-1}) + V}.
+$$</p>
+<p>In questo modo possiamo confrontare direttamente i conteggi ridistribuiti con quelli originali (MLE).</p>
+<p><strong>Esempio</strong>:<br />
+Se $N=1000$ e $V=500$, un bigramma &ldquo;gatto felice&rdquo; con $c=3$ (e contesto &ldquo;gatto&rdquo; che appare 10 volte):<br />
+$$
+P_{\text{Laplace}} = \frac{3 + 1}{10 + 500} = \frac{4}{510} \approx 0.0078
+$$<br />
+Conteggio ridistribuito:<br />
+$$
+c^* = \frac{(3 + 1) \cdot 10}{10 + 500} = \frac{40}{510} \approx 0.078
+$$</p>
+<p><strong>Problema</strong>:<br />
+- Sovrastima degli eventi rari per $V$ grandi (es. $V=10^5$). Per un bigramma mai visto &ldquo;gatto volante&rdquo;, con contesto &ldquo;gatto&rdquo; ($c=10$):<br />
+$$
+P_{\text{Laplace}} = \frac{0 + 1}{10 + 500} = \frac{1}{510} \approx 0.00196.
+$$</p>
+<hr />
+<h3 id="2-add-math_inline_94-smoothing">2. Add-$k$ Smoothing</h3>
+<p>Un&rsquo;alternativa all&rsquo;add-one smoothing è spostare una quantità minore di massa probabilistica dagli eventi osservati a quelli non osservati. Invece di aggiungere 1 a ogni conteggio, aggiungiamo un conteggio frazionario $0 \leq k \leq 1$. Questo algoritmo è quindi chiamato add-$k$ smoothing.</p>
+$$
+P_{Add-k}(w_n |w_1, \ldots, w_{n−1}) = \frac{c(w_1, \ldots, w_n) + k}{c(w_1, \ldots, w_{n-1}) + kV} = \frac{c^*(w_1, \dots, w_n)}{c(w_i, \ldots, w_{n-1})} \Rightarrow c^*(w_1, \dots, w_n) = \frac{(c(w_1, \dots, w_n) + k) \cdot c(w_1, \dots, w_{n-1})}{c(w_1, \dots, w_{n-1}) + kV}.
+$$
+<p>L&rsquo;add-$k$ smoothing richiede che si abbia un metodo per scegliere $k$; questo può essere fatto, ad esempio, ottimizzando su un devset. Sebbene l&rsquo;add-$k$ sia utile per alcune attività (inclusa la classificazione di testi), risulta comunque non funzionare bene per la modellazione linguistica, generando conteggi con varianze scarse e spesso sconti inappropriati.</p>
+<hr />
+<h3 id="3-good-turing-smoothing">3. <strong>Good-Turing Smoothing</strong></h3>
+<h4 id="definizione"><strong>Definizione</strong></h4>
+<p>Il <strong>Good-Turing smoothing</strong> è una tecnica statistica fondamentale per stimare la probabilità di token rari o non osservati in un dataset. È particolarmente utile nei modelli linguistici (ad esempio, per $n$-gram) perché permette di ridistribuire la massa probabilistica dagli token frequenti a quelli che non sono stati mai osservati, migliorando così la robustezza del modello anche in presenza di dati scarsi.</p>
+<h4 id="formula-principale"><strong>Formula Principale</strong></h4>
+<p>Per un token osservato $k$ volte, la probabilità scontata è:<br />
+$$
+P_{\text{GT}}(w) = \frac{k^*}{N}, \quad \text{dove } k^* = \frac{(k+1) \cdot N_{k+1}}{N_k},  
+$$<br />
+- $N_k$ = numero di token osservati <strong>esattamente</strong> $k$ volte nel corpus,<br />
+- $N$ = numero totale di token osservati ($N = \sum_{k=1}^\infty k \cdot N_k$).  </p>
+<p><strong>Probabilità per Token non osservati</strong> ($k=0$):<br />
+$$
+P_{\text{GT}}(w_{\text{new}}) = \frac{N_1}{N}.  
+$$</p>
+<p>Ovviamente i token non osservati sono quelli che non sono stati mai osservati nel corpus (training set), ma che sono presenti nel vocabolario $V$.</p>
+<h4 id="intuizione">Intuizione</h4>
+<p>L&rsquo;idea fondamentale del Good-Turing smoothing è quella di “riutilizzare” il corpus come un set di validazione per stimare la probabilità sia dei token già osservati sia di quelli che non abbiamo mai visto. La chiave del seguente ragionamento non è più la probabilità di un token di apparire in un testo, ma la probabilità che un certo token appaia con una certa frequenza. Quello che ci chiediamo è: quale frequenza mi aspetto per il prossimo token? e non più: quale probabilità mi aspetto per il prossimo token?</p>
+<p>Immagina di avere un cesto di frutta e di voler prevedere quale frutto potresti trovare in più, anche se non lo hai mai visto o l&rsquo;hai visto pochissimo. Il Good-Turing smoothing è una tecnica che ci aiuta proprio a fare questo: usa le informazioni sulle frequenze dei frutti per stimare la loro probabilità.</p>
+<p>Assumiamo quindi di avere il seguente corpus $C$:</p>
+<table>
+<thead>
+<tr>
+<th>Frutto</th>
+<th>Frequenza</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🍌</td>
+<td>5</td>
+</tr>
+<tr>
+<td>🍎</td>
+<td>3</td>
+</tr>
+<tr>
+<td>🍊</td>
+<td>2</td>
+</tr>
+<tr>
+<td>🍒</td>
+<td>2</td>
+</tr>
+<tr>
+<td>🍉</td>
+<td>1</td>
+</tr>
+<tr>
+<td>🍇</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>e il seguente vocabolario: </p>
+$$
+V = \{ \text{🍌}, \text{🍎}, \text{🍊}, \text{🍒}, \text{🍉}, \text{🍇} \}
+$$
+<p>In questo contesto, $N_0$ è il numero di token osservati 0 volte ($N_0 = 1$ in questo caso), $N_1$ il numero di token osservati 1 volta, e cosi via.</p>
+<p>Per stimare la probabilità di trovare un 🍇 nel mondo reale, il Good-Turing smoothing utilizza il seguente ragionamento: se il prossimo token fosse 🍇, avrebbe molteplicità 1 nel corpus (perché avrei visto 🍇 per la prima volta). Quindi, se così fosse, avrei che questa situazione ha probabilità $\frac{1}{13}$, perché nel corpus per ora ho solo un elemento con molteplicità $1$ (🍉). E quindi un altro elemento di molteplicità $1$ ha probabilità $\frac{1}{13}$.</p>
+<p>Questo ragionamento può estendersi tranquillamente per i token che già appaiono nel corpus. Considerando ad esempio il token 🍒, e chiediamoci qual è la probabilità che appaia di nuovo. Dato che 🍒 appare già 2 volte ($k=2$), se incontrassimo un altro 🍒, ne avremmo 3. Ora, la probabilità di apparire di nuovo di un token di frequenza 2 è la stessa che ha un token di frequenza 3 di apparire nel corpus, che è:
+$$
+\frac{(k+1) \cdot N_{k+1}}{N} = \frac{3 \cdot 1}{13} = \frac{3}{13}.
+$$</p>
+<p>Questo però non basta, perché questa è la probabilità che un <strong>generico</strong> frutto con molteplicità 2 diventi di molteplicità 3, quindi (dato che noi vogliamo la probabilità di un unico token) dobbiamo dividere questa probabilità per il numero di frutti con molteplicità 2 nel corpus ($N_2 = 2$). Quindi, la probabilità per il token 🍒 diventa:</p>
+$$
+\frac{(k+1) \cdot N_{k+1}}{N \cdot N_2} = \frac{3 \cdot 1}{13 \cdot 2} = \frac{3}{26}.
+$$
+<p>In questo contesto, possiamo definire anche $k^*$ come il conteggio atteso di un token con molteplicità $k$ nel corpus $C$ come segue:</p>
+<p>(Numero di volte che un token con molteplicità $k$ apparirebbe nel corpus se venisse osservato un&rsquo;ulteriore volta) x (Numero di classi con la stessa (nuova) molteplicità nel corpus) / (Numero di classi che potenzialmente possono essere &ldquo;promosse&rdquo; a molteplicità $k+1$ nel corpus).</p>
+<p>In formule, </p>
+$$
+k^* = (k+1) \cdot \frac{N_{k+1}}{N_k}.
+$$
+<p>Intuitivamente, se:</p>
+<ul>
+<li>$N_{k+1} > N_k$, allora significa che la porzione delle frequenze che hanno molteplicità $k+1$ nel corpus, sono maggiori di quelle che hanno molteplicità $k$ nel corpus. E quindi un token con molteplicità $k$ più probabilmente deve essere promosso a molteplicità $k+1$.</li>
+<li>$N_{k+1} = N_k$, allora significa che se osserviamo un nuovo token con molteplicità $k$, esso arriverà a molteplicità $k+1$. Quindi è come se il modello dicesse: &ldquo;non ho evidenze per correggere il conteggio che ho ora, quindi mi limito ad aumentarlo di 1 in via cautelativa&rdquo;.</li>
+<li>$N_{k+1} < N_k$, allora significa che la porzione delle frequenze che hanno molteplicità $k$ nel corpus, sono maggiori di quelle che hanno molteplicità $k+1$ nel corpus. E quindi un token con molteplicità $k$ più probabilmente rimarrà con molteplicità $k$ invece di essere promosso a molteplicità $k+1$. </li>
+</ul>
+<p>Questo era un esempio di utilizzo in un unigramma, ma questo discorso vale per $N$-grammi in generale.</p>
+<h4 id="limiti-e-considerazioni">Limiti e Considerazioni</h4>
+<p>Il Good-Turing smoothing, pur essendo estremamente utile, presenta alcune limitazioni e aspetti da considerare:</p>
+<ol>
+<li>
+<p><strong>Instabilità quando $N_{k+1} = 0$</strong>:<br />
+   Se per un determinato $k$ non esistono Token osservati $k+1$ volte, la formula per $k^*$ non può essere calcolata, rendendo il metodo inapplicabile in quei casi. In questo caso, si utilizzano metodi per stimare anche il valore di $N_{k+1}$ (e.g. <a href="/theory/supervised-learning/Linear Models/Regressione Lineare" class="text-blue-600 hover:underline">Regressione Lineare</a>).</p>
+</li>
+<li>
+<p><strong>Ridotta Efficacia per Token ad Alta Frequenza</strong>:<br />
+   Per Token molto frequenti (tipicamente per $k \geq 5$), il metodo può risultare meno efficace, poiché la stima diventa meno significativa.</p>
+</li>
+<li>
+<p><strong>Complessità Computazionale</strong>:<br />
+   Calcolare $N_k$ per ogni valore di $k$ può essere oneroso, soprattutto in corpus di grandi dimensioni. In tali contesti, possono essere necessarie semplificazioni o tecniche approssimative per rendere il calcolo computazionalmente gestibile.</p>
+</li>
+</ol>
+<hr />
+<h3 id="4-absolute-discounting">4. <strong>Absolute Discounting</strong></h3>
+<p>L&rsquo;<strong>Absolute Discounting</strong> è una tecnica di smoothing che applica uno <strong>sconto fisso</strong> $d$ a tutti gli n-grammi con conteggio positivo. L’idea di base è simile al concetto generale di discounting: si sottrae una quantità fissa dal conteggio di ogni n-gramma osservato e si <strong>ridistribuisce la massa probabilistica risparmiata</strong> agli eventi non osservati.</p>
+<h4 id="formula"><strong>Formula</strong></h4>
+<p>Per un bigramma $w_{n-1}, w_n$ con conteggio $c(w_{n-1}, w_n)$, la probabilità scontata viene calcolata come:</p>
+$$
+P_{\text{Abs}}(w_n | w_{n-1}) =
+\frac{\max(c(w_{n-1}, w_n) - d, 0)}{c(w_{n-1})} + \lambda(w_{n-1}) \cdot P_{\text{backoff}}(w_n)
+$$
+<ul>
+<li>$d$: valore dello sconto (tipicamente tra 0.5 e 1.0, scelto empiricamente o stimato).</li>
+<li>$\lambda(w_{n-1})$: fattore di normalizzazione per il contesto $w_{n-1}$.</li>
+<li>$P_{\text{backoff}}(w_n)$: probabilità stimata da un modello di ordine inferiore (es. unigramma).</li>
+</ul>
+<h4 id="calcolo-di-math_inline_153"><strong>Calcolo di $\lambda(w_{n-1})$</strong></h4>
+<p>Il termine $\lambda(w_{n-1})$ rappresenta <strong>la massa di probabilità riassegnata</strong> ai bigrammi non osservati. Si calcola come:</p>
+$$
+\lambda(w_{n-1}) = \frac{d \cdot N_{+}(w_{n-1})}{c(w_{n-1})}
+$$
+<p>dove:
+- $N_{+}(w_{n-1})$ è il numero di bigrammi diversi che iniziano con $w_{n-1}$ e hanno conteggio positivo.</p>
+<h4 id="esempio-pratico"><strong>Esempio Pratico</strong></h4>
+<p>Supponiamo di avere il seguente contesto $w_{n-1} = \text{"gatto"}$ con questi bigrammi:</p>
+<table>
+<thead>
+<tr>
+<th>Bigramma</th>
+<th>Conteggio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(&ldquo;gatto&rdquo;, &ldquo;mangia&rdquo;)</td>
+<td>5</td>
+</tr>
+<tr>
+<td>(&ldquo;gatto&rdquo;, &ldquo;corre&rdquo;)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>(&ldquo;gatto&rdquo;, &ldquo;salta&rdquo;)</td>
+<td>2</td>
+</tr>
+<tr>
+<td>(&ldquo;gatto&rdquo;, &ldquo;parla&rdquo;)</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Totale conteggi per &ldquo;gatto&rdquo;:<br />
+$$
+c(\text{"gatto"}) = 5 + 3 + 2 = 10
+$$</p>
+<p>Applichiamo uno sconto $d = 0.75$. I conteggi scontati diventano:</p>
+<ul>
+<li>(&ldquo;gatto&rdquo;, &ldquo;mangia&rdquo;): $5 - 0.75 = 4.25$  </li>
+<li>(&ldquo;gatto&rdquo;, &ldquo;corre&rdquo;): $3 - 0.75 = 2.25$  </li>
+<li>(&ldquo;gatto&rdquo;, &ldquo;salta&rdquo;): $2 - 0.75 = 1.25$</li>
+</ul>
+<p>Numero di bigrammi osservati: $N_{+}(\text{"gatto"}) = 3$</p>
+<p>Calcoliamo $\lambda(\text{"gatto"})$:</p>
+$$
+\lambda(\text{"gatto"}) = \frac{0.75 \cdot 3}{10} = 0.225
+$$
+<p>La probabilità per i bigrammi osservati diventa:</p>
+$$
+P(\text{"mangia"}|\text{"gatto"}) = \frac{4.25}{10} = 0.425  
+$$
+<p>La probabilità per un bigramma non osservato come (&ldquo;gatto&rdquo;, &ldquo;parla&rdquo;) sarà determinata tramite backoff:</p>
+$$
+P(\text{"parla"}|\text{"gatto"}) = 0.225 \cdot P_{\text{unigram}}(\text{"parla"})
+$$
+<h4 id="vantaggi"><strong>Vantaggi</strong></h4>
+<ul>
+<li>Più accurato del Laplace/Add-$k$, in quanto riduce i conteggi solo per n-grammi <strong>osservati</strong>.</li>
+<li>È una base del più sofisticato <strong>Kneser-Ney smoothing</strong>.</li>
+</ul>
+<h4 id="limiti"><strong>Limiti</strong></h4>
+<ul>
+<li>Richiede un buon stimatore per $d$ (può essere stimato da un dev set o con metodi come Good-Turing).</li>
+<li>Può sottostimare gli n-grammi frequenti se $d$ è scelto male.</li>
+<li>Viene utilizzato un modello di ordine inferiore per il backoff, e questo può portare a problemi di generalizzazione.</li>
+</ul>
+<h3 id="5-kneser-ney-smoothing-stato-dellarte">5. <strong>Kneser-Ney Smoothing (Stato dell&rsquo;Arte)</strong></h3>
+<p>Il Kneser-Ney smoothing è considerato il metodo più efficace per la modellazione linguistica con $n$-grammi, combinando <strong>sconti dinamici</strong> e una <strong>probabilità di continuazione</strong> per gestire contesti non osservati e ridurre il bias verso parole frequenti in contesti specifici.</p>
+<h4 id="formula-base"><strong>Formula Base</strong></h4>
+<p>Usando l&rsquo;intuizione che deriva dall&rsquo;Absolute Discounting e sostituendo la probabilità di un modello di ordine inferiore con una <strong>probabilità di continuazione</strong>, otteniamo (nel caso di un bigramma) la seguente formula:</p>
+$$
+P_{\text{KN}}(w_i | w_{i-1}) = \underbrace{\frac{\max(c(w_{i-1}, w_i) - d, 0)}{c(w_{i-1})}}_{\text{Probabilità del bigramma scontato}} + \underbrace{\lambda(w_{i-1})}_\text{Fattore di interpolazione} \cdot \underbrace{P_{\text{cont}}(w_i)}_\text{Probabilità di continuazione}
+$$<br />
+- <strong>$d$</strong>: Fattore di sconto (tipicamente $d = 0.75$).<br />
+- <strong>$P_{\text{cont}}(w_i)$</strong>: Probabilità di continuazione (quanti bigrammi completa $w_i$), definita come:<br />
+  $$
+  P_{\text{cont}}(w_i) = \frac{|\{w_{i-1} : c(w_{i-1}, w_i) > 0\}|}{|\{(w_{j-1}, w_j) : c(w_{j-1}, w_j) > 0\}|}
+  $$<br />
+  - Numeratore: Numero di contesti <strong>diversi</strong> in cui $w_i$ appare.<br />
+  - Denominatore: Numero totale di bigrammi <strong>diversi</strong> osservati nel corpus.</p>
+<ul>
+<li><strong>$\lambda(w_{i-1})$</strong>: Fattore di interpolazione per garantire che la somma delle probabilità sia 1:<br />
+  $$
+  \lambda(w_{i-1}) = \underbrace{\frac{d}{c(w_{i-1})}}_{\text{sconto normalizzato}} \cdot \overbrace{\underbrace{\underbrace{|\{w_i : c(w_{i-1}, w_i) > 0\}|}_{\text{Numero di bigrammi diversi in cui $w_i$ appare}}}_\text{Numero di volte che abbiamo applicato lo sconto}}^{\text{Numero di bigrammi scontati}}
+  $$</li>
+</ul>
+<p>In generale:</p>
+<p>Per un generico n-gramma $w_{i-n+1}, \dots, w_{i-1}, w_i$:  </p>
+<p>$$
+P_{\text{KN}}(w_i | w_{i-n+1}^{i-1}) = \frac{\max\left(c(w_{i-n+1}^{i}) - d,\, 0\right)}{c(w_{i-n+1}^{i-1})} + \lambda(w_{i-n+1}^{i-1}) \cdot P_{\text{KN}}(w_i | w_{i-n+2}^{i-1})
+$$
+<p>Dove:
+- <strong>Sconto</strong> ($d$):<br />
+  Valore fisso (es. $d = 0.75$).<br />
+- <strong>Fattore di interpolazione</strong> ($\lambda$):<br />
+  $$
+  \lambda(w_{i-n+1}^{i-1}) = \frac{d \cdot |\{w_i : c(w_{i-n+1}^{i}) > 0\}|}{c(w_{i-n+1}^{i-1})}
+  $$<br />
+  dove $|\{w_i : c(w_{i-n+1}^{i}) > 0\}|$ è il numero di <strong>parole distinte</strong> che seguono il contesto $w_{i-n+1}^{i-1}$.  </p>
+<ul>
+<li><strong>Probabilità di continuazione</strong> (ricorsiva):  </li>
+<li><strong>Numeratore</strong>: Contesti distinti $w_{i-n+1}$ per $w_{i-n+2}^{i}$.  </li>
+<li><strong>Denominatore</strong>: Totale n-grammi unici nel corpus. 
+$$
+P_{\text{KN}}(w_i | w_{i-n+2}^{i-1}) = \frac{\max\left(c(w_{i-n+2}^{i}) - d,\, 0\right)}{c(w_{i-n+2}^{i-1})} + \lambda(w_{i-n+2}^{i-1}) \cdot P_{\text{KN}}(w_i | w_{i-n+3}^{i-1}).
+$$</li>
+</ul>
+<p>Alla fine della ricorsione otteniamo la formula per gli unigrammi:</p>
+$$
+P_{KN}(w) = \frac{\max(c(w) - d, 0)}{\underbrace{\sum_{w_i} c(w_i)}_\text{Somma totale dei conteggi di tutte le parole}} + \lambda(\epsilon) \frac{1}{V}
+$$
+<p>Se vogliamo includere una parola sconosciuta <code>&lt;UNK&gt;</code>, la trattiamo semplicemente come una normale voce del vocabolario con conteggio pari a zero.<br />
+Di conseguenza, la sua probabilità sarà una distribuzione uniforme pesata dal fattore $\lambda$:</p>
+$$
+P(<\!UNK\!>) = \lambda(\varepsilon) \cdot \frac{1}{V}
+$$
+<p>dove:
+- $\varepsilon$ è la stringa vuota,
+- $V$ è la dimensione del vocabolario.</p>
+<h4 id="intuizione-per-sconto-e-probabilita-di-continuazione">Intuizione per Sconto e Probabilità di Continuazione</h4>
+<ol>
+<li>
+<p><strong>Sconto (Discounting)</strong>:<br />
+   Riduce i conteggi degli $n$-grammi osservati per &ldquo;riservare&rdquo; massa probabilistica agli eventi non osservati.<br />
+   Questo sconto penalizzerà di meno il conteggio di parole molto frequenti (quelle di cui ci fidiamo di più) e di più il conteggio di parole poco frequenti (quelle di cui ci fidiamo di meno). </p>
+</li>
+<li>
+<p><strong>Probabilità di Continuazione</strong>:<br />
+   Misura quanto una parola $w_i$ è <strong>versatile</strong> nell&rsquo;apparire in contesti diversi.  </p>
+</li>
+<li>Penalizza parole come &ldquo;Francisco&rdquo; che appaiono spesso solo in contesti specifici (es. dopo &ldquo;San&rdquo;).  </li>
+<li>Premia parole come &ldquo;the&rdquo; o &ldquo;di&rdquo; che appaiono in molti contesti.  </li>
+</ol>
+<h4 id="intuizione-per-math_inline_187">Intuizione per $\lambda(w_{i-n+1}^{i-1})$</h4>
+<p>L&rsquo;interpretazione intuitiva di $\lambda(w_{i-n+1}^{i-1})$ si articola in tre componenti principali:</p>
+<ol>
+<li>
+<p><strong>Sconto Normalizzato $\frac{d}{c(w_{i-n+1}^{i-1})}$:</strong><br />
+   Questo termine rappresenta la frazione della probabilità totale associata al contesto $w_{i-n+1}^{i-1}$ che viene &ldquo;tolta&rdquo; per ciascun n-gramma osservato in quel contesto. Il parametro $d$ è lo sconto fisso applicato, e dividendolo per $c(w_{i-n+1}^{i-1})$ (ovvero il numero totale di occorrenze del contesto $w_{i-n+1}^{i-1}$) si ottiene il <strong>peso</strong> o <strong>quota</strong> di probabilità ridotta per ogni occorrenza.</p>
+</li>
+<li>
+<p><strong>Numero di n-grammi Scontati $|\{w_i : c(w_{i-n+1}^{i}) > 0\}|$:</strong><br />
+   Questo termine conta il numero di n-grammi distinti che completano il contesto $w_{i-n+1}^{i-1}$ e che sono stati osservati almeno una volta. In altre parole, esso indica <strong>quante volte lo sconto $d$ viene applicato</strong> all&rsquo;interno del contesto specificato, ovvero quante volte abbiamo &ldquo;rimosso&rdquo; una parte della probabilità dagli n-grammi osservati.</p>
+</li>
+<li>
+<p><strong>Prodotto delle Due Componenti:</strong><br />
+   Moltiplicando il <strong>sconto normalizzato</strong> per il <strong>numero di n-grammi scontati</strong>, si ottiene la <strong>massa totale di probabilità</strong> che è stata sottratta dagli eventi osservati nel contesto $w_{i-n+1}^{i-1}$. Questa massa di probabilità viene poi utilizzata nel meccanismo di backoff (o interpolazione) per garantire che la somma complessiva delle probabilità, comprese quelle dei n-grammi non osservati, risulti pari a 1.</p>
+</li>
+</ol>
+<p>In sintesi, <strong>$\lambda(w_{i-n+1}^{i-1})$</strong> raccoglie il &ldquo;peso&rdquo; persa a causa dello sconto applicato a tutti gli n-grammi che seguono il contesto $w_{i-n+1}^{i-1}$, e tale massa viene poi ridistribuita al modello inferiore. Questo meccanismo assicura una distribuzione di probabilità completa e normalizzata anche quando alcuni n-grammi non sono stati osservati durante il training.</p>
+<h4 id="dimostrazione-che-math_inline_200">Dimostrazione che $\sum P_{\text{KN}}(w_i | w_{i-n+1}^{i-1}) = 1$</h4>
+<p>Consideriamo la formula per un bigramma:</p>
+$$
+P_{\text{KN}}(w_i | w_{i-1}) = \frac{\max(c(w_{i-1}, w_i) - d, 0)}{c(w_{i-1})} + \lambda(w_{i-1}) \cdot P_{\text{cont}}(w_i)
+$$
+<p>dove il fattore di interpolazione è definito come</p>
+$$
+\lambda(w_{i-1}) = \frac{d}{c(w_{i-1})} \cdot |\{w_i : c(w_{i-1}, w_i) > 0\}|.
+$$
+<p><strong>Passo 1: Sommiamo $P_{\text{KN}}(w_i | w_{i-1})$ su tutti i possibili $w_i$:</strong></p>
+$$
+\sum_{w_i} P_{\text{KN}}(w_i | w_{i-1}) = \sum_{w_i} \frac{\max(c(w_{i-1}, w_i) - d, 0)}{c(w_{i-1})} + \lambda(w_{i-1}) \sum_{w_i} P_{\text{cont}}(w_i)
+$$
+<p>Sappiamo per certo che $P_{\text{cont}}(w_i)$ sia una distribuzione di probabilità valida, ovvero</p>
+$$
+\sum_{w_i} P_{\text{cont}}(w_i) = 1.
+$$
+<p><strong>Passo 2: Scomponiamo la somma per i bigrammi osservati.</strong></p>
+<p>Per ogni $w_i$ tale che $c(w_{i-1}, w_i) > 0$ abbiamo:</p>
+$$
+\max(c(w_{i-1}, w_i) - d, 0) = c(w_{i-1}, w_i) - d.
+$$
+<p>Quindi, sommando su tutti i $w_i$ osservati otteniamo:</p>
+$$
+\sum_{\{w_i: c(w_{i-1},w_i) > 0\}} \bigl[c(w_{i-1}, w_i)-d\bigr] 
+= \left(\sum_{\{w_i: c(w_{i-1},w_i) > 0\}} c(w_{i-1}, w_i)\right) - d \cdot |\{w_i : c(w_{i-1}, w_i) > 0\}|.
+$$
+<p>Notiamo che</p>
+$$
+\sum_{\{w_i: c(w_{i-1},w_i) > 0\}} c(w_{i-1}, w_i) = c(w_{i-1}),
+$$
+<p>pertanto si ha:</p>
+$$
+\sum_{\{w_i: c(w_{i-1},w_i) > 0\}} \bigl[c(w_{i-1}, w_i)-d\bigr] = c(w_{i-1}) - d \cdot |\{w_i : c(w_{i-1}, w_i) > 0\}|.
+$$
+<p><strong>Passo 3: Inseriamo il tutto nella sommatoria totale.</strong></p>
+<p>Dividendo per $c(w_{i-1})$ si ottiene:</p>
+$$
+\sum_{w_i} \frac{\max(c(w_{i-1},w_i)-d,0)}{c(w_{i-1})} 
+= \frac{c(w_{i-1}) - d \cdot |\{w_i : c(w_{i-1}, w_i) > 0\}|}{c(w_{i-1})}.
+$$
+<p>Per la parte del backoff abbiamo:</p>
+$$
+\lambda(w_{i-1}) \cdot \sum_{w_i} P_{\text{cont}}(w_i) = \lambda(w_{i-1}) \cdot 1 = \lambda(w_{i-1}).
+$$
+<p>Quindi, la somma totale diventa:</p>
+$$
+\sum_{w_i} P_{\text{KN}}(w_i | w_{i-1}) 
+= \frac{c(w_{i-1}) - d \cdot |\{w_i : c(w_{i-1}, w_i) > 0\}|}{c(w_{i-1})} + \lambda(w_{i-1}).
+$$
+<p><strong>Passo 4: Verifica del vincolo di normalizzazione.</strong></p>
+<p>Sostituendo la definizione di $\lambda(w_{i-1})$:</p>
+$$
+\lambda(w_{i-1}) = \frac{d \cdot |\{w_i : c(w_{i-1}, w_i) > 0\}|}{c(w_{i-1})},
+$$
+<p>si ottiene:</p>
+$$
+\sum_{w_i} P_{\text{KN}}(w_i | w_{i-1}) = \frac{c(w_{i-1}) - d \cdot |\{w_i : c(w_{i-1}, w_i) > 0\}|}{c(w_{i-1})} + \frac{d \cdot |\{w_i : c(w_{i-1}, w_i) > 0\}|}{c(w_{i-1})} = \frac{c(w_{i-1})}{c(w_{i-1})} = 1.
+$$
+<p>$\square$</p>
+<p><strong>Conclusione per il Caso Generale (n-grammi):</strong></p>
+<p>La stessa logica si estende al caso degli n-grammi tramite la formulazione ricorsiva:</p>
+$$
+P_{\text{KN}}(w_i | w_{i-n+1}^{i-1}) = \frac{\max(c(w_{i-n+1}^{i}) - d,\,0)}{c(w_{i-n+1}^{i-1})} + \lambda(w_{i-n+1}^{i-1}) \cdot P_{\text{KN}}(w_i | w_{i-n+2}^{i-1}),
+$$
+<p>con</p>
+$$
+\lambda(w_{i-n+1}^{i-1}) = \frac{d \cdot |\{w_i : c(w_{i-n+1}^{i}) > 0\}|}{c(w_{i-n+1}^{i-1})}.
+$$
+<p><strong>Argomentazione per Induzione:</strong></p>
+<ol>
+<li><strong>Base dell&rsquo;induzione (n = 2 – bigrammi):</strong><br />
+   Abbiamo dimostrato che</li>
+</ol>
+$$
+   \sum_{w_i} P_{\text{KN}}(w_i | w_{i-1}) = 1.
+   $$
+<ol>
+<li><strong>Passo induttivo:</strong><br />
+   Supponiamo che per un modello di ordine $n-1$ (cioè con condizione $w_{i-n+2}^{i-1}$) la proprietà di normalizzazione sia soddisfatta:</li>
+</ol>
+$$
+   \sum_{w_i} P_{\text{KN}}(w_i | w_{i-n+2}^{i-1}) = 1.
+   $$
+<p>Allora, considerando la formula ricorsiva per il modello di ordine $n$:</p>
+$$
+   \sum_{w_i} P_{\text{KN}}(w_i | w_{i-n+1}^{i-1}) = \sum_{w_i} \left[ \frac{\max(c(w_{i-n+1}^{i}) - d,\,0)}{c(w_{i-n+1}^{i-1})} \right] + \lambda(w_{i-n+1}^{i-1}) \sum_{w_i} P_{\text{KN}}(w_i | w_{i-n+2}^{i-1}).
+   $$
+<p>Utilizzando l&rsquo;ipotesi induttiva $\sum_{w_i} P_{\text{KN}}(w_i | w_{i-n+2}^{i-1}) = 1$ e seguendo i medesimi passaggi del caso bigramma, si ottiene:</p>
+$$
+   \sum_{w_i} P_{\text{KN}}(w_i | w_{i-n+1}^{i-1}) = \frac{c(w_{i-n+1}^{i-1}) - d \cdot |\{w_i : c(w_{i-n+1}^{i}) > 0\}|}{c(w_{i-n+1}^{i-1})} + \lambda(w_{i-n+1}^{i-1}) = 1.
+   $$
+<p>Pertanto, per induzione, la proprietà di normalizzazione vale per qualsiasi ordine $n$:</p>
+$$
+\sum_{w_i} P_{\text{KN}}(w_i | w_{i-n+1}^{i-1}) = 1.
+$$
+<p>$\square$</p>
+<h4 id="variante-del-kneser-ney"><strong>Variante del Kneser-Ney</strong></h4>
+<ol>
+<li><strong>Modified Kneser-Ney</strong>:<br />
+   Usa <strong>sconti differenziati</strong> per conteggi $c = 1$, $c = 2$, e $c \geq 3$:  </li>
+<li>$d_1 = 0.75$ (per $c=1$),  </li>
+<li>$d_2 = 0.5$ (per $c=2$),  </li>
+<li>$d_3 = 0.25$ (per $c \geq 3$).</li>
+</ol>
+<h4 id="vantaggi_1"><strong>Vantaggi</strong></h4>
+<ol>
+<li><strong>Gestione ottimale delle parole comuni</strong>:  </li>
+<li>&ldquo;Francisco&rdquo; avrà bassa $P_{\text{cont}}$ perché appare solo dopo &ldquo;San&rdquo;.  </li>
+<li>
+<p>&ldquo;the&rdquo; avrà alta $P_{\text{cont}}$ perché appare in molti contesti.  </p>
+</li>
+<li>
+<p><strong>Adattabilità a contesti sparsi</strong>:<br />
+   Usa informazioni degli $n$-grammi di ordine inferiore in modo più efficace rispetto a Good-Turing.  </p>
+</li>
+<li>
+<p><strong>Performance superiori</strong>:<br />
+   È lo standard per modelli linguistici in task come traduzione automatica e riconoscimento vocale.  </p>
+</li>
+</ol>
+<h4 id="limiti_1"><strong>Limiti</strong></h4>
+<ol>
+<li>
+<p><strong>Complessità computazionale</strong>:<br />
+   Richiede il calcolo di $P_{\text{cont}}$ per tutte le parole e contesti, costoso per corpus di grandi dimensioni.  </p>
+</li>
+<li>
+<p><strong>Scelta dei parametri</strong>:<br />
+   Il valore di $d$ e la variante (interpolated vs modified) influenzano significativamente i risultati.    </p>
+</li>
+</ol>
+<h2 id="tabella-di-confronto">Tabella di Confronto</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Metodo</strong></th>
+<th><strong>Idee Chiave</strong></th>
+<th><strong>Vantaggi</strong></th>
+<th><strong>Svantaggi</strong></th>
+<th><strong>Casi d&rsquo;Uso</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Laplace (Add-One)</strong></td>
+<td>Aggiunge 1 al conteggio di ogni n-gramma per evitare probabilità zero.</td>
+<td>Semplice da implementare.</td>
+<td>Sovrastima eventi rari, inefficace per vocabolari grandi ($V$ elevato).</td>
+<td>Corpus piccoli, prototipazione.</td>
+</tr>
+<tr>
+<td><strong>Add-$k$</strong></td>
+<td>Aggiunge un conteggio frazionario $k$ (es. 0.5) invece di 1.</td>
+<td>Più flessibile di Laplace.</td>
+<td>Difficoltà nella scelta di $k$, varianza elevata, sconti inappropriati.</td>
+<td>Classificazione testi, task specifici.</td>
+</tr>
+<tr>
+<td><strong>Good-Turing</strong></td>
+<td>Ridistribuisce massa dagli eventi frequenti a quelli rari usando $N_k$.</td>
+<td>Fondamento teorico solido.</td>
+<td>Instabile per $N_{k+1}=0$, complessità computazionale, inefficace per $k$ alti.</td>
+<td>Corpus medi, modelli con sparsità.</td>
+</tr>
+<tr>
+<td><strong>Kneser-Ney</strong></td>
+<td>Combina sconti e probabilità di continuazione per gestire contesti.</td>
+<td>Gestione avanzata dei contesti, stato dell&rsquo;arte.</td>
+<td>Complessità implementativa, richiede calcolo di $P_{\text{cont}}$.</td>
+<td>Modelli linguistici avanzati (es. NLP moderno).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusioni_1">Conclusioni</h2>
+<p>I metodi di smoothing risolvono il problema degli n-grammi non osservati o rari, ma con compromessi tra semplicità e accuratezza:  </p>
+<ol>
+<li><strong>Laplace e Add-$k$</strong> sono adatti per <strong>scenari semplici</strong> (corpus piccoli o prototipi), ma diventano rapidamente inefficaci con vocabolari ampi.  </li>
+<li><strong>Good-Turing</strong> offre una <strong>base teorica rigorosa</strong> per la ridistribuzione della massa probabilistica, ma la sua complessità e instabilità lo rendono poco pratico per corpus molto grandi.  </li>
+<li><strong>Kneser-Ney</strong> è lo <strong>stato dell&rsquo;arte</strong> per la modellazione linguistica, grazie alla combinazione di sconti dinamici e probabilità di continuazione, che penalizzano parole comuni in contesti specifici (es. &ldquo;Francisco&rdquo; dopo &ldquo;San&rdquo;).  </li>
+</ol>
+<p><strong>Raccomandazioni</strong>:<br />
+- Usare <strong>Kneser-Ney</strong> per task avanzati (es. riconoscimento vocale, traduzione automatica).<br />
+- Optare per <strong>Good-Turing</strong> se è necessaria una ridistribuzione teorica senza troppa complessità.<br />
+- <strong>Laplace/Add-$k$</strong> sono utili solo in fase esplorativa o con dati limitati.  </p>
+<p>In sintesi, la scelta dipende dal trade-off tra risorse computazionali, dimensione del corpus e necessità di precisione. Per applicazioni reali, Kneser-Ney rimane il gold standard nonostante la sua complessità.  </p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data, training</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Smoothing nei Modelli Linguistici',
+          page_location: 'http://localhost:3000/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici'
+        });
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+[{
+  "_id": {
+    "$oid": "680e20ce8fea73578a9aff84"
+  },
+  "course_id": {
+    "$oid": "680e20ce8fea73578a9aff84"
+  },
+  "title": "Deep Learning con TensorFlow e Keras",
+  "description": "Impara i concetti chiave del Deep Learning e crea reti neurali con TensorFlow e Keras",
+  "full_description": "Questo corso avanzato ti guiderà attraverso i fondamenti e le tecniche più moderne del Deep Learning. Dalle basi delle reti neurali artificiali fino ai modelli convoluzionali (CNN), ricorrenti (RNN), LSTM e GAN. Lavorerai su progetti reali, come il riconoscimento di immagini e l'elaborazione del linguaggio naturale, utilizzando Python, TensorFlow e Keras.\n\nAlla fine del corso sarai in grado di:\n- Comprendere l'architettura e il funzionamento delle reti neurali profonde\n- Addestrare modelli avanzati per visione artificiale e NLP\n- Utilizzare TensorFlow e Keras per costruire e testare modelli\n- Applicare tecniche di ottimizzazione e regolarizzazione\n- Utilizzare GPU per accelerare il training dei modelli",
+  "instructor": "Prof.ssa Elena Bianchi",
+  "instructor_bio": "Elena Bianchi è professoressa di Intelligenza Artificiale presso l'Università di Milano. Con oltre 15 anni di esperienza nel campo del Deep Learning, ha pubblicato numerosi articoli accademici e ha collaborato con importanti centri di ricerca internazionali.",
+  "instructor_image": "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+  "duration": "10 settimane",
+  "level": "Avanzato",
+  "category": "Deep Learning",
+  "price": "€349",
+  "image_url": "https://images.unsplash.com/photo-1503437313881-503a91226402",
+  "learning_objectives": [
+    {
+      "objective": "Comprendere l'architettura delle reti neurali",
+      "description": "Dalle perceptron semplici alle reti profonde"
+    },
+    {
+      "objective": "Costruire modelli CNN per la visione artificiale",
+      "description": "Utilizzo delle CNN per classificazione e riconoscimento immagini"
+    },
+    {
+      "objective": "Applicare RNN e LSTM al linguaggio naturale",
+      "description": "Predizione di sequenze, traduzione e sentiment analysis"
+    },
+    {
+      "objective": "Ottimizzare le reti neurali",
+      "description": "Uso di dropout, batch normalization e tecniche di regolarizzazione"
+    },
+    {
+      "objective": "Sfruttare TensorFlow e Keras",
+      "description": "Implementazione pratica dei modelli con librerie Python"
+    }
+  ],
+  "prerequisites": [
+    {
+      "title": "Conoscenza intermedia di Python",
+      "description": "Controllo di flusso, funzioni, classi e librerie come NumPy",
+      "is_required": true
+    },
+    {
+      "title": "Conoscenze base di Machine Learning",
+      "description": "Familiarità con algoritmi supervisionati e non supervisionati",
+      "is_required": true
+    },
+    {
+      "title": "Nozioni di algebra lineare e calcolo",
+      "description": "Fondamentali per comprendere il funzionamento delle reti neurali",
+      "is_required": true
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "title": "Fondamenti di Deep Learning",
+      "description": "Introduzione teorica e storica al Deep Learning e alle reti neurali artificiali",
+      "estimated_hours": "3 ore",
+      "lessons": [
+        {"title": "Cos'è il Deep Learning", "duration": "20 min"},
+        {"title": "Storia e contesto del Deep Learning", "duration": "25 min"},
+        {"title": "Differenze tra Machine Learning e Deep Learning", "duration": "25 min"},
+        {"title": "Tipologie di Reti Neurali", "duration": "30 min"}
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Reti Neurali Artificiali (ANN)",
+      "description": "Struttura, forward/backward propagation, funzione di attivazione e training",
+      "estimated_hours": "5 ore",
+      "lessons": [
+        {"title": "Struttura base di una rete neurale", "duration": "30 min"},
+        {"title": "Funzioni di attivazione: ReLU, Sigmoid, Tanh", "duration": "35 min"},
+        {"title": "Forward propagation: concetti matematici", "duration": "40 min"},
+        {"title": "Backpropagation e ottimizzazione del modello", "duration": "45 min"},
+        {"title": "Implementazione pratica di una ANN", "duration": "60 min"}
+      ]
+    },
+    {
+      "id": 3,
+      "title": "TensorFlow e Keras",
+      "description": "Setup dell'ambiente, costruzione di modelli base con TensorFlow e Keras",
+      "estimated_hours": "4 ore",
+      "lessons": [
+        {"title": "Installazione di TensorFlow e Keras", "duration": "15 min"},
+        {"title": "Panoramica di TensorFlow", "duration": "30 min"},
+        {"title": "Creare il primo modello in Keras", "duration": "40 min"},
+        {"title": "Addestrare e valutare modelli con Keras", "duration": "50 min"},
+        {"title": "Salvataggio e caricamento dei modelli", "duration": "30 min"}
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Reti Convoluzionali (CNN)",
+      "description": "Applicazioni alla visione artificiale, architetture celebri e image classification",
+      "estimated_hours": "6 ore",
+      "lessons": [
+        {"title": "Cos'è una CNN e perché funziona", "duration": "30 min"},
+        {"title": "Layer convoluzionali, pooling e padding", "duration": "40 min"},
+        {"title": "Implementare una CNN in Keras", "duration": "60 min"},
+        {"title": "Dataset: CIFAR-10 e MNIST", "duration": "50 min"},
+        {"title": "Architetture note: LeNet, AlexNet, VGG", "duration": "60 min"}
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Reti Ricorrenti (RNN) e LSTM",
+      "description": "Modelli sequenziali per dati temporali e NLP",
+      "estimated_hours": "5 ore",
+      "lessons": [
+        {"title": "Introduzione alle RNN", "duration": "30 min"},
+        {"title": "Problemi delle RNN e soluzioni LSTM", "duration": "35 min"},
+        {"title": "Costruzione di un modello LSTM in Keras", "duration": "50 min"},
+        {"title": "Applicazioni NLP: sentiment analysis e traduzione", "duration": "60 min"},
+        {"title": "Tokenizzazione e embedding di testo", "duration": "40 min"}
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Ottimizzazione dei modelli",
+      "description": "Tecniche di regolarizzazione, early stopping, learning rate schedules, optimizer avanzati",
+      "estimated_hours": "4 ore",
+      "lessons": [
+        {"title": "Overfitting e underfitting", "duration": "25 min"},
+        {"title": "Dropout e batch normalization", "duration": "35 min"},
+        {"title": "Early stopping e learning rate scheduler", "duration": "40 min"},
+        {"title": "Adam, RMSprop, e altri optimizer", "duration": "30 min"},
+        {"title": "Validazione incrociata e tuning dei parametri", "duration": "50 min"}
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Generative Adversarial Networks (GAN)",
+      "description": "Principi, architettura GAN, applicazioni creative",
+      "estimated_hours": "4 ore",
+      "lessons": [
+        {"title": "Concetti fondamentali delle GAN", "duration": "30 min"},
+        {"title": "Architettura Generator vs Discriminator", "duration": "35 min"},
+        {"title": "Implementare una GAN semplice", "duration": "60 min"},
+        {"title": "GAN per generazione immagini", "duration": "45 min"},
+        {"title": "Limiti e sfide delle GAN", "duration": "30 min"}
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Progetto Finale: Deep Learning End-to-End",
+      "description": "Sviluppo completo di un progetto di deep learning, dalla definizione alla produzione",
+      "estimated_hours": "6 ore",
+      "lessons": [
+        {"title": "Scelta del dataset e definizione problema", "duration": "40 min"},
+        {"title": "Preprocessing e data augmentation", "duration": "40 min"},
+        {"title": "Costruzione del modello completo", "duration": "60 min"},
+        {"title": "Training, valutazione e tuning", "duration": "60 min"},
+        {"title": "Deploy del modello su cloud / API", "duration": "60 min"}
+      ]
+    }
+  ],
+  "certification": true,
+  "certificate_description": "Completando il corso riceverai un certificato digitale ufficiale, utile per il CV e LinkedIn, che attesta le competenze acquisite nel Deep Learning.",
+  "target_audience": [
+    "Data Scientist e Machine Learning Engineer che vogliono approfondire il Deep Learning",
+    "Studenti universitari in AI, informatica o ingegneria",
+    "Ricercatori e sviluppatori che lavorano su progetti di visione artificiale o NLP",
+    "Professionisti del settore tech interessati alle reti neurali"
+  ],
+  "tools_required": [
+    "Computer con GPU consigliata (NVIDIA) e almeno 8GB di RAM",
+    "Python 3.9",
+    "TensorFlow e Keras",
+    "Google Colab o Jupyter Notebook"
+  ],
+  "created_at": "2025-08-06T00:00:00Z",
+  "updated_at": "2025-08-06T00:00:00Z",
+  "is_published": true
+}]
+

@@ -51,16 +51,25 @@ else
     exit 1
 fi
 
-# Step 3: Build React app
+# ✅ Step 3: Generate SEO pages (dopo gli step sopra)
+print_step "Generating SEO pages..."
+if node build-seo-pages.js; then
+    print_success "SEO pages generated successfully"
+else
+    print_error "Failed to generate SEO pages"
+    exit 1
+fi
+
+# Step 4: Build React app
 print_step "Building React application..."
-if npm run build; then
+if npx vite build; then
     print_success "React app built successfully"
 else
     print_error "Failed to build React app"
     exit 1
 fi
 
-# Step 4: Copy server file
+# Step 5: Copy server file
 print_step "Setting up development server..."
 if cp server.py ./dist/; then
     print_success "Server file copied to dist/"
@@ -69,15 +78,12 @@ else
     exit 1
 fi
 
-# Step 5: Final summary
+# Step 6: Final summary
 print_separator
 print_success "🎉 Build completed successfully!"
 print_info "📁 Files ready in: ./dist/"
 print_info "🌐 Starting development server..."
 print_separator
 
-# Step 6: Start server
-print_step "Launching server at http://localhost:8000"
-cd ./dist
-
-python server.py
+# Optional: avvio server locale
+cd ./dist && python server.py

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parole, Corpora e Normalizzazione: Concetti Base | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data, training, learning">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Parole, Corpora e Normalizzazione: Concetti Base">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Parole, Corpora, Tokenizzazione e Normalizzazione">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Parole, Corpora e Normalizzazione: Concetti Base">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Parole, Corpora, Tokenizzazione e Normalizzazione">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Parole, Corpora e Normalizzazione: Concetti Base",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Parole, Corpora, Tokenizzazione e Normalizzazione",
+      "datePublished": "2025-08-06T20:12:10.788Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Parole, Corpora, Tokenizzazione e Normalizzazione" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Parole, Corpora e Normalizzazione: Concetti Base</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>L&rsquo;elaborazione del linguaggio naturale (NLP) si basa su concetti fondamentali come <strong>corpora</strong>, <strong>parole</strong> e <strong>normalizzazione</strong>. Comprendere queste nozioni è essenziale per pre-elaborare i dati e costruire modelli linguistici efficaci. Questi concetti caratterizzano sia i <strong>rule-based systems</strong> sia i modelli che si basano sulla <strong>machine/deep learning</strong>.</p>
+<h2 id="1-corpus-pl-corpora">1. Corpus (pl. Corpora)</h2>
+<p>Un <strong>corpus</strong> è una raccolta strutturata e digitale di testi o discorsi, spesso utilizzata per analisi linguistiche o per addestrare modelli NLP.  </p>
+<h3 id="caratteristiche-principali">Caratteristiche principali</h3>
+<ul>
+<li><strong>Strutturato</strong>: Organizzato secondo criteri specifici (es. testi scritti vs. parlati).  </li>
+<li><strong>Digitale</strong>: Formato leggibile da un computer per l&rsquo;elaborazione automatica.  </li>
+<li><strong>Annotato (opzionale)</strong>: Alcuni corpora contengono metadati come parti del discorso (<em>POS tagging</em>), analisi sintattica o entità nominate (<em>NER</em>).  </li>
+</ul>
+<h3 id="esempi-di-corpora-noti">Esempi di corpora noti</h3>
+<ol>
+<li><strong>British National Corpus (BNC)</strong>  </li>
+<li>Contiene circa <strong>100 milioni di parole</strong> tratte da giornali, testi accademici e conversazioni.  </li>
+<li>
+<p>Usato per analisi lessicali, studio delle collocazioni e modellazione linguistica.  </p>
+</li>
+<li>
+<p><strong>Corpus of Contemporary American English (COCA)</strong>  </p>
+</li>
+<li>Include testi dal <strong>1990 a oggi</strong> da fonti come TV, riviste e siti web.  </li>
+<li>
+<p>Consente di analizzare come il linguaggio evolve nel tempo.  </p>
+</li>
+<li>
+<p><strong>Penn Treebank</strong>  </p>
+</li>
+<li>
+<p>Corpus annotato con strutture sintattiche usato per il training di modelli NLP avanzati.  </p>
+</li>
+<li>
+<p><strong>Google Books Ngram</strong>  </p>
+</li>
+<li>Raccolta di milioni di libri, utile per studiare trend linguistici su scala storica.  </li>
+</ol>
+<h3 id="utilizzo-dei-corpora">Utilizzo dei corpora</h3>
+<ul>
+<li><strong>Addestramento di modelli linguistici</strong> (es. Word2Vec, BERT).  </li>
+<li><strong>Studio della frequenza delle parole</strong> per identificare termini comuni e rari.  </li>
+<li><strong>Analisi del contesto d&rsquo;uso</strong> di parole e frasi in lingue diverse.  </li>
+</ul>
+<h2 id="2-utterance-enunciato">2. Utterance (Enunciato)</h2>
+<p>Un <strong>utterance</strong> è un&rsquo;unità di discorso parlato, spesso diversa dal testo scritto perché riflette le caratteristiche spontanee del linguaggio orale.  </p>
+<h3 id="caratteristiche-del-linguaggio-parlato">Caratteristiche del linguaggio parlato</h3>
+<ul>
+<li><strong>Disfluenze</strong>: Interruzioni naturali del discorso come pause e esitazioni.  </li>
+<li><em>Esempio</em>: &ldquo;I do <strong>uh</strong> mainly business data processing.&rdquo;  </li>
+<li><strong>Ripetizioni</strong>: Riformulazioni di parole per correggersi o enfatizzare un punto.  </li>
+<li><em>Esempio</em>: &ldquo;I do <strong>main- mainly</strong> business data processing.&rdquo;  </li>
+<li><strong>Elisioni</strong>: Omessa articolazione di alcune parole o sillabe.  </li>
+<li><em>Esempio</em>: &ldquo;Gonna&rdquo; invece di &ldquo;Going to&rdquo;.  </li>
+</ul>
+<h3 id="esempio-di-differenza-tra-testo-scritto-e-parlato">Esempio di differenza tra testo scritto e parlato</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo di testo</th>
+<th>Esempio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Testo scritto</strong></td>
+<td>&ldquo;I do mainly business data processing.&rdquo;</td>
+</tr>
+<tr>
+<td><strong>Discorso reale (utterance)</strong></td>
+<td>&ldquo;I do uh main- mainly business data processing.&rdquo;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="applicazioni-dellanalisi-degli-enunciati">Applicazioni dell&rsquo;analisi degli enunciati</h3>
+<ul>
+<li><strong>Riconoscimento vocale</strong>: Modelli NLP per il riconoscimento automatico del parlato devono gestire disfluenze e variazioni fonetiche.  </li>
+<li><strong>Analisi della spontaneità nel linguaggio</strong>: Utile in studi di linguistica computazionale.  </li>
+</ul>
+<h2 id="3-parola-definizione-contestuale">3. Parola: Definizione Contestuale</h2>
+<p>Il concetto di <strong>parola</strong> in NLP non è sempre univoco e dipende dal contesto di analisi.  </p>
+<h3 id="definizioni-fondamentali">Definizioni Fondamentali</h3>
+<ul>
+<li><strong>Lemma</strong>: Insieme di forme lessicali con la stessa radice, stessa categoria grammaticale principale e stesso significato.  </li>
+<li><strong>Wordform (Forma Parola)</strong>: Forma completa di una parola, inclusi flessioni e derivazioni (es. &ldquo;corre&rdquo;, &ldquo;correrà&rdquo;).  </li>
+<li><strong>Word Types (Tipi di Parola)</strong>: Insieme delle parole distinte in un corpus. La dimensione del vocabolario ( |V| ) rappresenta il numero di tipi.  </li>
+<li><strong>Word Tokens (Token di Parola)</strong>: Occorrenze effettive delle parole nel testo. ( N ) indica il numero totale di token.  </li>
+</ul>
+<h3 id="sfide-nella-definizione-di-una-parola">Sfide nella definizione di una parola</h3>
+<ol>
+<li><strong>Punteggiatura</strong>  </li>
+<li>&ldquo;gatto.&rdquo; e &ldquo;gatto&rdquo; sono lo stesso token?  </li>
+<li>Alcuni modelli considerano il punto un token separato, altri lo uniscono alla parola.  </li>
+<li><strong>Maiuscole/minuscole</strong>  </li>
+<li>&ldquo;Roma&rdquo; (nome proprio) vs. &ldquo;roma&rdquo; (nome comune per un tipo di fiore).  </li>
+<li>La distinzione può essere fondamentale nel riconoscimento delle entità nominate (NER).  </li>
+<li><strong>Contrazioni</strong>  </li>
+<li>&ldquo;can&rsquo;t&rdquo; può essere considerato:  <ul>
+<li>Un <strong>unico token</strong>.  </li>
+<li>Due <strong>token distinti</strong>: &ldquo;can&rdquo; e &ldquo;not&rdquo;.  </li>
+</ul>
+</li>
+<li>La scelta dipende dal metodo di tokenizzazione usato.  </li>
+<li><strong>Ambiguità nelle Forme</strong>  </li>
+<li><strong>Parole composte</strong>: &ldquo;Hewlett-Packard&rdquo; → due token o uno?  </li>
+<li><strong>Clitici</strong>: &ldquo;what’re&rdquo; → &ldquo;what are&rdquo;, &ldquo;L&rsquo;ensemble&rdquo; → &ldquo;Le&rdquo; + &ldquo;ensemble&rdquo;?  </li>
+<li><strong>Numeri e date</strong>: Formati multipli (es. &ldquo;01/02/2024&rdquo; vs. &ldquo;1 febbraio 2024&rdquo;).  </li>
+</ol>
+<h2 id="4-tokenizzazione-lessicale">4. Tokenizzazione lessicale</h2>
+<p>La segmentazione del testo in unità significative (token) è un passo fondamentale della pre-elaborazione NLP.  </p>
+<h3 id="metodi-comuni">Metodi Comuni</h3>
+<ul>
+<li><strong>Tokenizzazione basata su spazi</strong> → &ldquo;Il cane corre&rdquo; → <code>["Il", "cane", "corre"]</code>.  </li>
+<li><strong>Rimozione della punteggiatura</strong> → &ldquo;Ciao, come stai?&rdquo; → <code>["Ciao", "come", "stai"]</code>.  </li>
+<li><strong>Standard Penn Treebank</strong>:  </li>
+<li>Separa i clitici (&ldquo;doesn’t&rdquo; → &ldquo;does&rdquo; + &ldquo;n’t&rdquo;).  </li>
+<li>Mantiene le parole hyphenate unite (es. &ldquo;state-of-the-art&rdquo;).  </li>
+<li>Separa tutta la punteggiatura (es. &ldquo;,&rdquo; e &ldquo;?&rdquo; come token singoli).  </li>
+</ul>
+<h3 id="lingue-con-spaziatura-complessa">Lingue con Spaziatura Complessa</h3>
+<ul>
+<li><strong>Cinese e Giapponese</strong>:  </li>
+<li>Non utilizzano spazi tra le parole (es. &ldquo;莎拉波娃现在居住在美国东南部的佛罗里达。&rdquo;).  </li>
+<li>La tokenizzazione richiede modelli specifici per identificare i confini delle parole.  </li>
+</ul>
+<h3 id="tokenizzazione-avanzata">Tokenizzazione Avanzata</h3>
+<ul>
+<li><strong><a href="/theory/nlp/Byte-pair Encoding" class="text-blue-600 hover:underline">Byte-Pair Encoding</a> (BPE)</strong>:  </li>
+<li>Usato in GPT e BERT per gestire sottoparole.  </li>
+<li><strong>Fasi</strong>:  <ol>
+<li>Parte da un vocabolario di caratteri singoli.  </li>
+<li>Unisce gradualmente le coppie di simboli più frequenti (es. &ldquo;A&rdquo; + &ldquo;B&rdquo; → &ldquo;AB&rdquo;).  </li>
+<li>Ripete il processo per ( k ) volte, creando token complessi (es. &ldquo;ri-cor-da-re&rdquo;).  </li>
+</ol>
+</li>
+</ul>
+<h3 id="sfide-specifiche">Sfide Specifiche</h3>
+<ul>
+<li><strong>Espressioni multi-parola</strong>: &ldquo;San Francisco&rdquo; → uno o due token?  </li>
+<li><strong>Varianti ortografiche</strong>: &ldquo;lowercase&rdquo; vs. &ldquo;lower-case&rdquo; vs. &ldquo;lower case&rdquo;.  </li>
+<li><strong>Riconoscimento di entità nominate</strong>: Influenza la scelta di unire o separare token (es. &ldquo;New York&rdquo;).  </li>
+</ul>
+<h3 id="tokenizzazione-ulteriori-problemi">Tokenizzazione: Ulteriori Problemi</h3>
+<ul>
+<li><strong>Parole con apostrofo</strong>: &ldquo;Finland’s capital&rdquo; → &ldquo;Finland&rdquo;, &ldquo;Finlands&rdquo;, o &ldquo;Finland’s&rdquo;?  </li>
+<li><strong>Decisioni contestuali</strong>:  </li>
+<li>&ldquo;co-education&rdquo; → un singolo token.  </li>
+<li>&ldquo;State of the art&rdquo; → segmentazione in base al contesto.  </li>
+<li><strong>Clitici complessi</strong>:  </li>
+<li>Francese: &ldquo;L&rsquo;ensemble&rdquo; → &ldquo;L’&rdquo; + &ldquo;ensemble&rdquo; o token unico?  </li>
+<li>Tedesco: parole composte lunghe (es. &ldquo;Lebensversicherungsgesellschaftsangestellter&rdquo;).  </li>
+</ul>
+<h3 id="implementazione-pratica">Implementazione Pratica</h3>
+<ul>
+<li><strong>Espressioni regolari</strong>: Metodo comune per tokenizzazione deterministica.  </li>
+<li><strong>Strumenti avanzati</strong>:  </li>
+<li><strong>Token Learner</strong>: Identifica pattern ricorrenti nel testo.  </li>
+<li><strong>Token Parser</strong>: Applica regole apprese per suddividere il testo.</li>
+</ul>
+<h2 id="5-word-normalization">5. Word Normalization</h2>
+<p>La <strong>normalizzazione delle parole/token</strong> è il processo di standardizzazione di termini con forme multiple (es. &ldquo;USA&rdquo; vs &ldquo;US&rdquo; o &ldquo;uh-huh&rdquo; vs &ldquo;uhhuh&rdquo;) in un formato coerente.  </p>
+<h3 id="tipi-di-normalizzazione">Tipi di Normalizzazione</h3>
+<ol>
+<li><strong>Case Folding</strong>:  </li>
+<li>Conversione di tutto il testo in minuscolo.  </li>
+<li><em>Esempio</em>: &ldquo;Woodchuck&rdquo; → &ldquo;woodchuck&rdquo;.  </li>
+<li><strong>Vantaggi</strong>: Utile per compiti come information retrieval e riconoscimento vocale.  </li>
+<li>
+<p><strong>Limitazioni</strong>: Perdita di informazioni contestuali (es. nomi propri vs. nomi comuni).  </p>
+</li>
+<li>
+<p><strong>Lemmatization</strong>:  </p>
+</li>
+<li>Identificazione del <strong>lemma</strong> (forma base) di una parola.  </li>
+<li><em>Esempio</em>: &ldquo;am&rdquo;, &ldquo;are&rdquo;, &ldquo;is&rdquo; → lemma &ldquo;be&rdquo;.  Oppure &ldquo;dinner&rdquo; e &ldquo;dinners&rdquo; → lemma &ldquo;dinner&rdquo;.</li>
+<li><strong>Metodo</strong>: Utilizza un <strong>parser morfologico</strong> per scomporre le parole in morfemi (radici e affissi).</li>
+<li><em>Esempio</em>: Un esempio di frase lemmatizzata &ldquo;he is reading detective stories&rdquo; → &ldquo;he be read detective story&rdquo;. Con lemmi &ldquo;be&rdquo; e &ldquo;read&rdquo;.</li>
+<li><strong>Vantaggi</strong>: Utile per compiti come information retrieval e riconoscimento vocale.  </li>
+</ol>
+<h2 id="6-porter-stemmer">6. Porter Stemmer</h2>
+<p>Un approccio &ldquo;brutale&rdquo; alla lemmatizzazione, che rimuove gli affissi per ottenere la <strong>radice</strong> (stem) delle parole.  </p>
+<h3 id="funzionamento">Funzionamento</h3>
+<ul>
+<li><strong>Regole a cascata</strong>: Applica una serie di trasformazioni sequenziali.  </li>
+<li><em>Esempio di regole</em>:  <ul>
+<li>&ldquo;sses&rdquo; → &ldquo;ss&rdquo; (es. &ldquo;caresses&rdquo; → &ldquo;caress&rdquo;).  </li>
+<li>&ldquo;ies&rdquo; → &ldquo;i&rdquo; (es. &ldquo;ponies&rdquo; → &ldquo;poni&rdquo;).</li>
+<li>&ldquo;ing&rdquo; → &ldquo;&rdquo; (es. &ldquo;running&rdquo; → &ldquo;run&rdquo;).  </li>
+</ul>
+</li>
+</ul>
+<h3 id="esempio-pratico">Esempio Pratico</h3>
+<p><strong>Testo originale</strong>:<br />
+<em>This was not the map we found in Billy Bones&rsquo;s chest,
+but an accurate copy, complete in all things-names
+and heights and soundings-with the single exception
+of the red crosses and the written notes.</em>  </p>
+<p><strong>Testo dopo Porter Stemmer</strong>:<br />
+<em>Thi wa not the map we found in Billi Bone s chest
+but an accur copi complet in all thing name and
+height and sound with the singl except of the red
+cross and the written note</em> </p>
+<h3 id="limiti-e-dettagli">Limiti e Dettagli</h3>
+<ul>
+<li>Produce spesso <strong>stemi non lessicali</strong> (es. &ldquo;thi&rdquo; invece di &ldquo;this&rdquo;).  </li>
+<li><a href="https://tartarus.org/martin/">Dettagli e implementazioni</a>.</li>
+<li><a href="https://textanalysisonline.com/nltk-porter-stemmer">Un esempio di implementazione</a>.</li>
+</ul>
+<h2 id="7-tokenizzazione-frasale">7. Tokenizzazione Frasale</h2>
+<p>La <strong>tokenizzazione frasale</strong> o <strong>sentence segmentation</strong> divide il testo in frasi. In particolare, è il processo di divisione di un testo in frasi, tipicamente identificando i segni di punteggio come marcatori di fine frase.</p>
+<p>Può sembrare banale, ma non lo è sempre.</p>
+<p>Il carattere del punto &ldquo;.&rdquo;, ad esempio, è ambiguo tra:
+- <strong>Marcatore di confine frasale</strong> (fine frase)
+- <strong>Marcatore di abbreviazioni</strong> come &ldquo;Mr.&rdquo; o &ldquo;Inc.&rdquo;</p>
+<p>Per questo motivo, la <strong>tokenizzazione frasale</strong> e la <strong>tokenizzazione lessicale</strong> vengono spesso affrontate congiuntamente.</p>
+<h3 id="metodi-di-segmentazione-frasale">Metodi di Segmentazione Frasale</h3>
+<p>I metodi di tokenizzazione frasale generalmente:</p>
+<ol>
+<li><strong>Decidono</strong> (tramite regole o machine learning) se un punto:</li>
+<li>Fa parte della parola (es. abbreviazione)</li>
+<li>
+<p>È un marcatore di fine frase</p>
+</li>
+<li>
+<p><strong>Utilizzano dizionari di abbreviazioni</strong> per identificare:</p>
+</li>
+<li>Abbreviazioni comuni (es. &ldquo;Dr.&rdquo;, &ldquo;Prof.&rdquo;)</li>
+<li>I dizionari possono essere:<ul>
+<li>Costruiti manualmente</li>
+<li>Appresi automaticamente (machine learning)</li>
+</ul>
+</li>
+</ol>
+<h3 id="implementazione-in-stanford-corenlp">Implementazione in Stanford CoreNLP</h3>
+<p>Nel toolkit <a href="https://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a> [Manning et al., 2014]:
+- La segmentazione frasale è <strong>basata su regole</strong>
+- Una frase termina quando incontra:
+  - Punteggiatura finale (., !, ?) 
+  - Che <strong>non</strong> fa parte di un token esistente (es. abbreviazioni o numeri)
+  - Opzionalmente seguita da virgolette o parentesi finali</p>
+<p><strong>Esempio pratico (toolkit)</strong>:
+&ldquo;Dr. Smith arrived at 5 p.m. He was late.&rdquo; → Viene correttamente segmentato in 2 frasi nonostante i punti in &ldquo;Dr.&rdquo; e &ldquo;p.m.&rdquo;</p>
+<p><strong>Etichette</strong>: #NLP #Tokenizzazione #Corpora<br />
+<strong>Collegamenti</strong>: <span class="text-gray-600">Elaborazione del Testo</span>, <a href="/theory/nlp/Espressioni Regolari/Espressioni Regolari" class="text-blue-600 hover:underline">Espressioni Regolari</a>, <span class="text-gray-600">Modelli Linguistici</span></p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data, training, learning</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Parole, Corpora, Tokenizzazione e Normalizzazione">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Parole, Corpora e Normalizzazione: Concetti Base',
+          page_location: 'http://localhost:3000/theory/nlp/Parole, Corpora, Tokenizzazione e Normalizzazione'
+        });
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espressioni Regolari (Regex) | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Espressioni Regolari (Regex)">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Espressioni Regolari/Espressioni Regolari">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Espressioni Regolari (Regex)">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Espressioni Regolari/Espressioni Regolari">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Espressioni Regolari (Regex)",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Espressioni Regolari/Espressioni Regolari",
+      "datePublished": "2025-08-06T20:12:10.832Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Espressioni Regolari/Espressioni Regolari" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Espressioni Regolari (Regex)</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="cosa-sono-le-regex">Cosa sono le Regex?</h2>
+<ul>
+<li><strong>Definizione</strong>: Sequenze di caratteri che definiscono un pattern di ricerca, utilizzate per individuare, estrarre o sostituire testo. Fanno parte dei <strong>rule-based systems</strong>.</li>
+<li><strong>Scopo principale</strong>: Automatizzare operazioni di testo complesse (es. validare email, estrarre dati).</li>
+<li><strong>Esempi di utilizzo</strong>:</li>
+<li>Ricerca di parole chiave in documenti.</li>
+<li>Pulizia di dataset testuali.</li>
+<li>Sostituzioni avanzate in editor di codice.</li>
+<li><strong>Pattern Matching</strong>: Processo di identificazione di sequenze testuali che corrispondono a un formato specifico definito dal pattern. Le regex permettono di cercare, validare o estrarre porzioni di testo seguendo regole flessibili (es. trovare tutti i numeri in un documento).</li>
+</ul>
+<h2 id="strumenti-per-testare-le-regex">Strumenti per Testare le Regex</h2>
+<ul>
+<li><strong>Regex101</strong> (<a href="https://regex101.com/">link</a>): Piattaforma web con debugger integrato e spiegazioni dettagliate.</li>
+<li><strong>Python</strong> (<code>re</code> module): Libreria standard per manipolare regex (<a href="https://www.programiz.com/python-programming/regex">esempi</a>).</li>
+<li><strong>Java</strong>: Utilizza <code>java.util.regex</code> per operazioni avanzate (<a href="https://www.w3schools.com/java/java_regex.asp">guide</a>).</li>
+<li><strong>Perl</strong>: Linguaggio storico per regex, con operatori come <code>s///</code> per sostituzioni.</li>
+</ul>
+<h2 id="sintassi-base-delle-regex">Sintassi Base delle Regex</h2>
+<h3 id="come-funziona-il-pattern-matching">Come Funziona il Pattern Matching</h3>
+<p>Il pattern matching con regex si basa su regole di sintassi che combinano:<br />
+- <strong>Caratteri letterali</strong>: Cercano corrispondenze esatte (es. <code>cane</code> trova solo &ldquo;cane&rdquo;).<br />
+- <strong>Quantificatori</strong>: Specificano quante volte un elemento può ripetersi (es. <code>?</code>, <code>+</code>, <code>*</code>).<br />
+- <strong>Ancore</strong>: Definiscono la posizione nel testo (es. <code>^</code> per l&rsquo;inizio riga, <code>$</code> per la fine).<br />
+- <strong>Classi di caratteri</strong>: Raggruppano opzioni valide (es. <code>[aeiou]</code> per vocali).
+- <strong>Range</strong>: Definiscono un intervallo di caratteri (es. <code>[a-z]</code> per lettere minuscole).
+- <strong>Gruppi</strong>: Isolano parti del pattern con <code>()</code> per riferimenti o operazioni specifiche.<br />
+- <strong>Alternanza</strong>: Permettono scelte tra opzioni con <code>|</code> (es. <code>gatto|cane</code>).<br />
+- <strong>Escape</strong>: I metacaratteri speciali (es. <code>.</code>, <code>*</code>) richiedono <code>\</code> per essere cercati letteralmente (es. <code>\.</code>).  </p>
+<h3 id="caratteri-letterali">Caratteri Letterali</h3>
+<ul>
+<li><strong>Caratteri Literali</strong>: <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>, <code>e</code>, <code>f</code>, <code>g</code>, <code>h</code>, <code>i</code>, <code>j</code>, <code>k</code>, <code>l</code>, <code>m</code>, <code>n</code>, <code>o</code>, <code>p</code>, <code>q</code>, <code>r</code>, <code>s</code>, <code>t</code>, <code>u</code>, <code>v</code>, <code>w</code>, <code>x</code>, <code>y</code>, <code>z</code>.</li>
+<li><strong>Caratteri Numerici</strong>: <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code>, <code>7</code>, <code>8</code>, <code>9</code>. </li>
+<li><strong>Caratteri Speciali</strong>: <code>\space</code>, <code>\t</code>, <code>\n</code>, <code>\r</code>, <code>\f</code>, <code>\b</code>, <code>\a</code>, <code>\e</code>, <code>\0</code>, <code>\xHH</code>, <code>\uHHHH</code>, <code>\UHHHHHHHH</code>.</li>
+<li><strong>Carattere di Escape</strong>: <code>\</code>, <code>\\</code>, <code>\n</code>, <code>\t</code>, <code>\r</code>, <code>\f</code>, <code>\b</code>, <code>\a</code>, <code>\e</code>, <code>\0</code>, <code>\xHH</code>, <code>\uHHHH</code>, <code>\UHHHHHHHH</code>.</li>
+</ul>
+<h3 id="metacaratteri">Metacaratteri</h3>
+<table>
+<thead>
+<tr>
+<th>Simbolo</th>
+<th>Funzione</th>
+<th>Esempio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[]</code></td>
+<td>Definisce un set di caratteri ammessi.</td>
+<td><code>[Aa]mico</code> → &ldquo;Amico&rdquo; o &ldquo;amico&rdquo;</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>1) Negazione dentro <code>[]</code>.<br>2) Inizio della riga.</td>
+<td><code>[^a-z]</code> → Non lettere minuscole.<br><code>^Ciao</code> → &ldquo;Ciao&rdquo; solo all&rsquo;inizio.</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>Zero o una occorrenza del carattere precedente.</td>
+<td><code>colou?r</code> → &ldquo;color&rdquo; o &ldquo;colour&rdquo;</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>Qualsiasi carattere (tranne newline).</td>
+<td><code>b.t</code> → &ldquo;bat&rdquo;, &ldquo;b@t&rdquo;, &ldquo;b3t&rdquo;</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Zero o più occorrenze del carattere precedente.</td>
+<td><code>lo*l</code> → &ldquo;ll&rdquo;, &ldquo;lol&rdquo;, &ldquo;loooool&rdquo;</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>Una o più occorrenze del carattere precedente.</td>
+<td><code>a+</code> → &ldquo;a&rdquo;, &ldquo;aa&rdquo;, &ldquo;aaa&rdquo;</td>
+</tr>
+<tr>
+<td><code>{n,m}</code></td>
+<td>Da <code>n</code> a <code>m</code> occorrenze.</td>
+<td><code>a{2,4}</code> → &ldquo;aa&rdquo;, &ldquo;aaa&rdquo;, &ldquo;aaaa&rdquo;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="alias-utili">Alias Utili</h3>
+<ul>
+<li><code>\d</code>: Cifra numerica (<code>[0-9]</code>).</li>
+<li><code>\w</code>: Carattere alfanumerico o underscore (<code>[a-zA-Z0-9_]</code>).</li>
+<li><code>\s</code>: Spazio bianco (spazio, tab, newline).</li>
+<li><code>\b</code>: Inizio o fine di una parola.</li>
+<li><code>\D</code>, <code>\W</code>, <code>\S</code>, <code>\B</code>: Negazioni dei precedenti.</li>
+<li><code>\n</code>: Newline.</li>
+<li><code>\t</code>: Tab.</li>
+<li><code>\r</code>: Carattere di ritorno.</li>
+<li><code>\f</code>: Carattere di fine riga.</li>
+<li><code>\*</code>, <code>\+</code>, <code>\?</code>: Alias per <code>*</code>, <code>+</code>, <code>?</code>.</li>
+</ul>
+<h2 id="gruppi-di-cattura">Gruppi di cattura</h2>
+<p>Le <strong>parentesi tonde</strong> <code>()</code> nelle espressioni regolari vengono utilizzate per definire <strong>gruppi di cattura</strong>. Questi gruppi possono essere utilizzati per riferirsi ai sottostringhe cercate e per eseguire operazioni di sostituzione.</p>
+<h3 id="esempio">Esempio</h3>
+<div class="codehilite"><pre><span></span><code>/(\w+) (\w+)/
+</code></pre></div>
+
+<p>Questa espressione cerca due parole separati da uno spazio. Se applicata alla stringa &ldquo;Nome Cognome&rdquo;, cattura &ldquo;Nome&rdquo; e &ldquo;Cognome&rdquo;.</p>
+<h2 id="esercizio-guidato-trovare-la-parola-the">Esercizio Guidato: Trovare la Parola &ldquo;the&rdquo;</h2>
+<ol>
+<li><strong>Primo tentativo</strong>: `/the/ → Trova &ldquo;the&rdquo; ma anche &ldquo;there&rdquo;, &ldquo;other&rdquo; (falsi positivi).**</li>
+<li><strong>Matching case-insensitive</strong>: <code>/[tT]he/ → Trova "The" e "the".</code></li>
+<li>
+<p><strong>Evitare parole contenenti &ldquo;the&rdquo;</strong>:<br />
+<code>/[^a-zA-Z][tT]he[^a-zA-Z]/ → " the " in "Catch the ball"</code> ma non in <code>Mathematic</code>. </p>
+</li>
+<li>
+<p><strong>Pattern avanzato</strong>:<br />
+<code>/(^|[^a-zA-Z])[tT]he([^a-zA-Z]|$)/ → Considera inizio/fine riga.</code><br>
+   Cerca la parola &ldquo;the&rdquo; o &ldquo;The&rdquo; solo quando isolata (circondata da caratteri non alfabetici, spazi, punteggiatura, inizio/fine riga) compresi quando inizia o finisce una frase.</p>
+</li>
+</ol>
+<p><strong>Problemi comuni</strong>:
+- <strong>Falsi positivi</strong>: Match indesiderati (es. &ldquo;there&rdquo;).
+- <strong>Falsi negativi</strong>: Mancato match di &ldquo;The&rdquo; all&rsquo;inizio frase.
+- <strong>Bilanciamento</strong>: Aumentare la <strong>precisione</strong> (ridurre falsi positivi) e il <strong>recall</strong> (ridurre falsi negativi).</p>
+<h2 id="registri-parentesi-per-riferimenti">Registri (Parentesi per Riferimenti)</h2>
+<p>Le <strong>parentesi tonde</strong> <code>()</code> registrano le occorrenze trovate nelle espressioni regolari in dei cosi detti <strong>registri</strong>.</p>
+<h3 id="sintassi-di-base">Sintassi di Base</h3>
+<p>Un gruppo di cattura è definito con <code>()</code> e può essere richiamato con <code>\n</code>, dove <code>n</code> è il numero del gruppo nell&rsquo;ordine in cui compare.</p>
+<p><strong>Esempio</strong>:</p>
+<div class="codehilite"><pre><span></span><code>/(\d+)-(\d+)/
+</code></pre></div>
+
+<p>Questa regex cattura due numeri separati da un trattino <code>-</code>:
+- <code>\1</code> si riferisce al primo numero.
+- <code>\2</code> si riferisce al secondo numero.</p>
+<p>Se applicata alla stringa <code>2023-2024</code>, cattura <code>2023</code> come <code>\1</code> e <code>2024</code> come <code>\2</code>.</p>
+<h3 id="applicazione-riorganizzazione-del-testo">Applicazione: Riorganizzazione del Testo</h3>
+<p>I riferimenti ai gruppi catturati vengono utilizzati nelle operazioni di sostituzione.</p>
+<p><strong>Esempio</strong>:</p>
+<div class="codehilite"><pre><span></span><code>s/(\w+) (\w+)/\2 \1/
+</code></pre></div>
+
+<p>Questa espressione inverte la posizione di due parole:
+- Input: <code>Nome Cognome</code>
+- Output: <code>Cognome Nome</code></p>
+<h3 id="altri-esempi-di-utilizzo">Altri Esempi di Utilizzo</h3>
+<h4 id="1-estrazione-del-dominio-da-unemail">1. Estrazione del Dominio da un&rsquo;Email</h4>
+<div class="codehilite"><pre><span></span><code>/(\w+)@(\w+\.\w+)/
+</code></pre></div>
+
+<ul>
+<li><code>\1</code> rappresenta il nome utente.</li>
+<li><code>\2</code> rappresenta il dominio dell&rsquo;email.</li>
+</ul>
+<p>Se applicata a <code>esempio@email.com</code>, cattura:
+- <code>esempio</code> come <code>\1</code>
+- <code>email.com</code> come <code>\2</code></p>
+<h4 id="2-riformattazione-della-data">2. Riformattazione della Data</h4>
+<p>Se una data è scritta come <code>2024/03/26</code> e la si vuole convertire in <code>26-03-2024</code>:</p>
+<div class="codehilite"><pre><span></span><code>s/(\d{4})/(\d{2})/(\d{2})/\3-\2-\1/
+</code></pre></div>
+
+<ul>
+<li><code>\1</code> è l&rsquo;anno.</li>
+<li><code>\2</code> è il mese.</li>
+<li><code>\3</code> è il giorno.</li>
+</ul>
+<p>Risultato della sostituzione: <code>26-03-2024</code>.</p>
+<h3 id="conclusione">Conclusione</h3>
+<p>I <strong>registri</strong> e i <strong>gruppi di cattura</strong> sono strumenti potenti per manipolare il testo con le espressioni regolari. Sono utili per:
+- Estrarre informazioni specifiche.
+- Riordinare parti di una stringa.
+- Modificare il formato di dati testuali.</p>
+<h2 id="caso-storico-eliza-1966">Caso Storico: ELIZA (1966)</h2>
+<p>Descrizione: Primo chatbot che simulava uno psicologo rogersiano.</p>
+<p>Funzionamento:</p>
+<ul>
+<li>
+<p>Utilizzava regex semplici per identificare parole chiave (es. &ldquo;madre&rdquo;, &ldquo;triste&rdquo;).</p>
+</li>
+<li>
+<p>Generava risposte predefinite basate su sostituzioni (es. &ldquo;Dimmi di più sulla tua famiglia&rdquo;).</p>
+</li>
+</ul>
+<p>Limitazioni: Nessuna comprensione semantica, solo pattern matching superficiale.</p>
+<p><a href="https://www.youtube.com/watch?v=4sngIh0YJtk" target="_blank">ELIZA, video dimostrativo della funzionalità</a></p>
+<h2 id="risorse">Risorse</h2>
+<ul>
+<li>
+<p>Libro: Speech and Language Processing (Jurafsky &amp; Martin).</p>
+</li>
+<li>
+<p>Tool online: Regex101 per testare pattern.</p>
+</li>
+<li>
+<p>Etichette: #Regex #NLP #PatternMatching</p>
+</li>
+<li>
+<p>Collegamenti: <a href="/theory/nlp/Introduzione all'NLP" class="text-blue-600 hover:underline">Introduzione all&rsquo;NLP</a>, <span class="text-gray-600">Elaborazione del Testo</span></p>
+</li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Espressioni Regolari/Espressioni Regolari">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Espressioni Regolari (Regex)',
+          page_location: 'http://localhost:3000/theory/nlp/Espressioni Regolari/Espressioni Regolari'
+        });
+      }
+    </script>
+</body>
+</html>

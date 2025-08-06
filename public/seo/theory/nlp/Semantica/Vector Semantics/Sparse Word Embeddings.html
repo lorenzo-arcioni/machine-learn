@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparse VSMs (Vector Space Models Sparsi) | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data, learning">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sparse VSMs (Vector Space Models Sparsi)">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sparse VSMs (Vector Space Models Sparsi)">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Sparse VSMs (Vector Space Models Sparsi)",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings",
+      "datePublished": "2025-08-06T20:12:10.816Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Sparse VSMs (Vector Space Models Sparsi)</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>I <strong>modelli di spazio semantico sparsi</strong> (Sparse VSMs) rappresentano il significato delle parole o dei documenti utilizzando <strong>conteggi espliciti</strong> di occorrenza o co-occorrenza tra termini.<br />
+Queste rappresentazioni sono chiamate &ldquo;sparse&rdquo; perché, in genere, la maggior parte delle celle nella matrice risultante sono <strong>zero</strong>: molte parole non compaiono nella maggior parte dei documenti o dei contesti.</p>
+<h2 id="1-matrice-term-documento">1. Matrice Term-Documento</h2>
+<p>Una delle prime tecniche di rappresentazione è la <strong>matrice term-documento</strong>, dove:</p>
+<ul>
+<li>Ogni <strong>riga</strong> corrisponde a un termine del vocabolario.</li>
+<li>Ogni <strong>colonna</strong> rappresenta un documento (ad esempio un libro, una pagina web, ecc.).</li>
+<li>L&rsquo;<strong>elemento</strong> $[i,j]$ rappresenta il numero di volte in cui il termine $i$ appare nel documento $j$.</li>
+</ul>
+<blockquote>
+<p>Questa matrice consente di rappresentare ogni documento come un <strong>vettore di conteggi</strong> di parole.</p>
+</blockquote>
+<h3 id="esempio">Esempio</h3>
+<p>Supponiamo di avere il seguente <strong>corpus</strong>:</p>
+<ul>
+<li>&ldquo;As You Like It&rdquo;</li>
+<li>&ldquo;Twelfth Night&rdquo;</li>
+<li>&ldquo;Julius Caesar&rdquo;</li>
+<li>&ldquo;Henry V&rdquo;</li>
+</ul>
+<p>E un <strong>vocabolario</strong> composto da:</p>
+$$ V = \{ \text{"battle"}, \text{"good"}, \text{"fool"}, \text{"wit"} \} $$
+<p>Costruiamo la seguente matrice:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Termine</th>
+<th style="text-align: left;">As You Like It</th>
+<th style="text-align: left;">Twelfth Night</th>
+<th style="text-align: left;">Julius Caesar</th>
+<th style="text-align: left;">Henry V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">battle</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">good</td>
+<td style="text-align: left;">114</td>
+<td style="text-align: left;">125</td>
+<td style="text-align: left;">32</td>
+<td style="text-align: left;">38</td>
+</tr>
+<tr>
+<td style="text-align: left;">fool</td>
+<td style="text-align: left;">46</td>
+<td style="text-align: left;">58</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;">wit</td>
+<td style="text-align: left;">37</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretazione</strong>:
+- Il termine &ldquo;battle&rdquo; appare 5 volte in <em>Julius Caesar</em> e 11 volte in <em>Henry V</em>, ma non è presente negli altri documenti.
+- Il termine &ldquo;good&rdquo; è molto più distribuito tra i documenti.</p>
+<p>Quindi, ad esempio, <em>Julius Caesar</em> può essere rappresentato dal vettore:</p>
+$$ \text{Julius Caesar} = (5, 32, 0, 0) $$
+<p><img src="/images/tikz/4a918b152a58a2cb8e3f83b2e9d5e46e.svg" style="display: block; width: 100%; height: auto; max-height: 600px;" class="tikz-svg" /></p>
+<h2 id="2-matrice-parola-parola-co-occorrenze">2. Matrice Parola-Parola (Co-occorrenze)</h2>
+<p>Un altro approccio di rappresentazione è costruire una <strong>matrice di co-occorrenza parola-parola</strong>. Invece di documenti, consideriamo <strong>finestre locali</strong> di testo, e contiamo quante volte due parole appaiono vicine.</p>
+<h3 id="procedura">Procedura:</h3>
+<ol>
+<li>Definire una <strong>finestra mobile</strong> di ampiezza $n$ (ad esempio, 3 parole).</li>
+<li>Far scorrere la finestra lungo il testo.</li>
+<li>Per ogni finestra, aggiornare il conteggio di co-occorrenza tra le parole che compaiono.</li>
+</ol>
+<h3 id="esempio_1">Esempio</h3>
+<p>Testo di partenza:</p>
+<blockquote>
+<p>&ldquo;Salve a tutti questo è un esempio&rdquo;</p>
+</blockquote>
+<p>Parametri:
+- $m = 7$ (numero di parole)
+- $n = 3$ (ampiezza finestra)</p>
+<p><strong>Sotto-contesti</strong> (finestra mobile con padding):</p>
+<ul>
+<li>&rdquo;* * Salve&rdquo;</li>
+<li>&rdquo;* Salve a&rdquo;</li>
+<li>&ldquo;Salve a tutti&rdquo;</li>
+<li>&ldquo;a tutti questo&rdquo;</li>
+<li>&ldquo;tutti questo è&rdquo;</li>
+<li>&ldquo;questo è un&rdquo;</li>
+<li>&ldquo;è un esempio&rdquo;</li>
+<li>&ldquo;un esempio *&rdquo;</li>
+<li>&ldquo;esempio * *&rdquo;</li>
+</ul>
+<p>Costruiamo la <strong>matrice di co-occorrenza</strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Salve</th>
+<th style="text-align: center;">a</th>
+<th style="text-align: center;">tutti</th>
+<th style="text-align: center;">questo</th>
+<th style="text-align: center;">è</th>
+<th style="text-align: center;">un</th>
+<th style="text-align: center;">esempio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Salve</strong></td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>a</strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>tutti</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>questo</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>è</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>un</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>esempio</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">–</td>
+</tr>
+</tbody>
+</table>
+<p>Questo è il codice Python che costruisce la matrice di co-occorrenza:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_cooccurrence_matrix</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">window_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="c1"># 1. Tokenizza e aggiungi padding &#39;*&#39; di lunghezza window_size-1 ai bordi</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">window_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">padded</span> <span class="o">=</span> <span class="n">pad</span> <span class="o">+</span> <span class="n">tokens</span> <span class="o">+</span> <span class="n">pad</span>
+
+    <span class="c1"># 2. Estrai tutte le sotto-stringhe (finestre) di lunghezza window_size</span>
+    <span class="n">windows</span> <span class="o">=</span> <span class="p">[</span><span class="n">padded</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">window_size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">padded</span><span class="p">)</span> <span class="o">-</span> <span class="n">window_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="c1"># 3. Conta le co-occorrenze: per ogni finestra, ogni coppia di parole reali (non &#39;*&#39;)</span>
+    <span class="n">cooc</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">windows</span><span class="p">:</span>
+        <span class="n">real</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">w</span> <span class="k">if</span> <span class="n">t</span> <span class="o">!=</span> <span class="s1">&#39;*&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">real</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">real</span><span class="p">)):</span>
+                <span class="n">cooc</span><span class="p">[</span><span class="n">real</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="n">real</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">cooc</span><span class="p">[</span><span class="n">real</span><span class="p">[</span><span class="n">j</span><span class="p">]][</span><span class="n">real</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># 4. Costruisci la matrice (DataFrame) con le parole originali nell’ordine iniziale</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">tokens</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">tokens</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">w1</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">w2</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">w1</span> <span class="o">!=</span> <span class="n">w2</span><span class="p">:</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cooc</span><span class="p">[</span><span class="n">w1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="c1"># Esempio</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Salve a tutti questo è un esempio&quot;</span>
+<span class="n">window_size</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">generate_cooccurrence_matrix</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Interpretazione</strong>:</p>
+<ul>
+<li>&ldquo;a&rdquo; e &ldquo;tutti&rdquo; co-occorrono due volte (nella finestra &ldquo;Salve a tutti&rdquo; e &ldquo;a tutti questo&rdquo;).</li>
+<li>&ldquo;questo&rdquo; co-occorre sia con &ldquo;tutti&rdquo; sia con &ldquo;è&rdquo;.</li>
+</ul>
+<p>Così, ogni parola è rappresentata da un <strong>vettore di co-occorrenze</strong> con le altre parole.</p>
+<h2 id="3-bag-of-words-bow">3. Bag of Words (BoW)</h2>
+<p>Il <strong>modello Bag-of-Words</strong> (BoW) è una delle tecniche più semplici e popolari per rappresentare il contenuto testuale in modo numerico, adatto all&rsquo;elaborazione da parte degli algoritmi di Machine Learning.</p>
+<p><strong>Principio di base</strong>:
+- Un documento o una frase viene rappresentato come un <strong>insieme di parole</strong>, ignorando completamente:
+  - L&rsquo;<strong>ordine</strong> delle parole.
+  - La <strong>struttura grammaticale</strong> o sintattica.
+- Si tiene traccia esclusivamente delle <strong>parole presenti</strong> e della loro <strong>frequenza</strong>.</p>
+<h3 id="modalita-di-rappresentazione">Modalità di rappresentazione:</h3>
+<ul>
+<li><strong>BoW binario</strong>: registra solo se una parola è presente ($1$) o assente ($0$), indipendentemente dal numero di volte in cui appare.</li>
+<li><strong>BoW con conteggi</strong>: registra quante volte ciascuna parola appare nel testo.</li>
+</ul>
+<blockquote>
+<p>In entrambi i casi, ogni parola diventa una caratteristica (feature) nello spazio vettoriale.</p>
+</blockquote>
+<h3 id="esempio-pratico">Esempio pratico</h3>
+<p>Frase di partenza:</p>
+<blockquote>
+<p>&ldquo;the best of the best&rdquo;</p>
+</blockquote>
+<p><strong>BoW binario</strong> (presenza/assenza delle parole):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parola</th>
+<th style="text-align: center;">Presenza (1/0)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">the</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">best</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">of</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Ogni parola distinta viene contata una sola volta: viene segnato <code>1</code> se è presente nel testo.</li>
+</ul>
+<p><strong>BoW con conteggi</strong> (numero di occorrenze di ciascuna parola):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parola</th>
+<th style="text-align: center;">Conteggio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">the</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">best</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">of</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Qui si registra <strong>quante volte</strong> ogni parola compare nel testo.</li>
+</ul>
+<h3 id="limiti-del-modello-bow">Limiti del modello BoW:</h3>
+<ul>
+<li><strong>Perdita di informazioni</strong>: l&rsquo;ordine delle parole viene completamente ignorato (es. &ldquo;dog bites man&rdquo; e &ldquo;man bites dog&rdquo; hanno lo stesso BoW!).</li>
+<li><strong>Alto dimensionalità</strong>: per testi lunghi o vocabolari molto ampi, il numero di feature cresce rapidamente.</li>
+<li><strong>Nessun significato semantico</strong>: parole simili o sinonimi vengono trattati come entità completamente diverse.</li>
+</ul>
+<p>Il Bag-of-Words rimane comunque una tecnica molto efficace per task semplici di classificazione testuale o analisi preliminare, grazie alla sua <strong>facilità di implementazione</strong> e alla <strong>rapidità di calcolo</strong>.</p>
+<h2 id="problemi-dei-modelli-di-spazio-semantico-sparsi">Problemi dei Modelli di Spazio Semantico Sparsi</h2>
+<ul>
+<li><strong>Matrice molto sparsa</strong>: la maggior parte dei valori nelle matrici (term-documento o parola-parola) sono <strong>zeri</strong>.</li>
+<li>Non tutti gli ambienti di programmazione offrono <strong>rappresentazioni efficienti</strong> per matrici sparse.</li>
+<li><strong>Gestione complicata di parole fuori vocabolario (OOV)</strong>:</li>
+<li>Esempio: &ldquo;This bar serves fresh jabuticaba juice.&rdquo; → il termine &ldquo;jabuticaba&rdquo; potrebbe non esistere nel vocabolario.</li>
+<li><strong>Alta dimensionalità</strong>:</li>
+<li>In corpora di grandi dimensioni, il numero di termini cresce rapidamente, portando a <strong>vettori estremamente grandi</strong>.</li>
+<li><strong>Prestazioni inferiori rispetto a vettori densi</strong>:</li>
+<li>In pratica, <strong>rappresentazioni dense</strong> (come Word2Vec, GloVe) risultano più efficaci e portano a migliori prestazioni in molti task di NLP.</li>
+<li><strong>Analisi semantica basata su parole</strong>: </li>
+<li>
+<p>I modelli sparsi non catturano relazioni sintattiche o contestuali profonde, limitandosi a rappresentare significati su base statica (conteggi e co-occorrenze), senza tener conto della dinamica del contesto in cui le parole appaiono.</p>
+</li>
+<li>
+<p>Esempio: i termini &ldquo;bank&rdquo; (banca) in &ldquo;financial bank&rdquo; e &ldquo;river bank&rdquo; avranno la stessa rappresentazione, poiché i modelli sparsi non distinguono tra sensi diversi della stessa parola a seconda del contesto.</p>
+</li>
+</ul>
+<h2 id="conclusioni">Conclusioni</h2>
+<p>I <strong>modelli sparsi</strong> di spazio semantico:</p>
+<ul>
+<li>Consentono di rappresentare parole e documenti come <strong>vettori numerici</strong>.</li>
+<li>Permettono di calcolare <strong>similarità semantica</strong> tra parole o documenti (ad esempio, usando cosine similarity).</li>
+<li>Sono la base per tecniche più avanzate come:</li>
+<li><strong>TF-IDF</strong>: pesatura intelligente dei termini.</li>
+<li><strong>PMI (Pointwise Mutual Information)</strong>: per evidenziare associazioni significative.</li>
+<li><strong>Word Embeddings densi</strong>: Word2Vec, GloVe, FastText.</li>
+</ul>
+<p>Anche se modelli più recenti usano <strong>vettori densi e latenti</strong>, i VSM sparsi sono fondamentali per comprendere i principi alla base del significato computazionale.</p>
+<h1 id="collegamenti-correlati">Collegamenti correlati</h1>
+<ul>
+<li><a href="/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale" class="text-blue-600 hover:underline">Introduzione alla Semantica Vettoriale</a></li>
+<li><a href="/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale" class="text-blue-600 hover:underline">Misure di similarità vettoriale</a></li>
+<li><a href="/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting" class="text-blue-600 hover:underline">Tecniche di pesatura (TF-IDF, PMI)</a></li>
+<li><span class="text-gray-600">Problemi dei modelli vettoriali</span></li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data, learning</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Sparse VSMs (Vector Space Models Sparsi)',
+          page_location: 'http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings'
+        });
+      }
+    </script>
+</body>
+</html>

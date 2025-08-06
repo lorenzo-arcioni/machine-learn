@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regolarizzazione | Introduction to Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="machine learning, introduction, basics, fundamentals, AI, model, data, neural">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Regolarizzazione">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/introduction/Regolarizzazione">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Regolarizzazione">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/introduction/Regolarizzazione">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Regolarizzazione",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/introduction/Regolarizzazione",
+      "datePublished": "2025-08-06T20:12:10.657Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/introduction/Regolarizzazione" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Regolarizzazione</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Introduction to Machine Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>regolarizzazione</strong> è una tecnica utilizzata per prevenire l&rsquo;overfitting nei modelli di machine learning, aggiungendo un termine di penalità alla funzione di perdita. Questo termine di penalità controlla la complessità del modello, limitando la crescita dei parametri e migliorando la generalizzazione su dati non visti. Di seguito esploriamo i diversi tipi di regolarizzazione, il loro funzionamento e il loro impatto sui modelli.</p>
+<h2 id="introduzione-alla-regolarizzazione"><strong>Introduzione alla Regolarizzazione</strong></h2>
+<p>L&rsquo;<a href="/theory/introduction/Overfitting e Underfitting" class="text-blue-600 hover:underline">overfitting</a> si verifica quando un modello è troppo complesso e si adatta eccessivamente ai dati di training, catturando anche il rumore presente nei dati. Questo porta a un errore basso sui dati di training, ma a un errore elevato sui dati di validazione. La regolarizzazione aiuta a mitigare questo problema aggiungendo un termine di penalità alla funzione di perdita che limita la crescita dei parametri del modello.</p>
+<h2 id="tipi-di-regolarizzazione"><strong>Tipi di Regolarizzazione</strong></h2>
+<h3 id="1-regolarizzazione-l2-ridge-regression-o-tikhonov-o-weight-decay"><strong>1. Regolarizzazione L2 (Ridge Regression o Tikhonov o weight decay)</strong></h3>
+<p>La regolarizzazione L2, nota anche come <strong>Ridge Regression</strong>, aggiunge un termine di penalità basato sulla norma L2 (o norma Frobenius per le matrici) dei parametri. La funzione di perdita regolarizzata è data da:</p>
+$$
+\argmin_{\Theta} \ell_{\Theta} + \lambda \|\Theta\|_2^2
+$$
+<p>Dove:
+- $\ell_{\Theta}$ è la funzione di perdita originale (ad esempio, l&rsquo;errore quadratico medio).
+- $\|\Theta\|_2^2$ è la norma L2 al quadrato dei parametri $\Theta$.
+- $\lambda$ è un parametro di regolarizzazione che controlla il trade-off tra l&rsquo;adattamento ai dati e la penalità.</p>
+<h4 id="effetto-della-regolarizzazione-l2"><strong>Effetto della Regolarizzazione L2</strong></h4>
+<ul>
+<li><strong>Shrinkage</strong>: La regolarizzazione L2 riduce i valori dei parametri, ma non li azzera completamente. Questo è utile per controllare la complessità del modello senza eliminare completamente alcune feature.</li>
+<li><strong>Convessità</strong>: La norma L2 è una funzione convessa, quindi la funzione di perdita regolarizzata rimane convessa, garantendo l&rsquo;esistenza di un minimo globale.</li>
+</ul>
+<h3 id="2-regolarizzazione-l1-lasso-regression"><strong>2. Regolarizzazione L1 (Lasso Regression)</strong></h3>
+<p>La regolarizzazione L1, nota anche come <strong>Lasso Regression</strong>, aggiunge un termine di penalità basato sulla norma L1 dei parametri. La funzione di perdita regolarizzata è data da:</p>
+$$
+\argmin_{\Theta} \ell_{\Theta} + \lambda \|\Theta\|_1
+$$
+<p>Dove:
+- $\|\Theta\|_1$ è la norma L1 dei parametri $\Theta$, definita come la somma dei valori assoluti dei parametri.</p>
+<h4 id="effetto-della-regolarizzazione-l1"><strong>Effetto della Regolarizzazione L1</strong></h4>
+<ul>
+<li><strong>Sparsità</strong>: La regolarizzazione L1 tende a produrre modelli sparsi, cioè modelli in cui molti parametri sono esattamente zero. Questo è utile per la selezione delle feature, poiché elimina le feature irrilevanti.</li>
+<li><strong>Push Uniforme</strong>: La regolarizzazione L1 applica una spinta uniforme verso zero per tutti i parametri, indipendentemente dalla loro grandezza.</li>
+</ul>
+<h3 id="3-elastic-net"><strong>3. Elastic Net</strong></h3>
+<p>L&rsquo;<strong>Elastic Net</strong> combina la regolarizzazione L1 e L2, offrendo un compromesso tra sparsity e shrinkage. La funzione di perdita regolarizzata è data da:</p>
+$$
+\argmin_{\Theta} \ell_{\Theta} + \lambda_1 \|\Theta\|_1 + \lambda_2 \|\Theta\|_2^2
+$$
+<p>Dove:
+- $\lambda_1$ e $\lambda_2$ sono parametri di regolarizzazione che controllano il trade-off tra la regolarizzazione L1 e L2.</p>
+<h4 id="effetto-dellelastic-net"><strong>Effetto dell&rsquo;Elastic Net</strong></h4>
+<ul>
+<li><strong>Sparsità e Shrinkage</strong>: L&rsquo;Elastic Net combina i vantaggi della regolarizzazione L1 (sparsity) e L2 (shrinkage), rendendolo utile quando le feature sono correlate tra loro.</li>
+</ul>
+<h2 id="intuizione-sui-gradienti"><strong>Intuizione sui Gradienti</strong></h2>
+<p>Per comprendere perché la regolarizzazione L1 e L2 hanno effetti diversi, consideriamo il gradiente dei termini di regolarizzazione rispetto a un singolo parametro $\theta$:</p>
+<h3 id="regolarizzazione-l1"><strong>Regolarizzazione L1</strong></h3>
+<p>Dato che la regolarizzazione L1 non è derivabile in $\theta = 0$, il gradiente viene definito come:
+$$
+\frac{\partial}{\partial \theta} (\lambda \|\Theta\|_1) = 
+\begin{cases}
+\lambda, & \theta > 0 \\
+-\lambda, & \theta < 0
+\end{cases}
+$$</p>
+<p>secondo il concetto di <a href="/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente" class="text-blue-600 hover:underline">Sottoderivata e Sottogradiente</a>.</p>
+<h3 id="regolarizzazione-l2"><strong>Regolarizzazione L2</strong></h3>
+$$
+\frac{\partial}{\partial \theta} (\lambda \|\Theta\|_2^2) = 2\lambda \theta
+$$
+<ul>
+<li><strong>L1</strong>: Applica una spinta costante ($\lambda$ o $-\lambda$) verso zero, indipendentemente dal valore di $\theta$.</li>
+<li><strong>L2</strong>: Applica una spinta proporzionale al valore di $\theta$, portando i parametri più grandi a ridursi più rapidamente.</li>
+</ul>
+<h4 id="come-cambia-la-normal-equation-qando-si-applica-regolarizzazione-math_inline_27">Come cambia la normal equation qando si applica regolarizzazione $L_2$?</h4>
+<p>La funzione di errore da minimizzare diventa:
+$$
+\ell(\mathbf{W}) = \|\mathbf{Y} - \mathbf{X} \mathbf{W}\|_2^2 + \lambda \|\mathbf{W}\|_2^2
+$$</p>
+<p>Espandiamo la norma euclidea:</p>
+$$
+\ell(\mathbf{W}) = (\mathbf{Y} - \mathbf{X} \mathbf{W})^\top (\mathbf{Y} - \mathbf{X} \mathbf{W}) + \lambda \mathbf{W}^\top \mathbf{W}
+$$
+<p>Sviluppiamo il prodotto:</p>
+$$
+\ell(\mathbf{W}) = \mathbf{Y}^\top \mathbf{Y} - 2 \mathbf{W}^\top \mathbf{X}^\top \mathbf{Y} + \mathbf{W}^\top \mathbf{X}^\top \mathbf{X} \mathbf{W} + \lambda \mathbf{W}^\top \mathbf{W}
+$$
+<p>Ora calcoliamo la derivata rispetto a $\mathbf{W}$:</p>
+$$
+\frac{\partial \ell(\mathbf{W})}{\partial \mathbf{W}} = -2 \mathbf{X}^\top \mathbf{Y} + 2 \mathbf{X}^\top \mathbf{X} \mathbf{W} + 2 \lambda \mathbf{W}
+$$
+<p>Imponiamo la condizione di ottimalità:</p>
+$$
+-2 \mathbf{X}^\top \mathbf{Y} + 2 \mathbf{X}^\top \mathbf{X} \mathbf{W} + 2 \lambda \mathbf{W} = 0
+$$
+<p>Semplificando:</p>
+$$\begin{align*}
+\mathbf{X}^\top \mathbf{X} \mathbf{W} + \lambda \mathbf{W} &= \mathbf{X}^\top \mathbf{Y}\\
+(\mathbf{X}^\top \mathbf{X} + \lambda \mathbf{I}) \mathbf{W} &= \mathbf{X}^\top \mathbf{Y}
+\end{align*}
+$$
+<p>Se $\mathbf{X}^\top \mathbf{X} + \lambda I$ è invertibile, la soluzione ottimale è:</p>
+$$
+\mathbf{W} = (\mathbf{X}^\top \mathbf{X} + \lambda \mathbf{I})^{-1} \mathbf{X}^\top \mathbf{Y}
+$$
+<p>Questa è la soluzione <strong>OLS</strong> nel caso multidimensionale con regolarizzazione $L_2$. In <a href="/theory/math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge" class="text-blue-600 hover:underline">questa</a> nota, è presente una dimostrazione sul perché la soluzione OLS con regolarizzazione $L_2$ sia ben definita e la matrice $(\mathbf{X}^\top \mathbf{X} + \lambda \mathbf{I})$ sia sempre invertibile.</p>
+<h2 id="definizione-formale-di-regolarizzazione"><strong>Definizione Formale di Regolarizzazione</strong></h2>
+<p><strong>Definizione 3.2 (Regolarizzazione)</strong>: Qualsiasi modifica intesa a ridurre l&rsquo;errore di generalizzazione ma non l&rsquo;errore di training.</p>
+<p>La regolarizzazione non si limita all&rsquo;aggiunta di termini di penalità alla funzione di perdita. Altre forme includono la scelta di una rappresentazione, l&rsquo;early stopping e il dropout.</p>
+<p>In generale, le $p$-norme sono una buona scelta per i regolarizzatori, poiché sono sempre convesse.<br />
+Quindi, quando $\ell_\Theta$ è convessa, anche $\ell_\Theta + \lambda \|\Theta\|_p^2$ lo è, poiché la somma di due funzioni convesse è ancora convessa.<br />
+Questo è molto importante perché significa che possiamo sperare di trovare un&rsquo;espressione in forma chiusa per l&rsquo;ottimo globale del problema di minimizzazione:</p>
+$$
+\argmin_{\Theta} \ \ell_\Theta + \lambda \|\Theta\|_p^2.
+$$
+<p>Inoltre, notiamo che qualsiasi $p$-norma non sarà lineare in $\Theta$ poiché contiene almeno il valore assoluto.</p>
+<p>In generale, la regolarizzazione ci consente di imporre un certo comportamento atteso nel nostro modello di apprendimento.<br />
+Essa permette di controllare la complessità del modello e, facendo ciò, riduce la necessità di disporre di grandi quantità di dati, poiché impone un determinato comportamento.<br />
+Si noti che i regolarizzatori non sono sempre definiti come penalizzazioni incluse nelle funzioni di perdita.</p>
+<blockquote>
+<p><em>Se i regolarizzatori riducono l&rsquo;overfitting, non basterebbe ridurre la complessità del modello invece che introdurre un termine di penalizzazione?</em></p>
+<p>A volte può essere sufficiente ridurre la complessità del modello per evitare l&rsquo;overfitting, questo approccio può essere funzionale se il problema di apprendimento non richiede un modello molto complesso. Ma se siamo di fronte ad un problema che richiede un modello più complesso, la regolarizzazione è la scelta migliore in quanto permette comunque al modello di catturare pattern complessi senza basarsi troppo sui dati di addestramento.</p>
+</blockquote>
+<h2 id="altre-forme-di-regolarizzazione"><strong>Altre Forme di Regolarizzazione</strong></h2>
+<p>Oltre alle norme L1 e L2, esistono altre forme di regolarizzazione che impongono comportamenti desiderati sui parametri:</p>
+<h3 id="1-early-stopping"><strong>1. Early Stopping</strong></h3>
+<p>L&rsquo;early stopping interrompe l&rsquo;addestramento del modello quando la performance sul validation set smette di migliorare, prevenendo l&rsquo;overfitting.</p>
+<h3 id="2-dropout"><strong>2. Dropout</strong></h3>
+<p>Il dropout è una tecnica utilizzata nelle reti neurali, dove durante l&rsquo;addestramento alcuni neuroni vengono &ldquo;disattivati&rdquo; casualmente, riducendo la dipendenza del modello da specifici neuroni e migliorando la generalizzazione.</p>
+<h3 id="3-scelta-della-rappresentazione"><strong>3. Scelta della Rappresentazione</strong></h3>
+<p>La scelta di una rappresentazione appropriata dei dati (ad esempio, trasformazioni non lineari o feature engineering) può agire come una forma di regolarizzazione, migliorando la capacità del modello di generalizzare.</p>
+<h2 id="conclusione"><strong>Conclusione</strong></h2>
+<p>La regolarizzazione è uno strumento essenziale per migliorare la generalizzazione dei modelli di machine learning. Le tecniche come la regolarizzazione L1, L2 e Elastic Net offrono diversi modi per controllare la complessità del modello, mentre altre forme come l&rsquo;early stopping e il dropout forniscono ulteriori meccanismi per prevenire l&rsquo;overfitting. La scelta della giusta forma di regolarizzazione dipende dal problema specifico e dalle caratteristiche dei dati.</p>
+<h2 id="collegamenti-correlati"><strong>Collegamenti Correlati</strong></h2>
+<ul>
+<li><span class="text-gray-600">Underfitting e Overfitting</span></li>
+<li><a href="/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale" class="text-blue-600 hover:underline">Regressione Polinomiale</a></li>
+<li><span class="text-gray-600">Minimi Quadrati Ordinari (OLS)</span></li>
+<li><span class="text-gray-600">Teorema di Stone-Weierstrass</span></li>
+<li><span class="text-gray-600">Selezione del Modello</span></li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> machine learning, introduction, basics, fundamentals, AI, model, data, neural</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/introduction/Regolarizzazione">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Regolarizzazione',
+          page_location: 'http://localhost:3000/theory/introduction/Regolarizzazione'
+        });
+      }
+    </script>
+</body>
+</html>

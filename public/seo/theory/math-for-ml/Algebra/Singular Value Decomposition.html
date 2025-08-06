@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Singular Value Decomposition (SVD) | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, learning">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="📚 Singular Value Decomposition (SVD)">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Algebra/Singular Value Decomposition">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="📚 Singular Value Decomposition (SVD)">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Algebra/Singular Value Decomposition">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "📚 Singular Value Decomposition (SVD)",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Algebra/Singular Value Decomposition",
+      "datePublished": "2025-08-06T20:12:10.747Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Algebra/Singular Value Decomposition" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>📚 Singular Value Decomposition (SVD)</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione">📌 Introduzione</h2>
+<p>La <strong>Singular Value Decomposition (SVD)</strong> è una delle tecniche più potenti e versatili dell&rsquo;algebra lineare. È un metodo che ci permette di &ldquo;guardare dentro&rdquo; una matrice e capire il comportamento profondo della trasformazione lineare che rappresenta, rivelandone le direzioni principali di azione e le dimensioni lungo cui opera.</p>
+<p>Immagina una trasformazione come qualcosa che prende un insieme di punti e li sposta, allunga, schiaccia o ruota nello spazio. La SVD ci permette di scomporre questa trasformazione complessa in tre passaggi semplici e interpretabili:</p>
+<ul>
+<li>una <strong>rotazione iniziale</strong>, che riallinea il sistema di riferimento;</li>
+<li>una <strong>scalatura</strong>, che modifica le lunghezze lungo gli assi principali;</li>
+<li>una <strong>rotazione finale</strong>, che orienta il risultato nello spazio d&rsquo;uscita.</li>
+</ul>
+<p>Questa capacità di scomporre e reinterpretare trasformazioni la rende una tecnica centrale in molti campi: compressione delle immagini, riconoscimento facciale, sistemi di raccomandazione, ricerca semantica nei testi, e tanto altro.</p>
+<h2 id="intuizione-caso-math_inline_26">🔍 Intuizione (caso $m > n$)</h2>
+<p>Diamo ora un&rsquo;intuizione dietro alla SVD per $m > n$ (in modo analogo si può definire anche per $m < n$).</p>
+<p>Sia $\{\mathbf v_1, \cdots, \mathbf v_n\}$ una base dello spazio di partenza, con $\mathbf v_i \in \mathbb{R}^n$, e sia $\mathbf{A} \in \mathbb{R}^{m \times n}$ una matrice qualsiasi. Applichiamo $\mathbf{A}$ ai vettori della base:</p>
+$$
+\mathbf A \mathbf v_1 = \sigma_1 \mathbf u_1,\quad \cdots,\quad \mathbf A \mathbf v_n = \sigma_n \mathbf u_n
+$$
+<p>dove:</p>
+<ul>
+<li>$\{\mathbf u_i\}_{i=1}^n$ sono versori (tali che $||\mathbf u_i|| = 1$).</li>
+<li>$\{\sigma_i\}_{i=1}^n$ i fattori di scala dei $\mathbf u_i$.</li>
+</ul>
+<p>Quindi, dato che abbiamo una base, ogni vettore $\mathbf x$ può essere scritto come:</p>
+$$
+\mathbf x = z_1 \mathbf v_1 + \cdots + z_n \mathbf v_n
+$$
+<p>dove $z_i$ è la coordinata $i$ del vettore $\mathbf x$ nella base $\{\mathbf v_1, \cdots, \mathbf v_n\}$.</p>
+<p>Applicando $\mathbf A$:</p>
+$$
+\mathbf A \mathbf x = \sigma_1 z_1 \mathbf u_1 + \cdots + \sigma_n z_n \mathbf u_n
+$$
+<p>Sostituendo termini, si ottiene la forma canonica:</p>
+$$
+\mathbf{A} \mathbf{x} = \sum_{i=1}^{n} \sigma_i z_i \mathbf{u}_i
+$$
+<p>Cerchiamo ora di scrivere questa formula in forma matriciale:</p>
+<h3 id="1-raggruppiamo-le-proiezioni">1. <strong>Raggruppiamo le proiezioni</strong></h3>
+<p>Definiamo il vettore completo delle proiezioni:
+$$
+  \mathbf{z} =
+  \begin{bmatrix}
+  z_1 \\
+  \vdots \\
+  z_n
+  \end{bmatrix}
+  = V^{-1} \mathbf{x}
+$$
+dove $V^{-1}$ è la matrice del cambiamento di base, che mappa da $\{\mathbf{e}_1, \cdots, \mathbf{e}_n\}$ a $\{\mathbf{v}_1, \cdots, \mathbf{v}_n\}$.</p>
+<h3 id="2-applichiamo-la-scalatura">2. <strong>Applichiamo la scalatura</strong></h3>
+<p>Ora moltiplichiamo ogni componente $z_i$ per $\sigma_i$, cioè applichiamo la matrice diagonale dei valori singolari:</p>
+$$
+\Sigma \mathbf z
+=
+\begin{bmatrix}
+\sigma_1 &        &        \\
+        & \ddots &        \\
+        &        & \sigma_n \\\\
+\hline\\
+0       & \cdots & 0       \\
+\vdots  &        & \vdots  \\
+0       & \cdots & 0
+\end{bmatrix}
+\begin{bmatrix}
+z_1 \\
+\vdots \\
+z_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+\sigma_1 z_1 \\
+\vdots \\
+\sigma_n z_n \\\\
+\hline\\
+0 \\
+\vdots \\
+0
+\end{bmatrix}
+$$
+<p>dove $\Sigma\in\mathbb R^{m\times n}$ è rettangolare (solo $n$ valori singolari).</p>
+<h3 id="3-sommiamo-lungo-le-direzioni-math_inline_50">3. <strong>Sommiamo lungo le direzioni $\mathbf{u}_i$</strong></h3>
+<p>Costruiamo il vettore somma come combinazione lineare pesata dei vettori $\mathbf{u}_i$:</p>
+$$
+\sum_{i=1}^n (\sigma_i z_i) \mathbf{u}_i = U_n (\Sigma \mathbf{z}) = U_n \Sigma V^T \mathbf{x}
+$$
+<p>dove </p>
+$$
+U_n =
+\begin{bmatrix}
+\vert & & \vert \\
+\mathbf{u}_1 & \cdots & \mathbf{u}_n \\
+\vert & & \vert
+\end{bmatrix}
+$$
+<p>è la matrice che contiene i vettori $\mathbf{u}_i$ come colonne.</p>
+<h3 id="4-completamento-di-math_inline_53-a-matrice-math_inline_54">4. Completamento di $U$ a matrice $m\times m$</h3>
+<p>Poiché $m>n$, servono ancora $m-n$ colonne $\mathbf u_{n+1},\dots,\mathbf u_m$ per ottenere
+$$
+U =
+\begin{bmatrix}
+\vert & & \vert & \vert & & \vert \\
+\mathbf{u}_1 & \cdots & \mathbf{u}_n & \mathbf{u}_{n+1} & \cdots & \mathbf{u}_m\\
+\vert & & \vert & \vert & & \vert \\
+\end{bmatrix}
+\in\mathbb R^{m\times m},
+$$
+una matrice completa. Si sceglie $\{\mathbf u_{n+1},\dots,\mathbf u_m\}$ in modo che la matrice $U$ contenga tutti vettori indipendenti.</p>
+<h3 id="5-forma-finale-della-trasformazione">5. <strong>Forma finale della trasformazione</strong></h3>
+<p>Poiché il risultato vale per ogni $\mathbf{x}$, allora:</p>
+$$
+\mathbf{A} \mathbf{x} = U \Sigma V^T \mathbf{x} \quad \Rightarrow \quad \boxed{\mathbf{A} = U \Sigma V^T}
+$$
+<p>Questa è la <strong>forma matriciale canonica della trasformazione lineare $\mathbf{A}$</strong>.</p>
+<h3 id="ma-di-preciso-a-cosa-e-servito">Ma di preciso a cosa è servito?</h3>
+<p>Senza ulteriori <strong>restrizioni sulla base</strong> $\{\mathbf v_i\}$, la scomposizione ottenuta non ci fornisce reali vantaggi. In particolare, se i vettori $\mathbf v_i$ non sono scelti in modo ortonormale, allora:</p>
+<ul>
+<li>la matrice $V$ <strong>non è ortogonale</strong> (cioè $V^T \ne V^{-1}$, il che è molto svantaggioso computazionalmente),</li>
+<li>la decomposizione $A = U \Sigma V^T$ <strong>non ha una struttura particolarmente utile o interpretabile</strong>, ed è solo una riscrittura di $A = U \Sigma V^{-1}$,</li>
+<li>le coordinate $z_i$ devono essere ottenute tramite inversione $V^{-1} \mathbf{x}$ e <strong>non come semplici proiezioni scalari</strong>, come nel caso ortonormale.</li>
+</ul>
+<p>Inoltre, se la base $\{\mathbf v_i\}$ <strong>non contiene gli autovettori (normalizzati) di $A^T A$</strong>, la decomposizione non evidenzia il comportamento geometrico fondamentale di $A$, ovvero:</p>
+<ul>
+<li>
+<p>$A^T A$ è <strong>simmetrica e semi-definita positiva</strong>, e rappresenta l&rsquo;operazione:  </p>
+<blockquote>
+<p><em>applica $A$, poi proietta indietro con $A^T$</em>.<br />
+  La sua geometria descrive <strong>come $A$ deforma gli input</strong>.</p>
+</blockquote>
+</li>
+<li>
+<p>I suoi autovettori (che diventano i $\mathbf v_i$ in SVD) <strong>danno le direzioni principali</strong> lungo cui $A$ agisce per stretching o compressione.</p>
+</li>
+</ul>
+<p>Quindi, se imponiamo che $V$ contenga gli <strong>autovettori ortonormali di $A^T A$</strong> (i quali formano sempre una base per lo spazio $\mathbb R^n$), otteniamo:</p>
+<p>✅ una base che diagonalizza $A^T A$,<br />
+✅ una decomposizione dove $V^T = V^{-1}$,<br />
+✅ una decomposizione dove $U \in \mathbb R^m$ contiene gli autovettori di $AA^T$ (ortonormali),<br />
+✅ valori singolari $\sigma_i = \sqrt{\lambda_i}$ (radici degli autovalori),<br />
+✅ una visione chiara: $A$ <strong>ruota</strong>, <strong>scala</strong>, e poi <strong>ruota di nuovo</strong>.</p>
+<p>👉 In sintesi: <strong>la SVD è potente solo se $V$ (e quindi $U$) sono ortogonali</strong> e legati allo spettro di $A^T A$ e $A A^T$, rispettivamente. Altrimenti, la decomposizione perde la sua forza geometrica e computazionale.</p>
+<p>Quindi, scegliendo la base $V$ che ha per vettori gli autovettori della matrice $A^TA$, abbiamo la garanzia che i vettori $\{\mathbf v_i\}_{i=1}^n$ siano ortogonali tra loro e, inoltre, che puntino verso le direzioni dove avviene il massimo stretch della trasformazione $A$; i cosidetti <strong>Right Singular Vectors</strong>. In questo modo, otteniamo un&rsquo;altra importante proprietà: <strong>la matrice $U$ contiene gli autovettori di $AA^T$</strong>, i cosidetti <strong>Left Singular Vectors</strong>.</p>
+<p>Questa proprietà è fondamentale perché:</p>
+<ul>
+<li>
+<p><strong>Scomposizione geometrica</strong>:<br />
+  $$
+  A = U \, \Sigma \, V^T
+  $$
+  descrive $A$ come rotazione → stretching → rotazione.</p>
+</li>
+<li>
+<p><strong>Riduzione del problema</strong>:<br />
+  Permette di lavorare in basi dove $A$ agisce diagonalmente, semplificando l&rsquo;analisi e la risoluzione dei sistemi.</p>
+</li>
+<li>
+<p><strong>Stabilità numerica</strong>:<br />
+  Le matrici ortogonali $U$ e $V$ non amplificano errori, rendendo la SVD ideale per il calcolo numerico.</p>
+</li>
+<li>
+<p><strong>Compressione e filtraggio</strong>:<br />
+  I valori singolari ordinano l&rsquo;importanza delle direzioni → utile per approssimazione a rango ridotto e PCA.</p>
+</li>
+<li>
+<p><strong>Pseudoinversa e minimi quadrati</strong>:<br />
+  La SVD fornisce una soluzione ottima anche in presenza di sistemi non invertibili o sovradeterminati.</p>
+</li>
+</ul>
+<h2 id="proprieta-spettrali-di-math_inline_102-e-math_inline_103">👻 Proprietà spettrali di $A^T A$ e $A A^T$</h2>
+<p><strong>Ipotesi</strong><br />
+Sia $\{\mathbf v_i\}_{i=1}^n$ un insieme di vettori ortonormali tali che<br />
+$$
+A^T A\,\mathbf v_i = \sigma_i^2\,\mathbf v_i,
+\qquad i=1,\dots,n
+$$<br />
+cioè i $\mathbf v_i$ sono già autovettori di $A^T A$ (e quindi ortogonali) con autovalori $\sigma_i^2$.</p>
+<p><strong>Obiettivo</strong><br />
+Dimostrare che<br />
+1. $\{\mathbf u_i\}$, definiti da $\mathbf u_i = \tfrac1{\sigma_i}A\,\mathbf v_i$, sono autovettori di $A A^T$.<br />
+2. Gli autovalori corrispondenti sono anch&rsquo;essi $\sigma_i^2$.</p>
+<ol>
+<li>
+<p><strong>Definizione di $\mathbf u_i$</strong><br />
+    Poiché $\mathbf v_i$ è autovettore di $A^T A$ con autovalore $\sigma_i^2$, poniamo<br />
+    $$
+      \mathbf u_i \;:=\;\frac{A\,\mathbf v_i}{\|A\,\mathbf v_i\|}
+      = \frac{A\,\mathbf v_i}{\sigma_i}.
+    $$<br />
+    Perché $\sigma_i > 0$ (valore singolare), questa definizione è ben posta e $\|\mathbf u_i\|=1$.</p>
+</li>
+<li>
+<p><strong>Calcolo di $A A^T\,\mathbf u_i$</strong><br />
+    Partiamo da<br />
+    $$
+      \mathbf u_i = \frac1{\sigma_i}A\,\mathbf v_i
+      \;\Longrightarrow\;
+      A^T\,\mathbf u_i = \frac1{\sigma_i}A^T A\,\mathbf v_i
+      = \frac1{\sigma_i}\,\sigma_i^2\,\mathbf v_i
+      = \sigma_i\,\mathbf v_i.
+    $$<br />
+    Ora applichiamo $A$ a questa relazione:
+    $$
+      A A^T\,\mathbf u_i
+      = A\bigl(\sigma_i\,\mathbf v_i\bigr)
+      = \sigma_i\,A\,\mathbf v_i
+      = \sigma_i\bigl(\sigma_i\,\mathbf u_i\bigr)
+      = \sigma_i^2\,\mathbf u_i.
+    $$</p>
+</li>
+<li>
+<p><strong>Conclusione sugli autovettori di $A A^T$</strong><br />
+    Abbiamo mostrato che
+    $$
+      (A A^T)\,\mathbf u_i = \sigma_i^2\,\mathbf u_i,
+    $$
+    dunque ciascuno $\mathbf u_i$ è autovettore di $A A^T$ con autovalore $\sigma_i^2$.</p>
+</li>
+<li>
+<p><strong>Ortonormalità</strong>  </p>
+<ul>
+<li>Gli $\mathbf v_i$ erano ortonormali per ipotesi.  </li>
+<li>Gli $\mathbf u_i$, essendo autovettori di una matrice simmetrica, sono anch&rsquo;essi ortonormali (si verifica $u_i^T u_j=0$ per $i\neq j$ e $=1$ per $i=j$ in modo analogo al caso di $v_i$).</li>
+</ul>
+</li>
+</ol>
+<p><strong>Risultato finale</strong><br />
+- $A^T A$ ha autovettori $\{\mathbf v_i\}$ con autovalori $\{\sigma_i^2\}$.<br />
+- $A A^T$ ha autovettori $\{\mathbf u_i\}$ con gli stessi autovalori $\{\sigma_i^2\}$.<br />
+- Entrambe le famiglie di autovettori sono ortonormali.</p>
+<h2 id="interpretazione-geometrica">📐 Interpretazione Geometrica</h2>
+<p>Questa formula mostra come la SVD scompone ogni trasformazione lineare in una <strong>sequenza ordinata</strong> di operazioni:</p>
+<ol>
+<li><strong>Rotazione/Riflessione</strong> (o cambio di base) del vettore di input nello spazio delle $\mathbf{v}_i$, tramite $\mathbf{V}^T = V^{-1}$.</li>
+<li><strong>Scalatura anisotropa</strong> lungo queste direzioni, con coefficienti $\sigma_i$.</li>
+<li><strong>Rotazione/Riflessione</strong> finale nello spazio delle $\mathbf{u}_i$, tramite $\mathbf{U}$.</li>
+</ol>
+<p>Questa decomposizione è non solo utile dal punto di vista computazionale, ma rivela anche la <strong>struttura interna</strong> della trasformazione stessa.</p>
+<p>Quindi sia $\mathbf{A} \in \mathbb{R}^{m \times n}$ una matrice qualsiasi. La <strong>SVD</strong> è una fattorizzazione della matrice nella forma:</p>
+$$
+\mathbf{A} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^{T}
+$$
+<p>dove:</p>
+<ul>
+<li>$\mathbf{U} \in \mathbb{R}^{m \times m}$: matrice ortogonale delle <strong>left singular vectors</strong></li>
+<li>$\mathbf{\Sigma} \in \mathbb{R}^{m \times n}$: matrice diagonale con valori $\sigma_i$ detti <strong>singular values</strong> in ordine decrescente</li>
+<li>$\mathbf{V} \in \mathbb{R}^{n \times n}$: matrice ortogonale delle <strong>right singular vectors</strong></li>
+</ul>
+<h2 id="approfondimento">🧠 Approfondimento</h2>
+<p>Ogni trasformazione lineare $\mathbf{A} \in \mathbb{R}^{m \times n}$, per quanto complessa, può essere sempre <strong>scomposta in tre fasi geometriche</strong>:</p>
+$$
+\mathbf{A} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^T
+$$
+<p>Questa decomposizione corrisponde alla seguente <strong>pipeline geometrica</strong>:</p>
+<h3 id="1-rotazione-iniziale-dello-spazio-math_inline_148">🔹 1. Rotazione iniziale dello spazio ($\mathbf{V}^T$)</h3>
+<ul>
+<li>
+<p>Ruota (o riflette) lo spazio originale per allinearlo alle direzioni principali della trasformazione.</p>
+</li>
+<li>
+<p>Trasforma ogni vettore $\mathbf{A}$ nel nuovo sistema di riferimento ortonormale: $\mathbf z= \mathbf V^⊤ \mathbf x$</p>
+</li>
+<li>
+<p>Intuitivamente, è come esprimere $\mathbf{A}$ in una nuova base ortogonale costruita sui concetti principali della trasformazione.</p>
+</li>
+</ul>
+<h3 id="2-scalatura-assiale-math_inline_152">🔹 2. Scalatura assiale ($\mathbf{\Sigma}$)</h3>
+<ul>
+<li>$\mathbf{\Sigma}$ è una matrice <strong>diagonale</strong> che <strong>scala</strong> ogni coordinata <strong>indipendentemente</strong> lungo un asse ortogonale.</li>
+<li>I valori diagonali $\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r \geq 0$ sono i <strong>valori singolari</strong> e rappresentano <strong>quanto</strong> viene deformato lo spazio in ciascuna direzione.</li>
+<li>Nessuna rotazione o shearing: solo <strong>dilatazione o contrazione</strong>.</li>
+<li>In questo passaggio avviene il &ldquo;cuore&rdquo; della trasformazione: le direzioni principali vengono <strong>ingrandite o compresse</strong> in base alla loro <strong>importanza informativa</strong>.</li>
+</ul>
+<h3 id="3-rotazione-finale-math_inline_155">🔹 3. Rotazione finale ($\mathbf{U}$)</h3>
+<ul>
+<li>
+<p>Dopo che il vettore è stato proiettato e scalato lungo le direzioni principali, $\mathbf{U}$ applica una rotazione (o riflessione) per posizionare il risultato nello spazio d&rsquo;uscita: quello di $\mathbb{R}^m$ se $\mathbf{A} \in \mathbb{R}^{m \times n}$.</p>
+</li>
+<li>
+<p>La trasformazione $\mathbf{U}$ agisce come un cambio di base nello spazio del codominio:
+essa assegna un significato geometrico e direzionale al risultato, stabilendo in quale direzione finale andrà ogni componente scalata.</p>
+</li>
+<li>
+<p>Geometricamente, $\mathbf{U}$ determina l&rsquo;orientamento dell&rsquo;ellisse risultante: mentre $\mathbf{V}^T$ allinea l&rsquo;ingresso alle direzioni principali e $\Sigma$ deforma (scala) secondo quelle direzioni, $\mathbf{U}$ decide come disporre quella deformazione nello spazio originale d&rsquo;uscita.</p>
+</li>
+</ul>
+<h3 id="esempio-visivo">🌌 Esempio Visivo</h3>
+<p>Immagina un <strong>cerchio unitario</strong> nello spazio 2D. Applichiamo $\mathbf{A}$ tramite la sua SVD:</p>
+<p><img src="/images/posts/svd_pipeline.png" width="600" style="display: block; margin-left: auto; margin-right: auto;">
+<br></p>
+<p>L&rsquo;immagine illustra geometricamente la decomposizione a valori singolari (SVD) di una matrice $\mathbf A$, mostrando come può essere interpretata come una sequenza di trasformazioni.</p>
+<ul>
+<li><strong>$\mathbf{V}^T$</strong> ruota il cerchio nella direzione delle <strong>direzioni principali</strong> (quelle dove deve avvenire lo stretching).</li>
+<li><strong>$\mathbf{\Sigma}$</strong> schiaccia o dilata il cerchio lungo i suoi assi principali, trasformandolo in un ellisse.</li>
+<li><strong>$\mathbf{U}$</strong> riallinea (ruota o riflette) l&rsquo;ellisse nell&rsquo;output space, secondo le direzioni principali dell&rsquo;immagine di $\mathbf{A}$, cioè gli autovettori di $\mathbf{A} \mathbf{A}^T$.</li>
+</ul>
+<p>Risultato: da una figura simmetrica e isotropa (cerchio), otteniamo un oggetto deformato ma <strong>con significato direzionale</strong>.</p>
+<h3 id="forma-matriciale-compatta">🧮 Forma matriciale compatta</h3>
+<p>Tutti i risultati precedenti possono essere espressi elegantemente in forma matriciale. A partire dalla <strong>SVD</strong>:</p>
+$$
+A = U \Sigma V^T,
+$$
+<p>possiamo scrivere:</p>
+<ul>
+<li>Per il prodotto $A^T A$:</li>
+</ul>
+$$
+A^T A = (U \Sigma V^T)^T (U \Sigma V^T)
+= V \Sigma^T U^T U \Sigma V^T
+= V \Sigma^T \Sigma V^T.
+$$
+<p>Poiché $U^T U = I$, otteniamo:</p>
+$$
+A^T A = V (\Sigma^T \Sigma) V^T,
+$$
+<p>che mostra che $A^T A$ è <strong>diagonalizzabile</strong> tramite $V$, e ha <strong>autovalori</strong> dati da $\sigma_i^2$.</p>
+<ul>
+<li>Analogamente, per $A A^T$:</li>
+</ul>
+$$
+A A^T = (U \Sigma V^T)(U \Sigma V^T)^T
+= U \Sigma V^T V \Sigma^T U^T
+= U \Sigma \Sigma^T U^T.
+$$
+<p>Quindi:</p>
+$$
+A A^T = U (\Sigma \Sigma^T) U^T,
+$$
+<p>che mostra che $A A^T$ è <strong>diagonalizzabile</strong> tramite $U$, e ha gli <strong>stessi autovalori</strong> $\sigma_i^2$ (tranne eventuali zeri in più se $m \ne n$).</p>
+<p>Queste espressioni confermano in forma compatta che:
+- Le colonne di $V$ sono autovettori di $A^T A$,
+- Le colonne di $U$ sono autovettori di $A A^T$,
+- Gli autovalori in entrambi i casi sono i quadrati dei valori singolari contenuti in $\Sigma$.</p>
+<ul>
+<li>
+<p><strong>Caso $m > n$:</strong><br />
+  $U \in \mathbb{R}^{m \times m}$ è ortogonale. I primi $n$ autovettori corrispondono agli autovalori $\sigma_i^2 > 0$ di $A A^\top$; i restanti $m - n$ sono autovettori associati all&rsquo;autovalore $0$.  </p>
+</li>
+<li>
+<p><strong>Caso $n > m$:</strong><br />
+  $V \in \mathbb{R}^{n \times n}$ è ortogonale. I primi $m$ autovettori corrispondono agli autovalori $\sigma_i^2 > 0$ di $A^\top A$; i restanti $n - m$ sono autovettori associati all&rsquo;autovalore $0$.  </p>
+</li>
+</ul>
+<h2 id="proprieta">📏 Proprietà</h2>
+<ul>
+<li>I vettori di $\mathbf{U}$ e $\mathbf{V}$ formano <strong>basi ortonormali</strong> per lo spazio delle righe e delle colonne.</li>
+<li>I <strong>valori singolari</strong> $\sigma_i$ rappresentano la <strong>quantità di informazione</strong> trasportata lungo ciascuna direzione.</li>
+<li>$\text{rank}(\mathbf{A}) =$ numero di valori singolari non nulli.</li>
+<li>Può essere vista come una generalizzazione dell&rsquo;autodecomposizione (eigendecomposition) per matrici rettangolari.</li>
+</ul>
+<h2 id="riduzione-dimensionale-tramite-truncated-svd">🔧 Riduzione Dimensionale tramite Truncated SVD</h2>
+<p>Spesso, molte direzioni in cui la matrice $\mathbf{A}$ proietta i dati risultano <strong>trascurabili o rumorose</strong>. La <strong>Truncated SVD</strong> consiste nel conservare <strong>solo i primi $k \ll \min(m, n)$ valori singolari</strong> più grandi:</p>
+$$
+\mathbf{A} \approx \mathbf{A}_k = \mathbf{U}_k \mathbf{\Sigma}_k \mathbf{V}_k^T
+$$
+<ul>
+<li>$\mathbf{U}_k \in \mathbb{R}^{m \times k}$ contiene i primi $k$ vettori singolari sinistri.</li>
+<li>$\mathbf{\Sigma}_k \in \mathbb{R}^{k \times k}$ contiene i primi $k$ valori singolari (i più grandi).</li>
+<li>$\mathbf{V}_k^T \in \mathbb{R}^{k \times n}$ contiene i primi $k$ vettori singolari destri.</li>
+</ul>
+<p>🔍 <strong>Perché funziona?</strong></p>
+<ol>
+<li>
+<p>I valori singolari $\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r$ sono ordinati in modo decrescente:<br />
+<strong>i primi rappresentano le direzioni in cui $\mathbf{A}$ ha la massima &ldquo;energia&rdquo;</strong> (varianza proiettata).</p>
+</li>
+<li>
+<p>Geometricamente:  </p>
+</li>
+<li>Ogni direzione $\mathbf{v}_i$ corrisponde a un asse principale su cui $\mathbf{A}$ proietta i dati.</li>
+<li>Il valore $\sigma_i$ misura <strong>quanto è importante quella direzione</strong>.</li>
+<li>
+<p>Troncando dopo $k$, scartiamo le direzioni meno influenti.</p>
+</li>
+<li>
+<p>Matematicamente:<br />
+   $$ 
+   \mathbf{A}_k = \arg\min_{\text{rank-}k\text{ matrices } \mathbf{A}} \|\mathbf{A} - \mathbf{A}\|_F 
+   $$
+   cioè $\mathbf{A}_k$ è la <strong>migliore approssimazione di rango $k$</strong> di $\mathbf{A}$ in norma di Frobenius (somma dei quadrati degli scarti).</p>
+</li>
+</ol>
+<p>🚀 <strong>Utilità</strong>:
+- <strong>Compressione dei dati</strong>: conserviamo solo l&rsquo;informazione essenziale.
+- <strong>Riduzione del rumore</strong>: eliminiamo direzioni deboli o casuali.
+- <strong>Estrazione di concetti latenti</strong>: fondamentale in NLP, raccomandazione, clustering.</p>
+<h2 id="differenze-tra-svd-ed-eigendecomposition">🧾 Differenze tra SVD ed Eigendecomposition</h2>
+<table>
+<thead>
+<tr>
+<th>Metodo</th>
+<th>Tipo matrice</th>
+<th>Fattorizzazione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SVD</td>
+<td>qualsiasi</td>
+<td>$\mathbf{A} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^T$</td>
+</tr>
+<tr>
+<td>Eigendecomp</td>
+<td>solo quadrate</td>
+<td>$\mathbf{A} = \mathbf{Q} \mathbf{\Lambda} \mathbf{Q}^{-1}$</td>
+</tr>
+</tbody>
+</table>
+<p>Nota: SVD è più generale e robusta.</p>
+<h2 id="algoritmo-per-calcolare-la-svd">⚙️ Algoritmo per Calcolare la SVD</h2>
+<p>Sebbene abbiamo discusso a fondo il significato geometrico e le proprietà della decomposizione SVD, <strong>non abbiamo ancora affrontato il modo in cui essa viene effettivamente calcolata</strong>.</p>
+<p>In breve, calcolare la SVD di una matrice $\mathbf{A} \in \mathbb{R}^{m \times n}$ significa trovare tre matrici $\mathbf{U}, \mathbf{\Sigma}, \mathbf{V}$ tali che:</p>
+$$
+\mathbf{A} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^T
+$$
+<p>L&rsquo;algoritmo per trovare queste matrici <strong>non si basa semplicemente su manipolazioni algebriche dirette</strong>, ma coinvolge:</p>
+<ul>
+<li>la <strong>diagonalizzazione</strong> delle matrici simmetriche $A^T A$ e $A A^T$,</li>
+<li>il <strong>calcolo degli autovalori e autovettori</strong> di queste matrici,</li>
+<li>e la costruzione dei vettori singolari normalizzati a partire da queste informazioni.</li>
+</ul>
+<p>In pratica, si ricorre a <strong>tecniche numeriche stabili</strong> come:
+- il metodo delle <strong>rotazioni di Jacobi</strong>,
+- la <strong>bidiagonalizzazione</strong> di $\mathbf{A}$ tramite trasformazioni di Householder,
+- e successivi algoritmi iterativi per l&rsquo;estrazione dei valori singolari.</p>
+<p>👉 Per i dettagli sul <strong>procedimento numerico e algoritmico</strong> per ottenere la SVD, rimandiamo alla seguente nota dedicata:</p>
+<p>📎 <span class="text-gray-600">Algoritmo per la SVD</span></p>
+<h2 id="limiti-della-svd">⚠️ Limiti della SVD</h2>
+<ul>
+<li>Complessità computazionale elevata: $\mathcal{O}(mn\min(m,n))$</li>
+<li>Poco scalabile su matrici <strong>molto grandi</strong> (es. $10^6 \times 10^6$)</li>
+<li>Non si adatta bene a <strong>matrici dinamiche</strong> o sparse (come nel linguaggio naturale)</li>
+<li>Richiede <strong>riaddestramento completo</strong> per ogni nuovo documento/termine</li>
+</ul>
+<h2 id="vantaggi">✅ Vantaggi</h2>
+<ul>
+<li>Estrae automaticamente <strong>relazioni latenti</strong></li>
+<li>Riduce il rumore e le ridondanze</li>
+<li>Ottimo per compattare l&rsquo;informazione</li>
+<li>Facilita la <strong>similarità semantica</strong> tra oggetti (es. documenti, parole)</li>
+</ul>
+<h2 id="applicazioni">🧪 Applicazioni</h2>
+<ul>
+<li><strong>NLP</strong>: <a href="/theory/nlp/Semantica/Vector Semantics/Latent Semantic Analysis" class="text-blue-600 hover:underline">Latent Semantic Analysis</a> (LSA)</li>
+<li><strong>Motori di raccomandazione</strong>: filtraggio collaborativo</li>
+<li><strong>Visione artificiale</strong>: compressione di immagini</li>
+<li><strong>Machine Learning</strong>: preprocessing per PCA e clustering</li>
+</ul>
+<h2 id="conclusione">🧭 Conclusione</h2>
+<p>La SVD non è solo una tecnica matematica ma un <strong>principio guida</strong> per strutturare, comprimere e interpretare dati complessi. In ambito linguistico, è lo strumento matematico fondante di molte tecniche semantiche moderne.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, learning</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Algebra/Singular Value Decomposition">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: '📚 Singular Value Decomposition (SVD)',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Algebra/Singular Value Decomposition'
+        });
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regressione Logistica | Supervised Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="supervised learning, labeled data, classification, regression, model, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Regressione Logistica">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Logistica">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Regressione Logistica">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Logistica">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Regressione Logistica",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Logistica",
+      "datePublished": "2025-08-06T20:12:10.769Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Logistica" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Regressione Logistica</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Supervised Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>regressione logistica</strong> è un modello di classificazione che stima direttamente la probabilità di appartenenza a una classe, basandosi su un approccio <strong>discriminativo</strong>. Questo la differenzia da metodi <strong>generativi</strong> come l&rsquo;Analisi Discriminante Lineare (LDA), che modellano esplicitamente le distribuzioni delle features condizionate alle classi. Per una trattazione dettagliata del quadro probabilistico, consulta la <a href="/theory/introduction/Tipologie di Problemi/Classificazione Binaria" class="text-blue-600 hover:underline">Classificazione Binaria</a>.</p>
+<h2 id="fondamenti-probabilistici"><strong>Fondamenti Probabilistici</strong></h2>
+<h3 id="collegamento-con-il-logit-e-la-sigmoide">Collegamento con il Logit e la Sigmoide</h3>
+<p>Il <strong>logit</strong> rappresenta il <em>logaritmo del rapporto delle probabilità</em> (log-odds) tra classe positiva e negativa:
+$$
+\text{logit}(p) = \ln\left(\frac{p}{1-p}\right) = \mathbf x^\top \mathbf{w} +b
+$$</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">rcParams</span>
+
+<span class="c1"># Configurazione stile avanzato</span>
+<span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mathtext.fontset&#39;</span><span class="p">:</span> <span class="s1">&#39;cm&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.facecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.edgecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;0.3&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.grid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;grid.color&#39;</span><span class="p">:</span> <span class="s1">&#39;0.85&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.labelcolor&#39;</span><span class="p">:</span> <span class="s1">&#39;0.3&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;xtick.color&#39;</span><span class="p">:</span> <span class="s1">&#39;0.4&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ytick.color&#39;</span><span class="p">:</span> <span class="s1">&#39;0.4&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlepad&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="c1"># Definizione delle funzioni</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">logit</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">))</span>
+
+<span class="c1"># Generazione dati</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">log_odds</span> <span class="o">=</span> <span class="n">logit</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+<span class="c1"># Creazione figura con griglia personalizzata</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
+
+<span class="c1"># Plot Sigmoide e Logit (trasformazione inversa)</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\sigma(x) = \frac{1}{1+e^{-x}}$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sigmoide: Da Logit a Probabilità&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x = \mathbf{w}^\top \mathbf{x} + b$ (logit)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma(x)$ (probabilità)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="c1"># Aggiunta annotazioni matematiche</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma(0) = 0.5$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lim_{x \to +\infty} \sigma(x) = 1$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lim_{x \to -\infty} \sigma(x) = 0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">))</span>
+
+<span class="c1"># Plot Log-Odds (Funzione Logit)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">log_odds</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\mathrm{logit}(p) = \ln\left(\frac{p}{1-p}\right)$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Funzione Logit: Da Probabilità a Log-Odds&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p$ (probabilità)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mathrm{logit}(p)$ (log-odds)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="c1"># Linee guida e annotazioni</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.5&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.5&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mathrm{logit}(0.5) = 0$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lim_{p \to 1^-} \mathrm{logit}(p) = +\infty$&#39;</span><span class="p">,</span> 
+             <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\lim_{p \to 0^+} \mathrm{logit}(p) = -\infty$&#39;</span><span class="p">,</span> 
+             <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;logit_sigmoid_dual.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/logit.jpg" alt="Logit"></p>
+<p><em>Figura 1.0: Funzione logit. Relazione Duale: $\sigma(\mathrm{logit}(p)) = p$ e $\mathrm{logit}(\sigma(x)) = x$</em></p>
+<p>La <strong>funzione sigmoide</strong> $\sigma(\cdot)$ ne è l&rsquo;inversa:
+$$
+p = \sigma(\mathbf x^\top \mathbf{w} + b) = \frac{1}{1 + e^{-(\mathbf x^\top \mathbf{w} + b)}}
+$$</p>
+<p><img alt="Funzione sigmoide" src="/images/tikz/Logistic-curve.svg" /></p>
+<p><em>Figura 2.1: Funzione sigmoide.</em></p>
+<p>Questa relazione deriva direttamente dalla massimizzazione della <em>verosimiglianza</em> (MLE) sotto un modello lineare generalizzato (GLM). Per i dettagli analitici, vedi la <a href="/theory/introduction/Tipologie di Problemi/Classificazione Binaria" class="text-blue-600 hover:underline">Classificazione Binaria</a>.</p>
+<h2 id="definizioni-generali"><strong>Definizioni Generali</strong></h2>
+<p>Dato un dataset $\mathcal D = \{(\mathbf x_i, y_i)\}_{i=1}^n$, una regressione logistica classifica le osservazioni in due classi: $y_i \in \{0, 1\}$. La funzione stimata $\hat{f}_\mathbf w$ utilizza la funzione sigmoide per mappare i vettori $\mathbf x_i \in \mathbb R^{(m+1)}$ in probabilità tramite un vettore di pesi $\mathbf w \in \mathbb R^{m+1}$. Per semplicità, assumeremo che i vettori siano:</p>
+$$
+\mathbf w = \begin{bmatrix} w_0 \\ \vdots \\ w_m \end{bmatrix} \quad \text{e} \quad \mathbf x = \begin{bmatrix} x_0 = 1 \\ x_1 \\ \vdots \\ x_m \end{bmatrix}.
+$$
+<p>Quindi:</p>
+$$
+\hat{f}_\mathbf w(\mathbf x_i) = \sigma(\mathbf x^\top \mathbf{w}) = \frac{1}{1 + e^{-(\mathbf x^\top \mathbf{w})}}.
+$$
+<p>In questo modo la funzione stimata diventa:</p>
+$$
+\hat{f}_\mathbf w(\mathbf x_i) = \sigma(\mathbf{x}_i^\top \mathbf w) = \frac{1}{1 + e^{-\mathbf{x}_i^\top \mathbf w}}
+$$
+<p>Quindi:
+- $p(y_i=1 \mid \mathbf x_i, \mathbf w) = \sigma(\mathbf{x}_i^\top \mathbf w) = \frac{1}{1 + e^{-\mathbf{x}_i^\top \mathbf w}}$
+- $p(y_i=0 \mid \mathbf x_i, \mathbf w) = 1 - \sigma(\mathbf{x}_i^\top \mathbf w) = \frac{e^{-\mathbf{x}_i^\top \mathbf w}}{1 + e^{-\mathbf{x}_i^\top \mathbf w}}$</p>
+<p>Quindi, la verosimiglianza del vettore di tutte le osservazioni $\mathbf y \in \mathbb R^n$ dati un vettore di pesi $\mathbf w \in \mathbb R^{m+1}$ e una matrice di features $\mathbf X \in \mathbb R^{n \times (m+1)}$ viene definita come:</p>
+$$\begin{align*}
+p(\mathbf y \mid \mathbf X, \mathbf w) &= \prod_{i=1}^n \hat{f}_\mathbf w(\mathbf x_i)^{y_i} \left(1 - \hat{f}_\mathbf w(\mathbf x_i)\right)^{1 - y_i}\\ 
+&=\prod_{i=1}^n \sigma(\mathbf{x}_i^\top \mathbf w)^{y_i} \left(1 - \sigma(\mathbf{x}_i^\top \mathbf w)\right)^{1 - y_i}.
+\end{align*}
+$$
+<p>In questo modo, quando (la label del dataset) $y_i = 1$, consideriamo la probabilità predetta dal modello per la classe $1$, mentre quando $y_i = 0$, consideriamo la probabilità predetta dal modello per la classe $0$.</p>
+<p>Il nostro obiettivo è quello di trovare il vettore di pesi $\mathbf w$ che massimizza questa funzione di verosimiglianza (la probabilità che, dati i dati e i pesi, si ottengano le previsioni giuste).</p>
+<h2 id="ottimizzazione-del-modello"><strong>Ottimizzazione del Modello</strong></h2>
+<p>Ora possiamo quindi definire la funzione di verosimiglianza (Likelihood Function) come:</p>
+$$
+\mathcal{L}(\mathbf{w}) = \prod_{i=1}^n p(y_i \mid \mathbf x_i, \mathbf w) = \prod_{i=1}^n \sigma(\mathbf{x}_i^\top \mathbf w)^{y_i} \left(1 - \sigma(\mathbf{x}_i^\top \mathbf w)\right)^{1 - y_i}.
+$$
+<p>Chiaramente, questa funzione non è lineare ne tanto meno convessa (grazie alla funzione sigmoide), quindi non possiamo sfruttare le care tecniche di ottimizzazione convessa (ponendo il gradinete $=0$ e risolvendo per $\mathbf w$); non otteniamo la soluzione ottima. Questo può essere un problema non da poco, ma che risolveremo di seguito.</p>
+<h3 id="funzione-di-perdita-log-loss">Funzione di Perdita (Log-Loss)</h3>
+<p>Applicando il logaritmo ad entrambi i membri della funzione di verosimiglianza otteniamo: </p>
+$$
+\ln \mathcal{L}(\mathbf{w}) = \sum_{i=1}^n \left(y_i \ln(\sigma(\mathbf{x}_i^\top \mathbf w)) + (1 - y_i) \ln(1 - \sigma(\mathbf{x}_i^\top \mathbf w))\right).
+$$
+<p>In questo modo, dato che il logaritmo è una funzione monotona crescente, non modifichiamo il problema di massimizzazione della funzione di verosimiglianza.</p>
+<p>In più, applicando un coefficiente (negativo) di mediazione $-\frac{1}{n}$, otteniamo una nuova funzione di perdita $\mathcal{LL}(\mathbf w)$ detta <strong>Log-Loss</strong> o <strong>Cross-Entropy</strong> o <strong>Logarithmic Loss</strong>:</p>
+$$
+\mathcal{LL}(\mathbf{w}) = -\frac{1}{n} \sum_{i=1}^n \left(y_i \ln(\sigma(\mathbf{x}_i^\top \mathbf w)) + (1 - y_i) \ln(1 - \sigma(\mathbf{x}_i^\top \mathbf w))\right).
+$$
+<p>Quindi il problema di massimizzazione della funzione di verosimiglianza diventa un problema di minimizzazione della funzione di perdita (grazie al fattore di mediazione negativo). Inoltre, la nuova funzione $\mathcal{LL}(\mathbf{w})$ è una funzione convessa. 😃</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">rcParams</span>
+
+<span class="c1"># Configurazione stile globale</span>
+<span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;axes.grid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;grid.alpha&#39;</span><span class="p">:</span> <span class="mf">0.3</span>
+<span class="p">})</span>
+
+<span class="c1"># Definizione delle funzioni</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">log_sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># Forma numericamente stabile</span>
+
+<span class="c1"># Calcolo analitico delle derivate seconde</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmoid_second_deriv</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">σ</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">σ</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">σ</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">σ</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">log_sigmoid_second_deriv</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">σ</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">σ</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">σ</span><span class="p">)</span>
+
+<span class="c1"># Generazione dati</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">σ</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">log_σ</span> <span class="o">=</span> <span class="n">log_sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">σ_deriv2</span> <span class="o">=</span> <span class="n">sigmoid_second_deriv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">log_σ_deriv2</span> <span class="o">=</span> <span class="n">log_sigmoid_second_deriv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Creazione figura con griglia personalizzata</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="c1"># Plot sigmoide</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">σ</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\sigma(x) = \frac{1}{1+e^{-x}}$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Funzione Sigmoide&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma(x)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+
+<span class="c1"># Plot derivata seconda sigmoide</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">σ_deriv2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\sigma^{\prime\prime}(x) = \sigma(x)(1-\sigma(x))(1-2\sigma(x))$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Derivata Seconda della Sigmoide&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma^{\prime\prime}(x)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Convessa (σ</span><span class="se">\&#39;\&#39;</span><span class="s1">&gt;0)&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Concava (σ</span><span class="se">\&#39;\&#39;</span><span class="s1">&lt;0)&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">),)</span>
+
+<span class="c1"># Plot log-sigmoide</span>
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">log_σ</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\log\sigma(x) = -\log(1+e^{-x})$&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Logaritmo della Sigmoide&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\log\sigma(x)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Plot derivata seconda log-sigmoide</span>
+<span class="n">ax4</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">log_σ_deriv2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$(\log\sigma(x))^{\prime\prime} = -\sigma(x)(1-\sigma(x))$&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Derivata Seconda del Log-Sigmoide&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$(\log\sigma(x))^{\prime\prime}$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Sempre concava</span><span class="se">\n</span><span class="s1">(derivata seconda &lt;0)&#39;</span><span class="p">,</span> 
+             <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.22</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/log-sigmoid-convex.jpg&#39;</span><span class="p">,</span> 
+           <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> 
+           <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+           <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>  <span class="c1"># Aggiungere questo parametro</span>
+           <span class="c1">#facecolor=fig.get_facecolor(),  # Mantenere il colore di sfondo</span>
+           <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Disabilitare la trasparenza</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img title="a title" alt="Alt text" src="/images/posts/log-sigmoid-convex.jpg"></p>
+<p><em>Figura 2.0: Convessità del logaritmo della sigmoide</em></p>
+<p>Infatti, possiamo notare che la funzione $-\ln(\sigma(x))$ (e quindi anche $\ln(1-\sigma(x))$) è convessa, in quanto la sua derivata seconda è sempre negativa.</p>
+<p><strong>Proof:</strong> </p>
+$$
+\begin{align*}
+f(x) &= -\ln(\sigma(x)) \quad \text{dove} \quad \sigma(x) = \frac{1}{1 + e^{-x}}\\
+f(x) &= -\ln\left(\frac{1}{1 + e^{-x}}\right) = \ln(1 + e^{-x})\\
+f'(x) &= \frac{d}{dx} \ln(1 + e^{-x}) = \frac{-e^{-x}}{1 + e^{-x}} = -\frac{1}{1 + e^{x}}\\
+f''(x) &= \frac{d}{dx} \left(-\frac{1}{1 + e^{x}}\right) = \frac{e^{x}}{(1 + e^{x})^2}
+\end{align*}
+$$
+<p>La funzione è <strong>convessa</strong> se $f''(x) \geq 0$ per ogni $x \in \mathbb{R}$.<br />
+Osserviamo che:
+- $e^{x} > 0$ per ogni $x$
+- $(1 + e^{x})^2 > 0$ per ogni $x$</p>
+<p>Quindi:
+$$
+f''(x) = \underbrace{\frac{e^{x}}{(1 + e^{x})^2}}_{\text{Sempre positivo}} > 0 \quad \forall x
+$$</p>
+<p><strong>Conclusione</strong>:<br />
+- $\ln(\sigma(x))$ è <strong>strettamente convessa</strong> su tutto $\mathbb{R}$. $\square$</p>
+<h3 id="dimostrazione-della-convessita-della-log-loss">Dimostrazione della Convessità della Log-Loss</h3>
+<p>Per dimostrare che la <strong>log-loss</strong> è una funzione convessa, possiamo verificare che la sua Hessiana (la matrice delle derivate seconde) è <strong>definita positiva</strong>. Seguiamo i passaggi dettagliatamente.</p>
+<h4 id="1-definizione-della-log-loss">1. Definizione della Log-Loss</h4>
+<p>Supponiamo di avere la funzione di log-loss:</p>
+$$
+\mathcal{LL}(\mathbf w) = -\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \ln(\sigma(z_i)) + (1 - y_i) \ln(1 - \sigma(z_i)) \right],
+$$
+<p>dove:</p>
+<ul>
+<li>$z_i = \mathbf x_i^\top \mathbf w$ rappresenta la combinazione lineare dei pesi $\mathbf w$ e delle feature $\mathbf x_i$.</li>
+<li>$\sigma(z)$ è la <strong>funzione sigmoide</strong> definita come:</li>
+</ul>
+$$
+  \sigma(z) = \frac{1}{1 + e^{- z}}.
+  $$
+<h4 id="2-calcolo-della-derivata-prima">2. Calcolo della derivata prima</h4>
+<p>Consideriamo la funzione interna:</p>
+$$
+f(z_i) = -\left[ y_i \ln(\sigma(z_i)) + (1 - y_i) \ln(1 - \sigma(z_i)) \right].
+$$
+<p>Deriviamo rispetto a $z_i$. Utilizzando le proprietà della funzione sigmoide, otteniamo:</p>
+$$
+\frac{d}{dz_i} f(z_i) = \sigma(z_i) - y_i.
+$$
+<p>Derivando poi $z_i$ rispetto ai pesi $\mathbf w$, otteniamo:</p>
+$$
+\frac{d z_i}{d\mathbf w} = \mathbf x_i.
+$$
+<p>Applicando la <strong>chain rule</strong>, la derivata della log-loss rispetto ai pesi $\mathbf w$ è:</p>
+$$
+\nabla_{\mathbf w} \mathcal{LL}(\mathbf w) = \frac{1}{n} \sum_{i=1}^{n} \frac{d f(z_i)}{dz_i}\frac{d z_i}{d\mathbf w} = \frac{1}{n} \sum_{i=1}^{n} (\sigma(z_i) - y_i) \mathbf x_i.
+$$
+<p>Questa espressione rappresenta il <strong>gradiente</strong> della log-loss.</p>
+<h4 id="3-calcolo-della-hessiana-derivata-seconda">3. Calcolo della Hessiana (derivata seconda)</h4>
+<p>Per avere la garanzia che la funzione di log-loss sia <strong>convessa</strong>, bisogna verificare che la sua Hessiana (la matrice delle derivate seconde) sia <strong>semidefinita positiva</strong>, il che garantisce che la funzione <strong>abbia curvatura non negativa in tutte le direzioni</strong> e quindi che sia convessa.</p>
+<p>Per calcolare la <strong>matrice Hessiana</strong> della log-loss, deriviamo il gradiente $\nabla_{\mathbf{w}} \mathcal{LL}(\mathbf{w})$ rispetto a $\mathbf{w}$.<br />
+Sappiamo che:
+$$
+\nabla_{\mathbf{w}} \mathcal{LL}(\mathbf{w}) = \frac{1}{n} \sum_{i=1}^n (\sigma(z_i) - y_i) \mathbf{x}_i
+$$</p>
+<p><strong>Passaggio 3.1: Derivata del gradiente</strong><br />
+Deriviamo ogni componente $j$-esima del gradiente rispetto a $w_k$:
+$$
+\frac{\partial}{\partial w_k} \left[ \frac{1}{n} \sum_{i=1}^n (\sigma(z_i) - y_i) x_{ij} \right] = \frac{1}{n} \sum_{i=1}^n \frac{\partial \sigma(z_i)}{\partial w_k} x_{ij} - \underbrace{\frac{\partial y_i x_{ij}}{\partial w_k}}_{= 0} = \frac{1}{n} \sum_{i=1}^n \frac{\partial \sigma(z_i)}{\partial w_k} x_{ij}
+$$</p>
+<p><strong>Passaggio 3.2: Derivata della sigmoide</strong><br />
+Usiamo la proprietà $\sigma'(z_i) = \sigma(z_i)(1 - \sigma(z_i))$:
+$$
+\frac{\partial \sigma(z_i)}{\partial w_k} = \sigma(z_i)(1 - \sigma(z_i)) \cdot \frac{\partial z_i}{\partial w_k} = \sigma(z_i)(1 - \sigma(z_i)) x_{ik}
+$$</p>
+<p><strong>Passaggio 3.3: Forma matriciale della Hessiana</strong><br />
+Sostituendo nella derivata seconda:</p>
+$$
+\nabla_{\mathbf{w}}^2 \mathcal{LL}(\mathbf{w}) = \frac{\partial}{\partial \mathbf{w}} \left( \nabla_{\mathbf{w}} \mathcal{LL}(\mathbf{w}) \right) = \frac{1}{n} \sum_{i=1}^n \frac{\partial}{\partial \mathbf{w}} \left[ (\sigma(z_i) - y_i) \mathbf{x}_i \right] = \frac{1}{n} \sum_{i=1}^n \sigma(z_i)(1 - \sigma(z_i)) \mathbf{x}_i \mathbf{x}_i^\top
+$$
+<p>dove:</p>
+$$
+\frac{\partial}{\partial w_k} \left[ (\sigma(z_i) - y_i) x_{ij} \right] = \underbrace{\frac{\partial \sigma(z_i)}{\partial w_k}}_{\sigma(z_i)(1 - \sigma(z_i)) x_{ik}} \cdot x_{ij} = \sigma(z_i)(1 - \sigma(z_i)) x_{ik} x_{ij}
+$$
+<p>che quindi equivale a </p>
+$$
+\mathbf{H}_i = \sigma(z_i)(1 - \sigma(z_i)) 
+\begin{bmatrix}
+x_{i1}x_{i1} & x_{i1}x_{i2} & \cdots & x_{i1}x_{id} \\
+x_{i2}x_{i1} & x_{i2}x_{i2} & \cdots & x_{i2}x_{id} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{id}x_{i1} & x_{id}x_{i2} & \cdots & x_{id}x_{id}
+\end{bmatrix}
+= \sigma(z_i)(1 - \sigma(z_i)) \, \mathbf{x}_i \mathbf{x}_i^\top
+$$
+<h4 id="4-analisi-della-definita-positivita">4. Analisi della Definita Positività</h4>
+<p>Ora abbiamo:</p>
+<ul>
+<li>
+<p><strong>1. Positività dei coefficienti</strong>: $\sigma(z_i)(1 - \sigma(z_i)) > 0 \quad \forall z_i \in \mathbb{R}$, poiché $\sigma(z_i) \in (0,1)$.</p>
+</li>
+<li>
+<p><strong>2. Matrici semidefinite positive</strong>: Ogni matrice $\mathbf{x}_i \mathbf{x}_i^\top$ è <span class="text-gray-600">semidefinita positiva</span>. </p>
+<p>Per ogni vettore $\mathbf{v} \in \mathbb{R}^d$:
+$$
+    \mathbf{v}^\top (\mathbf{x}_i \mathbf{x}_i^\top) \mathbf{v} = (\mathbf{x}_i^\top \mathbf{v})^2 \geq 0
+    $$</p>
+<p>Dimostriamo ora che per ogni vettore $\mathbf{x}_i \in \mathbb{R}^d$, la matrice $\mathbf{x}_i \mathbf{x}_i^\top$ è semidefinita positiva.</p>
+<p>Una matrice $M \in \mathbb{R}^{d \times d}$ è semidefinita positiva (PSD) se e solo se:<br />
+$$
+    \forall \mathbf{v} \in \mathbb{R}^d \setminus \{\mathbf{0}\}, \quad \mathbf{v}^\top M \mathbf{v} \geq 0
+    $$</p>
+<p>Sia $\mathbf{v} \in \mathbb{R}^d$ un vettore non nullo arbitrario. Calcoliamo:
+$$
+    \mathbf{v}^\top (\mathbf{x}_i \mathbf{x}_i^\top) \mathbf{v} = (\mathbf{v}^\top \mathbf{x}_i)(\mathbf{x}_i^\top \mathbf{v})
+    $$<br />
+Poiché $\mathbf{v}^\top \mathbf{x}_i$ è uno scalare, vale:<br />
+$$
+    (\mathbf{v}^\top \mathbf{x}_i)(\mathbf{x}_i^\top \mathbf{v}) = (\mathbf{x}_i^\top \mathbf{v})^\top (\mathbf{x}_i^\top \mathbf{v}) = \|\mathbf{x}_i^\top \mathbf{v}\|^2
+    $$</p>
+<p>Per qualsiasi scalare $a \in \mathbb{R}$, si ha $a^2 \geq 0$. Quindi:<br />
+$$
+    \|\mathbf{x}_i^\top \mathbf{v}\|^2 \geq 0 \quad \forall \mathbf{v} \neq \mathbf{0}
+    $$</p>
+<p>Poiché $\mathbf{v}^\top (\mathbf{x}_i \mathbf{x}_i^\top) \mathbf{v} \geq 0$ per ogni $\mathbf{v} \neq \mathbf{0}$, la matrice $\mathbf{x}_i \mathbf{x}_i^\top$ è semidefinita positiva per definizione. $\square$</p>
+</li>
+</ul>
+<p><strong>Corollari</strong>:
+- <strong>Autovalori Non Negativi</strong>: Gli autovalori di $\mathbf{x}_i \mathbf{x}_i^\top$ sono $\|\mathbf{x}_i\|^2$ (autovalore non negativo) e $0$ (con molteplicità $d-1$).
+- <strong>Rank 1</strong>: Se $\mathbf{x}_i \neq \mathbf{0}$, la matrice ha rank 1, con autovettore $\mathbf{x}_i$.</p>
+<p>La combinazione lineare:<br />
+$$
+\sum_{i=1}^n \sigma(z_i)(1 - \sigma(z_i)) \mathbf{x}_i \mathbf{x}_i^\top
+$$<br />
+mantiene la positività semidefinita perché:
+  1. Coefficienti $\sigma(z_i)(1 - \sigma(z_i)) > 0$
+  2. Somma di matrici PSD pesate positivamente è PSD
+  3. Somma di matrici PSD pesate negativamente non sono PSD</p>
+<p>Quindi, la Hessiana $\mathbf{H}_i$ per ogni osservazione $i$ risulta essere <strong>semidefinita positiva</strong>.</p>
+<h4 id="5-conclusione-finale">5. Conclusione Finale</h4>
+<p>Poiché la Hessiana è semidefinita positiva per ogni $\mathbf{w}$, la funzione di log-loss $\mathcal{LL}(\mathbf{w})$ è <strong>convessa</strong> su $\mathbb{R}^d$. $\square$</p>
+<p>Tuttavia, se imponessimo ora $\nabla_{\mathbf{w}} \mathcal{LL}(\mathbf{w}) = 0$, otterremmo il <strong>minimo globale</strong> della funzione di log-loss $\mathcal{LL}(\mathbf{w})$. Se non fosse che questa equazione è un&rsquo;equazione trascendente, e può essere dimostrato che queste tipologie di equazioni non hanno una soluzione analitica. Quindi, per ottenere il minimo globale, bisogna utilizzare un metodo numerico di ottimizzazione. </p>
+<p>L’ottimizzazione tramite <a href="/theory/math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente" class="text-blue-600 hover:underline">discesa del gradiente</a> è una delle soluzioni più comuni, e grazie alla convessità della funzione di log-loss, può convergere a un <strong>unico minimo globale</strong> (se esiste).</p>
+<p><strong>Implicazioni pratiche</strong>:<br />
+- L’assenza di minimi locali rende la regressione logistica <strong>stabile</strong> e <strong>prevedibile</strong> nell’ottimizzazione.<br />
+- Metodi del secondo ordine (es. Newton-Raphson) sfruttano direttamente la convessità per convergenza rapida.</p>
+<h2 id="estensione-multiclasse-softmax-e-logica-multinomiale"><strong>Estensione Multiclasse: Softmax e Logica Multinomiale</strong></h2>
+<p>La regressione logistica può essere estesa a problemi di classificazione con $K \geq 2$ classi tramite il modello <strong>Softmax</strong> (o <strong>regressione multinomiale</strong>). Questo approccio generalizza la funzione sigmoide per gestire più classi, preservando la convessità della funzione di perdita.</p>
+<h3 id="fondamenti-probabilistici_1"><strong>Fondamenti Probabilistici</strong></h3>
+<h4 id="1-funzione-softmax">1. Funzione Softmax</h4>
+<p>Dato un vettore di punteggi (logit) $\mathbf{z} = [z_1, \dots, z_K]^\top$, dove $z_k = \mathbf{x}^\top \mathbf{w}_k$, la funzione softmax mappa i logit in probabilità:
+$$
+\sigma(\mathbf{z})_k = \frac{e^{z_k}}{\sum_{j=1}^K e^{z_j}}, \quad k = 1, \dots, K
+$$
+- <strong>Proprietà</strong>:
+  - $\sigma(\mathbf{z})_k \in (0,1)$
+  - $\sum_{k=1}^K \sigma(\mathbf{z})_k = 1$</p>
+<h4 id="2-modello-probabilistico">2. Modello Probabilistico</h4>
+<p>Per un&rsquo;osservazione $\mathbf{x}$, la probabilità di appartenere alla classe $k$ è:
+$$
+p(y=k \mid \mathbf{x}, \mathbf{W}) = \sigma(\mathbf{z})_k = \frac{e^{\mathbf{x}^\top \mathbf{w}_k}}{\sum_{j=1}^K e^{\mathbf{x}^\top \mathbf{w}_j}}
+$$
+dove $\mathbf{W} = [\mathbf{w}_1, \dots, \mathbf{w}_K] \in \mathbb{R}^{(m+1) \times K}$ è la matrice dei pesi.</p>
+<h3 id="funzione-di-perdita-cross-entropy-multiclasse"><strong>Funzione di Perdita (Cross-Entropy Multiclasse)</strong></h3>
+<h4 id="3-log-verosimiglianza">3. Log-Verosimiglianza</h4>
+<p>Data una matrice di labels $\mathbf{Y} \in \{0,1\}^{n \times K}$ (one-hot encoded), la log-verosimiglianza è:
+$$
+\ln \mathcal{L}(\mathbf{W}) = \sum_{i=1}^n \sum_{k=1}^K y_{ik} \ln\left( \frac{e^{\mathbf{x}_i^\top \mathbf{w}_k}}{\sum_{j=1}^K e^{\mathbf{x}_i^\top \mathbf{w}_j}} \right)
+$$</p>
+<h4 id="4-cross-entropy-loss">4. Cross-Entropy Loss</h4>
+<p>La funzione di perdita (negativa log-verosimiglianza normalizzata) è:
+$$
+\mathcal{LL}(\mathbf{W}) = -\frac{1}{n} \sum_{i=1}^n \sum_{k=1}^K y_{ik} \ln\left( \sigma(\mathbf{z}_i)_k \right)
+$$</p>
+<h3 id="ottimizzazione-del-modello_1"><strong>Ottimizzazione del Modello</strong></h3>
+<h4 id="5-gradiente">5. Gradiente</h4>
+<p>Il gradiente rispetto a $\mathbf{w}_k$ è:
+$$
+\nabla_{\mathbf{w}_k} \mathcal{LL}(\mathbf{W}) = -\frac{1}{n} \sum_{i=1}^n \mathbf{x}_i \left( y_{ik} - \sigma(\mathbf{z}_i)_k \right)
+$$
+<strong>Dimostrazione</strong>:
+- Sia $p_{ik} = \sigma(\mathbf{z}_i)_k$
+- Derivando $\mathcal{LL}$ rispetto a $\mathbf{w}_k$:
+  $$
+  \frac{\partial \mathcal{LL}}{\partial \mathbf{w}_k} = -\frac{1}{n} \sum_{i=1}^n \mathbf{x}_i \left( y_{ik} - p_{ik} \right)
+  $$</p>
+<h4 id="6-hessiana">6. Hessiana</h4>
+<p>La matrice Hessiana è <strong>blocco-convessa</strong> e può essere scritta come:
+$$
+\nabla_{\mathbf{W}}^2 \mathcal{LL}(\mathbf{W}) = \frac{1}{n} \sum_{i=1}^n \left( \text{diag}(\mathbf{p}_i) - \mathbf{p}_i \mathbf{p}_i^\top \right) \otimes \mathbf{x}_i \mathbf{x}_i^\top
+$$
+dove:
+- $\mathbf{p}_i = [p_{i1}, \dots, p_{iK}]^\top$
+- $\otimes$ è il prodotto di Kronecker
+- $\text{diag}(\mathbf{p}_i)$ rappresenta la matrice diagonale di $\mathbf I_{K \times K} \cdot \mathbf{p}_i$.</p>
+<p><strong>Proprietà</strong>:
+- La matrice $\text{diag}(\mathbf{p}_i) - \mathbf{p}_i \mathbf{p}_i^\top$ è semidefinita positiva.
+- La combinazione di matrici semidefinite positive preserva la convessità.</p>
+<h3 id="convessita-e-unicita-della-soluzione"><strong>Convessità e Unicità della Soluzione</strong></h3>
+<h4 id="7-convessita-globale">7. Convessità Globale</h4>
+<p>La cross-entropy multiclasse è <strong>convessa</strong> in $\mathbf{W}$ perché:
+- La Hessiana è semidefinita positiva.
+- La somma di funzioni convesse è convessa.</p>
+<h4 id="8-identificabilita">8. Identificabilità</h4>
+<p>Il modello è <strong>sovraparametrizzato</strong>: aggiungendo una costante a tutti i pesi $\mathbf{w}_k$, le probabilità non cambiano. Per rimuovere l&rsquo;ambiguità:
+- Si fissa $\mathbf{w}_K = \mathbf{0}$ (classe di riferimento).
+- Si stimano $K-1$ vettori di pesi.</p>
+<h2 id="visualizzazione-3d-della-softmax-caso-reale-di-diagnosi-medica">Visualizzazione 3D della Softmax: Caso Reale di Diagnosi Medica</h2>
+<h3 id="contesto-applicativo">Contesto Applicativo</h3>
+<p>Immaginiamo un sistema di supporto alle decisioni mediche che valuta il rischio di 3 patologie cardiache in base a due parametri vitali:
+1. <strong>Pressione sistolica (z₁)</strong>: Variabile continua (70-200 mmHg)
+2. <strong>Livello di colesterolo (z₂)</strong>: Variabile continua (150-300 mg/dL)</p>
+<p>Le 3 classi di output rappresentano:
+- <strong>Classe 1</strong>: Rischio infarto
+- <strong>Classe 2</strong>: Rischio ictus
+- <strong>Classe 3</strong>: Paziente sano</p>
+<h3 id="codice-realta">Codice-Realtà</h3>
+<h4 id="1-preparazione-dati-medici">1. Preparazione Dati Medici</h4>
+<ul>
+<li><strong>Griglia 3D</strong>: Simula tutte le combinazioni possibili di pressione/colesterolo</li>
+<li><strong>z₀ fisso a 0</strong>: Baseline per pazienti con parametri normali</li>
+<li><strong>Softmax</strong>: Calcola le probabilità relative delle tre condizioni</li>
+</ul>
+<h4 id="2-interpretazione-clinica">2. Interpretazione Clinica</h4>
+<ul>
+<li><strong>Superficie Rossa (Infarto)</strong>: Aumenta con pressione alta + colesterolo elevato</li>
+<li><strong>Superficie Verde (Ictus)</strong>: Predomina per pressione estrema + colesterolo medio</li>
+<li><strong>Superficie Blu (Sano)</strong>: Dominante nella zona parametri normali</li>
+</ul>
+<h3 id="dinamiche-chiave">Dinamiche Chiave</h3>
+<ol>
+<li><strong>Zona Pericolo Estremo</strong> (angolo in alto a destra):</li>
+<li>Pressione &gt; 180 mmHg + Colesterolo &gt; 250 mg/dL</li>
+<li>
+<p>Probabilità infarto ≈80%, ictus ≈15%, sano ≈5%</p>
+</li>
+<li>
+<p><strong>Area Grigia Decisionale</strong> (centro grafico):</p>
+</li>
+<li>Pressione 140-160 mmHg + Colesterolo 200-220 mg/dL</li>
+<li>
+<p>Probabilità simili tra tutte le classi (25-40%)</p>
+</li>
+<li>
+<p><strong>Isola di Salute</strong> (angolo in basso a sinistra):</p>
+</li>
+<li>Pressione &lt; 120 mmHg + Colesterolo &lt; 180 mg/dL</li>
+<li>Probabilità sano &gt;90%</li>
+</ol>
+<h3 id="componenti-grafiche-strategiche">Componenti Grafiche Strategiche</h3>
+<ul>
+<li><strong>Trasparenza</strong>: Mostra sovrapposizioni tra diagnosi concorrenti</li>
+<li><strong>Colori Settoriali</strong>: Allineati alle convenzioni mediche (rosso=emergenza)</li>
+<li><strong>Linee di Contorno</strong>: Indicano le soglie decisionali critiche</li>
+</ul>
+<h3 id="utilizzo-pratico">Utilizzo Pratico</h3>
+<p>I medici possono:
+1. Valutare rapidamente scenari complessi
+2. Identificare soglie di intervento
+3. Spiegare i rischi ai pazienti con visualizzazioni intuitive
+4. Ottimizzare i protocolli di prevenzione</p>
+<blockquote>
+<p><strong>Esempio Decisionale</strong>: Un paziente con:
+- Pressione 160 mmHg (z₁=1.5)
+- Colesterolo 240 mg/dL (z₂=2.0)</p>
+<p>Mostrerà: 45% infarto | 35% ictus | 20% sano<br />
+<strong>Azione</strong>: Combinare terapia ipotensiva + dieta</p>
+</blockquote>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Patch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">colormaps</span>
+
+<span class="c1"># Configurazione tema medico professionale</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;dark_background&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="s1">&#39;axes.labelcolor&#39;</span><span class="p">:</span> <span class="s1">&#39;#FFAA00&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;xtick.color&#39;</span><span class="p">:</span> <span class="s1">&#39;#FFFFFF&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ytick.color&#39;</span><span class="p">:</span> <span class="s1">&#39;#FFFFFF&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.facecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;#4f4f4e&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;figure.facecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;#4f4f4e&#39;</span>
+<span class="p">})</span>
+
+<span class="c1"># Parametri medici realistici (range clinico)</span>
+<span class="n">sistolica</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     <span class="c1"># mmHg</span>
+<span class="n">colesterolo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># mg/dL</span>
+<span class="n">SIS</span><span class="p">,</span> <span class="n">COL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">sistolica</span><span class="p">,</span> <span class="n">colesterolo</span><span class="p">)</span>
+
+<span class="c1"># Normalizzazione per modello (z-score ipotetico)</span>
+<span class="n">z_sis</span> <span class="o">=</span> <span class="p">(</span><span class="n">SIS</span> <span class="o">-</span> <span class="mi">135</span><span class="p">)</span><span class="o">/</span><span class="mi">25</span>  <span class="c1"># Media 135, SD 25</span>
+<span class="n">z_col</span> <span class="o">=</span> <span class="p">(</span><span class="n">COL</span> <span class="o">-</span> <span class="mi">225</span><span class="p">)</span><span class="o">/</span><span class="mi">50</span>   <span class="c1"># Media 225, SD 50</span>
+
+<span class="c1"># Calcolo probabilità patologie</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">z_sis</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.8</span> <span class="o">+</span> <span class="n">z_col</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">),</span>  <span class="c1"># Infarto</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">z_sis</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.2</span> <span class="o">+</span> <span class="n">z_col</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">),</span>  <span class="c1"># Ictus</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="o">-</span><span class="n">z_sis</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="n">z_col</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># Sano</span>
+    <span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+<span class="c1"># Formattazione per plot 3D</span>
+<span class="n">prob_infarto</span> <span class="o">=</span> <span class="n">probs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">SIS</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">prob_ictus</span> <span class="o">=</span> <span class="n">probs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">SIS</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">prob_sano</span> <span class="o">=</span> <span class="n">probs</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">SIS</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Creazione figura</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="c1"># Superfici cliniche</span>
+<span class="n">cmap_emergency</span> <span class="o">=</span> <span class="n">colormaps</span><span class="p">[</span><span class="s1">&#39;Reds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reversed</span><span class="p">()</span>
+<span class="n">cmap_stroke</span> <span class="o">=</span> <span class="n">colormaps</span><span class="p">[</span><span class="s1">&#39;Greens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reversed</span><span class="p">()</span>
+<span class="n">cmap_sano</span> <span class="o">=</span> <span class="n">colormaps</span><span class="p">[</span><span class="s1">&#39;Purples&#39;</span><span class="p">]</span>  <span class="c1"># Cambiato da Blu a Viola</span>
+
+<span class="n">surf1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">SIS</span><span class="p">,</span> <span class="n">COL</span><span class="p">,</span> <span class="n">prob_infarto</span><span class="p">,</span>
+                       <span class="n">facecolors</span><span class="o">=</span><span class="n">cmap_emergency</span><span class="p">(</span><span class="n">prob_infarto</span><span class="p">),</span>
+                       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                       <span class="n">rstride</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                       <span class="n">cstride</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                       <span class="n">antialiased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">surf2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">SIS</span><span class="p">,</span> <span class="n">COL</span><span class="p">,</span> <span class="n">prob_ictus</span><span class="p">,</span>
+                       <span class="n">facecolors</span><span class="o">=</span><span class="n">cmap_stroke</span><span class="p">(</span><span class="n">prob_ictus</span><span class="p">),</span>
+                       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                       <span class="n">rstride</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                       <span class="n">cstride</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">surf3</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">SIS</span><span class="p">,</span> <span class="n">COL</span><span class="p">,</span> <span class="n">prob_sano</span><span class="p">,</span>
+                       <span class="n">facecolors</span><span class="o">=</span><span class="n">cmap_sano</span><span class="p">(</span><span class="n">prob_sano</span><span class="p">),</span>
+                       <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+                       <span class="n">rstride</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                       <span class="n">cstride</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Etichette cliniche</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Pressione Sistolica (mmHg)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FFFFFF&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Colesterolo Totale (mg/dL)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FFFFFF&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Probabilità Diagnosi&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FFFFFF&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+
+<span class="c1"># Angolo visuale ottimale</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">125</span><span class="p">)</span>
+
+<span class="c1"># Legenda diagnostica</span>
+<span class="n">legend_elements</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Rischio Infarto&#39;</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Rischio Ictus&#39;</span><span class="p">),</span>
+    <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Paziente Sano&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># Linee guida cliniche</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">SIS</span><span class="p">,</span> <span class="n">COL</span><span class="p">,</span> <span class="n">prob_infarto</span><span class="p">,</span> 
+          <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> 
+          <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">,</span>
+          <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+          <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+          <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">SIS</span><span class="p">,</span> <span class="n">COL</span><span class="p">,</span> <span class="n">prob_ictus</span><span class="p">,</span> 
+          <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">],</span> 
+          <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;#00FF00&#39;</span><span class="p">,</span>
+          <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span>
+          <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+          <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/softmax-example.jpg&#39;</span><span class="p">,</span> 
+           <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> 
+           <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+           <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>  <span class="c1"># Aggiungere questo parametro</span>
+           <span class="n">facecolor</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">get_facecolor</span><span class="p">(),</span>  <span class="c1"># Mantenere il colore di sfondo</span>
+           <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Disabilitare la trasparenza</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/softmax-example.jpg" alt="Softmax Example"></p>
+<p><em>Figura 3.0: Esempio di utilizzo della Regressione Logistica con Softmax per la diagnosi di patologie cliniche</em></p>
+<h2 id="confronto-con-lanalisi-discriminante-lineare-lda">Confronto con l&rsquo;Analisi Discriminante Lineare (LDA)</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Caratteristica</strong></th>
+<th><strong>Regressione Logistica</strong></th>
+<th><strong>LDA</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tipo di Modello</strong></td>
+<td>Discriminativo</td>
+<td>Generativo</td>
+</tr>
+<tr>
+<td><strong>Assunzioni</strong></td>
+<td>Nessuna su $p(\mathbf{x} \mid y)$</td>
+<td>Features ~ Gaussiane con stessa covarianza</td>
+</tr>
+<tr>
+<td><strong>Stima Parametri</strong></td>
+<td>Massimizzazione della verosimiglianza</td>
+<td>Massimizzazione joint likelihood</td>
+</tr>
+<tr>
+<td><strong>Robustezza</strong></td>
+<td>Maggiore in assenza di normalità delle features</td>
+<td>Sensibile a violazioni delle assunzioni</td>
+</tr>
+<tr>
+<td><strong>Interpretazione</strong></td>
+<td>Coefficienti come log-odds ratio</td>
+<td>Coefficienti legati a media e covarianza</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aspetti-pratici"><strong>Aspetti Pratici</strong></h2>
+<h3 id="regolarizzazione">Regolarizzazione</h3>
+<p>Per evitare overfitting, si aggiungono termini di penalità alla loss:
+- <strong>L1 (Lasso)</strong>: $\lambda \|\mathbf{w}\|_1$ → Sparsità (selezione features).
+- <strong>L2 (Ridge)</strong>: $\lambda \|\mathbf{w}\|_2^2$ → Contrazione coefficienti.</p>
+<p>Esempio con regolarizzazione L2:
+$$
+\ell_{\text{reg}}(\mathbf{w}) = \ell(\mathbf{w}) + \lambda \sum_{j=1}^n w_j^2
+$$</p>
+<h3 id="soglie-di-decisione-non-standard">Soglie di Decisione Non Standard</h3>
+<p>La soglia 0.5 è ottimale solo se:
+- Costi di falsi positivi/negativi sono bilanciati.
+- La distribuzione delle classi è uniforme.</p>
+<p>In scenari sbilanciati, si può ottimizzare la soglia massimizzando l&rsquo;<strong>F1-score</strong> o minimizzando costi specifici.</p>
+<h2 id="esempio-interpretazione-coefficienti"><strong>Esempio: Interpretazione Coefficienti</strong></h2>
+<p>Supponiamo un modello con:
+- <strong>Feature</strong>: Età ($\mathbf{x}_1$), Reddito ($\mathbf{x}_2$).
+- <strong>Coefficiente stimato</strong>: $\mathbf{w} = [0.8, -0.2]$.</p>
+<p><strong>Interpretazione</strong>:
+- <strong>Età</strong>: Un aumento di 1 anno moltiplica gli odds ratio per $e^{0.8} ≈ 2.23$ (favorevole alla classe positiva).
+- <strong>Reddito</strong>: Un aumento di 1 unità moltiplica gli odds ratio per $e^{-0.2} ≈ 0.82$ (sfavorevole).</p>
+<h2 id="limiti-della-regressione-logistica"><strong>Limiti della Regressione Logistica</strong></h2>
+<ol>
+<li><strong>Linearità nei Confini</strong>: Assume che il logit sia lineare nelle features → Non cattura interazioni complesse.</li>
+<li><strong>Sensibilità a Correlazioni</strong>: Features altamente correlate possono destabilizzare i coefficienti.</li>
+<li><strong>Classi Separabili</strong>: Se le classi sono linearmente separabili, i coefficienti divergono ($\|\mathbf{w}\| \to \infty$).</li>
+</ol>
+<p>Per superare questi limiti, si possono introdurre:
+- <strong>Feature Polinomiali</strong>: $\mathbf{x}_1^2, \mathbf{x}_1 \mathbf{x}_2$.
+- <strong>Kernel Methods</strong>: Mappare implicitamente in spazi ad alta dimensionalità.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> supervised learning, labeled data, classification, regression, model, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Logistica">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Regressione Logistica',
+          page_location: 'http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Logistica'
+        });
+      }
+    </script>
+</body>
+</html>

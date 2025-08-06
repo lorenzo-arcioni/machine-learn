@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forma Normale di Chomsky (CNF) | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Forma Normale di Chomsky (CNF)">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Sintassi/Forma Normale di Chomsky">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Forma Normale di Chomsky (CNF)">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Sintassi/Forma Normale di Chomsky">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Forma Normale di Chomsky (CNF)",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Sintassi/Forma Normale di Chomsky",
+      "datePublished": "2025-08-06T20:12:10.843Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Sintassi/Forma Normale di Chomsky" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Forma Normale di Chomsky (CNF)</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>Forma Normale di Chomsky</strong> (CNF) è una particolare forma di rappresentazione delle <strong><a href="/theory/nlp/Sintassi/Grammatiche Context-free" class="text-blue-600 hover:underline">grammatiche libere dal contesto</a></strong> (CFG), utile in molti algoritmi di analisi sintattica, come l&rsquo;algoritmo di <strong><a href="/theory/nlp/Sintassi/Algoritmo CKY" class="text-blue-600 hover:underline">Cocke–Younger–Kasami (CYK)</a></strong>.</p>
+<h2 id="definizione-formale">Definizione Formale</h2>
+<p>Una grammatica </p>
+$$
+G = (V, \Sigma, R, S)
+$$
+<p>dove:</p>
+<ul>
+<li>$V$ è l&rsquo;insieme dei simboli <em>non terminali</em> (categorie sintattiche come frasi o sintagmi)</li>
+<li>$\Sigma$ è l&rsquo;insieme dei simboli <em>terminali</em> (le parole o i simboli del lessico)</li>
+<li>$R$ è l&rsquo;insieme delle <em>produzioni</em> o <em>regole</em> della forma $A \rightarrow B$, con $A \in V$ e $B \in (V \cup \Sigma)^*$. Quindi $R \subseteq V \times (V \cup \Sigma)^*$.</li>
+<li>$S$ è il simbolo iniziale, da cui parte la derivazione. Quindi, $S \in V \land \exists(S, \beta) \in R \land \beta \neq \epsilon$</li>
+</ul>
+<p>è in <strong>Forma Normale di Chomsky</strong> se tutte le sue produzioni sono della forma:</p>
+<ul>
+<li>$A \rightarrow BC$ dove $A, B, C \in V$ e $B, C \neq S$ (produzione binaria)</li>
+<li>$A \rightarrow a$ dove $a \in \Sigma$ (produzione terminale)</li>
+</ul>
+<p><strong>Eccezione (solo per il simbolo iniziale):</strong></p>
+<ul>
+<li>$S \rightarrow \varepsilon$ è permesso <strong>solo se</strong> $\varepsilon \in L(G)$</li>
+</ul>
+<h2 id="proprieta-delle-grammatiche-in-cnf">Proprietà delle grammatiche in CNF</h2>
+<ol>
+<li>
+<p><strong>Equivalenza</strong>: Ogni grammatica libera dal contesto può essere trasformata in una grammatica equivalente in CNF (cioè genera lo stesso linguaggio).</p>
+</li>
+<li>
+<p><strong>Utilità computazionale</strong>: Le grammatiche in CNF sono fondamentali per l’analisi sintattica algoritmica, in particolare per:</p>
+</li>
+<li>Algoritmi di parsing bottom-up come <strong>CYK</strong></li>
+<li>
+<p>Analisi di ambiguità e minimizzazione</p>
+</li>
+<li>
+<p><strong>Forma standardizzata</strong>: Essendo le produzioni molto restrittive, la CNF è una base utile per dimostrazioni teoriche, come il teorema di Pumping per CFG.</p>
+</li>
+<li>
+<p><strong>Lunghezza delle derivazioni</strong>: Ogni stringa di lunghezza $n$ derivata da una grammatica in CNF richiede esattamente $2n - 1$ passaggi (produzioni), se $\varepsilon$ non è incluso.</p>
+</li>
+</ol>
+<h2 id="algoritmo-di-conversione-in-cnf">Algoritmo di conversione in CNF</h2>
+<p>La conversione di una grammatica $G$ in CNF avviene attraverso una serie di <strong>trasformazioni equivalenti</strong>. Ecco l&rsquo;algoritmo passo passo:</p>
+<h3 id="passo-1-aggiunta-di-un-nuovo-simbolo-iniziale">Passo 1: Aggiunta di un nuovo simbolo iniziale</h3>
+<p>Aggiungiamo un nuovo simbolo iniziale $S_0 \notin V$ e la produzione:</p>
+$$
+S_0 \rightarrow S
+$$
+<p>Questo assicura che il simbolo iniziale originale non compaia mai a destra di una produzione (utile in seguito).</p>
+<h3 id="passo-2-rimozione-delle-produzioni-math_inline_36">Passo 2: Rimozione delle produzioni $\varepsilon$</h3>
+<p>Per ogni produzione del tipo $A \rightarrow \varepsilon$, rimuovila e:
+- Per ogni altra produzione che contiene $A$, aggiungi una versione alternativa della produzione con $A$ rimosso.</p>
+<p>Ripeti finché non ci sono più produzioni $\varepsilon$, tranne eventualmente $S_0 \rightarrow \varepsilon$ se necessario.</p>
+<h3 id="passo-3-rimozione-delle-unita">Passo 3: Rimozione delle unità</h3>
+<p>Elimina tutte le produzioni di tipo $A \rightarrow B$, dove $A, B \in V$.</p>
+<p>Per ogni $A \rightarrow B$, sostituisci con le produzioni di $B$, cioè aggiungi tutte le produzioni $B \rightarrow \alpha$ come $A \rightarrow \alpha$, finché non ci sono più produzioni unitarie.</p>
+<h3 id="passo-4-rimozione-dei-simboli-inutili">Passo 4: Rimozione dei simboli inutili</h3>
+<p>Elimina:
+1. <strong>Simboli non generativi</strong>: simboli che non portano ad alcuna stringa terminale.
+2. <strong>Simboli non raggiungibili</strong>: simboli che non sono raggiunti partendo da $S_0$.</p>
+<h3 id="passo-5-conversione-delle-produzioni">Passo 5: Conversione delle produzioni</h3>
+<p>Ora tutte le produzioni devono essere trasformate per rispettare la CNF:</p>
+<h4 id="a-terminali-in-produzioni-lunghe">a. Terminali in produzioni lunghe</h4>
+<p>Se una produzione ha terminali con altri simboli, come:</p>
+$$
+A \rightarrow aB
+$$
+<p>Sostituisci $a$ con una nuova variabile $X_a$, aggiungendo la produzione:</p>
+$$
+X_a \rightarrow a
+$$
+<p>Ora:</p>
+$$
+A \rightarrow X_a B
+$$
+<p>Ripeti per ogni terminale non isolato.</p>
+<h4 id="b-produzioni-con-piu-di-due-variabili">b. Produzioni con più di due variabili</h4>
+<p>Se hai produzioni come:</p>
+$$
+A \rightarrow B C D
+$$
+<p>Suddividile in binarie introducendo nuove variabili:</p>
+$$
+A \rightarrow B X_1 \\
+X_1 \rightarrow C D
+$$
+<p>E se necessario:</p>
+$$
+X_1 \rightarrow C X_2 \\
+X_2 \rightarrow D E
+$$
+<p>Fino ad avere solo produzioni binarie.</p>
+<h2 id="esempio-pratico">Esempio pratico</h2>
+<h3 id="grammatica-originale">Grammatica originale</h3>
+$$
+S \rightarrow aSb \mid \varepsilon
+$$
+<h3 id="passo-1-nuovo-simbolo-iniziale">Passo 1: Nuovo simbolo iniziale</h3>
+$$
+S_0 \rightarrow S
+$$
+<h3 id="passo-2-eliminazione-math_inline_51">Passo 2: Eliminazione $\varepsilon$</h3>
+<p>Poiché $S \rightarrow \varepsilon$, aggiungiamo:</p>
+$$
+S \rightarrow aSb \\
+S \rightarrow ab
+$$
+<p>Eliminiamo $S \rightarrow \varepsilon$</p>
+<h3 id="passo-3-nessuna-produzione-unitaria">Passo 3: Nessuna produzione unitaria</h3>
+<h3 id="passo-4-tutti-i-simboli-sono-utili">Passo 4: Tutti i simboli sono utili</h3>
+<h3 id="passo-5-cnf">Passo 5: CNF</h3>
+<p>Sostituiamo i terminali:</p>
+$$
+A \rightarrow a \quad B \rightarrow b
+$$
+<p>Convertiamo:</p>
+$$
+S \rightarrow aSb \Rightarrow A S B \Rightarrow S \rightarrow A X_1 \\
+X_1 \rightarrow S B
+$$
+$$
+S \rightarrow ab \Rightarrow A B
+$$
+<p>Produzioni finali:</p>
+$$
+S_0 \rightarrow S \\
+S \rightarrow A X_1 \mid A B \\
+X_1 \rightarrow S B \\
+A \rightarrow a \\
+B \rightarrow b
+$$
+<h2 id="conclusioni">Conclusioni</h2>
+<p>Le grammatiche in Forma Normale di Chomsky sono un pilastro dell&rsquo;informatica teorica e fondamentali per l&rsquo;analisi sintattica. Comprenderne la trasformazione permette di applicare potenti strumenti algoritmici ai linguaggi formali e allo studio della computabilità.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Sintassi/Forma Normale di Chomsky">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Forma Normale di Chomsky (CNF)',
+          page_location: 'http://localhost:3000/theory/nlp/Sintassi/Forma Normale di Chomsky'
+        });
+      }
+    </script>
+</body>
+</html>

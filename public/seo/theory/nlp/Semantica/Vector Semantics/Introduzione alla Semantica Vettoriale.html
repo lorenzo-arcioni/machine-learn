@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduzione alla semantica vettoriale | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Introduzione alla semantica vettoriale">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Introduzione alla semantica vettoriale">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Introduzione alla semantica vettoriale",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale",
+      "datePublished": "2025-08-06T20:12:10.814Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Introduzione alla semantica vettoriale</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="significato-delle-parole-e-relazioni-semantiche">Significato delle parole e relazioni semantiche</h2>
+<p>Il concetto di <strong>significato</strong> delle parole è uno dei pilastri fondamentali della linguistica, della semantica e, più recentemente, dell&rsquo;elaborazione del linguaggio naturale.<br />
+Comprendere come rappresentare il significato delle parole in forma computazionale è cruciale per lo sviluppo di sistemi in grado di interpretare, analizzare e generare linguaggio umano.</p>
+<p>Una nozione importante è quella di <strong>similarità semantica</strong>: parole che condividono alcuni elementi di significato sono considerate semanticamente simili.<br />
+<strong>Tuttavia</strong>, essere semanticamente simili <strong>non implica</strong> necessariamente essere sinonimi.</p>
+<p>Esempi:
+- &ldquo;car&rdquo; e &ldquo;bicycle&rdquo; sono semanticamente simili perché entrambi rappresentano veicoli per il trasporto personale, ma non sono sinonimi.
+- &ldquo;lion&rdquo; e &ldquo;bear&rdquo; sono entrambi grandi mammiferi carnivori, condividendo alcune caratteristiche biologiche e comportamentali.</p>
+<p><strong>Distinzione chiave</strong>:<br />
+- <strong>Semantic similarity</strong> implica una <strong>condivisione strutturale o categoriale</strong> di significato.
+- <strong>Semantic relatedness</strong> è più ampia: include qualsiasi tipo di relazione concettuale o associativa, anche tra entità non simili.</p>
+<p>Esempi:
+- &ldquo;car&rdquo; e &ldquo;bicycle&rdquo; → <strong>simili</strong> (entrambi mezzi di trasporto).
+- &ldquo;car&rdquo; e &ldquo;gasoline&rdquo; → <strong>correlati</strong>, ma <strong>non simili</strong> (relazione funzionale: un&rsquo;auto usa benzina, ma una benzina non è un veicolo).</p>
+<p>Questa distinzione tra similarità e correlazione semantica è fondamentale nello sviluppo di modelli computazionali per il linguaggio, soprattutto quando si progettano algoritmi di misura della similarità tra parole o documenti.</p>
+<h2 id="relazioni-semantiche-lessicali-iperonimia-e-iponimia">Relazioni semantiche lessicali: iperonimia e iponimia</h2>
+<p>Le <strong>relazioni lessicali</strong> strutturano il lessico di una lingua in reti concettuali. Due tra le relazioni principali sono:</p>
+<h3 id="iperonimia">Iperonimia</h3>
+<p>Un <strong>iperonimo</strong> (<em>hypernym</em>) è un termine che rappresenta una <strong>categoria più generale</strong> rispetto ad altri termini più specifici.</p>
+<p>Esempi:
+- &ldquo;vehicle&rdquo; è l&rsquo;iperonimo di &ldquo;bicycle&rdquo; e &ldquo;car&rdquo;.
+- &ldquo;fruit&rdquo; è l&rsquo;iperonimo di &ldquo;apple&rdquo; e &ldquo;banana&rdquo;.</p>
+<p>Formalmente, possiamo pensare la relazione di iperonimia come una <strong>inclusione</strong>:</p>
+$$
+\begin{align*}
+\text{vehicle} &\supset \text{bicycle}\\
+\text{fruit}   &\supset \text{apple}
+\end{align*}
+$$
+<p>cioè, tutto ciò che è una &ldquo;bicycle&rdquo; è anche un &ldquo;vehicle&rdquo;, e tutto ciò che è un &ldquo;apple&rdquo; è anche un &ldquo;fruit&rdquo;.</p>
+<h3 id="iponimia">Iponimia</h3>
+<p>Un <strong>iponimo</strong> (<em>hyponym</em>) è invece un termine più specifico, che rappresenta un <strong>sottoinsieme</strong> del concetto espresso dall&rsquo;iperonimo.</p>
+<p>Esempi:
+- &ldquo;banana&rdquo; è un iponimo di &ldquo;fruit&rdquo;.
+- &ldquo;car&rdquo; è un iponimo di &ldquo;vehicle&rdquo;.</p>
+<p>La distinzione tra iperonimia e iponimia è essenziale per la costruzione di ontologie, tassonomie e per l&rsquo;inferenza semantica automatica.</p>
+<p>Formalmente, possiamo pensare la relazione di iponimia come una <strong>inclusione</strong>:</p>
+$$
+\begin{align*}
+\text{bicycle} &\subset \text{vehicle}\\
+\text{apple}   &\subset \text{fruit}
+\end{align*}
+$$
+<p>cioè, tutto ciò che è una &ldquo;bicycle&rdquo; è anche un &ldquo;vehicle&rdquo;, e tutto ciò che è un &ldquo;apple&rdquo; è anche un &ldquo;fruit&rdquo;.</p>
+<h2 id="lapproccio-enumerativo-ai-significati-delle-parole">L&rsquo;approccio enumerativo ai significati delle parole</h2>
+<p>Tradizionalmente, il significato delle parole è stato trattato attraverso inventari predefiniti di <strong>sensi</strong>.   Ogni parola è associata a un elenco finito di possibili interpretazioni.</p>
+<p>Esempio:<br />
+<strong>&ldquo;Knife&rdquo;</strong> (sostantivo) può essere descritto con i seguenti sensi:
+1. Strumento da taglio con lama affilata e manico.
+2. Arma bianca con lama appuntita.
+3. Proiezione lunga e sottile (es. in un fenomeno naturale o tecnologico).</p>
+<p>In questo approccio, si assume che ogni volta che una parola viene usata in un testo, <strong>venga attivato uno specifico senso</strong> tra quelli elencati.</p>
+<p>Esempi:
+- &ldquo;She chopped the vegetables with a chef’s knife.&rdquo; ➔ Senso: <strong>strumento da cucina</strong>.
+- &ldquo;A man was beaten and cut with a knife.&rdquo; ➔ Senso: <strong>arma</strong>.</p>
+<h2 id="limiti-dellapproccio-enumerativo">Limiti dell&rsquo;approccio enumerativo</h2>
+<p>Nonostante la sua utilità pratica, l&rsquo;approccio enumerativo presenta numerosi limiti:</p>
+<ul>
+<li><strong>Dinamismo linguistico</strong>: le lingue naturali evolvono continuamente, generando nuovi usi e significati che un inventario fisso non può catturare.</li>
+<li><strong>Ambiguità di confine</strong>: esistono usi intermedi o nuovi di una parola che non si adattano bene ai sensi predefiniti.<br />
+  Esempio: una lama di taglio all&rsquo;interno di una macchina industriale è un nuovo senso di &ldquo;knife&rdquo;?</li>
+<li><strong>Dipendenza dal contesto</strong>: il significato attuale di una parola può variare enormemente a seconda del dominio applicativo (es. &ldquo;server&rdquo; in informatica vs. &ldquo;server&rdquo; come cameriere).</li>
+<li><strong>Impossibilità di enumerazione completa</strong>: è praticamente impossibile prevedere <strong>tutti</strong> i sensi che una parola può assumere nel corso del tempo.</li>
+</ul>
+<h2 id="una-prospettiva-alternativa-il-significato-basato-sulluso">Una prospettiva alternativa: il significato basato sull&rsquo;uso</h2>
+<p>A fronte delle difficoltà dell&rsquo;approccio enumerativo, una corrente alternativa propone che il significato <strong>emerga dall&rsquo;uso</strong> della parola nei vari contesti.</p>
+<p>Principi fondamentali:
+- <strong>Ludwig Wittgenstein</strong> (1945):  </p>
+<blockquote>
+<p>&ldquo;Il significato di una parola è il suo uso nel linguaggio.&rdquo;
+- <strong>Zellig Harris</strong> (1954):<br />
+&ldquo;Se due parole hanno ambienti linguistici quasi identici, possiamo considerarli sinonimi.&rdquo;
+- <strong>John Firth</strong> (1957):<br />
+&ldquo;Conoscerai una parola dalla compagnia che mantiene.&rdquo;</p>
+</blockquote>
+<p>Questa visione pone il <strong>contesto</strong> come elemento centrale nella costruzione del significato.</p>
+<h2 id="lipotesi-distribuzionale">L&rsquo;ipotesi distribuzionale</h2>
+<p>L&rsquo;<strong>ipotesi distribuzionale</strong> formalizza la visione basata sull&rsquo;uso:</p>
+<blockquote>
+<p>Parole che appaiono in contesti simili tendono ad avere significati simili.
+[<strong>Harris</strong>, 1954]</p>
+</blockquote>
+<p>Questa idea, semplice ma potente, ha aperto la strada a tutta la moderna semantica computazionale e alla rappresentazione vettoriale del significato delle parole.</p>
+<h3 id="interpretazione-pratica">Interpretazione pratica</h3>
+<p>Osservando <strong>quali parole tendono a co-occorre</strong> nei testi, possiamo inferire la loro relazione semantica.<br />
+Non serve conoscere a priori il significato &ldquo;reale&rdquo; delle parole: il loro comportamento linguistico ne rivela le proprietà semantiche.</p>
+<h2 id="esempio-illustrativo-scoprire-il-significato-di-ong-choi">Esempio illustrativo: scoprire il significato di &ldquo;ong choi&rdquo;</h2>
+<p>Supponiamo di non sapere cosa sia <strong>ong choi</strong>.<br />
+Tuttavia, leggiamo queste frasi:
+- &ldquo;Ong choi is delicious sautéed with garlic.&rdquo;
+- &ldquo;Ong choi is superb over rice.&rdquo;
+- &ldquo;Ong choi leaves with salty sauces.&rdquo;</p>
+<p>Confrontiamo ora frasi simili su parole note:
+- &ldquo;Spinach sautéed with garlic over rice.&rdquo;
+- &ldquo;Chard stems and leaves are delicious.&rdquo;
+- &ldquo;Collard greens and other salty leafy greens.&rdquo;</p>
+<p><strong>Osservazione</strong>:<br />
+I contesti di <strong>ong choi</strong> sono simili a quelli di <strong>spinach</strong>, <strong>chard</strong>, e <strong>collard greens</strong>, tutte verdure a foglia verde.</p>
+<p><strong>Inferenza</strong>:<br />
+Senza una definizione esplicita, possiamo dedurre che <strong>ong choi</strong> è probabilmente un tipo di <strong>vegetale a foglia verde</strong>, simile agli altri.</p>
+<h1 id="collegamenti-correlati">Collegamenti correlati</h1>
+<ul>
+<li><a href="/theory/nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico" class="text-blue-600 hover:underline">Modelli di Spazio Semantico</a></li>
+<li><a href="/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale" class="text-blue-600 hover:underline">Misure di similarità vettoriale</a></li>
+<li><span class="text-gray-600">Tecniche di pesatura (TF-IDF, PMI)</span></li>
+<li><span class="text-gray-600">Problemi dei modelli vettoriali</span></li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Introduzione alla semantica vettoriale',
+          page_location: 'http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale'
+        });
+      }
+    </script>
+</body>
+</html>

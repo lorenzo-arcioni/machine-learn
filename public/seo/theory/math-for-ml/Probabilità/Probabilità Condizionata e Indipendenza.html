@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probabilità Condizionata e Indipendenza | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Probabilità Condizionata e Indipendenza">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Probabilità Condizionata e Indipendenza">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Probabilità Condizionata e Indipendenza",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza",
+      "datePublished": "2025-08-06T20:12:10.731Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Probabilità Condizionata e Indipendenza</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>Sia la probabilità condizionata che l&rsquo;indipendenza sono concetti fondamentali per i probabilisti e gli statistici. Le probabilità condizionate corrispondono all&rsquo;aggiornamento delle proprie convinzioni quando nuove informazioni diventano disponibili. L&rsquo;indipendenza, invece, corrisponde all&rsquo;irrilevanza di un&rsquo;informazione anche quando viene resa disponibile. Inoltre, l&rsquo;assunzione di indipendenza può e fa semplificare in modo significativo lo sviluppo, l&rsquo;analisi matematica e la giustificazione di strumenti e procedure.</p>
+<h2 id="definizione">Definizione</h2>
+<p>Sia $A$ e $B$ eventi generali rispetto a uno spazio campionario $\Omega$, e supponiamo che $P(A) > 0$. La probabilità condizionata di $B$ dato $A$ è definita come:</p>
+$$
+P(B|A) = \frac{P(A \cap B)}{P(A)}
+$$
+<p>Alcune conseguenze immediate della definizione di probabilità condizionata sono le seguenti.</p>
+<h2 id="teorema">Teorema</h2>
+<ul>
+<li>(Formula Moltiplicativa). Per due eventi $A$, $B$ tali che $P(A) > 0$, si ha:</li>
+</ul>
+$$
+P(A \cap B) = P(A) P(B|A)
+$$
+<p><strong>Dimostrazione</strong>:</p>
+<p>La probabilità condizionata di $B$ dato $A$ è definita come:</p>
+$$
+P(B|A) = \frac{P(A \cap B)}{P(A)}
+$$
+<p>Moltiplicando entrambi i membri per $P(A)$, otteniamo:</p>
+$$
+P(A \cap B) = P(A) P(B|A)
+$$
+<p>Questa è la formula moltiplicativa. $\square$</p>
+<hr />
+<ul>
+<li>Per due eventi $A$ e $B$ tali che $0 < P(A) < 1$, si ha:</li>
+</ul>
+$$
+P(B) = \frac{P(B|A)}{P(A)} + P(B|A^c) P(A^c)
+$$
+<p><strong>Dimostrazione</strong>:</p>
+<p>Usiamo la formula della probabilità totale:</p>
+$$
+P(B) = P(B \cap A) + P(B \cap A^c)
+$$
+<p>Scrivendo ogni termine come prodotto di probabilità condizionata:</p>
+$$
+P(B) = P(B|A)P(A) + P(B|A^c)P(A^c)
+$$
+<p>Questa è la formula richiesta. $\square$</p>
+<hr />
+<ul>
+<li>(Formula della Probabilità Totale). Se $A_1, A_2, \dots, A_k$ formano una partizione dello spazio campionario $\Omega$, e se $0 < P(A_i) < 1$ per tutti $i$, allora:</li>
+</ul>
+$$
+P(B) = \sum_{i=1}^{k} P(B|A_i) P(A_i)
+$$
+<p><strong>Dimostrazione</strong>:</p>
+<p>Poiché gli eventi $A_1, A_2, \dots, A_k$ formano una partizione di $\Omega$, possiamo scrivere:</p>
+$$
+P(B) = P\left(B \cap \bigcup_{i=1}^{k} A_i\right)
+$$
+<p>Poiché gli eventi sono disgiunti, possiamo riscrivere come somma delle probabilità condizionate:</p>
+$$
+P(B) = \sum_{i=1}^{k} P(B \cap A_i)
+$$
+<p>Ora, utilizzando la definizione di probabilità condizionata, otteniamo:</p>
+$$
+P(B) = \sum_{i=1}^{k} P(B|A_i) P(A_i)
+$$
+<p>Questa è la formula della probabilità totale. $\square$</p>
+<hr />
+<ul>
+<li>(Formula Moltiplicativa Gerarchica). Siano $A_1, A_2, \dots, A_k$ k eventi generali in uno spazio campionario $\Omega$. Allora:</li>
+</ul>
+$$
+P(A_1 \cap A_2 \cap \dots \cap A_k) = P(A_1) P(A_2|A_1) P(A_3|A_1 \cap A_2) \dots P(A_k|A_1 \cap A_2 \cap \dots \cap A_{k-1})
+$$
+<p><strong>Dimostrazione</strong>:</p>
+<p>Partiamo dalla probabilità dell&rsquo;intersezione di tutti gli eventi:</p>
+$$
+P(A_1 \cap A_2 \cap \dots \cap A_k)
+$$
+<p>Utilizziamo la formula moltiplicativa della probabilità condizionata. Per prima cosa, possiamo scrivere la probabilità dell&rsquo;intersezione dei primi due eventi come:</p>
+$$
+P(A_1 \cap A_2) = P(A_1) P(A_2|A_1)
+$$
+<p>Poi, per includere il terzo evento, possiamo scrivere:</p>
+$$
+P(A_1 \cap A_2 \cap A_3) = P(A_1 \cap A_2) P(A_3|A_1 \cap A_2) = P(A_1) P(A_2|A_1) P(A_3|A_1 \cap A_2)
+$$
+<p>Procediamo allo stesso modo per gli eventi successivi, ottenendo la formula finale:</p>
+$$
+P(A_1 \cap A_2 \cap \dots \cap A_k) = P(A_1) P(A_2|A_1) P(A_3|A_1 \cap A_2) \dots P(A_k|A_1 \cap A_2 \cap \dots \cap A_{k-1})
+$$
+$\square$</p>
+<hr />
+<h3 id="esempio">Esempio</h3>
+<p>Una delle due urne contiene $a$ palline rosse e $b$ palline nere, mentre l&rsquo;altra contiene $c$ palline rosse e $d$ palline nere. Si estrae una pallina a caso da ciascuna urna e poi una delle due palline estratte viene scelta casualmente. Qual è la probabilità che questa pallina sia rossa?</p>
+<p>Se entrambe le palline selezionate dalle due urne sono rosse, allora la pallina finale è sicuramente rossa. Se una di queste due palline è rossa, allora la probabilità che la pallina finale sia rossa è $1/2$. Se nessuna delle due palline è rossa, la pallina finale non può essere rossa.</p>
+<p>Quindi:</p>
+<p>$$
+P(\text{La pallina finale è rossa}) = \frac{a}{a + b} \cdot \frac{c}{c + d} + \frac{1}{2} \cdot \left[\frac{a}{a + b} \cdot \frac{d}{c + d} + \frac{b}{a + b} \cdot \frac{c}{c + d}\right]
+$$
+<p>Esempio numerico: se $a = 99$, $b = 1$, $c = 1$, $d = 1$, allora:</p>
+$$
+\frac{2ac + ad + bc}{2(a + b)(c + d)} = 0.745
+$$
+<p>Sebbene la percentuale totale di palline rosse nelle due urne sia superiore al 98%, la probabilità che la pallina finale selezionata sia rossa è circa 75%.</p>
+<hr />
+<h3 id="esempio-un-argomento-di-condizionamento-astuto">Esempio (Un Argomento di Condizionamento Astuto)</h3>
+<p>La moneta $A$ dà testa con probabilità $s$ e la moneta $B$ dà testa con probabilità $t$. Le monete vengono lanciate alternativamente, iniziando con la moneta $A$. Vogliamo trovare la probabilità che la prima testa si ottenga con la moneta $A$.</p>
+<p>Troviamo questa probabilità condizionando sui risultati dei primi due lanci; più precisamente, definiamo:</p>
+<ul>
+<li>$A_1 = \{H\}$ (Il primo lancio dà testa)</li>
+<li>$A_2 = \{TH\}$ (Il primo lancio dà croce e il secondo dà testa)</li>
+<li>$A_3 = \{TT\}$ (Il primo lancio dà croce e il secondo dà croce)</li>
+</ul>
+<p>Vogliamo calcolare $P(A)$, la probabilità che la prima testa si ottenga con la moneta $A$. Utilizzando la formula della probabilità totale:</p>
+$$
+P(A) = P(A_1) P(A|A_1) + P(A_2) P(A|A_2) + P(A_3) P(A|A_3)
+$$
+<p>Ad esempio, se $s = 0.4$ e $t = 0.5$, la probabilità che la prima testa si ottenga con la moneta $A$ è:</p>
+$$
+P(A) = \frac{s}{s + t - st} \approx 0.57
+$$
+<hr />
+<h3 id="definizione_1">Definizione</h3>
+<p>Una collezione di eventi $A_1, A_2, \dots, A_n$ è detta mutuamente indipendente (o semplicemente indipendente) se per ogni $k$, $1 \leq k \leq n$, e qualsiasi sottoinsieme $A_{i_1}, A_{i_2}, \dots, A_{i_k}$ di eventi, si ha:</p>
+$$
+P(A_1 \cap \dots \cap A_k) = P(A_1) \cdot P(A_2) \cdot \dots \cdot P(A_k)
+$$
+<p>Gli eventi sono detti <strong>indipendenti a coppie</strong> se questa proprietà vale per $k = 2$.</p>
+<hr />
+<h3 id="esempio-lotterie">Esempio (Lotterie)</h3>
+<p>Sebbene molte persone acquistino biglietti della lotteria sperando nella buona sorte, probabilisticamente parlando, acquistare biglietti della lotteria è solitamente una perdita di denaro. Supponiamo che in una lotteria statale settimanale vengano estratti cinque numeri da un insieme di 50 numeri senza sostituzione, e che qualcuno con esattamente quei numeri vinca la lotteria. La probabilità che una persona con un biglietto vinca in una settimana data è:</p>
+$$
+\frac{1}{\binom{50}{5}} = 4.72 \times 10^{-7}
+$$
+<p>Se questa persona acquista un biglietto ogni settimana per 40 anni, la probabilità che vinca almeno una volta è:</p>
+$$
+1 - \left(1 - 4.72 \times 10^{-7}\right)^{52 \times 40} \approx 0.00098
+$$
+<hr />
+<h3 id="confusione-tra-probabilita-condizionata">Confusione tra Probabilità Condizionata</h3>
+<p>Non è raro confondere le probabilità condizionate $P(A|B)$ e $P(B|A)$. Supponiamo che in un gruppo di pazienti con cancro ai polmoni vediamo una grande percentuale di fumatori. Se definiamo $B$ come l&rsquo;evento che una persona è fumatrice e $A$ come l&rsquo;evento che una persona ha il cancro ai polmoni, possiamo concludere che $P(B|A)$ è elevata, ma non possiamo concludere che fumare aumenti la probabilità di cancro ai polmoni, ovvero che $P(A|B)$ sia elevata. Per calcolare una probabilità condizionata $P(A|B)$, è utile il teorema di Bayes.</p>
+<h2 id="teorema-bayes">Teorema (Bayes)</h2>
+<p>Sia $\{A_1, A_2, \dots, A_m\}$ una partizione di uno spazio campionario $\Omega$, e sia $B$ un evento fisso. Allora:</p>
+$$
+P(B|A_i) = \frac{P(B|A_j) P(A_j)}{\sum_{i=1}^{m} P(B|A_i) P(A_i)}
+$$
+<strong>Dimostrazione</strong>: La probabilità condizionata di $B$ dato $A_i$ può essere scritta come: $$ P(B|A_i) = \frac{P(A_i \cap B)}{P(A_i)} $$ Ora, possiamo esprimere la probabilità di $P(A_i \cap B)$ usando la formula della probabilità totale: $$ P(A_i \cap B) = P(B|A_j) P(A_j) $$ Sommiamo su tutti i possibili eventi della partizione $\{A_1, A_2, \dots, A_m\}$: $$ P(B) = \sum_{i=1}^{m} P(B|A_i) P(A_i) $$ Ora possiamo esprimere la formula di Bayes isolando $P(B|A_i)$: $$ P(B|A_i) = \frac{P(B|A_i) P(A_i)}{\sum_{i=1}^{m} P(B|A_i) P(A_i)} $$
+$\square$</p>
+<h3 id="esempio-esami-a-scelta-multipla">Esempio (Esami a Scelta Multipla)</h3>
+<p>Supponiamo che in un esame a scelta multipla, ogni domanda abbia cinque alternative e che uno studente debba scegliere una come risposta corretta. Un studente conosce la risposta corretta con probabilità 0.7, o sceglie una risposta a caso tra le cinque alternative. Se una domanda è stata risolta correttamente, vogliamo sapere qual è la probabilità che lo studente conoscesse la risposta corretta. Utilizzando il teorema di Bayes:</p>
+<p>$$
+P(A|B) = \frac{P(B|A) P(A)}{P(B|A) P(A) + P(B|A^c) P(A^c)}
+$$
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Probabilità Condizionata e Indipendenza',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza'
+        });
+      }
+    </script>
+</body>
+</html>

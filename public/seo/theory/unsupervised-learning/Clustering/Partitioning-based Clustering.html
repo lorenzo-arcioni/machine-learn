@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partitioning-based Clustering | Unsupervised Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="unsupervised learning, clustering, dimensionality reduction, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Partitioning-based Clustering">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/unsupervised-learning/Clustering/Partitioning-based Clustering">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Partitioning-based Clustering">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/unsupervised-learning/Clustering/Partitioning-based Clustering">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Partitioning-based Clustering",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/unsupervised-learning/Clustering/Partitioning-based Clustering",
+      "datePublished": "2025-08-06T20:12:10.757Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/unsupervised-learning/Clustering/Partitioning-based Clustering" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Partitioning-based Clustering</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Unsupervised Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="definizione">Definizione</h2>
+<p>Gli algoritmi di clustering basati su partizioni suddividono un dataset in <strong>$K$ gruppi distinti</strong>. Ogni punto dati appartiene a uno e un solo cluster, e i cluster vengono definiti in modo tale da minimizzare la distanza intra-cluster e massimizzare la distanza inter-cluster.</p>
+<p>Quindi abbiamo la seguente configurazione:</p>
+<ul>
+<li><strong>Input</strong>: Un insieme di $N$ data points e un numero $K$ (tale che $K < N$)</li>
+<li><strong>Goal</strong>: Trovare una partizione che ottimizza un certo criterio (funzione obiettivo).</li>
+<li><strong>Output</strong>: Una partizione degli $n$ data points in $K$ clusters.</li>
+</ul>
+<p>Esempio di partizione con $K=2$:
+    $C = [0, 1, 1, 0, 1, 0, \cdots, 1, 0]$</p>
+<p>Ma quante sono le possibili partizioni di un insieme? Beh potenzialmente potremmo pensare di avere $K^N$ partizioni, perché per ogni punto possiamo scegliere $K$ clusters, e quindi $K \cdot K \cdot \ \cdots \ \cdot K$, $N$ volte. Ma in realtà molte di meno in quanto siamo interessati solamente a quelle dove ogni cluster contiene almeno $1$ data point, ed inoltre stiamo considerando anche le stesse partizioni più volte, come ad esempio:
+$$\begin{align}
+\{[1, 2], [3, 4]\} \rightarrow (0, 0, 1, 1)\\
+\{[3, 4], [1, 2]\} \rightarrow (1, 1, 0, 0)
+\end{align}.
+$$
+Possiamo però essere molto più precisi utilizzando il numero di Stirling per le partizioni:</p>
+$$
+S(K, N) = \begin{Bmatrix}
+x\\
+y
+\end{Bmatrix}\approx \frac{K^N}{K!} \in O(K^N)
+\
+$$
+Quindi, la ricerca della partizione ottima (i.e. , che minimizza la funzione obiettivo) è un problema intrattabile, dal punto di vista computazionale, per molte funzioni di costo. Ma possiamo benissimo cavarcela con delle euristiche, come il <a href="/theory/unsupervised-learning/Clustering/K-Means" class="text-blue-600 hover:underline">K-Means</a> , <span class="text-gray-600">K-Medoids</span> e il <a href="/theory/unsupervised-learning/Clustering/K-means++" class="text-blue-600 hover:underline">K-Means++</a>.</p>
+<h2 id="un-framework-generico-per-il-clustering">Un Framework Generico per il Clustering</h2>
+<h3 id="flat-hard-clustering">Flat Hard Clustering</h3>
+<p>Il <strong>flat hard clustering</strong> è un metodo di clustering in cui i dati vengono suddivisi in gruppi <strong>non gerarchici</strong> (flat) e ogni punto appartiene <strong>esattamente a un solo cluster</strong> (hard), senza sovrapposizioni. Quindi, formalmente:</p>
+<ul>
+<li>$\{\vec x_1, \vec x_2, \cdot, \vec x_N\}$ i dati di input.</li>
+<li>$\{C_1, C_2, \cdots, C_K\}$ cluster di output.</li>
+<li>
+<p>$\vec \Theta_k$ è il <strong>rappresentante</strong> del cluster $C_k$.
+Dove per rappresentante si intende un valore (o un insieme di valori) che descrive in modo sintetico le caratteristiche del cluster $C_k$. Può essere, ad esempio: </p>
+</li>
+<li>
+<p><strong>Il centroide</strong>: nel caso di algoritmi come <strong>K-Means</strong>, è il punto medio dei dati all&rsquo;interno del cluster $C_k$, calcolato come: $$ \vec{\Theta}_k = \frac{1}{|C_k|} \sum_{\vec{x}_i \in C_k} \vec{x}_i $$
+</li>
+<li><strong>Il medoid</strong>: per algoritmi come <strong>K-Medoids</strong>, è l&rsquo;elemento del cluster $C_k$ che minimizza la somma delle distanze con gli altri punti del cluster. </li>
+<li><strong>Una distribuzione probabilistica</strong>: in approcci più avanzati (ad esempio clustering bayesiano), $\vec{\Theta}_k$ può rappresentare i parametri di una distribuzione (es. media e varianza di una gaussiana). In generale, il rappresentante $\vec{\Theta}_k$ è scelto per ottimizzare un criterio (ad esempio, la minimizzazione della varianza intra-cluster).</li>
+</ul>
+<h3 id="funzione-obiettivo">Funzione Obiettivo</h3>
+<p>La funzione obiettivo è in grado di dirci quanto il nostro clustering è ottimale:
+$$\large
+L(A, \Theta) = \sum_{n=1}^N \sum_{k=1}^K \alpha_{n, k} \cdot \delta(\vec x_n, \vec \Theta_k)
+$$
+Dove:</p>
+<ul>
+<li>$A$ è una matrice $N \times K$ tale che
+$$
+\alpha_{n, k} = \begin{cases}
+1 \quad \text{se } \vec x_n \text{ è assegnato al cluster } k\\
+\\
+0 \quad \text{altrimenti}
+\end{cases}.
+$$</li>
+<li>$\Theta = \{\vec \Theta_1, \cdots, \vec \Theta_K\}$ è l&rsquo;insieme dei rappresentanti dei clusters.</li>
+<li>$\delta(\vec x_n, \vec \Theta_k)$ è una funzione che misura la distanza tra $\vec x_n$ e $\vec \Theta_k$.
+Quindi
+$$
+A^*, \Theta^* = \argmin_{A, \Theta} L(A, \Theta),
+$$
+ma come abbiamo già visto, la soluzione a questo problema è $NP$-Hard, perché esplora tutte le possibili partizioni $O(K^N)$.</li>
+</ul>
+<p>Però, possiamo comunque trovare una soluzione non-convessa data l&rsquo;assegnazione discreta dei valori nella matrice $A$ (minimi locali multipli). Tuttavia, in questo modo, non possiamo sfruttare le proprietà delle funzioni convesse, come quella di trovare un minimo globale.</p>
+<p>La matrice $A$ infatti è composta da valori discreti ($0$ o $1$), quindi il problema è combinatorio e non può essere trattato come un problema di ottimizzazione continua. 
+Non possiamo utilizzare tecniche analitiche, come il calcolo differenziale, per trovare facilmente il minimo. </p>
+<p>$L(A, \Theta)$ non è convessa rispetto a $A$ e $\Theta$, quindi può avere <strong>minimi locali multipli</strong>. Non esiste garanzia di trovare il minimo globale utilizzando metodi iterativi.</p>
+<h3 id="soluzione-iterativa-algoritmo-di-lloyd-forgy">Soluzione Iterativa <a href="/theory/unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy" class="text-blue-600 hover:underline">Algoritmo di Lloyd-Forgy</a></h3>
+<p>Questo algoritmo non garantisce una soluzione ottima, perché potremmo fermarci ad un minimo locale o ad un punto di sella. L&rsquo;algoritmo si compone di due steps:
+- <strong>Assegnazione</strong>:
+    Minimizzare $L$ rispetto ad $A$ fissando $\Theta$. Infatti non possiamo calcolare il gradiente di $L$ in quanto $A$ è una matrice discreta.
+    Intuitivamente, dato un set (fisso) di rappresentanti, $L$ è minimizzata se ogni data point $\vec x_n$ è assegnato al cluster del più vicino rappresentante (ad $\vec x_n$).
+    <strong>Remark:</strong> $L$ è la somma di tutte le distanze da ogni data point al suo rappresentante.
+    Quindi,</p>
+$$
+\large
+\alpha_{n, k} = \begin{cases}
+1 \quad \text{se } \delta(\vec x_n, \vec \Theta_k) = \min_{1 \leq j \leq K} \{\delta(\vec x_n, \vec \Theta_j)\} \\
+0 \quad \text{altrimenti}
+\end{cases}.
+$$
+<ul>
+<li><strong>Ottimizzazione</strong>:
+    Minimizzare $L$ rispetto a $\Theta$ fissando $A$. Se fissiamo $A$, possiamo tranquillamente calcolare il gradiente di $L$ (in quanto ora $L(\vec \Theta_1, \cdots, \vec \Theta_K; A)$ dipende solo dal parametro $\Theta$), porlo $= \vec 0$ e risolvere per $\Theta$.
+$$
+\large
+\begin{align*}
+\nabla L(\Theta; A) &= \left(\frac{\partial L(\Theta; A)}{\partial \vec \Theta_1}, \cdots,  \frac{\partial L(\Theta; A)}{\partial \vec \Theta_K} \right)^T\\
+&= \left(\frac{\partial L(\vec \Theta_1, \cdots, \vec \Theta_K; A)}{\partial \vec \Theta_1}, \cdots,  \frac{\partial L(\vec \Theta_1, \cdots, \vec \Theta_K; A)}{\partial \vec \Theta_K} \right)^T
+\end{align*}
+$$ 
+Quindi,
+$$
+\nabla L(\Theta; A) = \vec 0 \iff \frac{\partial L(\vec \Theta_1, \cdots, \vec \Theta_K; A)}{\partial \vec \Theta_j} = \underbrace{\frac{\partial L}{\partial \vec \Theta_j}}_\text{per semplificare la notazione} = 0 \quad \forall j \in [K].
+$$ 
+Calcoliamo ora
+$$
+\frac{\partial L}{\partial \vec \Theta_j} = \frac{\partial}{\partial \vec \Theta_j} \sum_{n=1}^N \sum_{k=1}^K \alpha_{n, k} \cdot \delta(\vec x_n, \vec \Theta_k) = \frac{\partial}{\partial \vec \Theta_j} \sum_{n=1}^N \alpha_{n, k} \cdot \delta(\vec x_n, \vec \Theta_j)
+$$
+e poi non ci resta che risolvere
+$$
+\frac{\partial}{\partial \vec \Theta_j} \sum_{n=1}^N \alpha_{n, k} \cdot \delta(\vec x_n, \vec \Theta_j) = 0
+$$
+che ovviamente, ora che $\alpha_{n, k}$ è una costante, dipende dalla funzione $\delta$.</li>
+</ul>
+<h2 id="algoritmi-principali">Algoritmi principali</h2>
+<ul>
+<li><a href="/theory/unsupervised-learning/Clustering/K-Means" class="text-blue-600 hover:underline">K-Means</a>: Suddivide i dati in $K$ cluster minimizzando la somma delle distanze quadrate tra i punti e i centroidi.</li>
+<li><span class="text-gray-600">K-Medoids</span>: Simile a K-Means, ma utilizza punti effettivi del dataset come rappresentanti dei cluster (medoids) per ridurre l’impatto degli outlier.</li>
+<li><a href="/theory/unsupervised-learning/Clustering/K-means++" class="text-blue-600 hover:underline">K-Means++</a>:</li>
+</ul>
+<h2 id="limitazioni">Limitazioni</h2>
+<ul>
+<li>Richiede di definire il numero di cluster ($K$) a priori.</li>
+<li>Sensibile agli outlier, che possono influenzare i centroidi.</li>
+</ul>
+<h2 id="applicazioni">Applicazioni</h2>
+<ul>
+<li>Segmentazione clienti in ambito marketing. </li>
+<li>Clusterizzazione di documenti in <span class="text-gray-600">Natural Language Processing</span>. </li>
+<li>Compressione di immagini (es. riduzione di colori usando K-Means).</li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> unsupervised learning, clustering, dimensionality reduction, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/unsupervised-learning/Clustering/Partitioning-based Clustering">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Partitioning-based Clustering',
+          page_location: 'http://localhost:3000/theory/unsupervised-learning/Clustering/Partitioning-based Clustering'
+        });
+      }
+    </script>
+</body>
+</html>

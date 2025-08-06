@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sottoderivata e Sottogradiente | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, model">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sottoderivata e Sottogradiente">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sottoderivata e Sottogradiente">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Sottoderivata e Sottogradiente",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente",
+      "datePublished": "2025-08-06T20:12:10.709Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Sottoderivata e Sottogradiente</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>sottoderivata</strong> è un concetto matematico che estende la nozione di derivata a funzioni che non sono differenziabili in tutti i punti del loro dominio. Questo strumento è particolarmente utile quando si lavora con funzioni come la <strong>norma L1</strong>, che non è derivabile in $x = 0$. La sottoderivata permette di definire un insieme di &ldquo;derivate generalizzate&rdquo; in punti in cui la funzione non è regolare.</p>
+<h2 id="definizione-di-sottoderivata">Definizione di Sottoderivata</h2>
+<p>Sia $f: \mathbb{R} \to \mathbb{R}$ una funzione convessa. La <strong>sottoderivata</strong> di $f$ in un punto $x_0$ è definita come l&rsquo;insieme di tutti i valori $g$ tali che:</p>
+$$
+f(x) \geq f(x_0) + g(x - x_0) \quad \text{per ogni } x \in \mathbb{R}.
+$$
+<p>In altre parole, la sottoderivata è l&rsquo;insieme di tutte le pendenze delle rette che toccano il grafico di $f$ in $x_0$ senza attraversarlo. Questo insieme è chiamato <strong>sottodifferenziale</strong> di $f$ in $x_0$ e si indica con $\partial f(x_0)$.</p>
+<h2 id="esempi-di-sottoderivata">Esempi di Sottoderivata</h2>
+<h3 id="1-funzione-valore-assoluto-norma-l1">1. Funzione Valore Assoluto (Norma L1)</h3>
+<p>Consideriamo la funzione valore assoluto $f(x) = |x|$, che è un caso particolare della norma L1. Questa funzione non è derivabile in $x = 0$, ma possiamo calcolare il suo sottodifferenziale.</p>
+<ul>
+<li>Per $x > 0$, la derivata di $f(x)$ è $f'(x) = 1$.</li>
+<li>Per $x < 0$, la derivata di $f(x)$ è $f'(x) = -1$.</li>
+<li>In $x = 0$, la funzione non è derivabile, ma il sottodifferenziale è l&rsquo;intervallo $[-1, 1]$. Questo significa che ogni valore $g \in [-1, 1]$ è una sottoderivata di $f$ in $x = 0$.</li>
+</ul>
+<p>Matematicamente:</p>
+$$
+\partial f(0) = [-1, 1]
+$$
+<h3 id="2-funzione-convessa-generica">2. Funzione Convessa Generica</h3>
+<p>Per una funzione convessa $f(x)$, il sottodifferenziale in un punto $x_0$ è un insieme chiuso e convesso. Se $f$ è differenziabile in $x_0$, allora il sottodifferenziale è un singleton contenente la derivata classica:</p>
+$$
+\partial f(x_0) = \{ f'(x_0) \}
+$$
+<h2 id="proprieta-della-sottoderivata">Proprietà della Sottoderivata</h2>
+<ol>
+<li><strong>Convessità</strong>: Se $f$ è una funzione convessa, il sottodifferenziale $\partial f(x_0)$ è un insieme convesso e chiuso.</li>
+<li><strong>Monotonia</strong>: Se $f$ è una funzione convessa, il sottodifferenziale è una funzione monotona, cioè per ogni $x_1 < x_2$ e per ogni $g_1 \in \partial f(x_1)$, $g_2 \in \partial f(x_2)$, si ha $g_1 \leq g_2$.</li>
+<li><strong>Ottimizzazione</strong>: La sottoderivata è utile nell&rsquo;ottimizzazione convessa, poiché fornisce una condizione necessaria e sufficiente per i minimi di una funzione convessa. Un punto $x_0$ è un minimo globale di $f$ se e solo se $0 \in \partial f(x_0)$.</li>
+</ol>
+<h2 id="applicazioni-della-sottoderivata">Applicazioni della Sottoderivata</h2>
+<h3 id="1-regolarizzazione-l1">1. Regolarizzazione L1</h3>
+<p>Nella regolarizzazione L1 (Lasso), la funzione di perdita include un termine di penalità basato sulla norma L1:</p>
+$$
+\ell(\Theta) = \text{MSE}(\Theta) + \lambda \|\Theta\|_1
+$$
+<p>Dove $\|\Theta\|_1$ è la norma L1 dei parametri. Poiché la norma L1 non è differenziabile in $\Theta = 0$, utilizziamo il concetto di sottoderivata per calcolare il gradiente generalizzato. In particolare, il sottodifferenziale della norma L1 in $\Theta = 0$ è l&rsquo;insieme di tutti i vettori $g$ tali che:</p>
+$$
+g_i \in 
+\begin{cases}
+\{1\}, & \text{se } \Theta_i > 0 \\
+\{-1\}, & \text{se } \Theta_i < 0 \\
+[-1, 1], & \text{se } \Theta_i = 0
+\end{cases}
+$$
+<h3 id="2-ottimizzazione-convessa">2. Ottimizzazione Convessa</h3>
+<p>La sottoderivata è ampiamente utilizzata nell&rsquo;ottimizzazione convessa, specialmente quando si lavora con funzioni non differenziabili. Ad esempio, nell&rsquo;algoritmo del <strong>subgradient descent</strong>, si utilizza un vettore del sottodifferenziale per aggiornare i parametri del modello.</p>
+<h2 id="sottogradiente">Sottogradiente</h2>
+<p>Il <strong>sottogradiente</strong> è un concetto che estende la nozione di gradiente a funzioni non differenziabili. Mentre il gradiente classico è definito solo per funzioni differenziabili, il sottogradiente è definito per funzioni convesse (anche non differenziabili) e fornisce una generalizzazione utile per l&rsquo;ottimizzazione e l&rsquo;analisi di funzioni non lisce.</p>
+<h3 id="definizione-di-sottogradiente">Definizione di Sottogradiente</h3>
+<p>Sia $f: \mathbb{R}^n \to \mathbb{R}$ una funzione convessa. Un vettore $g \in \mathbb{R}^n$ è chiamato <strong>sottogradiente</strong> di $f$ in un punto $x_0$ se soddisfa la seguente disuguaglianza:</p>
+$$
+f(x) \geq f(x_0) + g^\top (x - x_0) \quad \text{per ogni } x \in \mathbb{R}^n.
+$$
+<p>L&rsquo;insieme di tutti i sottogradienti di $f$ in $x_0$ è chiamato <strong>sottodifferenziale</strong> di $f$ in $x_0$ e si indica con $\partial f(x_0)$. Se $f$ è differenziabile in $x_0$, allora il sottodifferenziale è un singleton contenente il gradiente classico:</p>
+$$
+\partial f(x_0) = \{ \nabla f(x_0) \}.
+$$
+<h3 id="proprieta-del-sottogradiente">Proprietà del Sottogradiente</h3>
+<ol>
+<li><strong>Convessità</strong>: Se $f$ è una funzione convessa, il sottodifferenziale $\partial f(x_0)$ è un insieme convesso e chiuso.</li>
+<li><strong>Non vuoto</strong>: Per una funzione convessa, il sottodifferenziale è sempre non vuoto in ogni punto del dominio.</li>
+<li><strong>Monotonia</strong>: Se $f$ è una funzione convessa, il sottodifferenziale è una funzione monotona, cioè per ogni $x_1, x_2 \in \mathbb{R}^n$ e per ogni $g_1 \in \partial f(x_1)$, $g_2 \in \partial f(x_2)$, si ha:
+   $$
+   (g_1 - g_2)^\top (x_1 - x_2) \geq 0.
+   $$</li>
+</ol>
+<h3 id="esempi-di-sottogradiente">Esempi di Sottogradiente</h3>
+<h4 id="1-norma-l1-funzione-valore-assoluto-generalizzata">1. Norma L1 (Funzione Valore Assoluto Generalizzata)</h4>
+<p>Consideriamo la <strong>norma L1</strong> di un vettore $\mathbf x \in \mathbb{R}^n$, definita come:</p>
+$$
+f(\mathbf x) = \|\mathbf x\|_1 = \sum_{i=1}^n |\mathbf x_i|.
+$$
+<p>Questa funzione non è differenziabile in tutti i punti in cui almeno una componente di $\mathbf x$ è zero. Tuttavia, possiamo calcolare il suo sottodifferenziale.</p>
+<ul>
+<li>Per $x_i > 0$, la derivata parziale rispetto a $x_i$ è $\frac{\partial f}{\partial x_i} = 1$.</li>
+<li>Per $x_i < 0$, la derivata parziale rispetto a $x_i$ è $\frac{\partial f}{\partial x_i} = -1$.</li>
+<li>Per $x_i = 0$, la derivata parziale non è definita, ma il sottodifferenziale rispetto a $x_i$ è l&rsquo;intervallo $[-1, 1]$.</li>
+</ul>
+<p>Quindi, il sottodifferenziale della norma L1 in un punto $\mathbf x \in \mathbb{R}^n$ è dato da:</p>
+$$
+\partial f(\mathbf x) = \{ g \in \mathbb{R}^n \mid g_i \in \partial |x_i| \},
+$$
+<p>dove:</p>
+$$
+\partial |x_i| = 
+\begin{cases}
+\{1\}, & \text{se } x_i > 0 \\
+\{-1\}, & \text{se } x_i < 0 \\
+[-1, 1], & \text{se } x_i = 0
+\end{cases}
+$$
+<h4 id="2-funzione-convessa-generica-in-math_inline_86">2. Funzione Convessa Generica in $\mathbb{R}^n$</h4>
+<p>Per una funzione convessa $f: \mathbb{R}^n \to \mathbb{R}$, il sottodifferenziale in un punto $\mathbf x_0 \in \mathbb{R}^n$ è un insieme convesso e chiuso. Se $f$ è differenziabile in $\mathbf x_0$, allora il sottodifferenziale è un singleton contenente il gradiente classico:</p>
+$$
+\partial f(\mathbf x_0) = \{ \nabla f(\mathbf x_0) \}.
+$$
+<p>Se $f$ non è differenziabile in $\mathbf x_0$, il sottodifferenziale è un insieme più grande. Ad esempio, per la funzione $f(x) = \max(x_1, x_2, \dots, x_n)$, il sottodifferenziale in un punto $\mathbf x_0$ è l&rsquo;insieme di tutti i vettori $\mathbf g \in \mathbb{R}^n$ tali che:</p>
+$$
+g_i = 
+\begin{cases}
+1, & \text{se } x_i = \max(x_1, x_2, \dots, x_n) \\
+0, & \text{altrimenti}
+\end{cases}
+$$
+<h3 id="applicazioni-del-sottogradiente">Applicazioni del Sottogradiente</h3>
+<h4 id="1-ottimizzazione-non-differenziabile">1. Ottimizzazione Non Differenziabile</h4>
+<p>Il sottogradiente è ampiamente utilizzato nell&rsquo;ottimizzazione di funzioni non differenziabili. Ad esempio, nell&rsquo;algoritmo del <strong>subgradient descent</strong>, si utilizza un vettore del sottodifferenziale per aggiornare i parametri del modello. L&rsquo;aggiornamento è dato da:</p>
+$$
+x_{k+1} = x_k - \alpha_k g_k
+$$
+<p>Dove:
+- $x_k$ è il vettore dei parametri al passo $k$.
+- $g_k$ è un sottogradiente di $f$ in $x_k$.
+- $\alpha_k$ è il passo di apprendimento al passo $k$.</p>
+<h4 id="2-regolarizzazione-l1">2. Regolarizzazione L1</h4>
+<p>Nella regolarizzazione L1 (Lasso), la funzione di perdita include un termine di penalità basato sulla norma L1:</p>
+$$
+\ell(\Theta) = \text{MSE}(\Theta) + \lambda \|\Theta\|_1
+$$
+<p>Dove $\|\Theta\|_1$ è la norma L1 dei parametri. Poiché la norma L1 non è differenziabile in $\Theta = 0$, utilizziamo il concetto di sottogradiente per calcolare il gradiente generalizzato. In particolare, il sottodifferenziale della norma L1 in $\Theta = 0$ è l&rsquo;insieme di tutti i vettori $g$ tali che:</p>
+$$
+g_i \in 
+\begin{cases}
+\{1\}, & \text{se } \Theta_i > 0 \\
+\{-1\}, & \text{se } \Theta_i < 0 \\
+[-1, 1], & \text{se } \Theta_i = 0
+\end{cases}
+$$
+<h3 id="conclusione">Conclusione</h3>
+<p>Il sottogradiente è uno strumento essenziale per estendere il concetto di gradiente a funzioni non differenziabili, come la norma L1. Questo concetto è particolarmente utile nell&rsquo;ottimizzazione convessa e nella regolarizzazione, dove funzioni non differenziabili sono comuni. La capacità di lavorare con sottogradienti permette di risolvere problemi complessi che altrimenti sarebbero intrattabili con gli strumenti classici del calcolo differenziale.</p>
+<h2 id="conclusione_1">Conclusione</h2>
+<p>La sottoderivata è uno strumento potente per estendere il concetto di derivata a funzioni non differenziabili, come la norma L1. Questo concetto è particolarmente utile nell&rsquo;ottimizzazione convessa e nella regolarizzazione, dove funzioni non differenziabili sono comuni. La capacità di lavorare con sottoderivate permette di risolvere problemi complessi che altrimenti sarebbero intrattabili con gli strumenti classici del calcolo differenziale.</p>
+<h2 id="collegamenti-correlati">Collegamenti Correlati</h2>
+<ul>
+<li><a href="/theory/introduction/Regolarizzazione" class="text-blue-600 hover:underline">Regolarizzazione</a></li>
+<li><span class="text-gray-600">Norme L1 e L2</span></li>
+<li><span class="text-gray-600">Ottimizzazione Convessa</span></li>
+<li><span class="text-gray-600">Funzioni Convesse</span></li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, model</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Sottoderivata e Sottogradiente',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente'
+        });
+      }
+    </script>
+</body>
+</html>

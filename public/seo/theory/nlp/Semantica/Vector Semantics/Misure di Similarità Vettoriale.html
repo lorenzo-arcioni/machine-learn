@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misure di Similarità Vettoriale | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, data, learning">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Misure di Similarità Vettoriale">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Misure di Similarità Vettoriale">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Misure di Similarità Vettoriale",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale",
+      "datePublished": "2025-08-06T20:12:10.801Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Misure di Similarità Vettoriale</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>Quando rappresentiamo dati testuali o numerici come vettori, possiamo confrontarli tramite <strong>misure di distanza</strong> o <strong>similarità</strong>.<br />
+Queste misure sono fondamentali in molte aree: NLP, clustering, classificazione, retrieval.</p>
+<p>La scelta della misura di distanza influenza in modo decisivo le performance degli algoritmi.</p>
+<h2 id="1-definizioni-formali">1. Definizioni Formali</h2>
+<p>Per procedere in modo rigoroso, definiamo il concetto matematico di <strong>distanza</strong>.</p>
+<h3 id="11-distanza">1.1 Distanza</h3>
+<p>Una <strong>distanza</strong> su uno spazio $X$ è una funzione:</p>
+$$
+d: X \times X \to \mathbb{R}
+$$
+<p>che associa a ogni coppia di punti $(x, y)$ un numero reale $d(x, y)$, interpretato intuitivamente come la &ldquo;lontananza&rdquo; tra $x$ e $y$.</p>
+<p>Affinché $d$ sia effettivamente considerata una distanza, deve soddisfare quattro proprietà fondamentali:</p>
+<ol>
+<li><strong>Non negatività</strong>:</li>
+</ol>
+<p>La distanza tra due punti è sempre un numero positivo o nullo:</p>
+$$
+   d(\mathbf{x}, \mathbf{y}) \geq 0 \quad \forall \, \mathbf{x}, \mathbf{y} \in X
+   $$
+<p>(<em>Non esistono distanze negative.</em>)</p>
+<ol>
+<li><strong>Identità degli indiscernibili</strong>:</li>
+</ol>
+<p>Due punti sono a distanza zero <strong>se e solo se</strong> coincidono:</p>
+$$
+   d(\mathbf{x}, \mathbf{y}) = 0 \quad \iff \quad \mathbf{x} = \mathbf{y}
+   $$
+<p>(<em>Se due oggetti sono distinti, devono avere distanza positiva.</em>)</p>
+<ol>
+<li><strong>Simmetria</strong>:</li>
+</ol>
+<p>L&rsquo;ordine dei punti non conta: la distanza da $x$ a $y$ è uguale a quella da $y$ a $x$:</p>
+$$
+   d(\mathbf{x}, \mathbf{y}) = d(\mathbf{y}, \mathbf{x})
+   $$
+<p>(<em>La distanza è &ldquo;senza direzione&rdquo;, a differenza, ad esempio, di uno spostamento vettoriale.</em>)</p>
+<ol>
+<li><strong>Disuguaglianza triangolare</strong>:</li>
+</ol>
+<p>Il percorso diretto tra due punti è sempre il più breve, o almeno non più lungo, rispetto a passare per un terzo punto:</p>
+$$
+   d(\mathbf{x}, \mathbf{z}) \leq d(\mathbf{x}, \mathbf{y}) + d(\mathbf{y}, \mathbf{z})
+   $$
+<p>(<em>È la formalizzazione del concetto che &ldquo;la scorciatoia è sempre più breve&rdquo; nella geometria.</em>)</p>
+<h3 id="12-spazio-metrico">1.2 Spazio Metrico</h3>
+<p>Uno <strong>spazio metrico</strong> è una coppia $(X, d)$, dove:</p>
+<ul>
+<li>$X$ è un insieme di punti (o vettori),</li>
+<li>$d$ è una funzione di distanza che soddisfa le quattro proprietà sopra.</li>
+</ul>
+<p><strong>In sintesi</strong>:</p>
+<blockquote>
+<p>Uno spazio metrico fornisce un modo formale per misurare &ldquo;quanto sono vicini&rdquo; o &ldquo;quanto sono lontani&rdquo; due elementi di un insieme.</p>
+</blockquote>
+<p>Gli spazi metrici sono la base concettuale per la geometria, l&rsquo;analisi matematica, e molte tecniche di machine learning.</p>
+<h2 id="2-distanze-di-minkowski">2. Distanze di Minkowski</h2>
+<p>La <strong>famiglia di Minkowski</strong> definisce una classe di distanze parametrizzate da $p \geq 1$:</p>
+$$
+d_p(x, y) = \left( \sum_{i=1}^{n} |x_i - y_i|^p \right)^{\frac{1}{p}}
+$$
+<h3 id="casi-speciali">Casi speciali:</h3>
+<ul>
+<li><strong>Distanza Manhattan</strong> $p=1$:</li>
+</ul>
+$$
+  d_1(x, y) = \sum_{i=1}^{n} |x_i - y_i|
+  $$
+<ul>
+<li><strong>Distanza Euclidea</strong> $p=2$:</li>
+</ul>
+$$
+  d_2(x, y) = \sqrt{ \sum_{i=1}^{n} (x_i - y_i)^2 }
+  $$
+<ul>
+<li><strong>Distanza di Chebyshev</strong> $p→∞$:</li>
+</ul>
+$$
+  d_\infty(x, y) = \max_{i} |x_i - y_i|
+  $$
+<h3 id="21-dimostrazione-distanza-di-chebyshev-come-limite-di-minkowski">2.1 Dimostrazione: Distanza di Chebyshev come limite di Minkowski</h3>
+<p><strong>Teorema</strong>:<br />
+$$
+d_\infty(x, y) = \lim_{p \to \infty} d_p(x, y) = \max_i |x_i - y_i|
+$$</p>
+<p><strong>Dimostrazione</strong>:</p>
+<p>Siano $a = |x_1 - y_1|$ e $b = |x_2 - y_2|$.<br />
+Senza perdita di generalità, supponiamo:</p>
+$$
+\max(a, b) = a
+$$
+<p>Allora:</p>
+<ol>
+<li>Stima dal basso:</li>
+</ol>
+$$
+\lim_{p \to \infty} (a^p + b^p)^{1/p}
+\geq
+\lim_{p \to \infty} (a^p)^{1/p}
+=
+a
+$$
+<ol>
+<li>Stima dall&rsquo;alto:</li>
+</ol>
+$$
+\lim_{p \to \infty} (a^p + b^p)^{1/p}
+\leq
+\lim_{p \to \infty} (a^p + a^p)^{1/p}
+=
+\lim_{p \to \infty} (2a^p)^{1/p}
+=
+a \lim_{p \to \infty} 2^{1/p}
+=
+a
+$$
+<p>perché $\lim_{p\to\infty} 2^{1/p} = 1$.</p>
+<p><strong>Conclusione</strong>:<br />
+$$
+\lim_{p\to\infty} d_p(x,y) = a = \max(a,b)
+\quad \Box
+$$</p>
+<h2 id="3-similarita-coseno">3. Similarità Coseno</h2>
+<p>La <strong>similarità coseno</strong> è una misura della <strong>direzione</strong> relativa tra due vettori in uno spazio vettoriale.<br />
+In particolare, essa <strong>non</strong> considera la lunghezza dei vettori, ma solamente <strong>l&rsquo;angolo</strong> che essi formano tra loro.</p>
+<h3 id="formula">Formula</h3>
+<p>La formula della similarità coseno tra due vettori $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$ è:</p>
+$$
+\text{sim}_{\cos}(\mathbf{x}, \mathbf{y}) = \frac{ \mathbf{x} \cdot \mathbf{y} }{ \|\mathbf{x}\| \|\mathbf{y}\| }
+$$
+<p>dove:</p>
+<ul>
+<li>$\mathbf{x} \cdot \mathbf{y} = \sum_{i=1}^{n} x_i y_i$ è il <strong>prodotto scalare</strong>,</li>
+<li>$\|\mathbf{x}\| = \sqrt{ \sum_{i=1}^{n} x_i^2 }$ è la <strong>norma Euclidea</strong> di $\mathbf{x}$,</li>
+<li>$\|\mathbf{y}\| = \sqrt{ \sum_{i=1}^{n} y_i^2 }$ è la <strong>norma Euclidea</strong> di $\mathbf{y}$.</li>
+</ul>
+<h3 id="dimostrazione-della-formula-tramite-angoli">Dimostrazione della Formula tramite Angoli</h3>
+<p>Partiamo da due vettori nel piano:</p>
+$$
+\mathbf{x} = (x_1, x_2), \quad \mathbf{y} = (y_1, y_2)
+$$
+<p>Supponiamo che $\mathbf{x}$ e $\mathbf{y}$ abbiano rispettivamente:</p>
+<ul>
+<li>Lunghezza $\|\mathbf{x}\|$ e $\|\mathbf{y}\|$,</li>
+<li>Formino angoli $\alpha$ e $\beta$ rispetto all&rsquo;asse $x$.</li>
+</ul>
+<p>Allora, per la definizione di coseno di un angolo, possiamo scrivere le loro componenti:</p>
+$$
+x_1 = \|\mathbf{x}\| \cos(\alpha), \quad x_2 = \|\mathbf{x}\| \sin(\alpha)
+$$
+$$
+y_1 = \|\mathbf{y}\| \cos(\beta), \quad y_2 = \|\mathbf{y}\| \sin(\beta)
+$$
+<p>Ora il prodotto scalare è:</p>
+$$
+\mathbf{x} \cdot \mathbf{y} = x_1 y_1 + x_2 y_2
+$$
+<p>Sostituendo:</p>
+$$
+= \|\mathbf{x}\| \cos(\alpha) \|\mathbf{y}\| \cos(\beta) + \|\mathbf{x}\| \sin(\alpha) \|\mathbf{y}\| \sin(\beta)
+$$
+$$
+= \|\mathbf{x}\| \|\mathbf{y}\| \left( \cos(\alpha) \cos(\beta) + \sin(\alpha) \sin(\beta) \right)
+$$
+<p>Ora, usando l&rsquo;identità trigonometrica:</p>
+$$
+\cos(\alpha - \beta) = \cos(\alpha) \cos(\beta) + \sin(\alpha) \sin(\beta)
+$$
+<p>otteniamo:</p>
+$$
+\mathbf{x} \cdot \mathbf{y} = \|\mathbf{x}\| \|\mathbf{y}\| \cos(\alpha - \beta)
+$$
+<p>Dove:</p>
+<ul>
+<li>$\alpha - \beta = \theta$ è l&rsquo;<strong>angolo</strong> tra i due vettori.</li>
+</ul>
+<p>Quindi:</p>
+$$
+\cos(\theta) = \frac{ \mathbf{x} \cdot \mathbf{y} }{ \|\mathbf{x}\| \|\mathbf{y}\| }
+$$
+<p>che è esattamente la definizione della <strong>similarità coseno</strong>. $\square$</p>
+<h3 id="interpretazione-geometrica">Interpretazione Geometrica</h3>
+<ul>
+<li>Se $\cos(\theta) = 1$, allora $\theta = 0^\circ$, i vettori puntano nella <strong>stessa direzione</strong> → <strong>massima similarità</strong>.</li>
+<li>Se $\cos(\theta) = 0$, allora $\theta = 90^\circ$, i vettori sono <strong>ortogonali</strong> → <strong>nessuna similarità</strong>.</li>
+<li>Se $\cos(\theta) = -1$, allora $\theta = 180^\circ$, i vettori puntano in <strong>direzioni opposte</strong>.</li>
+</ul>
+<h3 id="riassunto-tabellare">Riassunto Tabellare</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">$\theta$</th>
+<th style="text-align: left;">Interpretazione</th>
+<th style="text-align: center;">$\text{sim}_{\cos}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">$0^\circ$</td>
+<td style="text-align: left;">Vettori paralleli, stesso verso</td>
+<td style="text-align: center;">$1$</td>
+</tr>
+<tr>
+<td style="text-align: center;">$90^\circ$</td>
+<td style="text-align: left;">Vettori ortogonali</td>
+<td style="text-align: center;">$0$</td>
+</tr>
+<tr>
+<td style="text-align: center;">$180^\circ$</td>
+<td style="text-align: left;">Vettori paralleli, verso opposto</td>
+<td style="text-align: center;">$-1$</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/images/tikz/bf74f0743b6e427e2214b06c887d9e3f.svg" style="display: block; width: 100%; height: auto; max-height: 600px;" class="tikz-svg" /></p>
+<ul>
+<li><strong>L&rsquo;angolo tra $\mathbf{x}$ e $\mathbf{y}$</strong> determina il valore della similarità coseno.</li>
+<li><strong>Non conta quanto sono lunghi</strong> $\mathbf{x}$ e $\mathbf{y}$: solo <strong>l&rsquo;orientamento</strong>.</li>
+</ul>
+<h3 id="nota-pratica">Nota pratica</h3>
+<p>La similarità coseno è <strong>molto usata</strong> quando:</p>
+<ul>
+<li>I dati sono rappresentati come vettori <strong>sparsi</strong> (es: bag-of-words, TF-IDF).</li>
+<li>L&rsquo;interesse è confrontare la <strong>direzione</strong> (cioè la proporzione tra componenti) piuttosto che la magnitudine assoluta.</li>
+</ul>
+<p>Esempi applicativi:</p>
+<ul>
+<li><strong>Document Retrieval</strong>: trovare documenti simili a una query.</li>
+<li><strong>Sistemi di Raccomandazione</strong>: trovare utenti o prodotti simili.</li>
+<li><strong>Clustering Testuale</strong>.</li>
+</ul>
+<h3 id="esempio">Esempio</h3>
+<p>Consideriamo il seguente esempio pratico di calcolo della <strong>similarità coseno</strong> tra vettori associati a parole.</p>
+<p>Supponiamo di avere una matrice di co-occorrenza delle parole rispetto a tre contesti: <code>pie</code>, <code>data</code> e <code>computer</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">pie</th>
+<th style="text-align: center;">data</th>
+<th style="text-align: center;">computer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">cherry</td>
+<td style="text-align: center;">442</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: center;">digital</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1683</td>
+<td style="text-align: center;">1670</td>
+</tr>
+<tr>
+<td style="text-align: center;">information</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3982</td>
+<td style="text-align: center;">3325</td>
+</tr>
+</tbody>
+</table>
+<p>L&rsquo;obiettivo è confrontare la similarità tra:</p>
+<ul>
+<li><strong>cherry</strong> e <strong>information</strong></li>
+<li><strong>digital</strong> e <strong>information</strong></li>
+</ul>
+<h4 id="calcolo">Calcolo</h4>
+<p>La similarità coseno si calcola come:</p>
+$$
+\cos(\mathbf{x}, \mathbf{y}) = \frac{ \sum_{i=1}^n x_i y_i }{ \sqrt{ \sum_{i=1}^n x_i^2 } \sqrt{ \sum_{i=1}^n y_i^2 } }
+$$
+<p>Nel nostro caso:</p>
+<ul>
+<li>Vettore cherry = (442, 8, 2)</li>
+<li>Vettore digital = (5, 1683, 1670)</li>
+<li>Vettore information = (5, 3982, 3325)</li>
+</ul>
+<p>Calcoliamo:</p>
+<h5 id="similarita-tra-cherry-e-information">Similarità tra cherry e information:</h5>
+$$
+\cos(\text{cherry}, \text{information}) = \frac{442 \times 5 + 8 \times 3982 + 2 \times 3325}{\sqrt{442^2 + 8^2 + 2^2} \times \sqrt{5^2 + 3982^2 + 3325^2}}
+$$
+$$
+= \frac{2210 + 31856 + 6650}{\sqrt{195364 + 64 + 4} \times \sqrt{25 + 15856224 + 11055625}}
+$$
+$$
+= \frac{40716}{\sqrt{195432} \times \sqrt{26911874}}
+$$
+$$
+= \frac{40716}{442 \times 5187}
+$$
+$$
+\approx 0.017
+$$
+<h5 id="similarita-tra-digital-e-information">Similarità tra digital e information:</h5>
+$$
+\cos(\text{digital}, \text{information}) = \frac{5 \times 5 + 1683 \times 3982 + 1670 \times 3325}{\sqrt{5^2 + 1683^2 + 1670^2} \times \sqrt{5^2 + 3982^2 + 3325^2}}
+$$
+$$
+= \frac{25 + 6702906 + 5552750}{\sqrt{25 + 2832729 + 2788900} \times \sqrt{25 + 15856224 + 11055625}}
+$$
+$$
+= \frac{12255981}{\sqrt{5621654} \times \sqrt{26911874}}
+$$
+$$
+= \frac{12255981}{2370 \times 5187}
+$$
+$$
+\approx 0.996
+$$
+<p>✅ Quindi, <strong>digital</strong> e <strong>information</strong> sono <strong>molto più simili</strong> rispetto a <strong>cherry</strong> e <strong>information</strong>, come confermato dal valore molto vicino a 1 della loro similarità coseno.</p>
+<h2 id="4-visualizzazioni-intuitive">4. Visualizzazioni Intuitive</h2>
+<h3 id="41-distanze-minkowski">4.1 Distanze Minkowski</h3>
+<p>Supponi due vettori $x = (1, 2)$ e $y = (4, 6)$:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: left;">Formula</th>
+<th style="text-align: left;">Calcolo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Manhattan</td>
+<td style="text-align: left;">$|1-4| + |2-6| = 3 + 4 = 7$</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr>
+<td style="text-align: left;">Euclidea</td>
+<td style="text-align: left;">$\sqrt{(1-4)^2 + (2-6)^2} = \sqrt{9+16} = \sqrt{25}$</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chebyshev</td>
+<td style="text-align: left;">$\max(\mid 1-4 \mid ,  \mid 2-6 \mid ) = \max(3,4)$</td>
+<td style="text-align: left;">4</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Grafico distanze Minkowski" src="/images/posts/minkowski-02-1024x288.webp" /></p>
+<p><em>(Fonte: Wikipedia)</em></p>
+<h3 id="42-similarita-coseno">4.2 Similarità Coseno</h3>
+<p>La similarità coseno si basa sull&rsquo;angolo tra due vettori:</p>
+<p><img alt="Grafico similarità coseno" src="/images/posts/vector-search-cosine.png" /></p>
+<p><em>(Fonte: Wikipedia)</em></p>
+<h2 id="5-osservazioni-finali">5. Osservazioni Finali</h2>
+<ul>
+<li><strong>Le distanze Minkowski</strong> dipendono dalla scala delle componenti.</li>
+<li><strong>La similarità coseno</strong> è indipendente dalla scala: guarda solo la <strong>direzione</strong> dei vettori.</li>
+<li>La scelta della metrica dipende dal problema specifico:</li>
+<li>Clustering: solitamente distanza euclidea o Manhattan.</li>
+<li>Documenti di testo: similarità coseno.</li>
+<li>Sistemi di raccomandazione: dipende dalla sparsità dei dati.</li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, data, learning</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Misure di Similarità Vettoriale',
+          page_location: 'http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale'
+        });
+      }
+    </script>
+</body>
+</html>

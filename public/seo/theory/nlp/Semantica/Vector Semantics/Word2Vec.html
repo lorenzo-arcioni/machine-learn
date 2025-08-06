@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Word2Vec: Una Spiegazione Dettagliata e Intuitiva | Natural Language Processing | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="NLP, natural language processing, text analysis, language models, model, data, neural, training">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="🧠 Word2Vec: Una Spiegazione Dettagliata e Intuitiva">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🧠 Word2Vec: Una Spiegazione Dettagliata e Intuitiva">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "🧠 Word2Vec: Una Spiegazione Dettagliata e Intuitiva",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec",
+      "datePublished": "2025-08-06T20:12:10.808Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>🧠 Word2Vec: Una Spiegazione Dettagliata e Intuitiva</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Natural Language Processing | 
+                    <strong>Updated:</strong> 06/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="cose-word2vec">Cos&rsquo;è Word2Vec?</h2>
+<p>Word2Vec è una tecnica di <strong>apprendimento non supervisionato</strong> introdotta da <strong>Tomas Mikolov</strong> nel 2013 al Google Research. Serve a rappresentare le <strong>parole</strong> come <strong>vettori continui</strong> in uno spazio n-dimensionale, catturando <strong>relazioni semantiche e sintattiche</strong> tra parole.</p>
+<h3 id="perche-usare-word2vec">🧩 Perché usare Word2Vec?</h3>
+<ul>
+<li>Perché le <strong>parole non sono numeri</strong>, ma per addestrare modelli di Machine Learning abbiamo bisogno di rappresentazioni <strong>numericamente significative</strong>.</li>
+<li>Word2Vec permette di <strong>mappare parole simili in vettori simili</strong> nello spazio.</li>
+<li>È alla base di molte applicazioni NLP: <strong>motori di ricerca, chatbot, traduttori automatici, recommender system</strong>, ecc.</li>
+</ul>
+<h2 id="obiettivo-embedded-meaning">📌 Obiettivo: Embedded Meaning</h2>
+<p>Word2Vec impara a <strong>prevedere il contesto</strong> di una parola o la parola dato un contesto. A differenza del classico one-hot encoding (dove ogni parola è un vettore ortogonale), Word2Vec assegna a ogni parola un <strong>vettore denso</strong> (dense vector) che ne <strong>cattura il significato</strong>. Ad esempio:</p>
+$$
+\text{King} - \text{Man} + \text{Woman} \approx \text{Queen}.
+$$
+<p>Questo tipo di <strong>algebra semantica</strong> è possibile perché Word2Vec apprende delle <strong>rappresentazioni distribuite</strong> (distributed representations).</p>
+<h2 id="architettura-cbow-vs-skip-gram">🛠️ Architettura: CBOW vs Skip-Gram</h2>
+<p>Word2Vec ha due principali architetture:</p>
+<h3 id="1-cbow-continuous-bag-of-words">1. CBOW (Continuous Bag of Words)</h3>
+<ul>
+<li>Obiettivo: <strong>Predire la parola centrale</strong> dato il <strong>contesto</strong> (le parole attorno).</li>
+<li>Esempio:</li>
+<li>Contesto: &ldquo;il __ beve latte&rdquo;</li>
+<li>Target: &ldquo;gatto&rdquo;</li>
+</ul>
+<p><strong>Funziona meglio con dataset piccoli e parole frequenti.</strong></p>
+<h3 id="2-skip-gram">2. Skip-Gram</h3>
+<ul>
+<li>Obiettivo: <strong>Predire il contesto</strong> dato una parola centrale.</li>
+<li>Esempio:</li>
+<li>Input: &ldquo;gatto&rdquo;</li>
+<li>Output atteso: [&ldquo;il&rdquo;, &ldquo;beve&rdquo;, &ldquo;latte&rdquo;]</li>
+</ul>
+<p><strong>Funziona meglio con dataset grandi e parole rare.</strong></p>
+<h2 id="come-funziona-internamente">📐 Come funziona internamente?</h2>
+<h3 id="step-1-one-hot-encoding-dellinput">Step 1: One-Hot Encoding dell&rsquo;input</h3>
+<p>Ogni parola è rappresentata come un vettore lungo quanto il vocabolario (es: 10.000 parole), con uno 0 ovunque tranne un 1 nella posizione della parola.</p>
+<p>Esempio:</p>
+<div class="codehilite"><pre><span></span><code>gatto → [0, 0, ..., 1, ..., 0]
+</code></pre></div>
+
+<h3 id="step-2-layer-di-embedding-matrice-peso">Step 2: Layer di embedding (matrice peso)</h3>
+<ul>
+<li>L’input one-hot moltiplicato per una <strong>matrice dei pesi W</strong> restituisce il vettore dense.</li>
+<li>Se <code>W</code> ha dimensione <code>(vocab_size, embedding_dim)</code> → otterrai un vettore <code>embedding_dim</code> (es. 100).</li>
+</ul>
+<h3 id="step-3-output-layer-softmax">Step 3: Output layer + Softmax</h3>
+<p>Nel caso di CBOW:
+- Il contesto viene mediato → moltiplicato per <code>W.T</code> → passaggio a softmax → si confronta con la parola target.
+Nel caso di Skip-Gram:
+- La parola target genera il vettore → moltiplicato → predice ogni parola nel contesto.</p>
+<h2 id="intuizione-geometrica">💡 Intuizione geometrica</h2>
+<ul>
+<li>Le <strong>distanze cosine</strong> tra vettori di parole simili sono piccole.</li>
+<li>I vettori non hanno significato assoluto, ma <strong>relativo</strong>: il significato emerge dalla posizione rispetto alle altre parole.</li>
+</ul>
+<p>📷 <img alt="Spazio vettoriale 2D" src="/images/posts/word2vec_projection.png" /></p>
+<h2 id="ottimizzazione-negative-sampling-e-hierarchical-softmax">⚙️ Ottimizzazione: Negative Sampling e Hierarchical Softmax</h2>
+<h3 id="problema">🧮 Problema</h3>
+<p>Calcolare una softmax su un vocabolario da 100.000 parole è costoso.</p>
+<h3 id="soluzioni">💡 Soluzioni:</h3>
+<h4 id="1-negative-sampling">1. Negative Sampling</h4>
+<ul>
+<li>
+<p>Invece di aggiornare <strong>tutti i vettori</strong>, si aggiornano solo quelli delle parole <strong>corrette</strong> e di alcune <strong>parole negative scelte a caso</strong>.</p>
+</li>
+<li>
+<p>Esempio:</p>
+</li>
+<li>Target: &ldquo;gatto&rdquo;</li>
+<li>
+<p>Negative samples: [&ldquo;astronave&rdquo;, &ldquo;carburatore&rdquo;, &ldquo;banana&rdquo;]</p>
+</li>
+<li>
+<p>Si applica una <strong>logistic regression binaria</strong>: vera parola = 1, parole campione = 0.</p>
+</li>
+</ul>
+<h4 id="2-hierarchical-softmax">2. Hierarchical Softmax</h4>
+<ul>
+<li>Organizza le parole in un <strong>albero binario Huffman</strong>.</li>
+<li>Ogni parola è una foglia, ogni predizione è un <strong>cammino da radice a foglia</strong>.</li>
+<li>Riduce la complessità computazionale da <code>O(V)</code> a <code>O(log V)</code>.</li>
+</ul>
+<h2 id="significato-semantico-nei-vettori">🧠 Significato Semantico nei Vettori</h2>
+<p>Grazie a Word2Vec, i vettori imparati <strong>catturano concetti</strong> come:</p>
+<ul>
+<li><strong>Somiglianza semantica</strong>: &ldquo;gatto&rdquo; vicino a &ldquo;cane&rdquo;</li>
+<li><strong>Relazioni analogiche</strong>: &ldquo;re - uomo + donna ≈ regina&rdquo;</li>
+<li><strong>Sinonimia</strong>: &ldquo;auto&rdquo; vicino a &ldquo;macchina&rdquo;</li>
+</ul>
+<p>📷 <img alt="Analogies" src="/images/posts/word2vec_analogies.png" /></p>
+<h2 id="qualita-degli-embeddings">🧪 Qualità degli embeddings</h2>
+<h3 id="metriche-comuni">🔍 Metriche comuni:</h3>
+<ul>
+<li><strong>Cosine Similarity</strong>: misura quanto due vettori puntano nella stessa direzione.</li>
+<li><strong>Word Analogies</strong>: test come &ldquo;paris : france = tokyo : ?&rdquo;</li>
+<li><strong>t-SNE / PCA</strong>: visualizzazioni per ridurre la dimensionalità e mostrare cluster semantici.</li>
+</ul>
+<h2 id="training-tips">📈 Training Tips</h2>
+<ul>
+<li>Dataset più grande → embedding migliore.</li>
+<li>Pulizia dei dati importante: rimuovere stopword può aiutare.</li>
+<li>Finestra (window size) bilancia semantica vs sintassi:</li>
+<li><strong>Piccola (2-3)</strong> → sintassi</li>
+<li><strong>Grande (5-10)</strong> → semantica</li>
+</ul>
+<h2 id="implementazioni-e-librerie">🧰 Implementazioni e librerie</h2>
+<ul>
+<li><code>gensim.models.Word2Vec</code> (Python, semplice e veloce)</li>
+<li>TensorFlow / PyTorch per implementazioni personalizzate</li>
+<li>FastText (Facebook): estende Word2Vec gestendo morfologia con n-grammi</li>
+</ul>
+<h2 id="limiti-di-word2vec">🧭 Limiti di Word2Vec</h2>
+<ul>
+<li>Staticità: ogni parola ha <strong>un solo vettore</strong>, anche se ha significati diversi.</li>
+<li>Mancanza di contesto: non è sensibile alla frase.</li>
+<li>Non gestisce frasi né strutture sintattiche.</li>
+</ul>
+<p>➡️ Per superare questi limiti: <strong>ELMo, BERT, GPT</strong> e altri modelli <strong>contextual embeddings</strong>.</p>
+<h2 id="risorse-utili">📚 Risorse utili</h2>
+<ul>
+<li>Paper originale: &ldquo;Efficient Estimation of Word Representations in Vector Space&rdquo; – Mikolov et al., 2013</li>
+<li><a href="https://radimrehurek.com/gensim/">Tutorial ufficiale Gensim</a></li>
+<li>Dataset: Google News (300D), Wikipedia, Common Crawl</li>
+</ul>
+<h2 id="conclusione">✅ Conclusione</h2>
+<p>Word2Vec ha rivoluzionato l&rsquo;NLP permettendo una <strong>rappresentazione densa e semantica</strong> delle parole. È stato il <strong>ponte tra il bag-of-words e i language model profondi</strong>. Comprendere a fondo Word2Vec è essenziale per chiunque lavori con linguaggio naturale, reti neurali e intelligenza artificiale in generale.</p>
+<p>📎 <em>&ldquo;You shall know a word by the company it keeps&rdquo; – J.R. Firth (1957)</em></p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> NLP, natural language processing, text analysis, language models, model, data, neural, training</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: '🧠 Word2Vec: Una Spiegazione Dettagliata e Intuitiva',
+          page_location: 'http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec'
+        });
+      }
+    </script>
+</body>
+</html>
