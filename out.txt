@@ -1,0 +1,2646 @@
+[0;34m════════════════════════════════════════[0m
+[0;32m🚀 Starting Machine Learning App Build Process[0m
+[0;34m════════════════════════════════════════[0m
+[0;34m🔄 Updating content files...[0m
+Updating content
+Processing: ./content/theory/introduction/Regolarizzazione.md
+Processing: ./content/theory/introduction/Overfitting e Underfitting.md
+Processing: ./content/theory/introduction/Tipologie di Problemi/Probabilistic Generative Models.md
+Processing: ./content/theory/introduction/Tipologie di Problemi/Regressione.md
+Processing: ./content/theory/introduction/Tipologie di Problemi/Linear Discriminant Functions.md
+Processing: ./content/theory/introduction/Tipologie di Problemi/Classificazione.md
+Processing: ./content/theory/introduction/Tipologie di Problemi/Classificazione Binaria.md
+Processing: ./content/theory/math-for-ml/Calcolo/Teorema di Rolle.md
+Processing: ./content/theory/math-for-ml/Calcolo/Teorema di Lagrange.md
+Processing: ./content/theory/math-for-ml/Calcolo/Funzioni Convesse e Convessità.md
+Processing: ./content/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente.md
+Processing: ./content/theory/math-for-ml/Calcolo/Calcolo Matriciale/Norme.md
+Processing: ./content/theory/math-for-ml/Calcolo/Calcolo Matriciale/Introduzione al Calcolo Matriciale.md
+Processing: ./content/theory/math-for-ml/Calcolo/Calcolo Matriciale/Traccia.md
+Processing: ./content/theory/math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici.md
+Processing: ./content/theory/math-for-ml/Calcolo/Calcolo Matriciale/Definizione di Scalare, Vettore, Matrice e Tensore.md
+Processing: ./content/theory/math-for-ml/Calcolo/Calcolo Matriciale/Operazioni Elementari su Scalari, Vettori, Matrici e Tensori.md
+Processing: ./content/theory/math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente.md
+Processing: ./content/theory/math-for-ml/Ottimizzazione/Non-Lineare/Ottimizzazione non Lineare.md
+Processing: ./content/theory/math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari.md
+Processing: ./content/theory/math-for-ml/Ottimizzazione/Lineare/Ottimizzazione Lineare.md
+Processing: ./content/theory/math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge.md
+Processing: ./content/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli Generalizzata.md
+Processing: ./content/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzioni.md
+Processing: ./content/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale.md
+Processing: ./content/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli.md
+Processing: ./content/theory/math-for-ml/Probabilità/Chain Rule (Probabilità).md
+Processing: ./content/theory/math-for-ml/Probabilità/Covarianza.md
+Processing: ./content/theory/math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza.md
+Processing: ./content/theory/math-for-ml/Probabilità/Variabili Aleatorie.md
+Processing: ./content/theory/math-for-ml/Probabilità/Correzione di Bessel.md
+Processing: ./content/theory/math-for-ml/Probabilità/Entropia, Cross Entropy e Divergenza di Kullback-Leibler.md
+Processing: ./content/theory/math-for-ml/Probabilità/Basi di Probabilità.md
+Processing: ./content/theory/math-for-ml/Probabilità/Processi Stocastici/Processo di Wiener.md
+Processing: ./content/theory/math-for-ml/Probabilità/Processi Stocastici/Processo di Ornstein-Uhlenbeck.md
+Processing: ./content/theory/math-for-ml/Probabilità/Processi Stocastici/Moto Browniano.md
+Processing: ./content/theory/math-for-ml/Algebra/Singular Value Decomposition.md
+Processing: ./content/theory/math-for-ml/Algebra/Vettori.md
+Processing: ./content/theory/math-for-ml/Algebra/Metriche, Norme e Distanze.md
+Processing: ./content/theory/unsupervised-learning/Clustering/K-means++.md
+Processing: ./content/theory/unsupervised-learning/Clustering/Hierarchical Clustering.md
+Processing: ./content/theory/unsupervised-learning/Clustering/Scelta numero di clusters.md
+Processing: ./content/theory/unsupervised-learning/Clustering/Clustering.md
+Processing: ./content/theory/unsupervised-learning/Clustering/Partitioning-based Clustering.md
+Processing: ./content/theory/unsupervised-learning/Clustering/Valutazione dei Clusterings.md
+Processing: ./content/theory/unsupervised-learning/Clustering/K-Means.md
+Processing: ./content/theory/unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy.md
+Processing: ./content/theory/unsupervised-learning/Dimensionality Reduction/Principal Component Analysis.md
+Processing: ./content/theory/unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis.md
+Processing: ./content/theory/unsupervised-learning/Dimensionality Reduction/Introduction.md
+Processing: ./content/theory/supervised-learning/Linear Models/Multicollinearità.md
+Processing: ./content/theory/supervised-learning/Linear Models/Regressione Logistica.md
+Processing: ./content/theory/supervised-learning/Linear Models/Regressione Lineare.md
+Processing: ./content/theory/supervised-learning/Linear Models/Generalised Linear Models.md
+Processing: ./content/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale.md
+Processing: ./content/theory/supervised-learning/Non-Linear Models/Maximum Entropy Models.md
+Processing: ./content/theory/supervised-learning/Non-Linear Models/Non-Linear Models.md
+Processing: ./content/theory/nlp/Legge di Zipf.md
+Processing: ./content/theory/nlp/Semantica/Word Sense Disambiguation.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Dense Word Embeddings.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Latent Semantic Analysis.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Word2Vec.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale.md
+Processing: ./content/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings.md
+Processing: ./content/theory/nlp/Semantica/WordNet.md
+Processing: ./content/theory/nlp/Semantica/Introduzione alla Semantica.md
+Processing: ./content/theory/nlp/Semantica/Lambda Calcolo per NLP.md
+Processing: ./content/theory/nlp/Semantica/Entity Linking.md
+Processing: ./content/theory/nlp/Semantica/Ontology Learning.md
+Processing: ./content/theory/nlp/Semantica/BabelNet.md
+Processing: ./content/theory/nlp/Semantica/Semantica Lessicale.md
+Processing: ./content/theory/nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio.md
+Processing: ./content/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici.md
+Processing: ./content/theory/nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici.md
+Processing: ./content/theory/nlp/Modelli di Linguaggio/Esercizio sui Language Models.md
+Processing: ./content/theory/nlp/Modelli di Linguaggio/The Berkeley Restourant Project.md
+Processing: ./content/theory/nlp/Modelli di Linguaggio/Modelli di Linguaggio.md
+Processing: ./content/theory/nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici.md
+Processing: ./content/theory/nlp/Byte-pair Encoding.md
+Processing: ./content/theory/nlp/Espressioni Regolari/Automi a Stati Finiti.md
+Processing: ./content/theory/nlp/Espressioni Regolari/Espressioni Regolari.md
+Processing: ./content/theory/nlp/Espressioni Regolari/Operazioni sui Linguaggi Regolari.md
+Processing: ./content/theory/nlp/Espressioni Regolari/Applicazioni Pratiche delle Regex.md
+Processing: ./content/theory/nlp/Sintassi/Grammatiche Formali.md
+Processing: ./content/theory/nlp/Sintassi/Introduzione.md
+Processing: ./content/theory/nlp/Sintassi/Algoritmo CKY.md
+Processing: ./content/theory/nlp/Sintassi/Parsing Sintattico.md
+Processing: ./content/theory/nlp/Sintassi/Algoritmo di CKY Probabilistico.md
+Processing: ./content/theory/nlp/Sintassi/Grammatiche Context-free.md
+Processing: ./content/theory/nlp/Sintassi/Forma Normale di Chomsky.md
+Processing: ./content/theory/nlp/Modelli di rappresentazione del testo.md
+Processing: ./content/theory/nlp/Part-of-Speech Tagging/Part-of-Speech Tagging.md
+Processing: ./content/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging.md
+Processing: ./content/theory/nlp/Part-of-Speech Tagging/MaxEnt models in PoS Tagging.md
+Processing: ./content/theory/nlp/Introduzione all'NLP.md
+Processing: ./content/theory/nlp/Spelling Correction and Minimum Edit Distance.md
+Processing: ./content/theory/nlp/Parole, Corpora, Tokenizzazione e Normalizzazione.md
+Conversione completata. File SVG salvati in: ./static/images/tikz/
+Done
+[0;32m✅ Content updated successfully[0m
+[0;34m🔄 Generating static content from Markdown...[0m
+🚀 Starting static content generation...
+✓ Created output directories: public/data
+✓ Created images directories: public/images
+🖼️  Copying images...
+✓ Copied 15 images from posts
+✓ Copied 37 TikZ SVG images
+✓ Total images copied: 52
+📂 Building file map...
+📂 Scanning for Markdown files in: content/theory
+📄 Added to map: 'regolarizzazione' -> introduction/Regolarizzazione.md
+📄 Added to map: 'overfitting e underfitting' -> introduction/Overfitting e Underfitting.md
+📄 Added to map: 'probabilistic generative models' -> introduction/Tipologie di Problemi/Probabilistic Generative Models.md
+📄 Added to map: 'regressione' -> introduction/Tipologie di Problemi/Regressione.md
+📄 Added to map: 'linear discriminant functions' -> introduction/Tipologie di Problemi/Linear Discriminant Functions.md
+📄 Added to map: 'classificazione' -> introduction/Tipologie di Problemi/Classificazione.md
+📄 Added to map: 'classificazione binaria' -> introduction/Tipologie di Problemi/Classificazione Binaria.md
+📄 Added to map: 'teorema di rolle' -> math-for-ml/Calcolo/Teorema di Rolle.md
+📄 Added to map: 'teorema di lagrange' -> math-for-ml/Calcolo/Teorema di Lagrange.md
+📄 Added to map: 'funzioni convesse e convessità' -> math-for-ml/Calcolo/Funzioni Convesse e Convessità.md
+📄 Added to map: 'sottoderivata e sottogradiente' -> math-for-ml/Calcolo/Sottoderivata e Sottogradiente.md
+📄 Added to map: 'norme' -> math-for-ml/Calcolo/Calcolo Matriciale/Norme.md
+📄 Added to map: 'introduzione al calcolo matriciale' -> math-for-ml/Calcolo/Calcolo Matriciale/Introduzione al Calcolo Matriciale.md
+📄 Added to map: 'traccia' -> math-for-ml/Calcolo/Calcolo Matriciale/Traccia.md
+📄 Added to map: 'tipi di matrici' -> math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici.md
+📄 Added to map: 'definizione di scalare, vettore, matrice e tensore' -> math-for-ml/Calcolo/Calcolo Matriciale/Definizione di Scalare, Vettore, Matrice e Tensore.md
+📄 Added to map: 'operazioni elementari su scalari, vettori, matrici e tensori' -> math-for-ml/Calcolo/Calcolo Matriciale/Operazioni Elementari su Scalari, Vettori, Matrici e Tensori.md
+📄 Added to map: 'minimi quadrati ordinari' -> math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari.md
+📄 Added to map: 'dimostrazione di invertibilità ridge' -> math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge.md
+📄 Added to map: 'discesa del gradiente' -> math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente.md
+📄 Added to map: 'ottimizzazione non lineare' -> math-for-ml/Ottimizzazione/Non-Lineare/Ottimizzazione non Lineare.md
+📄 Added to map: 'ottimizzazione lineare' -> math-for-ml/Ottimizzazione/Lineare/Ottimizzazione Lineare.md
+📄 Added to map: 'chain rule (probabilità)' -> math-for-ml/Probabilità/Chain Rule (Probabilità).md
+📄 Added to map: 'covarianza' -> math-for-ml/Probabilità/Covarianza.md
+📄 Added to map: 'probabilità condizionata e indipendenza' -> math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza.md
+📄 Added to map: 'variabili aleatorie' -> math-for-ml/Probabilità/Variabili Aleatorie.md
+📄 Added to map: 'correzione di bessel' -> math-for-ml/Probabilità/Correzione di Bessel.md
+📄 Added to map: 'entropia, cross entropy e divergenza di kullback-leibler' -> math-for-ml/Probabilità/Entropia, Cross Entropy e Divergenza di Kullback-Leibler.md
+📄 Added to map: 'basi di probabilità' -> math-for-ml/Probabilità/Basi di Probabilità.md
+📄 Added to map: 'distribuzione di bernoulli generalizzata' -> math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli Generalizzata.md
+📄 Added to map: 'distribuzioni' -> math-for-ml/Probabilità/Distribuzioni/Distribuzioni.md
+📄 Added to map: 'distribuzione normale' -> math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale.md
+📄 Added to map: 'distribuzione di bernoulli' -> math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli.md
+📄 Added to map: 'processo di wiener' -> math-for-ml/Probabilità/Processi Stocastici/Processo di Wiener.md
+📄 Added to map: 'processo di ornstein-uhlenbeck' -> math-for-ml/Probabilità/Processi Stocastici/Processo di Ornstein-Uhlenbeck.md
+📄 Added to map: 'moto browniano' -> math-for-ml/Probabilità/Processi Stocastici/Moto Browniano.md
+📄 Added to map: 'singular value decomposition' -> math-for-ml/Algebra/Singular Value Decomposition.md
+📄 Added to map: 'vettori' -> math-for-ml/Algebra/Vettori.md
+📄 Added to map: 'metriche, norme e distanze' -> math-for-ml/Algebra/Metriche, Norme e Distanze.md
+📄 Added to map: 'k-means++' -> unsupervised-learning/Clustering/K-means++.md
+📄 Added to map: 'hierarchical clustering' -> unsupervised-learning/Clustering/Hierarchical Clustering.md
+📄 Added to map: 'scelta numero di clusters' -> unsupervised-learning/Clustering/Scelta numero di clusters.md
+📄 Added to map: 'clustering' -> unsupervised-learning/Clustering/Clustering.md
+📄 Added to map: 'partitioning-based clustering' -> unsupervised-learning/Clustering/Partitioning-based Clustering.md
+📄 Added to map: 'valutazione dei clusterings' -> unsupervised-learning/Clustering/Valutazione dei Clusterings.md
+📄 Added to map: 'k-means' -> unsupervised-learning/Clustering/K-Means.md
+📄 Added to map: 'algoritmo di lloyd-forgy' -> unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy.md
+📄 Added to map: 'principal component analysis' -> unsupervised-learning/Dimensionality Reduction/Principal Component Analysis.md
+📄 Added to map: 'manifold hypothesis' -> unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis.md
+📄 Added to map: 'introduction' -> unsupervised-learning/Dimensionality Reduction/Introduction.md
+📄 Added to map: 'multicollinearità' -> supervised-learning/Linear Models/Multicollinearità.md
+📄 Added to map: 'regressione logistica' -> supervised-learning/Linear Models/Regressione Logistica.md
+📄 Added to map: 'regressione lineare' -> supervised-learning/Linear Models/Regressione Lineare.md
+📄 Added to map: 'generalised linear models' -> supervised-learning/Linear Models/Generalised Linear Models.md
+📄 Added to map: 'regressione polinomiale' -> supervised-learning/Non-Linear Models/Regressione Polinomiale.md
+📄 Added to map: 'maximum entropy models' -> supervised-learning/Non-Linear Models/Maximum Entropy Models.md
+📄 Added to map: 'non-linear models' -> supervised-learning/Non-Linear Models/Non-Linear Models.md
+📄 Added to map: 'legge di zipf' -> nlp/Legge di Zipf.md
+📄 Added to map: 'byte-pair encoding' -> nlp/Byte-pair Encoding.md
+📄 Added to map: 'modelli di rappresentazione del testo' -> nlp/Modelli di rappresentazione del testo.md
+📄 Added to map: 'introduzione all'nlp' -> nlp/Introduzione all'NLP.md
+📄 Added to map: 'spelling correction and minimum edit distance' -> nlp/Spelling Correction and Minimum Edit Distance.md
+📄 Added to map: 'parole, corpora, tokenizzazione e normalizzazione' -> nlp/Parole, Corpora, Tokenizzazione e Normalizzazione.md
+📄 Added to map: 'word sense disambiguation' -> nlp/Semantica/Word Sense Disambiguation.md
+📄 Added to map: 'wordnet' -> nlp/Semantica/WordNet.md
+📄 Added to map: 'introduzione alla semantica' -> nlp/Semantica/Introduzione alla Semantica.md
+📄 Added to map: 'lambda calcolo per nlp' -> nlp/Semantica/Lambda Calcolo per NLP.md
+📄 Added to map: 'entity linking' -> nlp/Semantica/Entity Linking.md
+📄 Added to map: 'ontology learning' -> nlp/Semantica/Ontology Learning.md
+📄 Added to map: 'babelnet' -> nlp/Semantica/BabelNet.md
+📄 Added to map: 'semantica lessicale' -> nlp/Semantica/Semantica Lessicale.md
+📄 Added to map: 'misure di similarità vettoriale' -> nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale.md
+📄 Added to map: 'modelli di spazio semantico' -> nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico.md
+📄 Added to map: 'tecniche di weighting' -> nlp/Semantica/Vector Semantics/Tecniche di Weighting.md
+📄 Added to map: 'dense word embeddings' -> nlp/Semantica/Vector Semantics/Dense Word Embeddings.md
+📄 Added to map: 'latent semantic analysis' -> nlp/Semantica/Vector Semantics/Latent Semantic Analysis.md
+📄 Added to map: 'word2vec' -> nlp/Semantica/Vector Semantics/Word2Vec.md
+📄 Added to map: 'word2vec-skipgram-softmax' -> nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax.md
+📄 Added to map: 'introduzione alla semantica vettoriale' -> nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale.md
+📄 Added to map: 'sparse word embeddings' -> nlp/Semantica/Vector Semantics/Sparse Word Embeddings.md
+📄 Added to map: 'valutazione dei modelli di linguaggio' -> nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio.md
+📄 Added to map: 'smoothing nei modelli linguistici' -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici.md
+📄 Added to map: 'interpolazione lineare nei modelli linguistici' -> nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici.md
+📄 Added to map: 'esercizio sui language models' -> nlp/Modelli di Linguaggio/Esercizio sui Language Models.md
+📄 Added to map: 'the berkeley restourant project' -> nlp/Modelli di Linguaggio/The Berkeley Restourant Project.md
+📄 Added to map: 'modelli di linguaggio' -> nlp/Modelli di Linguaggio/Modelli di Linguaggio.md
+📄 Added to map: 'backoff nei modelli linguistici' -> nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici.md
+📄 Added to map: 'automi a stati finiti' -> nlp/Espressioni Regolari/Automi a Stati Finiti.md
+📄 Added to map: 'espressioni regolari' -> nlp/Espressioni Regolari/Espressioni Regolari.md
+📄 Added to map: 'operazioni sui linguaggi regolari' -> nlp/Espressioni Regolari/Operazioni sui Linguaggi Regolari.md
+📄 Added to map: 'applicazioni pratiche delle regex' -> nlp/Espressioni Regolari/Applicazioni Pratiche delle Regex.md
+📄 Added to map: 'grammatiche formali' -> nlp/Sintassi/Grammatiche Formali.md
+📄 Added to map: 'introduzione' -> nlp/Sintassi/Introduzione.md
+📄 Added to map: 'algoritmo cky' -> nlp/Sintassi/Algoritmo CKY.md
+📄 Added to map: 'parsing sintattico' -> nlp/Sintassi/Parsing Sintattico.md
+📄 Added to map: 'algoritmo di cky probabilistico' -> nlp/Sintassi/Algoritmo di CKY Probabilistico.md
+📄 Added to map: 'grammatiche context-free' -> nlp/Sintassi/Grammatiche Context-free.md
+📄 Added to map: 'forma normale di chomsky' -> nlp/Sintassi/Forma Normale di Chomsky.md
+📄 Added to map: 'part-of-speech tagging' -> nlp/Part-of-Speech Tagging/Part-of-Speech Tagging.md
+📄 Added to map: 'hidden markov models in pos tagging' -> nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging.md
+📄 Added to map: 'maxent models in pos tagging' -> nlp/Part-of-Speech Tagging/MaxEnt models in PoS Tagging.md
+✓ Built file map with 101 entries
+📋 Complete file map:
+   'algoritmo cky' -> nlp/Sintassi/Algoritmo CKY.md
+   'algoritmo di cky probabilistico' -> nlp/Sintassi/Algoritmo di CKY Probabilistico.md
+   'algoritmo di lloyd-forgy' -> unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy.md
+   'applicazioni pratiche delle regex' -> nlp/Espressioni Regolari/Applicazioni Pratiche delle Regex.md
+   'automi a stati finiti' -> nlp/Espressioni Regolari/Automi a Stati Finiti.md
+   'babelnet' -> nlp/Semantica/BabelNet.md
+   'backoff nei modelli linguistici' -> nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici.md
+   'basi di probabilità' -> math-for-ml/Probabilità/Basi di Probabilità.md
+   'byte-pair encoding' -> nlp/Byte-pair Encoding.md
+   'chain rule (probabilità)' -> math-for-ml/Probabilità/Chain Rule (Probabilità).md
+   'classificazione' -> introduction/Tipologie di Problemi/Classificazione.md
+   'classificazione binaria' -> introduction/Tipologie di Problemi/Classificazione Binaria.md
+   'clustering' -> unsupervised-learning/Clustering/Clustering.md
+   'correzione di bessel' -> math-for-ml/Probabilità/Correzione di Bessel.md
+   'covarianza' -> math-for-ml/Probabilità/Covarianza.md
+   'definizione di scalare, vettore, matrice e tensore' -> math-for-ml/Calcolo/Calcolo Matriciale/Definizione di Scalare, Vettore, Matrice e Tensore.md
+   'dense word embeddings' -> nlp/Semantica/Vector Semantics/Dense Word Embeddings.md
+   'dimostrazione di invertibilità ridge' -> math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge.md
+   'discesa del gradiente' -> math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente.md
+   'distribuzione di bernoulli' -> math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli.md
+   'distribuzione di bernoulli generalizzata' -> math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli Generalizzata.md
+   'distribuzione normale' -> math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale.md
+   'distribuzioni' -> math-for-ml/Probabilità/Distribuzioni/Distribuzioni.md
+   'entity linking' -> nlp/Semantica/Entity Linking.md
+   'entropia, cross entropy e divergenza di kullback-leibler' -> math-for-ml/Probabilità/Entropia, Cross Entropy e Divergenza di Kullback-Leibler.md
+   'esercizio sui language models' -> nlp/Modelli di Linguaggio/Esercizio sui Language Models.md
+   'espressioni regolari' -> nlp/Espressioni Regolari/Espressioni Regolari.md
+   'forma normale di chomsky' -> nlp/Sintassi/Forma Normale di Chomsky.md
+   'funzioni convesse e convessità' -> math-for-ml/Calcolo/Funzioni Convesse e Convessità.md
+   'generalised linear models' -> supervised-learning/Linear Models/Generalised Linear Models.md
+   'grammatiche context-free' -> nlp/Sintassi/Grammatiche Context-free.md
+   'grammatiche formali' -> nlp/Sintassi/Grammatiche Formali.md
+   'hidden markov models in pos tagging' -> nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging.md
+   'hierarchical clustering' -> unsupervised-learning/Clustering/Hierarchical Clustering.md
+   'interpolazione lineare nei modelli linguistici' -> nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici.md
+   'introduction' -> unsupervised-learning/Dimensionality Reduction/Introduction.md
+   'introduzione' -> nlp/Sintassi/Introduzione.md
+   'introduzione al calcolo matriciale' -> math-for-ml/Calcolo/Calcolo Matriciale/Introduzione al Calcolo Matriciale.md
+   'introduzione all'nlp' -> nlp/Introduzione all'NLP.md
+   'introduzione alla semantica' -> nlp/Semantica/Introduzione alla Semantica.md
+   'introduzione alla semantica vettoriale' -> nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale.md
+   'k-means' -> unsupervised-learning/Clustering/K-Means.md
+   'k-means++' -> unsupervised-learning/Clustering/K-means++.md
+   'lambda calcolo per nlp' -> nlp/Semantica/Lambda Calcolo per NLP.md
+   'latent semantic analysis' -> nlp/Semantica/Vector Semantics/Latent Semantic Analysis.md
+   'legge di zipf' -> nlp/Legge di Zipf.md
+   'linear discriminant functions' -> introduction/Tipologie di Problemi/Linear Discriminant Functions.md
+   'manifold hypothesis' -> unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis.md
+   'maxent models in pos tagging' -> nlp/Part-of-Speech Tagging/MaxEnt models in PoS Tagging.md
+   'maximum entropy models' -> supervised-learning/Non-Linear Models/Maximum Entropy Models.md
+   'metriche, norme e distanze' -> math-for-ml/Algebra/Metriche, Norme e Distanze.md
+   'minimi quadrati ordinari' -> math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari.md
+   'misure di similarità vettoriale' -> nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale.md
+   'modelli di linguaggio' -> nlp/Modelli di Linguaggio/Modelli di Linguaggio.md
+   'modelli di rappresentazione del testo' -> nlp/Modelli di rappresentazione del testo.md
+   'modelli di spazio semantico' -> nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico.md
+   'moto browniano' -> math-for-ml/Probabilità/Processi Stocastici/Moto Browniano.md
+   'multicollinearità' -> supervised-learning/Linear Models/Multicollinearità.md
+   'non-linear models' -> supervised-learning/Non-Linear Models/Non-Linear Models.md
+   'norme' -> math-for-ml/Calcolo/Calcolo Matriciale/Norme.md
+   'ontology learning' -> nlp/Semantica/Ontology Learning.md
+   'operazioni elementari su scalari, vettori, matrici e tensori' -> math-for-ml/Calcolo/Calcolo Matriciale/Operazioni Elementari su Scalari, Vettori, Matrici e Tensori.md
+   'operazioni sui linguaggi regolari' -> nlp/Espressioni Regolari/Operazioni sui Linguaggi Regolari.md
+   'ottimizzazione lineare' -> math-for-ml/Ottimizzazione/Lineare/Ottimizzazione Lineare.md
+   'ottimizzazione non lineare' -> math-for-ml/Ottimizzazione/Non-Lineare/Ottimizzazione non Lineare.md
+   'overfitting e underfitting' -> introduction/Overfitting e Underfitting.md
+   'parole, corpora, tokenizzazione e normalizzazione' -> nlp/Parole, Corpora, Tokenizzazione e Normalizzazione.md
+   'parsing sintattico' -> nlp/Sintassi/Parsing Sintattico.md
+   'part-of-speech tagging' -> nlp/Part-of-Speech Tagging/Part-of-Speech Tagging.md
+   'partitioning-based clustering' -> unsupervised-learning/Clustering/Partitioning-based Clustering.md
+   'principal component analysis' -> unsupervised-learning/Dimensionality Reduction/Principal Component Analysis.md
+   'probabilistic generative models' -> introduction/Tipologie di Problemi/Probabilistic Generative Models.md
+   'probabilità condizionata e indipendenza' -> math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza.md
+   'processo di ornstein-uhlenbeck' -> math-for-ml/Probabilità/Processi Stocastici/Processo di Ornstein-Uhlenbeck.md
+   'processo di wiener' -> math-for-ml/Probabilità/Processi Stocastici/Processo di Wiener.md
+   'regolarizzazione' -> introduction/Regolarizzazione.md
+   'regressione' -> introduction/Tipologie di Problemi/Regressione.md
+   'regressione lineare' -> supervised-learning/Linear Models/Regressione Lineare.md
+   'regressione logistica' -> supervised-learning/Linear Models/Regressione Logistica.md
+   'regressione polinomiale' -> supervised-learning/Non-Linear Models/Regressione Polinomiale.md
+   'scelta numero di clusters' -> unsupervised-learning/Clustering/Scelta numero di clusters.md
+   'semantica lessicale' -> nlp/Semantica/Semantica Lessicale.md
+   'singular value decomposition' -> math-for-ml/Algebra/Singular Value Decomposition.md
+   'smoothing nei modelli linguistici' -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici.md
+   'sottoderivata e sottogradiente' -> math-for-ml/Calcolo/Sottoderivata e Sottogradiente.md
+   'sparse word embeddings' -> nlp/Semantica/Vector Semantics/Sparse Word Embeddings.md
+   'spelling correction and minimum edit distance' -> nlp/Spelling Correction and Minimum Edit Distance.md
+   'tecniche di weighting' -> nlp/Semantica/Vector Semantics/Tecniche di Weighting.md
+   'teorema di lagrange' -> math-for-ml/Calcolo/Teorema di Lagrange.md
+   'teorema di rolle' -> math-for-ml/Calcolo/Teorema di Rolle.md
+   'the berkeley restourant project' -> nlp/Modelli di Linguaggio/The Berkeley Restourant Project.md
+   'tipi di matrici' -> math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici.md
+   'traccia' -> math-for-ml/Calcolo/Calcolo Matriciale/Traccia.md
+   'valutazione dei clusterings' -> unsupervised-learning/Clustering/Valutazione dei Clusterings.md
+   'valutazione dei modelli di linguaggio' -> nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio.md
+   'variabili aleatorie' -> math-for-ml/Probabilità/Variabili Aleatorie.md
+   'vettori' -> math-for-ml/Algebra/Vettori.md
+   'word sense disambiguation' -> nlp/Semantica/Word Sense Disambiguation.md
+   'word2vec' -> nlp/Semantica/Vector Semantics/Word2Vec.md
+   'word2vec-skipgram-softmax' -> nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax.md
+   'wordnet' -> nlp/Semantica/WordNet.md
+🏗️  Building directory structure...
+✓ Saved structure to public/data/structure.json
+📝 Processing Markdown files...
+📄 Processing: introduction/Regolarizzazione.md
+🔍 Found 8 Obsidian links in this file
+   Link 1: 'Overfitting e Underfitting' (display: 'overfitting')
+   Link 2: 'Sottoderivata e Sottogradiente' (display: 'Sottoderivata e Sottogradiente')
+   Link 3: 'Dimostrazione di Invertibilità Ridge' (display: 'questa')
+   Link 4: 'Underfitting e Overfitting' (display: 'Underfitting e Overfitting')
+   Link 5: 'Regressione Polinomiale' (display: 'Regressione Polinomiale')
+   Link 6: 'Minimi Quadrati Ordinari (OLS)' (display: 'Minimi Quadrati Ordinari (OLS)')
+   Link 7: 'Teorema di Stone-Weierstrass' (display: 'Teorema di Stone-Weierstrass')
+   Link 8: 'Selezione del Modello' (display: 'Selezione del Modello')
+🔍 Processing link:
+    Original: 'Overfitting e Underfitting'
+    Cleaned: 'Overfitting e Underfitting'
+    Lowercase: 'overfitting e underfitting'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Overfitting e Underfitting' -> introduction/Overfitting e Underfitting
+🔍 Processing link:
+    Original: 'Sottoderivata e Sottogradiente'
+    Cleaned: 'Sottoderivata e Sottogradiente'
+    Lowercase: 'sottoderivata e sottogradiente'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Sottoderivata e Sottogradiente' -> math-for-ml/Calcolo/Sottoderivata e Sottogradiente
+🔍 Processing link:
+    Original: 'Dimostrazione di Invertibilità Ridge'
+    Cleaned: 'Dimostrazione di Invertibilità Ridge'
+    Lowercase: 'dimostrazione di invertibilità ridge'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Dimostrazione di Invertibilità Ridge' -> math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge
+🔍 Processing link:
+    Original: 'Underfitting e Overfitting'
+    Cleaned: 'Underfitting e Overfitting'
+    Lowercase: 'underfitting e overfitting'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Underfitting e Overfitting' - rendering as plain text
+🔍 Processing link:
+    Original: 'Regressione Polinomiale'
+    Cleaned: 'Regressione Polinomiale'
+    Lowercase: 'regressione polinomiale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Polinomiale' -> supervised-learning/Non-Linear Models/Regressione Polinomiale
+🔍 Processing link:
+    Original: 'Minimi Quadrati Ordinari (OLS)'
+    Cleaned: 'Minimi Quadrati Ordinari (OLS)'
+    Lowercase: 'minimi quadrati ordinari (ols)'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Minimi Quadrati Ordinari (OLS)' - rendering as plain text
+🔍 Processing link:
+    Original: 'Teorema di Stone-Weierstrass'
+    Cleaned: 'Teorema di Stone-Weierstrass'
+    Lowercase: 'teorema di stone-weierstrass'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Teorema di Stone-Weierstrass' - rendering as plain text
+🔍 Processing link:
+    Original: 'Selezione del Modello'
+    Cleaned: 'Selezione del Modello'
+    Lowercase: 'selezione del modello'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Selezione del Modello' - rendering as plain text
+✓ Processed: introduction/Regolarizzazione.md -> introduction/Regolarizzazione.json
+📄 Processing: introduction/Overfitting e Underfitting.md
+🔍 Found 5 Obsidian links in this file
+   Link 1: 'Regressione Polinomiale' (display: 'Regressione Polinomiale')
+   Link 2: 'Minimi Quadrati Ordinari' (display: 'Minimi Quadrati Ordinari')
+   Link 3: 'Teorema di Stone-Weierstrass' (display: 'Teorema di Stone-Weierstrass')
+   Link 4: 'Selezione del Modello' (display: 'Selezione del Modello')
+   Link 5: 'Regolarizzazione' (display: 'Regolarizzazione')
+🔍 Processing link:
+    Original: 'Regressione Polinomiale'
+    Cleaned: 'Regressione Polinomiale'
+    Lowercase: 'regressione polinomiale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Polinomiale' -> supervised-learning/Non-Linear Models/Regressione Polinomiale
+🔍 Processing link:
+    Original: 'Minimi Quadrati Ordinari'
+    Cleaned: 'Minimi Quadrati Ordinari'
+    Lowercase: 'minimi quadrati ordinari'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Minimi Quadrati Ordinari' -> math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari
+🔍 Processing link:
+    Original: 'Teorema di Stone-Weierstrass'
+    Cleaned: 'Teorema di Stone-Weierstrass'
+    Lowercase: 'teorema di stone-weierstrass'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Teorema di Stone-Weierstrass' - rendering as plain text
+🔍 Processing link:
+    Original: 'Selezione del Modello'
+    Cleaned: 'Selezione del Modello'
+    Lowercase: 'selezione del modello'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Selezione del Modello' - rendering as plain text
+🔍 Processing link:
+    Original: 'Regolarizzazione'
+    Cleaned: 'Regolarizzazione'
+    Lowercase: 'regolarizzazione'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regolarizzazione' -> introduction/Regolarizzazione
+✓ Processed: introduction/Overfitting e Underfitting.md -> introduction/Overfitting e Underfitting.json
+📄 Processing: introduction/Tipologie di Problemi/Probabilistic Generative Models.md
+✓ Processed: introduction/Tipologie di Problemi/Probabilistic Generative Models.md -> introduction/Tipologie di Problemi/Probabilistic Generative Models.json
+📄 Processing: introduction/Tipologie di Problemi/Regressione.md
+🔍 Found 9 Obsidian links in this file
+   Link 1: 'Regressione Lineare' (display: 'Regressione Lineare')
+   Link 2: 'Regressione Polinomiale' (display: 'Regressione Polinomiale')
+   Link 3: 'Regressione Logistica' (display: 'Regressione Logistica')
+   Link 4: 'Regressione Lineare' (display: 'Regressione Lineare')
+   Link 5: 'Overfitting e Underfitting' (display: 'overfitting')
+   Link 6: 'Regressione Lineare' (display: 'Regressione Lineare')
+   Link 7: 'Regressione Polinomiale' (display: 'Regressione Polinomiale')
+   Link 8: 'Regressione Logistica' (display: 'Regressione Logistica')
+   Link 9: 'Regolarizzazione' (display: 'Regolarizzazione')
+🔍 Processing link:
+    Original: 'Regressione Lineare'
+    Cleaned: 'Regressione Lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Lineare' -> supervised-learning/Linear Models/Regressione Lineare
+🔍 Processing link:
+    Original: 'Regressione Polinomiale'
+    Cleaned: 'Regressione Polinomiale'
+    Lowercase: 'regressione polinomiale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Polinomiale' -> supervised-learning/Non-Linear Models/Regressione Polinomiale
+🔍 Processing link:
+    Original: 'Regressione Logistica'
+    Cleaned: 'Regressione Logistica'
+    Lowercase: 'regressione logistica'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Logistica' -> supervised-learning/Linear Models/Regressione Logistica
+🔍 Processing link:
+    Original: 'Regressione Lineare'
+    Cleaned: 'Regressione Lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Lineare' -> supervised-learning/Linear Models/Regressione Lineare
+🔍 Processing link:
+    Original: 'Overfitting e Underfitting'
+    Cleaned: 'Overfitting e Underfitting'
+    Lowercase: 'overfitting e underfitting'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Overfitting e Underfitting' -> introduction/Overfitting e Underfitting
+🔍 Processing link:
+    Original: 'Regressione Lineare'
+    Cleaned: 'Regressione Lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Lineare' -> supervised-learning/Linear Models/Regressione Lineare
+🔍 Processing link:
+    Original: 'Regressione Polinomiale'
+    Cleaned: 'Regressione Polinomiale'
+    Lowercase: 'regressione polinomiale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Polinomiale' -> supervised-learning/Non-Linear Models/Regressione Polinomiale
+🔍 Processing link:
+    Original: 'Regressione Logistica'
+    Cleaned: 'Regressione Logistica'
+    Lowercase: 'regressione logistica'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Logistica' -> supervised-learning/Linear Models/Regressione Logistica
+🔍 Processing link:
+    Original: 'Regolarizzazione'
+    Cleaned: 'Regolarizzazione'
+    Lowercase: 'regolarizzazione'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regolarizzazione' -> introduction/Regolarizzazione
+✓ Processed: introduction/Tipologie di Problemi/Regressione.md -> introduction/Tipologie di Problemi/Regressione.json
+📄 Processing: introduction/Tipologie di Problemi/Linear Discriminant Functions.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Regressione logistica' (display: 'Regressione logistica')
+🔍 Processing link:
+    Original: 'Regressione logistica'
+    Cleaned: 'Regressione logistica'
+    Lowercase: 'regressione logistica'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione logistica' -> supervised-learning/Linear Models/Regressione Logistica
+✓ Processed: introduction/Tipologie di Problemi/Linear Discriminant Functions.md -> introduction/Tipologie di Problemi/Linear Discriminant Functions.json
+📄 Processing: introduction/Tipologie di Problemi/Classificazione.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Log Loss (Cross-Entropy Loss)' (display: 'Log Loss (Cross-Entropy Loss)')
+   Link 2: 'Regressione Logistica' (display: 'Regressione Logistica')
+   Link 3: 'Classificazione Binaria' (display: 'Classificazione Binaria')
+   Link 4: 'Classificazione Multiclasse' (display: 'Classificazione Multiclasse')
+🔍 Processing link:
+    Original: 'Log Loss (Cross-Entropy Loss)'
+    Cleaned: 'Log Loss (Cross-Entropy Loss)'
+    Lowercase: 'log loss (cross-entropy loss)'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Log Loss (Cross-Entropy Loss)' - rendering as plain text
+🔍 Processing link:
+    Original: 'Regressione Logistica'
+    Cleaned: 'Regressione Logistica'
+    Lowercase: 'regressione logistica'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Logistica' -> supervised-learning/Linear Models/Regressione Logistica
+🔍 Processing link:
+    Original: 'Classificazione Binaria'
+    Cleaned: 'Classificazione Binaria'
+    Lowercase: 'classificazione binaria'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Classificazione Binaria' -> introduction/Tipologie di Problemi/Classificazione Binaria
+🔍 Processing link:
+    Original: 'Classificazione Multiclasse'
+    Cleaned: 'Classificazione Multiclasse'
+    Lowercase: 'classificazione multiclasse'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Classificazione Multiclasse' - rendering as plain text
+✓ Processed: introduction/Tipologie di Problemi/Classificazione.md -> introduction/Tipologie di Problemi/Classificazione.json
+📄 Processing: introduction/Tipologie di Problemi/Classificazione Binaria.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Regressione Logistica' (display: 'regressione logistica')
+   Link 2: 'Regressione Logistica' (display: 'regressione logistica')
+   Link 3: 'Maximum Entropy Models' (display: 'Maximum Entropy Models')
+   Link 4: 'Naive Bayes' (display: 'Naive Bayes')
+🔍 Processing link:
+    Original: 'Regressione Logistica'
+    Cleaned: 'Regressione Logistica'
+    Lowercase: 'regressione logistica'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Logistica' -> supervised-learning/Linear Models/Regressione Logistica
+🔍 Processing link:
+    Original: 'Regressione Logistica'
+    Cleaned: 'Regressione Logistica'
+    Lowercase: 'regressione logistica'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Logistica' -> supervised-learning/Linear Models/Regressione Logistica
+🔍 Processing link:
+    Original: 'Maximum Entropy Models'
+    Cleaned: 'Maximum Entropy Models'
+    Lowercase: 'maximum entropy models'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Maximum Entropy Models' -> supervised-learning/Non-Linear Models/Maximum Entropy Models
+🔍 Processing link:
+    Original: 'Naive Bayes'
+    Cleaned: 'Naive Bayes'
+    Lowercase: 'naive bayes'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Naive Bayes' - rendering as plain text
+✓ Processed: introduction/Tipologie di Problemi/Classificazione Binaria.md -> introduction/Tipologie di Problemi/Classificazione Binaria.json
+📄 Processing: math-for-ml/Calcolo/Teorema di Rolle.md
+✓ Processed: math-for-ml/Calcolo/Teorema di Rolle.md -> math-for-ml/Calcolo/Teorema di Rolle.json
+📄 Processing: math-for-ml/Calcolo/Teorema di Lagrange.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Teorema di Rolle' (display: 'Teorema di Rolle')
+   Link 2: 'Teorema di Rolle' (display: 'Teorema di Rolle')
+🔍 Processing link:
+    Original: 'Teorema di Rolle'
+    Cleaned: 'Teorema di Rolle'
+    Lowercase: 'teorema di rolle'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Teorema di Rolle' -> math-for-ml/Calcolo/Teorema di Rolle
+🔍 Processing link:
+    Original: 'Teorema di Rolle'
+    Cleaned: 'Teorema di Rolle'
+    Lowercase: 'teorema di rolle'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Teorema di Rolle' -> math-for-ml/Calcolo/Teorema di Rolle
+✓ Processed: math-for-ml/Calcolo/Teorema di Lagrange.md -> math-for-ml/Calcolo/Teorema di Lagrange.json
+📄 Processing: math-for-ml/Calcolo/Funzioni Convesse e Convessità.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Teorema di Lagrange' (display: 'Teorema di Lagrange')
+🔍 Processing link:
+    Original: 'Teorema di Lagrange'
+    Cleaned: 'Teorema di Lagrange'
+    Lowercase: 'teorema di lagrange'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Teorema di Lagrange' -> math-for-ml/Calcolo/Teorema di Lagrange
+✓ Processed: math-for-ml/Calcolo/Funzioni Convesse e Convessità.md -> math-for-ml/Calcolo/Funzioni Convesse e Convessità.json
+📄 Processing: math-for-ml/Calcolo/Sottoderivata e Sottogradiente.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Regolarizzazione' (display: 'Regolarizzazione')
+   Link 2: 'Norme L1 e L2' (display: 'Norme L1 e L2')
+   Link 3: 'Ottimizzazione Convessa' (display: 'Ottimizzazione Convessa')
+   Link 4: 'Funzioni Convesse' (display: 'Funzioni Convesse')
+🔍 Processing link:
+    Original: 'Regolarizzazione'
+    Cleaned: 'Regolarizzazione'
+    Lowercase: 'regolarizzazione'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regolarizzazione' -> introduction/Regolarizzazione
+🔍 Processing link:
+    Original: 'Norme L1 e L2'
+    Cleaned: 'Norme L1 e L2'
+    Lowercase: 'norme l1 e l2'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Norme L1 e L2' - rendering as plain text
+🔍 Processing link:
+    Original: 'Ottimizzazione Convessa'
+    Cleaned: 'Ottimizzazione Convessa'
+    Lowercase: 'ottimizzazione convessa'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ottimizzazione Convessa' - rendering as plain text
+🔍 Processing link:
+    Original: 'Funzioni Convesse'
+    Cleaned: 'Funzioni Convesse'
+    Lowercase: 'funzioni convesse'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Funzioni Convesse' - rendering as plain text
+✓ Processed: math-for-ml/Calcolo/Sottoderivata e Sottogradiente.md -> math-for-ml/Calcolo/Sottoderivata e Sottogradiente.json
+📄 Processing: math-for-ml/Calcolo/Calcolo Matriciale/Norme.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Regressione Lineare' (display: 'Regressione Lineare')
+   Link 2: 'Decomposizione a Valori Singolari (SVD)' (display: 'Decomposizione a Valori Singolari (SVD)')
+   Link 3: 'Regolarizzazione in Machine Learning' (display: 'Regolarizzazione in Machine Learning')
+   Link 4: 'Ottimizzazione Convezza' (display: 'Ottimizzazione Convezza')
+🔍 Processing link:
+    Original: 'Regressione Lineare'
+    Cleaned: 'Regressione Lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Lineare' -> supervised-learning/Linear Models/Regressione Lineare
+🔍 Processing link:
+    Original: 'Decomposizione a Valori Singolari (SVD)'
+    Cleaned: 'Decomposizione a Valori Singolari (SVD)'
+    Lowercase: 'decomposizione a valori singolari (svd)'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Decomposizione a Valori Singolari (SVD)' - rendering as plain text
+🔍 Processing link:
+    Original: 'Regolarizzazione in Machine Learning'
+    Cleaned: 'Regolarizzazione in Machine Learning'
+    Lowercase: 'regolarizzazione in machine learning'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Regolarizzazione in Machine Learning' - rendering as plain text
+🔍 Processing link:
+    Original: 'Ottimizzazione Convezza'
+    Cleaned: 'Ottimizzazione Convezza'
+    Lowercase: 'ottimizzazione convezza'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ottimizzazione Convezza' - rendering as plain text
+✓ Processed: math-for-ml/Calcolo/Calcolo Matriciale/Norme.md -> math-for-ml/Calcolo/Calcolo Matriciale/Norme.json
+📄 Processing: math-for-ml/Calcolo/Calcolo Matriciale/Introduzione al Calcolo Matriciale.md
+🔍 Found 15 Obsidian links in this file
+   Link 1: 'Definizione di Scalare, Vettore, Matrice e Tensore' (display: 'Definizione di Scalare, Vettore, Matrice e Tensore')
+   Link 2: 'Tipi di Matrici' (display: 'Tipi di Matrici')
+   Link 3: 'Operazioni Elementari sulle Matrici' (display: 'Operazioni Elementari sulle Matrici')
+   Link 4: 'Moltiplicazione di Matrici' (display: 'Moltiplicazione di Matrici')
+   Link 5: 'Trasposizione di una Matrice' (display: 'Trasposizione di una Matrice')
+   Link 6: 'Determinante di una Matrice' (display: 'Determinante di una Matrice')
+   Link 7: 'Matrice Inversa' (display: 'Matrice Inversa')
+   Link 8: 'Rango di una Matrice' (display: 'Rango di una Matrice')
+   Link 9: 'Autovalori e Autovettori' (display: 'Autovalori e Autovettori')
+   Link 10: 'Decomposizione di Matrici' (display: 'Decomposizione di Matrici')
+   Link 11: 'Sistemi di Equazioni Lineari' (display: 'Sistemi di Equazioni Lineari')
+   Link 12: 'Applicazioni delle Matrici' (display: 'Applicazioni delle Matrici')
+   Link 13: 'Algebra Lineare' (display: 'Algebra Lineare')
+   Link 14: 'Spazi Vettoriali' (display: 'Spazi Vettoriali')
+   Link 15: 'Trasformazioni Lineari' (display: 'Trasformazioni Lineari')
+🔍 Processing link:
+    Original: 'Definizione di Scalare, Vettore, Matrice e Tensore'
+    Cleaned: 'Definizione di Scalare, Vettore, Matrice e Tensore'
+    Lowercase: 'definizione di scalare, vettore, matrice e tensore'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Definizione di Scalare, Vettore, Matrice e Tensore' -> math-for-ml/Calcolo/Calcolo Matriciale/Definizione di Scalare, Vettore, Matrice e Tensore
+🔍 Processing link:
+    Original: 'Tipi di Matrici'
+    Cleaned: 'Tipi di Matrici'
+    Lowercase: 'tipi di matrici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Tipi di Matrici' -> math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici
+🔍 Processing link:
+    Original: 'Operazioni Elementari sulle Matrici'
+    Cleaned: 'Operazioni Elementari sulle Matrici'
+    Lowercase: 'operazioni elementari sulle matrici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Operazioni Elementari sulle Matrici' - rendering as plain text
+🔍 Processing link:
+    Original: 'Moltiplicazione di Matrici'
+    Cleaned: 'Moltiplicazione di Matrici'
+    Lowercase: 'moltiplicazione di matrici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Moltiplicazione di Matrici' - rendering as plain text
+🔍 Processing link:
+    Original: 'Trasposizione di una Matrice'
+    Cleaned: 'Trasposizione di una Matrice'
+    Lowercase: 'trasposizione di una matrice'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Trasposizione di una Matrice' - rendering as plain text
+🔍 Processing link:
+    Original: 'Determinante di una Matrice'
+    Cleaned: 'Determinante di una Matrice'
+    Lowercase: 'determinante di una matrice'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Determinante di una Matrice' - rendering as plain text
+🔍 Processing link:
+    Original: 'Matrice Inversa'
+    Cleaned: 'Matrice Inversa'
+    Lowercase: 'matrice inversa'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Matrice Inversa' - rendering as plain text
+🔍 Processing link:
+    Original: 'Rango di una Matrice'
+    Cleaned: 'Rango di una Matrice'
+    Lowercase: 'rango di una matrice'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Rango di una Matrice' - rendering as plain text
+🔍 Processing link:
+    Original: 'Autovalori e Autovettori'
+    Cleaned: 'Autovalori e Autovettori'
+    Lowercase: 'autovalori e autovettori'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Autovalori e Autovettori' - rendering as plain text
+🔍 Processing link:
+    Original: 'Decomposizione di Matrici'
+    Cleaned: 'Decomposizione di Matrici'
+    Lowercase: 'decomposizione di matrici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Decomposizione di Matrici' - rendering as plain text
+🔍 Processing link:
+    Original: 'Sistemi di Equazioni Lineari'
+    Cleaned: 'Sistemi di Equazioni Lineari'
+    Lowercase: 'sistemi di equazioni lineari'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Sistemi di Equazioni Lineari' - rendering as plain text
+🔍 Processing link:
+    Original: 'Applicazioni delle Matrici'
+    Cleaned: 'Applicazioni delle Matrici'
+    Lowercase: 'applicazioni delle matrici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Applicazioni delle Matrici' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algebra Lineare'
+    Cleaned: 'Algebra Lineare'
+    Lowercase: 'algebra lineare'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algebra Lineare' - rendering as plain text
+🔍 Processing link:
+    Original: 'Spazi Vettoriali'
+    Cleaned: 'Spazi Vettoriali'
+    Lowercase: 'spazi vettoriali'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Spazi Vettoriali' - rendering as plain text
+🔍 Processing link:
+    Original: 'Trasformazioni Lineari'
+    Cleaned: 'Trasformazioni Lineari'
+    Lowercase: 'trasformazioni lineari'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Trasformazioni Lineari' - rendering as plain text
+✓ Processed: math-for-ml/Calcolo/Calcolo Matriciale/Introduzione al Calcolo Matriciale.md -> math-for-ml/Calcolo/Calcolo Matriciale/Introduzione al Calcolo Matriciale.json
+📄 Processing: math-for-ml/Calcolo/Calcolo Matriciale/Traccia.md
+🔍 Found 3 Obsidian links in this file
+   Link 1: 'Autovalori e Autovettori' (display: 'Autovalori e Autovettori')
+   Link 2: 'Proprietà delle Matrici Trasposte' (display: 'Proprietà delle Matrici Trasposte')
+   Link 3: 'Ottimizzazione con Matrici' (display: 'Ottimizzazione con Matrici')
+🔍 Processing link:
+    Original: 'Autovalori e Autovettori'
+    Cleaned: 'Autovalori e Autovettori'
+    Lowercase: 'autovalori e autovettori'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Autovalori e Autovettori' - rendering as plain text
+🔍 Processing link:
+    Original: 'Proprietà delle Matrici Trasposte'
+    Cleaned: 'Proprietà delle Matrici Trasposte'
+    Lowercase: 'proprietà delle matrici trasposte'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Proprietà delle Matrici Trasposte' - rendering as plain text
+🔍 Processing link:
+    Original: 'Ottimizzazione con Matrici'
+    Cleaned: 'Ottimizzazione con Matrici'
+    Lowercase: 'ottimizzazione con matrici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ottimizzazione con Matrici' - rendering as plain text
+✓ Processed: math-for-ml/Calcolo/Calcolo Matriciale/Traccia.md -> math-for-ml/Calcolo/Calcolo Matriciale/Traccia.json
+📄 Processing: math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Autovalori e Autovettori' (display: 'Autovalori e Autovettori')
+   Link 2: 'Trasformazioni Lineari Geometriche' (display: 'Trasformazioni Lineari Geometriche')
+   Link 3: 'Decomposizione Spettrale' (display: 'Decomposizione Spettrale')
+   Link 4: 'Metriche Non Euclidee' (display: 'Metriche Non Euclidee')
+🔍 Processing link:
+    Original: 'Autovalori e Autovettori'
+    Cleaned: 'Autovalori e Autovettori'
+    Lowercase: 'autovalori e autovettori'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Autovalori e Autovettori' - rendering as plain text
+🔍 Processing link:
+    Original: 'Trasformazioni Lineari Geometriche'
+    Cleaned: 'Trasformazioni Lineari Geometriche'
+    Lowercase: 'trasformazioni lineari geometriche'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Trasformazioni Lineari Geometriche' - rendering as plain text
+🔍 Processing link:
+    Original: 'Decomposizione Spettrale'
+    Cleaned: 'Decomposizione Spettrale'
+    Lowercase: 'decomposizione spettrale'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Decomposizione Spettrale' - rendering as plain text
+🔍 Processing link:
+    Original: 'Metriche Non Euclidee'
+    Cleaned: 'Metriche Non Euclidee'
+    Lowercase: 'metriche non euclidee'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Metriche Non Euclidee' - rendering as plain text
+✓ Processed: math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici.md -> math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici.json
+📄 Processing: math-for-ml/Calcolo/Calcolo Matriciale/Definizione di Scalare, Vettore, Matrice e Tensore.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Operazioni Elementari su Vettori e Matrici' (display: 'Operazioni Elementari su Vettori e Matrici')
+   Link 2: 'Proprietà dei Tensori' (display: 'Proprietà dei Tensori')
+   Link 3: 'Algebra Lineare' (display: 'Algebra Lineare')
+   Link 4: 'Applicazioni di Scalari, Vettori, Matrici e Tensori' (display: 'Applicazioni di Scalari, Vettori, Matrici e Tensori')
+🔍 Processing link:
+    Original: 'Operazioni Elementari su Vettori e Matrici'
+    Cleaned: 'Operazioni Elementari su Vettori e Matrici'
+    Lowercase: 'operazioni elementari su vettori e matrici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Operazioni Elementari su Vettori e Matrici' - rendering as plain text
+🔍 Processing link:
+    Original: 'Proprietà dei Tensori'
+    Cleaned: 'Proprietà dei Tensori'
+    Lowercase: 'proprietà dei tensori'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Proprietà dei Tensori' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algebra Lineare'
+    Cleaned: 'Algebra Lineare'
+    Lowercase: 'algebra lineare'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algebra Lineare' - rendering as plain text
+🔍 Processing link:
+    Original: 'Applicazioni di Scalari, Vettori, Matrici e Tensori'
+    Cleaned: 'Applicazioni di Scalari, Vettori, Matrici e Tensori'
+    Lowercase: 'applicazioni di scalari, vettori, matrici e tensori'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Applicazioni di Scalari, Vettori, Matrici e Tensori' - rendering as plain text
+✓ Processed: math-for-ml/Calcolo/Calcolo Matriciale/Definizione di Scalare, Vettore, Matrice e Tensore.md -> math-for-ml/Calcolo/Calcolo Matriciale/Definizione di Scalare, Vettore, Matrice e Tensore.json
+📄 Processing: math-for-ml/Calcolo/Calcolo Matriciale/Operazioni Elementari su Scalari, Vettori, Matrici e Tensori.md
+🔍 Found 3 Obsidian links in this file
+   Link 1: 'Definizioni di Scalare, Vettore, Matrice e Tensore' (display: 'Definizioni di Scalare, Vettore, Matrice e Tensore')
+   Link 2: 'Proprietà delle Operazioni su Oggetti Multidimensionali' (display: 'Proprietà delle Operazioni su Oggetti Multidimensionali')
+   Link 3: 'Applicazioni delle Operazioni su Scalari, Vettori, Matrici e Tensori' (display: 'Applicazioni delle Operazioni su Scalari, Vettori, Matrici e Tensori')
+🔍 Processing link:
+    Original: 'Definizioni di Scalare, Vettore, Matrice e Tensore'
+    Cleaned: 'Definizioni di Scalare, Vettore, Matrice e Tensore'
+    Lowercase: 'definizioni di scalare, vettore, matrice e tensore'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Definizioni di Scalare, Vettore, Matrice e Tensore' - rendering as plain text
+🔍 Processing link:
+    Original: 'Proprietà delle Operazioni su Oggetti Multidimensionali'
+    Cleaned: 'Proprietà delle Operazioni su Oggetti Multidimensionali'
+    Lowercase: 'proprietà delle operazioni su oggetti multidimensionali'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Proprietà delle Operazioni su Oggetti Multidimensionali' - rendering as plain text
+🔍 Processing link:
+    Original: 'Applicazioni delle Operazioni su Scalari, Vettori, Matrici e Tensori'
+    Cleaned: 'Applicazioni delle Operazioni su Scalari, Vettori, Matrici e Tensori'
+    Lowercase: 'applicazioni delle operazioni su scalari, vettori, matrici e tensori'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Applicazioni delle Operazioni su Scalari, Vettori, Matrici e Tensori' - rendering as plain text
+✓ Processed: math-for-ml/Calcolo/Calcolo Matriciale/Operazioni Elementari su Scalari, Vettori, Matrici e Tensori.md -> math-for-ml/Calcolo/Calcolo Matriciale/Operazioni Elementari su Scalari, Vettori, Matrici e Tensori.json
+📄 Processing: math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari.md
+🔍 Found 6 Obsidian links in this file
+   Link 1: 'Funzioni Convesse' (display: 'convessa')
+   Link 2: 'Regolarizzazione' (display: 'Regolarizzazione')
+   Link 3: 'Dimostrazione di Invertibilità Ridge' (display: 'Qui')
+   Link 4: 'Regressione Lineare' (display: 'Regressione Lineare')
+   Link 5: 'Metriche, Norme e Distanze' (display: 'Metriche, Norme e Distanze')
+   Link 6: 'Gradiente' (display: 'Gradiente')
+🔍 Processing link:
+    Original: 'Funzioni Convesse'
+    Cleaned: 'Funzioni Convesse'
+    Lowercase: 'funzioni convesse'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Funzioni Convesse' - rendering as plain text
+🔍 Processing link:
+    Original: 'Regolarizzazione'
+    Cleaned: 'Regolarizzazione'
+    Lowercase: 'regolarizzazione'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regolarizzazione' -> introduction/Regolarizzazione
+🔍 Processing link:
+    Original: 'Dimostrazione di Invertibilità Ridge'
+    Cleaned: 'Dimostrazione di Invertibilità Ridge'
+    Lowercase: 'dimostrazione di invertibilità ridge'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Dimostrazione di Invertibilità Ridge' -> math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge
+🔍 Processing link:
+    Original: 'Regressione Lineare'
+    Cleaned: 'Regressione Lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Lineare' -> supervised-learning/Linear Models/Regressione Lineare
+🔍 Processing link:
+    Original: 'Metriche, Norme e Distanze'
+    Cleaned: 'Metriche, Norme e Distanze'
+    Lowercase: 'metriche, norme e distanze'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Metriche, Norme e Distanze' -> math-for-ml/Algebra/Metriche, Norme e Distanze
+🔍 Processing link:
+    Original: 'Gradiente'
+    Cleaned: 'Gradiente'
+    Lowercase: 'gradiente'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Gradiente' - rendering as plain text
+✓ Processed: math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari.md -> math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari.json
+📄 Processing: math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge.md
+✓ Processed: math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge.md -> math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge.json
+📄 Processing: math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente.md
+✓ Processed: math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente.md -> math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente.json
+📄 Processing: math-for-ml/Ottimizzazione/Non-Lineare/Ottimizzazione non Lineare.md
+🔍 Found 25 Obsidian links in this file
+   Link 1: 'Ottimizzazione Convessa' (display: 'Ottimizzazione Convessa')
+   Link 2: 'Ottimizzazione Non Convessa' (display: 'Ottimizzazione Non Convessa')
+   Link 3: 'Algoritmi Genetici' (display: 'Algoritmi Genetici')
+   Link 4: 'Simulated Annealing' (display: 'Simulated Annealing')
+   Link 5: 'Gradient Descent' (display: 'Gradient Descent')
+   Link 6: 'Simulated Annealing' (display: 'Simulated Annealing')
+   Link 7: 'Algoritmi Genetici' (display: 'Algoritmi Genetici')
+   Link 8: 'Metodi del Gradiente' (display: 'Metodi del Gradiente')
+   Link 9: 'Discesa del gradiente' (display: 'Discesa del gradiente')
+   Link 10: 'Metodo di Newton' (display: 'Metodo di Newton')
+   Link 11: 'Quasi-Newton' (display: 'Quasi-Newton')
+   Link 12: 'Metodi di Penalità' (display: 'Metodi di Penalità')
+   Link 13: 'Algoritmi Evolutivi' (display: 'Algoritmi Evolutivi')
+   Link 14: 'Ricerca Pattern Search' (display: 'Ricerca Pattern Search')
+   Link 15: 'Condizioni KKT' (display: 'Condizioni KKT')
+   Link 16: 'Teorema di Weierstrass' (display: 'Teorema di Weierstrass')
+   Link 17: 'Teorema della Funzione Inversa' (display: 'Teorema della Funzione Inversa')
+   Link 18: 'Machine Learning' (display: 'Machine Learning')
+   Link 19: 'Reti Neurali' (display: 'Reti Neurali')
+   Link 20: 'Controllo Ottimo' (display: 'Controllo Ottimo')
+   Link 21: 'Robotica' (display: 'Robotica')
+   Link 22: 'Finanza Quantitativa' (display: 'Finanza Quantitativa')
+   Link 23: 'Maledizione della Dimensionalità' (display: 'Maledizione della Dimensionalità')
+   Link 24: 'Equilibrio di Nash' (display: 'Equilibrio di Nash')
+   Link 25: 'Ottimizzazione Robustza' (display: 'Ottimizzazione Robustza')
+🔍 Processing link:
+    Original: 'Ottimizzazione Convessa'
+    Cleaned: 'Ottimizzazione Convessa'
+    Lowercase: 'ottimizzazione convessa'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ottimizzazione Convessa' - rendering as plain text
+🔍 Processing link:
+    Original: 'Ottimizzazione Non Convessa'
+    Cleaned: 'Ottimizzazione Non Convessa'
+    Lowercase: 'ottimizzazione non convessa'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ottimizzazione Non Convessa' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algoritmi Genetici'
+    Cleaned: 'Algoritmi Genetici'
+    Lowercase: 'algoritmi genetici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmi Genetici' - rendering as plain text
+🔍 Processing link:
+    Original: 'Simulated Annealing'
+    Cleaned: 'Simulated Annealing'
+    Lowercase: 'simulated annealing'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Simulated Annealing' - rendering as plain text
+🔍 Processing link:
+    Original: 'Gradient Descent'
+    Cleaned: 'Gradient Descent'
+    Lowercase: 'gradient descent'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Gradient Descent' - rendering as plain text
+🔍 Processing link:
+    Original: 'Simulated Annealing'
+    Cleaned: 'Simulated Annealing'
+    Lowercase: 'simulated annealing'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Simulated Annealing' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algoritmi Genetici'
+    Cleaned: 'Algoritmi Genetici'
+    Lowercase: 'algoritmi genetici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmi Genetici' - rendering as plain text
+🔍 Processing link:
+    Original: 'Metodi del Gradiente'
+    Cleaned: 'Metodi del Gradiente'
+    Lowercase: 'metodi del gradiente'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Metodi del Gradiente' - rendering as plain text
+🔍 Processing link:
+    Original: 'Discesa del gradiente'
+    Cleaned: 'Discesa del gradiente'
+    Lowercase: 'discesa del gradiente'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Discesa del gradiente' -> math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente
+🔍 Processing link:
+    Original: 'Metodo di Newton'
+    Cleaned: 'Metodo di Newton'
+    Lowercase: 'metodo di newton'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Metodo di Newton' - rendering as plain text
+🔍 Processing link:
+    Original: 'Quasi-Newton'
+    Cleaned: 'Quasi-Newton'
+    Lowercase: 'quasi-newton'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Quasi-Newton' - rendering as plain text
+🔍 Processing link:
+    Original: 'Metodi di Penalità'
+    Cleaned: 'Metodi di Penalità'
+    Lowercase: 'metodi di penalità'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Metodi di Penalità' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algoritmi Evolutivi'
+    Cleaned: 'Algoritmi Evolutivi'
+    Lowercase: 'algoritmi evolutivi'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmi Evolutivi' - rendering as plain text
+🔍 Processing link:
+    Original: 'Ricerca Pattern Search'
+    Cleaned: 'Ricerca Pattern Search'
+    Lowercase: 'ricerca pattern search'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ricerca Pattern Search' - rendering as plain text
+🔍 Processing link:
+    Original: 'Condizioni KKT'
+    Cleaned: 'Condizioni KKT'
+    Lowercase: 'condizioni kkt'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Condizioni KKT' - rendering as plain text
+🔍 Processing link:
+    Original: 'Teorema di Weierstrass'
+    Cleaned: 'Teorema di Weierstrass'
+    Lowercase: 'teorema di weierstrass'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Teorema di Weierstrass' - rendering as plain text
+🔍 Processing link:
+    Original: 'Teorema della Funzione Inversa'
+    Cleaned: 'Teorema della Funzione Inversa'
+    Lowercase: 'teorema della funzione inversa'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Teorema della Funzione Inversa' - rendering as plain text
+🔍 Processing link:
+    Original: 'Machine Learning'
+    Cleaned: 'Machine Learning'
+    Lowercase: 'machine learning'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Machine Learning' - rendering as plain text
+🔍 Processing link:
+    Original: 'Reti Neurali'
+    Cleaned: 'Reti Neurali'
+    Lowercase: 'reti neurali'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Reti Neurali' - rendering as plain text
+🔍 Processing link:
+    Original: 'Controllo Ottimo'
+    Cleaned: 'Controllo Ottimo'
+    Lowercase: 'controllo ottimo'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Controllo Ottimo' - rendering as plain text
+🔍 Processing link:
+    Original: 'Robotica'
+    Cleaned: 'Robotica'
+    Lowercase: 'robotica'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Robotica' - rendering as plain text
+🔍 Processing link:
+    Original: 'Finanza Quantitativa'
+    Cleaned: 'Finanza Quantitativa'
+    Lowercase: 'finanza quantitativa'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Finanza Quantitativa' - rendering as plain text
+🔍 Processing link:
+    Original: 'Maledizione della Dimensionalità'
+    Cleaned: 'Maledizione della Dimensionalità'
+    Lowercase: 'maledizione della dimensionalità'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Maledizione della Dimensionalità' - rendering as plain text
+🔍 Processing link:
+    Original: 'Equilibrio di Nash'
+    Cleaned: 'Equilibrio di Nash'
+    Lowercase: 'equilibrio di nash'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Equilibrio di Nash' - rendering as plain text
+🔍 Processing link:
+    Original: 'Ottimizzazione Robustza'
+    Cleaned: 'Ottimizzazione Robustza'
+    Lowercase: 'ottimizzazione robustza'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ottimizzazione Robustza' - rendering as plain text
+✓ Processed: math-for-ml/Ottimizzazione/Non-Lineare/Ottimizzazione non Lineare.md -> math-for-ml/Ottimizzazione/Non-Lineare/Ottimizzazione non Lineare.json
+📄 Processing: math-for-ml/Ottimizzazione/Lineare/Ottimizzazione Lineare.md
+🔍 Found 13 Obsidian links in this file
+   Link 1: 'Teorema Fondamentale della PL' (display: 'Teorema Fondamentale della PL')
+   Link 2: 'Duale Lagrangiano' (display: 'Duale Lagrangiano')
+   Link 3: 'Metodo del Simplesso' (display: 'Metodo del Simplesso')
+   Link 4: 'Algoritmo dei Punti Interni' (display: 'Algoritmo dei Punti Interni')
+   Link 5: 'Metodo del Ellissoide' (display: 'Metodo del Ellissoide')
+   Link 6: 'Pianificazione della Produzione' (display: 'Pianificazione della Produzione')
+   Link 7: 'Logistica' (display: 'Logistica')
+   Link 8: 'Portfolio Optimization' (display: 'Portfolio Optimization')
+   Link 9: 'Programmazione Lineare Intera' (display: 'Programmazione Lineare Intera')
+   Link 10: 'Scheduling' (display: 'Scheduling')
+   Link 11: 'Routing' (display: 'Routing')
+   Link 12: 'Programmazione Stocastica' (display: 'Programmazione Stocastica')
+   Link 13: 'Pianificazione Energetica' (display: 'Pianificazione Energetica')
+🔍 Processing link:
+    Original: 'Teorema Fondamentale della PL'
+    Cleaned: 'Teorema Fondamentale della PL'
+    Lowercase: 'teorema fondamentale della pl'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Teorema Fondamentale della PL' - rendering as plain text
+🔍 Processing link:
+    Original: 'Duale Lagrangiano'
+    Cleaned: 'Duale Lagrangiano'
+    Lowercase: 'duale lagrangiano'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Duale Lagrangiano' - rendering as plain text
+🔍 Processing link:
+    Original: 'Metodo del Simplesso'
+    Cleaned: 'Metodo del Simplesso'
+    Lowercase: 'metodo del simplesso'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Metodo del Simplesso' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algoritmo dei Punti Interni'
+    Cleaned: 'Algoritmo dei Punti Interni'
+    Lowercase: 'algoritmo dei punti interni'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmo dei Punti Interni' - rendering as plain text
+🔍 Processing link:
+    Original: 'Metodo del Ellissoide'
+    Cleaned: 'Metodo del Ellissoide'
+    Lowercase: 'metodo del ellissoide'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Metodo del Ellissoide' - rendering as plain text
+🔍 Processing link:
+    Original: 'Pianificazione della Produzione'
+    Cleaned: 'Pianificazione della Produzione'
+    Lowercase: 'pianificazione della produzione'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Pianificazione della Produzione' - rendering as plain text
+🔍 Processing link:
+    Original: 'Logistica'
+    Cleaned: 'Logistica'
+    Lowercase: 'logistica'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Logistica' - rendering as plain text
+🔍 Processing link:
+    Original: 'Portfolio Optimization'
+    Cleaned: 'Portfolio Optimization'
+    Lowercase: 'portfolio optimization'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Portfolio Optimization' - rendering as plain text
+🔍 Processing link:
+    Original: 'Programmazione Lineare Intera'
+    Cleaned: 'Programmazione Lineare Intera'
+    Lowercase: 'programmazione lineare intera'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Programmazione Lineare Intera' - rendering as plain text
+🔍 Processing link:
+    Original: 'Scheduling'
+    Cleaned: 'Scheduling'
+    Lowercase: 'scheduling'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Scheduling' - rendering as plain text
+🔍 Processing link:
+    Original: 'Routing'
+    Cleaned: 'Routing'
+    Lowercase: 'routing'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Routing' - rendering as plain text
+🔍 Processing link:
+    Original: 'Programmazione Stocastica'
+    Cleaned: 'Programmazione Stocastica'
+    Lowercase: 'programmazione stocastica'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Programmazione Stocastica' - rendering as plain text
+🔍 Processing link:
+    Original: 'Pianificazione Energetica'
+    Cleaned: 'Pianificazione Energetica'
+    Lowercase: 'pianificazione energetica'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Pianificazione Energetica' - rendering as plain text
+✓ Processed: math-for-ml/Ottimizzazione/Lineare/Ottimizzazione Lineare.md -> math-for-ml/Ottimizzazione/Lineare/Ottimizzazione Lineare.json
+📄 Processing: math-for-ml/Probabilità/Chain Rule (Probabilità).md
+✓ Processed: math-for-ml/Probabilità/Chain Rule (Probabilità).md -> math-for-ml/Probabilità/Chain Rule (Probabilità).json
+📄 Processing: math-for-ml/Probabilità/Covarianza.md
+✓ Processed: math-for-ml/Probabilità/Covarianza.md -> math-for-ml/Probabilità/Covarianza.json
+📄 Processing: math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza.md
+✓ Processed: math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza.md -> math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza.json
+📄 Processing: math-for-ml/Probabilità/Variabili Aleatorie.md
+✓ Processed: math-for-ml/Probabilità/Variabili Aleatorie.md -> math-for-ml/Probabilità/Variabili Aleatorie.json
+📄 Processing: math-for-ml/Probabilità/Correzione di Bessel.md
+✓ Processed: math-for-ml/Probabilità/Correzione di Bessel.md -> math-for-ml/Probabilità/Correzione di Bessel.json
+📄 Processing: math-for-ml/Probabilità/Entropia, Cross Entropy e Divergenza di Kullback-Leibler.md
+✓ Processed: math-for-ml/Probabilità/Entropia, Cross Entropy e Divergenza di Kullback-Leibler.md -> math-for-ml/Probabilità/Entropia, Cross Entropy e Divergenza di Kullback-Leibler.json
+📄 Processing: math-for-ml/Probabilità/Basi di Probabilità.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Chain Rule (Probabilità)' (display: 'chain rule')
+🔍 Processing link:
+    Original: 'Chain Rule (Probabilità)'
+    Cleaned: 'Chain Rule (Probabilità)'
+    Lowercase: 'chain rule (probabilità)'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Chain Rule (Probabilità)' -> math-for-ml/Probabilità/Chain Rule (Probabilità)
+✓ Processed: math-for-ml/Probabilità/Basi di Probabilità.md -> math-for-ml/Probabilità/Basi di Probabilità.json
+📄 Processing: math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli Generalizzata.md
+✓ Processed: math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli Generalizzata.md -> math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli Generalizzata.json
+📄 Processing: math-for-ml/Probabilità/Distribuzioni/Distribuzioni.md
+✓ Processed: math-for-ml/Probabilità/Distribuzioni/Distribuzioni.md -> math-for-ml/Probabilità/Distribuzioni/Distribuzioni.json
+📄 Processing: math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale.md
+✓ Processed: math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale.md -> math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale.json
+📄 Processing: math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli.md
+✓ Processed: math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli.md -> math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli.json
+📄 Processing: math-for-ml/Probabilità/Processi Stocastici/Processo di Wiener.md
+✓ Processed: math-for-ml/Probabilità/Processi Stocastici/Processo di Wiener.md -> math-for-ml/Probabilità/Processi Stocastici/Processo di Wiener.json
+📄 Processing: math-for-ml/Probabilità/Processi Stocastici/Processo di Ornstein-Uhlenbeck.md
+✓ Processed: math-for-ml/Probabilità/Processi Stocastici/Processo di Ornstein-Uhlenbeck.md -> math-for-ml/Probabilità/Processi Stocastici/Processo di Ornstein-Uhlenbeck.json
+📄 Processing: math-for-ml/Probabilità/Processi Stocastici/Moto Browniano.md
+✓ Processed: math-for-ml/Probabilità/Processi Stocastici/Moto Browniano.md -> math-for-ml/Probabilità/Processi Stocastici/Moto Browniano.json
+📄 Processing: math-for-ml/Algebra/Singular Value Decomposition.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Algoritmo per la SVD' (display: 'Algoritmo per la SVD')
+   Link 2: 'Latent Semantic Analysis' (display: 'Latent Semantic Analysis')
+🔍 Processing link:
+    Original: 'Algoritmo per la SVD'
+    Cleaned: 'Algoritmo per la SVD'
+    Lowercase: 'algoritmo per la svd'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmo per la SVD' - rendering as plain text
+🔍 Processing link:
+    Original: 'Latent Semantic Analysis'
+    Cleaned: 'Latent Semantic Analysis'
+    Lowercase: 'latent semantic analysis'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Latent Semantic Analysis' -> nlp/Semantica/Vector Semantics/Latent Semantic Analysis
+✓ Processed: math-for-ml/Algebra/Singular Value Decomposition.md -> math-for-ml/Algebra/Singular Value Decomposition.json
+📄 Processing: math-for-ml/Algebra/Vettori.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Spazio Vettoriale' (display: 'Spazio Vettoriale')
+   Link 2: 'Misure di Similarità Vettoriale' (display: 'Qui')
+🔍 Processing link:
+    Original: 'Spazio Vettoriale'
+    Cleaned: 'Spazio Vettoriale'
+    Lowercase: 'spazio vettoriale'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Spazio Vettoriale' - rendering as plain text
+🔍 Processing link:
+    Original: 'Misure di Similarità Vettoriale'
+    Cleaned: 'Misure di Similarità Vettoriale'
+    Lowercase: 'misure di similarità vettoriale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Misure di Similarità Vettoriale' -> nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale
+✓ Processed: math-for-ml/Algebra/Vettori.md -> math-for-ml/Algebra/Vettori.json
+📄 Processing: math-for-ml/Algebra/Metriche, Norme e Distanze.md
+✓ Processed: math-for-ml/Algebra/Metriche, Norme e Distanze.md -> math-for-ml/Algebra/Metriche, Norme e Distanze.json
+📄 Processing: unsupervised-learning/Clustering/K-means++.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'K-Means' (display: 'K-Means')
+   Link 2: 'K-Means' (display: 'K-Means')
+   Link 3: 'K-Means' (display: 'K-Means')
+   Link 4: 'K-Means' (display: 'K-Means')
+🔍 Processing link:
+    Original: 'K-Means'
+    Cleaned: 'K-Means'
+    Lowercase: 'k-means'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-Means' -> unsupervised-learning/Clustering/K-Means
+🔍 Processing link:
+    Original: 'K-Means'
+    Cleaned: 'K-Means'
+    Lowercase: 'k-means'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-Means' -> unsupervised-learning/Clustering/K-Means
+🔍 Processing link:
+    Original: 'K-Means'
+    Cleaned: 'K-Means'
+    Lowercase: 'k-means'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-Means' -> unsupervised-learning/Clustering/K-Means
+🔍 Processing link:
+    Original: 'K-Means'
+    Cleaned: 'K-Means'
+    Lowercase: 'k-means'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-Means' -> unsupervised-learning/Clustering/K-Means
+✓ Processed: unsupervised-learning/Clustering/K-means++.md -> unsupervised-learning/Clustering/K-means++.json
+📄 Processing: unsupervised-learning/Clustering/Hierarchical Clustering.md
+✓ Processed: unsupervised-learning/Clustering/Hierarchical Clustering.md -> unsupervised-learning/Clustering/Hierarchical Clustering.json
+📄 Processing: unsupervised-learning/Clustering/Scelta numero di clusters.md
+🔍 Found 3 Obsidian links in this file
+   Link 1: 'elbow-method-clustering.svg' (display: 'elbow-method-clustering.svg')
+   Link 2: 'K-Medoids' (display: 'K-Medoids')
+   Link 3: 'BRF K-means' (display: 'BRF K-means')
+🔍 Processing link:
+    Original: 'elbow-method-clustering.svg'
+    Cleaned: 'elbow-method-clustering.svg'
+    Lowercase: 'elbow-method-clustering.svg'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'elbow-method-clustering.svg' - rendering as plain text
+🔍 Processing link:
+    Original: 'K-Medoids'
+    Cleaned: 'K-Medoids'
+    Lowercase: 'k-medoids'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'K-Medoids' - rendering as plain text
+🔍 Processing link:
+    Original: 'BRF K-means'
+    Cleaned: 'BRF K-means'
+    Lowercase: 'brf k-means'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'BRF K-means' - rendering as plain text
+✓ Processed: unsupervised-learning/Clustering/Scelta numero di clusters.md -> unsupervised-learning/Clustering/Scelta numero di clusters.json
+📄 Processing: unsupervised-learning/Clustering/Clustering.md
+🔍 Found 9 Obsidian links in this file
+   Link 1: 'Partitioning-based Clustering' (display: 'Partitioning-based Clustering')
+   Link 2: 'Hierarchical Clustering' (display: 'Hierarchical Clustering')
+   Link 3: 'Density-based Clustering' (display: 'Density-based Clustering')
+   Link 4: 'Model-based Clustering' (display: 'Model-based Clustering')
+   Link 5: 'Valutazione dei Clusterings' (display: 'Valutazione dei Clusterings')
+   Link 6: 'Riduzione della dimensionalità' (display: 'Riduzione della dimensionalità')
+   Link 7: 'Distanze matematiche' (display: 'Distanze matematiche')
+   Link 8: 'Distribuzioni di probabilità' (display: 'Distribuzioni di probabilità')
+   Link 9: 'Algebra lineare' (display: 'Algebra lineare')
+🔍 Processing link:
+    Original: 'Partitioning-based Clustering'
+    Cleaned: 'Partitioning-based Clustering'
+    Lowercase: 'partitioning-based clustering'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Partitioning-based Clustering' -> unsupervised-learning/Clustering/Partitioning-based Clustering
+🔍 Processing link:
+    Original: 'Hierarchical Clustering'
+    Cleaned: 'Hierarchical Clustering'
+    Lowercase: 'hierarchical clustering'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Hierarchical Clustering' -> unsupervised-learning/Clustering/Hierarchical Clustering
+🔍 Processing link:
+    Original: 'Density-based Clustering'
+    Cleaned: 'Density-based Clustering'
+    Lowercase: 'density-based clustering'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Density-based Clustering' - rendering as plain text
+🔍 Processing link:
+    Original: 'Model-based Clustering'
+    Cleaned: 'Model-based Clustering'
+    Lowercase: 'model-based clustering'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Model-based Clustering' - rendering as plain text
+🔍 Processing link:
+    Original: 'Valutazione dei Clusterings'
+    Cleaned: 'Valutazione dei Clusterings'
+    Lowercase: 'valutazione dei clusterings'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Valutazione dei Clusterings' -> unsupervised-learning/Clustering/Valutazione dei Clusterings
+🔍 Processing link:
+    Original: 'Riduzione della dimensionalità'
+    Cleaned: 'Riduzione della dimensionalità'
+    Lowercase: 'riduzione della dimensionalità'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Riduzione della dimensionalità' - rendering as plain text
+🔍 Processing link:
+    Original: 'Distanze matematiche'
+    Cleaned: 'Distanze matematiche'
+    Lowercase: 'distanze matematiche'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Distanze matematiche' - rendering as plain text
+🔍 Processing link:
+    Original: 'Distribuzioni di probabilità'
+    Cleaned: 'Distribuzioni di probabilità'
+    Lowercase: 'distribuzioni di probabilità'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Distribuzioni di probabilità' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algebra lineare'
+    Cleaned: 'Algebra lineare'
+    Lowercase: 'algebra lineare'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algebra lineare' - rendering as plain text
+✓ Processed: unsupervised-learning/Clustering/Clustering.md -> unsupervised-learning/Clustering/Clustering.json
+📄 Processing: unsupervised-learning/Clustering/Partitioning-based Clustering.md
+🔍 Found 8 Obsidian links in this file
+   Link 1: 'K-Means' (display: 'K-Means')
+   Link 2: 'K-Medoids' (display: 'K-Medoids')
+   Link 3: 'K-Means++' (display: 'K-Means++')
+   Link 4: 'Algoritmo di Lloyd-Forgy' (display: 'Algoritmo di Lloyd-Forgy')
+   Link 5: 'K-Means' (display: 'K-Means')
+   Link 6: 'K-Medoids' (display: 'K-Medoids')
+   Link 7: 'K-Means++' (display: 'K-Means++')
+   Link 8: 'Natural Language Processing' (display: 'Natural Language Processing')
+🔍 Processing link:
+    Original: 'K-Means'
+    Cleaned: 'K-Means'
+    Lowercase: 'k-means'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-Means' -> unsupervised-learning/Clustering/K-Means
+🔍 Processing link:
+    Original: 'K-Medoids'
+    Cleaned: 'K-Medoids'
+    Lowercase: 'k-medoids'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'K-Medoids' - rendering as plain text
+🔍 Processing link:
+    Original: 'K-Means++'
+    Cleaned: 'K-Means++'
+    Lowercase: 'k-means++'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-Means++' -> unsupervised-learning/Clustering/K-means++
+🔍 Processing link:
+    Original: 'Algoritmo di Lloyd-Forgy'
+    Cleaned: 'Algoritmo di Lloyd-Forgy'
+    Lowercase: 'algoritmo di lloyd-forgy'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Algoritmo di Lloyd-Forgy' -> unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy
+🔍 Processing link:
+    Original: 'K-Means'
+    Cleaned: 'K-Means'
+    Lowercase: 'k-means'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-Means' -> unsupervised-learning/Clustering/K-Means
+🔍 Processing link:
+    Original: 'K-Medoids'
+    Cleaned: 'K-Medoids'
+    Lowercase: 'k-medoids'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'K-Medoids' - rendering as plain text
+🔍 Processing link:
+    Original: 'K-Means++'
+    Cleaned: 'K-Means++'
+    Lowercase: 'k-means++'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-Means++' -> unsupervised-learning/Clustering/K-means++
+🔍 Processing link:
+    Original: 'Natural Language Processing'
+    Cleaned: 'Natural Language Processing'
+    Lowercase: 'natural language processing'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Natural Language Processing' - rendering as plain text
+✓ Processed: unsupervised-learning/Clustering/Partitioning-based Clustering.md -> unsupervised-learning/Clustering/Partitioning-based Clustering.json
+📄 Processing: unsupervised-learning/Clustering/Valutazione dei Clusterings.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'silhouette_a.svg' (display: '300')
+   Link 2: 'silhouette_b.svg' (display: 'silhouette_b.svg')
+🔍 Processing link:
+    Original: 'silhouette_a.svg'
+    Cleaned: 'silhouette_a.svg'
+    Lowercase: 'silhouette_a.svg'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'silhouette_a.svg' - rendering as plain text
+🔍 Processing link:
+    Original: 'silhouette_b.svg'
+    Cleaned: 'silhouette_b.svg'
+    Lowercase: 'silhouette_b.svg'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'silhouette_b.svg' - rendering as plain text
+✓ Processed: unsupervised-learning/Clustering/Valutazione dei Clusterings.md -> unsupervised-learning/Clustering/Valutazione dei Clusterings.json
+📄 Processing: unsupervised-learning/Clustering/K-Means.md
+🔍 Found 5 Obsidian links in this file
+   Link 1: 'Partitioning-based Clustering' (display: 'Partitioning-based Clustering')
+   Link 2: 'Partitioning-based Clustering' (display: 'Partitioning-based Clustering')
+   Link 3: 'Partitioning-based Clustering' (display: 'Partitioning-based Clustering')
+   Link 4: 'Expectation Maximization Algorithm' (display: 'Expectation Maximization Algorithm')
+   Link 5: 'K-means++' (display: 'K-means++')
+🔍 Processing link:
+    Original: 'Partitioning-based Clustering'
+    Cleaned: 'Partitioning-based Clustering'
+    Lowercase: 'partitioning-based clustering'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Partitioning-based Clustering' -> unsupervised-learning/Clustering/Partitioning-based Clustering
+🔍 Processing link:
+    Original: 'Partitioning-based Clustering'
+    Cleaned: 'Partitioning-based Clustering'
+    Lowercase: 'partitioning-based clustering'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Partitioning-based Clustering' -> unsupervised-learning/Clustering/Partitioning-based Clustering
+🔍 Processing link:
+    Original: 'Partitioning-based Clustering'
+    Cleaned: 'Partitioning-based Clustering'
+    Lowercase: 'partitioning-based clustering'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Partitioning-based Clustering' -> unsupervised-learning/Clustering/Partitioning-based Clustering
+🔍 Processing link:
+    Original: 'Expectation Maximization Algorithm'
+    Cleaned: 'Expectation Maximization Algorithm'
+    Lowercase: 'expectation maximization algorithm'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Expectation Maximization Algorithm' - rendering as plain text
+🔍 Processing link:
+    Original: 'K-means++'
+    Cleaned: 'K-means++'
+    Lowercase: 'k-means++'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'K-means++' -> unsupervised-learning/Clustering/K-means++
+✓ Processed: unsupervised-learning/Clustering/K-Means.md -> unsupervised-learning/Clustering/K-Means.json
+📄 Processing: unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy.md
+✓ Processed: unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy.md -> unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy.json
+📄 Processing: unsupervised-learning/Dimensionality Reduction/Principal Component Analysis.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Manifold Hypothesis' (display: 'Manifold')
+   Link 2: 'Covarianza' (display: 'matrice di covarianza')
+   Link 3: 'Correzione di Bessel' (display: 'Correzione di Bessel')
+   Link 4: 'Manifold Hypothesis' (display: 'manifold')
+🔍 Processing link:
+    Original: 'Manifold Hypothesis'
+    Cleaned: 'Manifold Hypothesis'
+    Lowercase: 'manifold hypothesis'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Manifold Hypothesis' -> unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis
+🔍 Processing link:
+    Original: 'Covarianza'
+    Cleaned: 'Covarianza'
+    Lowercase: 'covarianza'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Covarianza' -> math-for-ml/Probabilità/Covarianza
+🔍 Processing link:
+    Original: 'Correzione di Bessel'
+    Cleaned: 'Correzione di Bessel'
+    Lowercase: 'correzione di bessel'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Correzione di Bessel' -> math-for-ml/Probabilità/Correzione di Bessel
+🔍 Processing link:
+    Original: 'Manifold Hypothesis'
+    Cleaned: 'Manifold Hypothesis'
+    Lowercase: 'manifold hypothesis'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Manifold Hypothesis' -> unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis
+✓ Processed: unsupervised-learning/Dimensionality Reduction/Principal Component Analysis.md -> unsupervised-learning/Dimensionality Reduction/Principal Component Analysis.json
+📄 Processing: unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Principal Component Analysis' (display: 'PCA')
+🔍 Processing link:
+    Original: 'Principal Component Analysis'
+    Cleaned: 'Principal Component Analysis'
+    Lowercase: 'principal component analysis'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Principal Component Analysis' -> unsupervised-learning/Dimensionality Reduction/Principal Component Analysis
+✓ Processed: unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis.md -> unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis.json
+📄 Processing: unsupervised-learning/Dimensionality Reduction/Introduction.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Principal Component Analysis' (display: 'Principal Component Analysis')
+🔍 Processing link:
+    Original: 'Principal Component Analysis'
+    Cleaned: 'Principal Component Analysis'
+    Lowercase: 'principal component analysis'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Principal Component Analysis' -> unsupervised-learning/Dimensionality Reduction/Principal Component Analysis
+✓ Processed: unsupervised-learning/Dimensionality Reduction/Introduction.md -> unsupervised-learning/Dimensionality Reduction/Introduction.json
+📄 Processing: supervised-learning/Linear Models/Multicollinearità.md
+✓ Processed: supervised-learning/Linear Models/Multicollinearità.md -> supervised-learning/Linear Models/Multicollinearità.json
+📄 Processing: supervised-learning/Linear Models/Regressione Logistica.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Classificazione Binaria' (display: 'Classificazione Binaria')
+   Link 2: 'Classificazione Binaria' (display: 'Classificazione Binaria')
+   Link 3: 'semidefinita positiva' (display: 'semidefinita positiva')
+   Link 4: 'Discesa del Gradiente' (display: 'discesa del gradiente')
+🔍 Processing link:
+    Original: 'Classificazione Binaria'
+    Cleaned: 'Classificazione Binaria'
+    Lowercase: 'classificazione binaria'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Classificazione Binaria' -> introduction/Tipologie di Problemi/Classificazione Binaria
+🔍 Processing link:
+    Original: 'Classificazione Binaria'
+    Cleaned: 'Classificazione Binaria'
+    Lowercase: 'classificazione binaria'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Classificazione Binaria' -> introduction/Tipologie di Problemi/Classificazione Binaria
+🔍 Processing link:
+    Original: 'semidefinita positiva'
+    Cleaned: 'semidefinita positiva'
+    Lowercase: 'semidefinita positiva'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'semidefinita positiva' - rendering as plain text
+🔍 Processing link:
+    Original: 'Discesa del Gradiente'
+    Cleaned: 'Discesa del Gradiente'
+    Lowercase: 'discesa del gradiente'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Discesa del Gradiente' -> math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente
+✓ Processed: supervised-learning/Linear Models/Regressione Logistica.md -> supervised-learning/Linear Models/Regressione Logistica.json
+📄 Processing: supervised-learning/Linear Models/Regressione Lineare.md
+🔍 Found 3 Obsidian links in this file
+   Link 1: 'Distribuzione Normale' (display: 'distribuzione normale')
+   Link 2: 'Multicollinearità' (display: 'questa')
+   Link 3: 'Regolarizzazione' (display: 'Regolarizzazione')
+🔍 Processing link:
+    Original: 'Distribuzione Normale'
+    Cleaned: 'Distribuzione Normale'
+    Lowercase: 'distribuzione normale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Distribuzione Normale' -> math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale
+🔍 Processing link:
+    Original: 'Multicollinearità'
+    Cleaned: 'Multicollinearità'
+    Lowercase: 'multicollinearità'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Multicollinearità' -> supervised-learning/Linear Models/Multicollinearità
+🔍 Processing link:
+    Original: 'Regolarizzazione'
+    Cleaned: 'Regolarizzazione'
+    Lowercase: 'regolarizzazione'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regolarizzazione' -> introduction/Regolarizzazione
+✓ Processed: supervised-learning/Linear Models/Regressione Lineare.md -> supervised-learning/Linear Models/Regressione Lineare.json
+📄 Processing: supervised-learning/Linear Models/Generalised Linear Models.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Regressione Lineare' (display: 'Regressione Lineare')
+   Link 2: 'Regressione Logistica' (display: 'Regressione Logistica')
+🔍 Processing link:
+    Original: 'Regressione Lineare'
+    Cleaned: 'Regressione Lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Lineare' -> supervised-learning/Linear Models/Regressione Lineare
+🔍 Processing link:
+    Original: 'Regressione Logistica'
+    Cleaned: 'Regressione Logistica'
+    Lowercase: 'regressione logistica'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Logistica' -> supervised-learning/Linear Models/Regressione Logistica
+✓ Processed: supervised-learning/Linear Models/Generalised Linear Models.md -> supervised-learning/Linear Models/Generalised Linear Models.json
+📄 Processing: supervised-learning/Non-Linear Models/Regressione Polinomiale.md
+🔍 Found 7 Obsidian links in this file
+   Link 1: 'Notazione Matriciale Completa Regressione Polinomiale' (display: 'Qui')
+   Link 2: 'Overfitting e Underfitting' (display: 'Overfitting e Underfitting')
+   Link 3: 'Regressione Lineare' (display: 'Regressione Lineare')
+   Link 4: 'Minimi Quadrati Ordinari (OLS)' (display: 'Minimi Quadrati Ordinari (OLS)')
+   Link 5: 'Underfitting e Overfitting' (display: 'Underfitting e Overfitting')
+   Link 6: 'Teorema di Stone-Weierstrass' (display: 'Teorema di Stone-Weierstrass')
+   Link 7: 'Selezione del Modello' (display: 'Selezione del Modello')
+🔍 Processing link:
+    Original: 'Notazione Matriciale Completa Regressione Polinomiale'
+    Cleaned: 'Notazione Matriciale Completa Regressione Polinomiale'
+    Lowercase: 'notazione matriciale completa regressione polinomiale'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Notazione Matriciale Completa Regressione Polinomiale' - rendering as plain text
+🔍 Processing link:
+    Original: 'Overfitting e Underfitting'
+    Cleaned: 'Overfitting e Underfitting'
+    Lowercase: 'overfitting e underfitting'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Overfitting e Underfitting' -> introduction/Overfitting e Underfitting
+🔍 Processing link:
+    Original: 'Regressione Lineare'
+    Cleaned: 'Regressione Lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Lineare' -> supervised-learning/Linear Models/Regressione Lineare
+🔍 Processing link:
+    Original: 'Minimi Quadrati Ordinari (OLS)'
+    Cleaned: 'Minimi Quadrati Ordinari (OLS)'
+    Lowercase: 'minimi quadrati ordinari (ols)'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Minimi Quadrati Ordinari (OLS)' - rendering as plain text
+🔍 Processing link:
+    Original: 'Underfitting e Overfitting'
+    Cleaned: 'Underfitting e Overfitting'
+    Lowercase: 'underfitting e overfitting'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Underfitting e Overfitting' - rendering as plain text
+🔍 Processing link:
+    Original: 'Teorema di Stone-Weierstrass'
+    Cleaned: 'Teorema di Stone-Weierstrass'
+    Lowercase: 'teorema di stone-weierstrass'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Teorema di Stone-Weierstrass' - rendering as plain text
+🔍 Processing link:
+    Original: 'Selezione del Modello'
+    Cleaned: 'Selezione del Modello'
+    Lowercase: 'selezione del modello'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Selezione del Modello' - rendering as plain text
+✓ Processed: supervised-learning/Non-Linear Models/Regressione Polinomiale.md -> supervised-learning/Non-Linear Models/Regressione Polinomiale.json
+📄 Processing: supervised-learning/Non-Linear Models/Maximum Entropy Models.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Part-of-Speech Tagging' (display: 'POS tagging (Part-of-Speech)')
+🔍 Processing link:
+    Original: 'Part-of-Speech Tagging'
+    Cleaned: 'Part-of-Speech Tagging'
+    Lowercase: 'part-of-speech tagging'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Part-of-Speech Tagging' -> nlp/Part-of-Speech Tagging/Part-of-Speech Tagging
+✓ Processed: supervised-learning/Non-Linear Models/Maximum Entropy Models.md -> supervised-learning/Non-Linear Models/Maximum Entropy Models.json
+📄 Processing: supervised-learning/Non-Linear Models/Non-Linear Models.md
+🔍 Found 6 Obsidian links in this file
+   Link 1: 'Regressione Lineare' (display: 'Regressione Lineare')
+   Link 2: 'Regressione Polinomiale' (display: 'Regressione Polinomiale')
+   Link 3: 'Metodo dei Minimi Quadrati Ordinari (OLS)' (display: 'Metodo dei Minimi Quadrati Ordinari (OLS)')
+   Link 4: 'Modelli Lineari con Caratteristiche Non Lineari' (display: 'Modelli Lineari con Caratteristiche Non Lineari')
+   Link 5: 'Selezione del Modello' (display: 'Selezione del Modello')
+   Link 6: 'Overfitting e Underfitting' (display: 'Overfitting e Underfitting')
+🔍 Processing link:
+    Original: 'Regressione Lineare'
+    Cleaned: 'Regressione Lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Lineare' -> supervised-learning/Linear Models/Regressione Lineare
+🔍 Processing link:
+    Original: 'Regressione Polinomiale'
+    Cleaned: 'Regressione Polinomiale'
+    Lowercase: 'regressione polinomiale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Regressione Polinomiale' -> supervised-learning/Non-Linear Models/Regressione Polinomiale
+🔍 Processing link:
+    Original: 'Metodo dei Minimi Quadrati Ordinari (OLS)'
+    Cleaned: 'Metodo dei Minimi Quadrati Ordinari (OLS)'
+    Lowercase: 'metodo dei minimi quadrati ordinari (ols)'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Metodo dei Minimi Quadrati Ordinari (OLS)' - rendering as plain text
+🔍 Processing link:
+    Original: 'Modelli Lineari con Caratteristiche Non Lineari'
+    Cleaned: 'Modelli Lineari con Caratteristiche Non Lineari'
+    Lowercase: 'modelli lineari con caratteristiche non lineari'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Modelli Lineari con Caratteristiche Non Lineari' - rendering as plain text
+🔍 Processing link:
+    Original: 'Selezione del Modello'
+    Cleaned: 'Selezione del Modello'
+    Lowercase: 'selezione del modello'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Selezione del Modello' - rendering as plain text
+🔍 Processing link:
+    Original: 'Overfitting e Underfitting'
+    Cleaned: 'Overfitting e Underfitting'
+    Lowercase: 'overfitting e underfitting'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Overfitting e Underfitting' -> introduction/Overfitting e Underfitting
+✓ Processed: supervised-learning/Non-Linear Models/Non-Linear Models.md -> supervised-learning/Non-Linear Models/Non-Linear Models.json
+📄 Processing: nlp/Legge di Zipf.md
+✓ Processed: nlp/Legge di Zipf.md -> nlp/Legge di Zipf.json
+📄 Processing: nlp/Byte-pair Encoding.md
+✓ Processed: nlp/Byte-pair Encoding.md -> nlp/Byte-pair Encoding.json
+📄 Processing: nlp/Modelli di rappresentazione del testo.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Deep Learning' (display: 'Deep Learning')
+   Link 2: 'Introduzione all&rsquo;NLP' (display: 'Introduzione all&rsquo;NLP')
+🔍 Processing link:
+    Original: 'Deep Learning'
+    Cleaned: 'Deep Learning'
+    Lowercase: 'deep learning'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Deep Learning' - rendering as plain text
+🔍 Processing link:
+    Original: 'Introduzione all&rsquo;NLP'
+    Cleaned: 'Introduzione all'NLP'
+    Lowercase: 'introduzione all'nlp'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Introduzione all&rsquo;NLP' -> nlp/Introduzione all'NLP
+✓ Processed: nlp/Modelli di rappresentazione del testo.md -> nlp/Modelli di rappresentazione del testo.json
+📄 Processing: nlp/Introduzione all'NLP.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Machine Learning' (display: 'Machine Learning')
+   Link 2: 'Deep Learning' (display: 'Deep Learning')
+🔍 Processing link:
+    Original: 'Machine Learning'
+    Cleaned: 'Machine Learning'
+    Lowercase: 'machine learning'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Machine Learning' - rendering as plain text
+🔍 Processing link:
+    Original: 'Deep Learning'
+    Cleaned: 'Deep Learning'
+    Lowercase: 'deep learning'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Deep Learning' - rendering as plain text
+✓ Processed: nlp/Introduzione all'NLP.md -> nlp/Introduzione all'NLP.json
+📄 Processing: nlp/Spelling Correction and Minimum Edit Distance.md
+✓ Processed: nlp/Spelling Correction and Minimum Edit Distance.md -> nlp/Spelling Correction and Minimum Edit Distance.json
+📄 Processing: nlp/Parole, Corpora, Tokenizzazione e Normalizzazione.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Byte-Pair Encoding' (display: 'Byte-Pair Encoding')
+   Link 2: 'Elaborazione del Testo' (display: 'Elaborazione del Testo')
+   Link 3: 'Espressioni Regolari' (display: 'Espressioni Regolari')
+   Link 4: 'Modelli Linguistici' (display: 'Modelli Linguistici')
+🔍 Processing link:
+    Original: 'Byte-Pair Encoding'
+    Cleaned: 'Byte-Pair Encoding'
+    Lowercase: 'byte-pair encoding'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Byte-Pair Encoding' -> nlp/Byte-pair Encoding
+🔍 Processing link:
+    Original: 'Elaborazione del Testo'
+    Cleaned: 'Elaborazione del Testo'
+    Lowercase: 'elaborazione del testo'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Elaborazione del Testo' - rendering as plain text
+🔍 Processing link:
+    Original: 'Espressioni Regolari'
+    Cleaned: 'Espressioni Regolari'
+    Lowercase: 'espressioni regolari'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Espressioni Regolari' -> nlp/Espressioni Regolari/Espressioni Regolari
+🔍 Processing link:
+    Original: 'Modelli Linguistici'
+    Cleaned: 'Modelli Linguistici'
+    Lowercase: 'modelli linguistici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Modelli Linguistici' - rendering as plain text
+✓ Processed: nlp/Parole, Corpora, Tokenizzazione e Normalizzazione.md -> nlp/Parole, Corpora, Tokenizzazione e Normalizzazione.json
+📄 Processing: nlp/Semantica/Word Sense Disambiguation.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Entity Linking' (display: 'Entity Linking')
+   Link 2: 'Ontology Learning' (display: 'Ontology Learning')
+🔍 Processing link:
+    Original: 'Entity Linking'
+    Cleaned: 'Entity Linking'
+    Lowercase: 'entity linking'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Entity Linking' -> nlp/Semantica/Entity Linking
+🔍 Processing link:
+    Original: 'Ontology Learning'
+    Cleaned: 'Ontology Learning'
+    Lowercase: 'ontology learning'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Ontology Learning' -> nlp/Semantica/Ontology Learning
+✓ Processed: nlp/Semantica/Word Sense Disambiguation.md -> nlp/Semantica/Word Sense Disambiguation.json
+📄 Processing: nlp/Semantica/WordNet.md
+✓ Processed: nlp/Semantica/WordNet.md -> nlp/Semantica/WordNet.json
+📄 Processing: nlp/Semantica/Introduzione alla Semantica.md
+🔍 Found 3 Obsidian links in this file
+   Link 1: 'Grammatiche Context-free' (display: 'grammatica libera dal contesto (CFG)')
+   Link 2: 'Lambda Calcolo per NLP' (display: 'Lambda Calcolo per NLP')
+   Link 3: 'Semantica Lessicale' (display: 'Semantica Lessicale')
+🔍 Processing link:
+    Original: 'Grammatiche Context-free'
+    Cleaned: 'Grammatiche Context-free'
+    Lowercase: 'grammatiche context-free'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Grammatiche Context-free' -> nlp/Sintassi/Grammatiche Context-free
+🔍 Processing link:
+    Original: 'Lambda Calcolo per NLP'
+    Cleaned: 'Lambda Calcolo per NLP'
+    Lowercase: 'lambda calcolo per nlp'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Lambda Calcolo per NLP' -> nlp/Semantica/Lambda Calcolo per NLP
+🔍 Processing link:
+    Original: 'Semantica Lessicale'
+    Cleaned: 'Semantica Lessicale'
+    Lowercase: 'semantica lessicale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Semantica Lessicale' -> nlp/Semantica/Semantica Lessicale
+✓ Processed: nlp/Semantica/Introduzione alla Semantica.md -> nlp/Semantica/Introduzione alla Semantica.json
+📄 Processing: nlp/Semantica/Lambda Calcolo per NLP.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Semantica Lessicale' (display: 'semantica lessicale')
+🔍 Processing link:
+    Original: 'Semantica Lessicale'
+    Cleaned: 'Semantica Lessicale'
+    Lowercase: 'semantica lessicale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Semantica Lessicale' -> nlp/Semantica/Semantica Lessicale
+✓ Processed: nlp/Semantica/Lambda Calcolo per NLP.md -> nlp/Semantica/Lambda Calcolo per NLP.json
+📄 Processing: nlp/Semantica/Entity Linking.md
+✓ Processed: nlp/Semantica/Entity Linking.md -> nlp/Semantica/Entity Linking.json
+📄 Processing: nlp/Semantica/Ontology Learning.md
+✓ Processed: nlp/Semantica/Ontology Learning.md -> nlp/Semantica/Ontology Learning.json
+📄 Processing: nlp/Semantica/BabelNet.md
+✓ Processed: nlp/Semantica/BabelNet.md -> nlp/Semantica/BabelNet.json
+📄 Processing: nlp/Semantica/Semantica Lessicale.md
+🔍 Found 6 Obsidian links in this file
+   Link 1: 'WordNet' (display: 'WordNet')
+   Link 2: 'BabelNet' (display: 'BabelNet')
+   Link 3: 'Word Sense Disambiguation' (display: 'Word Sense Disambiguation')
+   Link 4: 'Semantic Similarity' (display: 'Semantic Similarity')
+   Link 5: 'WordNet' (display: 'WordNet')
+   Link 6: 'BabelNet' (display: 'BabelNet')
+🔍 Processing link:
+    Original: 'WordNet'
+    Cleaned: 'WordNet'
+    Lowercase: 'wordnet'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'WordNet' -> nlp/Semantica/WordNet
+🔍 Processing link:
+    Original: 'BabelNet'
+    Cleaned: 'BabelNet'
+    Lowercase: 'babelnet'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'BabelNet' -> nlp/Semantica/BabelNet
+🔍 Processing link:
+    Original: 'Word Sense Disambiguation'
+    Cleaned: 'Word Sense Disambiguation'
+    Lowercase: 'word sense disambiguation'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Word Sense Disambiguation' -> nlp/Semantica/Word Sense Disambiguation
+🔍 Processing link:
+    Original: 'Semantic Similarity'
+    Cleaned: 'Semantic Similarity'
+    Lowercase: 'semantic similarity'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Semantic Similarity' - rendering as plain text
+🔍 Processing link:
+    Original: 'WordNet'
+    Cleaned: 'WordNet'
+    Lowercase: 'wordnet'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'WordNet' -> nlp/Semantica/WordNet
+🔍 Processing link:
+    Original: 'BabelNet'
+    Cleaned: 'BabelNet'
+    Lowercase: 'babelnet'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'BabelNet' -> nlp/Semantica/BabelNet
+✓ Processed: nlp/Semantica/Semantica Lessicale.md -> nlp/Semantica/Semantica Lessicale.json
+📄 Processing: nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale.md
+✓ Processed: nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale.md -> nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale.json
+📄 Processing: nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Sparse Word Embeddings' (display: 'Sparse Word Embeddings')
+   Link 2: 'Dense Word Embeddings' (display: 'Dense Word Embeddings')
+🔍 Processing link:
+    Original: 'Sparse Word Embeddings'
+    Cleaned: 'Sparse Word Embeddings'
+    Lowercase: 'sparse word embeddings'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Sparse Word Embeddings' -> nlp/Semantica/Vector Semantics/Sparse Word Embeddings
+🔍 Processing link:
+    Original: 'Dense Word Embeddings'
+    Cleaned: 'Dense Word Embeddings'
+    Lowercase: 'dense word embeddings'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Dense Word Embeddings' -> nlp/Semantica/Vector Semantics/Dense Word Embeddings
+✓ Processed: nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico.md -> nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico.json
+📄 Processing: nlp/Semantica/Vector Semantics/Tecniche di Weighting.md
+✓ Processed: nlp/Semantica/Vector Semantics/Tecniche di Weighting.md -> nlp/Semantica/Vector Semantics/Tecniche di Weighting.json
+📄 Processing: nlp/Semantica/Vector Semantics/Dense Word Embeddings.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Sparse Word Embeddings' (display: 'Sparse Word Embeddings')
+   Link 2: 'Word2Vec' (display: 'Word2Vec')
+   Link 3: 'Word2Vec' (display: 'Word2Vec')
+   Link 4: 'Word2Vec' (display: 'Word2Vec')
+🔍 Processing link:
+    Original: 'Sparse Word Embeddings'
+    Cleaned: 'Sparse Word Embeddings'
+    Lowercase: 'sparse word embeddings'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Sparse Word Embeddings' -> nlp/Semantica/Vector Semantics/Sparse Word Embeddings
+🔍 Processing link:
+    Original: 'Word2Vec'
+    Cleaned: 'Word2Vec'
+    Lowercase: 'word2vec'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Word2Vec' -> nlp/Semantica/Vector Semantics/Word2Vec
+🔍 Processing link:
+    Original: 'Word2Vec'
+    Cleaned: 'Word2Vec'
+    Lowercase: 'word2vec'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Word2Vec' -> nlp/Semantica/Vector Semantics/Word2Vec
+🔍 Processing link:
+    Original: 'Word2Vec'
+    Cleaned: 'Word2Vec'
+    Lowercase: 'word2vec'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Word2Vec' -> nlp/Semantica/Vector Semantics/Word2Vec
+✓ Processed: nlp/Semantica/Vector Semantics/Dense Word Embeddings.md -> nlp/Semantica/Vector Semantics/Dense Word Embeddings.json
+📄 Processing: nlp/Semantica/Vector Semantics/Latent Semantic Analysis.md
+✓ Processed: nlp/Semantica/Vector Semantics/Latent Semantic Analysis.md -> nlp/Semantica/Vector Semantics/Latent Semantic Analysis.json
+📄 Processing: nlp/Semantica/Vector Semantics/Word2Vec.md
+✓ Processed: nlp/Semantica/Vector Semantics/Word2Vec.md -> nlp/Semantica/Vector Semantics/Word2Vec.json
+📄 Processing: nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Discesa del Gradiente' (display: 'Discesa del Gradiente')
+🔍 Processing link:
+    Original: 'Discesa del Gradiente'
+    Cleaned: 'Discesa del Gradiente'
+    Lowercase: 'discesa del gradiente'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Discesa del Gradiente' -> math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente
+✓ Processed: nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax.md -> nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax.json
+📄 Processing: nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Modelli di Spazio Semantico' (display: 'Modelli di Spazio Semantico')
+   Link 2: 'Misure di similarità vettoriale' (display: 'Misure di similarità vettoriale')
+   Link 3: 'Tecniche di pesatura (TF-IDF, PMI)' (display: 'Tecniche di pesatura (TF-IDF, PMI)')
+   Link 4: 'Problemi dei modelli vettoriali' (display: 'Problemi dei modelli vettoriali')
+🔍 Processing link:
+    Original: 'Modelli di Spazio Semantico'
+    Cleaned: 'Modelli di Spazio Semantico'
+    Lowercase: 'modelli di spazio semantico'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Modelli di Spazio Semantico' -> nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico
+🔍 Processing link:
+    Original: 'Misure di similarità vettoriale'
+    Cleaned: 'Misure di similarità vettoriale'
+    Lowercase: 'misure di similarità vettoriale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Misure di similarità vettoriale' -> nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale
+🔍 Processing link:
+    Original: 'Tecniche di pesatura (TF-IDF, PMI)'
+    Cleaned: 'Tecniche di pesatura (TF-IDF, PMI)'
+    Lowercase: 'tecniche di pesatura (tf-idf, pmi)'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Tecniche di pesatura (TF-IDF, PMI)' - rendering as plain text
+🔍 Processing link:
+    Original: 'Problemi dei modelli vettoriali'
+    Cleaned: 'Problemi dei modelli vettoriali'
+    Lowercase: 'problemi dei modelli vettoriali'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Problemi dei modelli vettoriali' - rendering as plain text
+✓ Processed: nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale.md -> nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale.json
+📄 Processing: nlp/Semantica/Vector Semantics/Sparse Word Embeddings.md
+🔍 Found 4 Obsidian links in this file
+   Link 1: 'Introduzione alla Semantica Vettoriale' (display: 'Introduzione alla Semantica Vettoriale')
+   Link 2: 'Misure di similarità vettoriale' (display: 'Misure di similarità vettoriale')
+   Link 3: 'Tecniche di Weighting' (display: 'Tecniche di pesatura (TF-IDF, PMI)')
+   Link 4: 'Problemi dei modelli vettoriali' (display: 'Problemi dei modelli vettoriali')
+🔍 Processing link:
+    Original: 'Introduzione alla Semantica Vettoriale'
+    Cleaned: 'Introduzione alla Semantica Vettoriale'
+    Lowercase: 'introduzione alla semantica vettoriale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Introduzione alla Semantica Vettoriale' -> nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale
+🔍 Processing link:
+    Original: 'Misure di similarità vettoriale'
+    Cleaned: 'Misure di similarità vettoriale'
+    Lowercase: 'misure di similarità vettoriale'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Misure di similarità vettoriale' -> nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale
+🔍 Processing link:
+    Original: 'Tecniche di Weighting'
+    Cleaned: 'Tecniche di Weighting'
+    Lowercase: 'tecniche di weighting'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Tecniche di Weighting' -> nlp/Semantica/Vector Semantics/Tecniche di Weighting
+🔍 Processing link:
+    Original: 'Problemi dei modelli vettoriali'
+    Cleaned: 'Problemi dei modelli vettoriali'
+    Lowercase: 'problemi dei modelli vettoriali'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Problemi dei modelli vettoriali' - rendering as plain text
+✓ Processed: nlp/Semantica/Vector Semantics/Sparse Word Embeddings.md -> nlp/Semantica/Vector Semantics/Sparse Word Embeddings.json
+📄 Processing: nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio.md
+✓ Processed: nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio.md -> nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio.json
+📄 Processing: nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'regressione lineare' (display: 'Regressione Lineare')
+🔍 Processing link:
+    Original: 'regressione lineare'
+    Cleaned: 'regressione lineare'
+    Lowercase: 'regressione lineare'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'regressione lineare' -> supervised-learning/Linear Models/Regressione Lineare
+✓ Processed: nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici.md -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici.json
+📄 Processing: nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici.md
+✓ Processed: nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici.md -> nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici.json
+📄 Processing: nlp/Modelli di Linguaggio/Esercizio sui Language Models.md
+✓ Processed: nlp/Modelli di Linguaggio/Esercizio sui Language Models.md -> nlp/Modelli di Linguaggio/Esercizio sui Language Models.json
+📄 Processing: nlp/Modelli di Linguaggio/The Berkeley Restourant Project.md
+🔍 Found 5 Obsidian links in this file
+   Link 1: 'Smoothinf nei Modelli Linguistici' (display: 'Smoothing')
+   Link 2: 'Modelli di Linguaggio' (display: 'Modelli di Linguaggio')
+   Link 3: 'Parole, Corpora, Tokenizzazione e Normalizzazione' (display: 'Parole, Corpora, Tokenizzazione e Normalizzazione')
+   Link 4: 'Smoothing nei Modelli Linguistici' (display: 'Smoothing nei Modelli Linguistici')
+   Link 5: 'Valutazione dei Modelli di Linguaggio' (display: 'Valutazione dei Modelli di Linguaggio')
+🔍 Processing link:
+    Original: 'Smoothinf nei Modelli Linguistici'
+    Cleaned: 'Smoothinf nei Modelli Linguistici'
+    Lowercase: 'smoothinf nei modelli linguistici'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Smoothinf nei Modelli Linguistici' - rendering as plain text
+🔍 Processing link:
+    Original: 'Modelli di Linguaggio'
+    Cleaned: 'Modelli di Linguaggio'
+    Lowercase: 'modelli di linguaggio'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Modelli di Linguaggio' -> nlp/Modelli di Linguaggio/Modelli di Linguaggio
+🔍 Processing link:
+    Original: 'Parole, Corpora, Tokenizzazione e Normalizzazione'
+    Cleaned: 'Parole, Corpora, Tokenizzazione e Normalizzazione'
+    Lowercase: 'parole, corpora, tokenizzazione e normalizzazione'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Parole, Corpora, Tokenizzazione e Normalizzazione' -> nlp/Parole, Corpora, Tokenizzazione e Normalizzazione
+🔍 Processing link:
+    Original: 'Smoothing nei Modelli Linguistici'
+    Cleaned: 'Smoothing nei Modelli Linguistici'
+    Lowercase: 'smoothing nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Smoothing nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici
+🔍 Processing link:
+    Original: 'Valutazione dei Modelli di Linguaggio'
+    Cleaned: 'Valutazione dei Modelli di Linguaggio'
+    Lowercase: 'valutazione dei modelli di linguaggio'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Valutazione dei Modelli di Linguaggio' -> nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio
+✓ Processed: nlp/Modelli di Linguaggio/The Berkeley Restourant Project.md -> nlp/Modelli di Linguaggio/The Berkeley Restourant Project.json
+📄 Processing: nlp/Modelli di Linguaggio/Modelli di Linguaggio.md
+🔍 Found 13 Obsidian links in this file
+   Link 1: 'Transformers' (display: 'transformers')
+   Link 2: 'Gerarchia di Chomsky' (display: 'qui')
+   Link 3: 'Basi di Probabilità' (display: 'Basi di Probabilità')
+   Link 4: 'Smoothing nei Modelli Linguistici' (display: 'smoothing')
+   Link 5: 'Smoothing nei Modelli Linguistici' (display: 'smoothing')
+   Link 6: 'Backoff nei Modelli Linguistici' (display: 'backoff')
+   Link 7: 'Interpolazione Lineare nei Modelli Linguistici' (display: 'interpolazione')
+   Link 8: 'Legge di Zipf' (display: 'Qui')
+   Link 9: 'Smoothing nei Modelli Linguistici' (display: 'qui')
+   Link 10: 'Valutazione dei Modelli di Linguaggio' (display: 'Valutazione dei Modelli di Linguaggio')
+   Link 11: 'Smoothing nei Modelli Linguistici' (display: 'Smoothing nei Modelli Linguistici')
+   Link 12: 'Pruning e Compressione nei Modelli NLP' (display: 'Pruning e Compressione nei Modelli NLP')
+   Link 13: 'Bias e Fairness nell&rsquo;Elaborazione del Linguaggio Naturale' (display: 'Bias e Fairness nell&rsquo;Elaborazione del Linguaggio Naturale')
+🔍 Processing link:
+    Original: 'Transformers'
+    Cleaned: 'Transformers'
+    Lowercase: 'transformers'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Transformers' - rendering as plain text
+🔍 Processing link:
+    Original: 'Gerarchia di Chomsky'
+    Cleaned: 'Gerarchia di Chomsky'
+    Lowercase: 'gerarchia di chomsky'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Gerarchia di Chomsky' - rendering as plain text
+🔍 Processing link:
+    Original: 'Basi di Probabilità'
+    Cleaned: 'Basi di Probabilità'
+    Lowercase: 'basi di probabilità'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Basi di Probabilità' -> math-for-ml/Probabilità/Basi di Probabilità
+🔍 Processing link:
+    Original: 'Smoothing nei Modelli Linguistici'
+    Cleaned: 'Smoothing nei Modelli Linguistici'
+    Lowercase: 'smoothing nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Smoothing nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici
+🔍 Processing link:
+    Original: 'Smoothing nei Modelli Linguistici'
+    Cleaned: 'Smoothing nei Modelli Linguistici'
+    Lowercase: 'smoothing nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Smoothing nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici
+🔍 Processing link:
+    Original: 'Backoff nei Modelli Linguistici'
+    Cleaned: 'Backoff nei Modelli Linguistici'
+    Lowercase: 'backoff nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Backoff nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici
+🔍 Processing link:
+    Original: 'Interpolazione Lineare nei Modelli Linguistici'
+    Cleaned: 'Interpolazione Lineare nei Modelli Linguistici'
+    Lowercase: 'interpolazione lineare nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Interpolazione Lineare nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici
+🔍 Processing link:
+    Original: 'Legge di Zipf'
+    Cleaned: 'Legge di Zipf'
+    Lowercase: 'legge di zipf'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Legge di Zipf' -> nlp/Legge di Zipf
+🔍 Processing link:
+    Original: 'Smoothing nei Modelli Linguistici'
+    Cleaned: 'Smoothing nei Modelli Linguistici'
+    Lowercase: 'smoothing nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Smoothing nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici
+🔍 Processing link:
+    Original: 'Valutazione dei Modelli di Linguaggio'
+    Cleaned: 'Valutazione dei Modelli di Linguaggio'
+    Lowercase: 'valutazione dei modelli di linguaggio'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Valutazione dei Modelli di Linguaggio' -> nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio
+🔍 Processing link:
+    Original: 'Smoothing nei Modelli Linguistici'
+    Cleaned: 'Smoothing nei Modelli Linguistici'
+    Lowercase: 'smoothing nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Smoothing nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici
+🔍 Processing link:
+    Original: 'Pruning e Compressione nei Modelli NLP'
+    Cleaned: 'Pruning e Compressione nei Modelli NLP'
+    Lowercase: 'pruning e compressione nei modelli nlp'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Pruning e Compressione nei Modelli NLP' - rendering as plain text
+🔍 Processing link:
+    Original: 'Bias e Fairness nell&rsquo;Elaborazione del Linguaggio Naturale'
+    Cleaned: 'Bias e Fairness nell'Elaborazione del Linguaggio Naturale'
+    Lowercase: 'bias e fairness nell'elaborazione del linguaggio naturale'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Bias e Fairness nell&rsquo;Elaborazione del Linguaggio Naturale' - rendering as plain text
+✓ Processed: nlp/Modelli di Linguaggio/Modelli di Linguaggio.md -> nlp/Modelli di Linguaggio/Modelli di Linguaggio.json
+📄 Processing: nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Interpolazione Lineare nei Modelli Linguistici' (display: 'interpolazione')
+   Link 2: 'Smoothing nei Modelli Linguistici' (display: 'Good-Turing discounting')
+🔍 Processing link:
+    Original: 'Interpolazione Lineare nei Modelli Linguistici'
+    Cleaned: 'Interpolazione Lineare nei Modelli Linguistici'
+    Lowercase: 'interpolazione lineare nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Interpolazione Lineare nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici
+🔍 Processing link:
+    Original: 'Smoothing nei Modelli Linguistici'
+    Cleaned: 'Smoothing nei Modelli Linguistici'
+    Lowercase: 'smoothing nei modelli linguistici'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Smoothing nei Modelli Linguistici' -> nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici
+✓ Processed: nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici.md -> nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici.json
+📄 Processing: nlp/Espressioni Regolari/Automi a Stati Finiti.md
+🔍 Found 6 Obsidian links in this file
+   Link 1: 'Espressioni Regolari' (display: 'regex')
+   Link 2: 'Linguaggi Formali' (display: 'Linguaggi Formali')
+   Link 3: 'Linguaggio Regolare' (display: 'Linguaggio Regolare')
+   Link 4: 'Chiusura di Kleene' (display: 'Chiusura di Kleene')
+   Link 5: 'Espressioni Regolari' (display: 'Espressioni Regolari')
+   Link 6: 'Teoria degli Automi' (display: 'Teoria degli Automi')
+🔍 Processing link:
+    Original: 'Espressioni Regolari'
+    Cleaned: 'Espressioni Regolari'
+    Lowercase: 'espressioni regolari'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Espressioni Regolari' -> nlp/Espressioni Regolari/Espressioni Regolari
+🔍 Processing link:
+    Original: 'Linguaggi Formali'
+    Cleaned: 'Linguaggi Formali'
+    Lowercase: 'linguaggi formali'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Linguaggi Formali' - rendering as plain text
+🔍 Processing link:
+    Original: 'Linguaggio Regolare'
+    Cleaned: 'Linguaggio Regolare'
+    Lowercase: 'linguaggio regolare'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Linguaggio Regolare' - rendering as plain text
+🔍 Processing link:
+    Original: 'Chiusura di Kleene'
+    Cleaned: 'Chiusura di Kleene'
+    Lowercase: 'chiusura di kleene'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Chiusura di Kleene' - rendering as plain text
+🔍 Processing link:
+    Original: 'Espressioni Regolari'
+    Cleaned: 'Espressioni Regolari'
+    Lowercase: 'espressioni regolari'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Espressioni Regolari' -> nlp/Espressioni Regolari/Espressioni Regolari
+🔍 Processing link:
+    Original: 'Teoria degli Automi'
+    Cleaned: 'Teoria degli Automi'
+    Lowercase: 'teoria degli automi'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Teoria degli Automi' - rendering as plain text
+✓ Processed: nlp/Espressioni Regolari/Automi a Stati Finiti.md -> nlp/Espressioni Regolari/Automi a Stati Finiti.json
+📄 Processing: nlp/Espressioni Regolari/Espressioni Regolari.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Introduzione all&rsquo;NLP' (display: 'Introduzione all&rsquo;NLP')
+   Link 2: 'Elaborazione del Testo' (display: 'Elaborazione del Testo')
+🔍 Processing link:
+    Original: 'Introduzione all&rsquo;NLP'
+    Cleaned: 'Introduzione all'NLP'
+    Lowercase: 'introduzione all'nlp'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Introduzione all&rsquo;NLP' -> nlp/Introduzione all'NLP
+🔍 Processing link:
+    Original: 'Elaborazione del Testo'
+    Cleaned: 'Elaborazione del Testo'
+    Lowercase: 'elaborazione del testo'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Elaborazione del Testo' - rendering as plain text
+✓ Processed: nlp/Espressioni Regolari/Espressioni Regolari.md -> nlp/Espressioni Regolari/Espressioni Regolari.json
+📄 Processing: nlp/Espressioni Regolari/Operazioni sui Linguaggi Regolari.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Automi a Stati Finiti' (display: 'Automi a Stati Finiti')
+   Link 2: 'Teoria della Computazione' (display: 'Teoria della Computazione')
+🔍 Processing link:
+    Original: 'Automi a Stati Finiti'
+    Cleaned: 'Automi a Stati Finiti'
+    Lowercase: 'automi a stati finiti'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Automi a Stati Finiti' -> nlp/Espressioni Regolari/Automi a Stati Finiti
+🔍 Processing link:
+    Original: 'Teoria della Computazione'
+    Cleaned: 'Teoria della Computazione'
+    Lowercase: 'teoria della computazione'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Teoria della Computazione' - rendering as plain text
+✓ Processed: nlp/Espressioni Regolari/Operazioni sui Linguaggi Regolari.md -> nlp/Espressioni Regolari/Operazioni sui Linguaggi Regolari.json
+📄 Processing: nlp/Espressioni Regolari/Applicazioni Pratiche delle Regex.md
+🔍 Found 3 Obsidian links in this file
+   Link 1: 'Espressioni Regolari' (display: 'Espressioni Regolari')
+   Link 2: 'Elaborazione del Testo' (display: 'Elaborazione del Testo')
+   Link 3: 'Introduzione all&rsquo;NLP' (display: 'Introduzione all&rsquo;NLP')
+🔍 Processing link:
+    Original: 'Espressioni Regolari'
+    Cleaned: 'Espressioni Regolari'
+    Lowercase: 'espressioni regolari'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Espressioni Regolari' -> nlp/Espressioni Regolari/Espressioni Regolari
+🔍 Processing link:
+    Original: 'Elaborazione del Testo'
+    Cleaned: 'Elaborazione del Testo'
+    Lowercase: 'elaborazione del testo'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Elaborazione del Testo' - rendering as plain text
+🔍 Processing link:
+    Original: 'Introduzione all&rsquo;NLP'
+    Cleaned: 'Introduzione all'NLP'
+    Lowercase: 'introduzione all'nlp'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Introduzione all&rsquo;NLP' -> nlp/Introduzione all'NLP
+✓ Processed: nlp/Espressioni Regolari/Applicazioni Pratiche delle Regex.md -> nlp/Espressioni Regolari/Applicazioni Pratiche delle Regex.json
+📄 Processing: nlp/Sintassi/Grammatiche Formali.md
+🔍 Found 10 Obsidian links in this file
+   Link 1: 'Gerarchia di Chomsky' (display: 'gerarchia di Chomsky')
+   Link 2: 'Grammatiche Regolari' (display: 'Grammatiche Regolari')
+   Link 3: 'Grammatiche Context-free' (display: 'Grammatiche Context-free')
+   Link 4: 'Grammatiche Context-sensitive' (display: 'Grammatiche Context-sensitive')
+   Link 5: 'Grammatiche non limitate' (display: 'Grammatiche non limitate')
+   Link 6: 'Grammatiche libere dal contesto' (display: 'Grammatiche libere dal contesto')
+   Link 7: 'Forma normale di Chomsky' (display: 'Forma normale di Chomsky')
+   Link 8: 'Parsing sintattico' (display: 'Parsing sintattico')
+   Link 9: 'Ambiguità sintattica' (display: 'Ambiguità sintattica')
+   Link 10: 'Grammatiche probabilistiche libere dal contesto' (display: 'Grammatiche probabilistiche libere dal contesto')
+🔍 Processing link:
+    Original: 'Gerarchia di Chomsky'
+    Cleaned: 'Gerarchia di Chomsky'
+    Lowercase: 'gerarchia di chomsky'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Gerarchia di Chomsky' - rendering as plain text
+🔍 Processing link:
+    Original: 'Grammatiche Regolari'
+    Cleaned: 'Grammatiche Regolari'
+    Lowercase: 'grammatiche regolari'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Grammatiche Regolari' - rendering as plain text
+🔍 Processing link:
+    Original: 'Grammatiche Context-free'
+    Cleaned: 'Grammatiche Context-free'
+    Lowercase: 'grammatiche context-free'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Grammatiche Context-free' -> nlp/Sintassi/Grammatiche Context-free
+🔍 Processing link:
+    Original: 'Grammatiche Context-sensitive'
+    Cleaned: 'Grammatiche Context-sensitive'
+    Lowercase: 'grammatiche context-sensitive'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Grammatiche Context-sensitive' - rendering as plain text
+🔍 Processing link:
+    Original: 'Grammatiche non limitate'
+    Cleaned: 'Grammatiche non limitate'
+    Lowercase: 'grammatiche non limitate'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Grammatiche non limitate' - rendering as plain text
+🔍 Processing link:
+    Original: 'Grammatiche libere dal contesto'
+    Cleaned: 'Grammatiche libere dal contesto'
+    Lowercase: 'grammatiche libere dal contesto'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Grammatiche libere dal contesto' - rendering as plain text
+🔍 Processing link:
+    Original: 'Forma normale di Chomsky'
+    Cleaned: 'Forma normale di Chomsky'
+    Lowercase: 'forma normale di chomsky'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Forma normale di Chomsky' -> nlp/Sintassi/Forma Normale di Chomsky
+🔍 Processing link:
+    Original: 'Parsing sintattico'
+    Cleaned: 'Parsing sintattico'
+    Lowercase: 'parsing sintattico'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Parsing sintattico' -> nlp/Sintassi/Parsing Sintattico
+🔍 Processing link:
+    Original: 'Ambiguità sintattica'
+    Cleaned: 'Ambiguità sintattica'
+    Lowercase: 'ambiguità sintattica'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ambiguità sintattica' - rendering as plain text
+🔍 Processing link:
+    Original: 'Grammatiche probabilistiche libere dal contesto'
+    Cleaned: 'Grammatiche probabilistiche libere dal contesto'
+    Lowercase: 'grammatiche probabilistiche libere dal contesto'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Grammatiche probabilistiche libere dal contesto' - rendering as plain text
+✓ Processed: nlp/Sintassi/Grammatiche Formali.md -> nlp/Sintassi/Grammatiche Formali.json
+📄 Processing: nlp/Sintassi/Introduzione.md
+🔍 Found 11 Obsidian links in this file
+   Link 1: 'Grammatiche formali' (display: 'Grammatiche formali')
+   Link 2: 'Grammatiche context-free' (display: 'Grammatiche context-free')
+   Link 3: 'Forma normale di Chomsky' (display: 'Forma normale di Chomsky')
+   Link 4: 'Grammatiche a costituenti vs. Grammatiche a dipendenze' (display: 'Grammatiche a costituenti vs. Grammatiche a dipendenze')
+   Link 5: 'Ambiguità sintattica' (display: 'Ambiguità sintattica')
+   Link 6: 'Treebank' (display: 'Treebank')
+   Link 7: 'Parsing sintattico' (display: 'Parsing sintattico')
+   Link 8: 'Algoritmo CKY (Cocke-Kasami-Younger)' (display: 'Algoritmo CKY (Cocke-Kasami-Younger)')
+   Link 9: 'Algoritmo di Earley' (display: 'Algoritmo di Earley')
+   Link 10: 'Grammatiche context-free probabilistiche' (display: 'Grammatiche context-free probabilistiche')
+   Link 11: 'Algoritmo CKY probabilistico' (display: 'Algoritmo CKY probabilistico')
+🔍 Processing link:
+    Original: 'Grammatiche formali'
+    Cleaned: 'Grammatiche formali'
+    Lowercase: 'grammatiche formali'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Grammatiche formali' -> nlp/Sintassi/Grammatiche Formali
+🔍 Processing link:
+    Original: 'Grammatiche context-free'
+    Cleaned: 'Grammatiche context-free'
+    Lowercase: 'grammatiche context-free'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Grammatiche context-free' -> nlp/Sintassi/Grammatiche Context-free
+🔍 Processing link:
+    Original: 'Forma normale di Chomsky'
+    Cleaned: 'Forma normale di Chomsky'
+    Lowercase: 'forma normale di chomsky'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Forma normale di Chomsky' -> nlp/Sintassi/Forma Normale di Chomsky
+🔍 Processing link:
+    Original: 'Grammatiche a costituenti vs. Grammatiche a dipendenze'
+    Cleaned: 'Grammatiche a costituenti vs. Grammatiche a dipendenze'
+    Lowercase: 'grammatiche a costituenti vs. grammatiche a dipendenze'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Grammatiche a costituenti vs. Grammatiche a dipendenze' - rendering as plain text
+🔍 Processing link:
+    Original: 'Ambiguità sintattica'
+    Cleaned: 'Ambiguità sintattica'
+    Lowercase: 'ambiguità sintattica'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Ambiguità sintattica' - rendering as plain text
+🔍 Processing link:
+    Original: 'Treebank'
+    Cleaned: 'Treebank'
+    Lowercase: 'treebank'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Treebank' - rendering as plain text
+🔍 Processing link:
+    Original: 'Parsing sintattico'
+    Cleaned: 'Parsing sintattico'
+    Lowercase: 'parsing sintattico'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Parsing sintattico' -> nlp/Sintassi/Parsing Sintattico
+🔍 Processing link:
+    Original: 'Algoritmo CKY (Cocke-Kasami-Younger)'
+    Cleaned: 'Algoritmo CKY (Cocke-Kasami-Younger)'
+    Lowercase: 'algoritmo cky (cocke-kasami-younger)'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmo CKY (Cocke-Kasami-Younger)' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algoritmo di Earley'
+    Cleaned: 'Algoritmo di Earley'
+    Lowercase: 'algoritmo di earley'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmo di Earley' - rendering as plain text
+🔍 Processing link:
+    Original: 'Grammatiche context-free probabilistiche'
+    Cleaned: 'Grammatiche context-free probabilistiche'
+    Lowercase: 'grammatiche context-free probabilistiche'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Grammatiche context-free probabilistiche' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algoritmo CKY probabilistico'
+    Cleaned: 'Algoritmo CKY probabilistico'
+    Lowercase: 'algoritmo cky probabilistico'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmo CKY probabilistico' - rendering as plain text
+✓ Processed: nlp/Sintassi/Introduzione.md -> nlp/Sintassi/Introduzione.json
+📄 Processing: nlp/Sintassi/Algoritmo CKY.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Algoritmo di CKY Probabilistico' (display: 'Algoritmo di CKY Probabilistico')
+   Link 2: 'Grammatiche Formali' (display: 'grammatica')
+🔍 Processing link:
+    Original: 'Algoritmo di CKY Probabilistico'
+    Cleaned: 'Algoritmo di CKY Probabilistico'
+    Lowercase: 'algoritmo di cky probabilistico'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Algoritmo di CKY Probabilistico' -> nlp/Sintassi/Algoritmo di CKY Probabilistico
+🔍 Processing link:
+    Original: 'Grammatiche Formali'
+    Cleaned: 'Grammatiche Formali'
+    Lowercase: 'grammatiche formali'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Grammatiche Formali' -> nlp/Sintassi/Grammatiche Formali
+✓ Processed: nlp/Sintassi/Algoritmo CKY.md -> nlp/Sintassi/Algoritmo CKY.json
+📄 Processing: nlp/Sintassi/Parsing Sintattico.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Algoritmo CKY' (display: 'Algoritmo CKY')
+🔍 Processing link:
+    Original: 'Algoritmo CKY'
+    Cleaned: 'Algoritmo CKY'
+    Lowercase: 'algoritmo cky'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Algoritmo CKY' -> nlp/Sintassi/Algoritmo CKY
+✓ Processed: nlp/Sintassi/Parsing Sintattico.md -> nlp/Sintassi/Parsing Sintattico.json
+📄 Processing: nlp/Sintassi/Algoritmo di CKY Probabilistico.md
+✓ Processed: nlp/Sintassi/Algoritmo di CKY Probabilistico.md -> nlp/Sintassi/Algoritmo di CKY Probabilistico.json
+📄 Processing: nlp/Sintassi/Grammatiche Context-free.md
+🔍 Found 9 Obsidian links in this file
+   Link 1: 'Forma Normale di Chomsky' (display: 'Forma Normale di Chomsky')
+   Link 2: 'Parsing sintattico' (display: 'Parsing sintattico')
+   Link 3: 'Treebank' (display: 'Treebank')
+   Link 4: 'Algoritmo CKY (Cocke-Kasami-Younger)' (display: 'Algoritmo CKY (Cocke-Kasami-Younger)')
+   Link 5: 'Algoritmo di Earley' (display: 'Algoritmo di Earley')
+   Link 6: 'Grammatiche formali' (display: 'Grammatiche formali')
+   Link 7: 'Grammatiche libere dal contesto' (display: 'Grammatiche libere dal contesto')
+   Link 8: 'Forma normale di Chomsky' (display: 'Forma normale di Chomsky')
+   Link 9: 'Parsing sintattico' (display: 'Parsing sintattico')
+🔍 Processing link:
+    Original: 'Forma Normale di Chomsky'
+    Cleaned: 'Forma Normale di Chomsky'
+    Lowercase: 'forma normale di chomsky'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Forma Normale di Chomsky' -> nlp/Sintassi/Forma Normale di Chomsky
+🔍 Processing link:
+    Original: 'Parsing sintattico'
+    Cleaned: 'Parsing sintattico'
+    Lowercase: 'parsing sintattico'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Parsing sintattico' -> nlp/Sintassi/Parsing Sintattico
+🔍 Processing link:
+    Original: 'Treebank'
+    Cleaned: 'Treebank'
+    Lowercase: 'treebank'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Treebank' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algoritmo CKY (Cocke-Kasami-Younger)'
+    Cleaned: 'Algoritmo CKY (Cocke-Kasami-Younger)'
+    Lowercase: 'algoritmo cky (cocke-kasami-younger)'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmo CKY (Cocke-Kasami-Younger)' - rendering as plain text
+🔍 Processing link:
+    Original: 'Algoritmo di Earley'
+    Cleaned: 'Algoritmo di Earley'
+    Lowercase: 'algoritmo di earley'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Algoritmo di Earley' - rendering as plain text
+🔍 Processing link:
+    Original: 'Grammatiche formali'
+    Cleaned: 'Grammatiche formali'
+    Lowercase: 'grammatiche formali'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Grammatiche formali' -> nlp/Sintassi/Grammatiche Formali
+🔍 Processing link:
+    Original: 'Grammatiche libere dal contesto'
+    Cleaned: 'Grammatiche libere dal contesto'
+    Lowercase: 'grammatiche libere dal contesto'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Grammatiche libere dal contesto' - rendering as plain text
+🔍 Processing link:
+    Original: 'Forma normale di Chomsky'
+    Cleaned: 'Forma normale di Chomsky'
+    Lowercase: 'forma normale di chomsky'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Forma normale di Chomsky' -> nlp/Sintassi/Forma Normale di Chomsky
+🔍 Processing link:
+    Original: 'Parsing sintattico'
+    Cleaned: 'Parsing sintattico'
+    Lowercase: 'parsing sintattico'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Parsing sintattico' -> nlp/Sintassi/Parsing Sintattico
+✓ Processed: nlp/Sintassi/Grammatiche Context-free.md -> nlp/Sintassi/Grammatiche Context-free.json
+📄 Processing: nlp/Sintassi/Forma Normale di Chomsky.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Grammatiche Context-free' (display: 'grammatiche libere dal contesto')
+   Link 2: 'Algoritmo CKY' (display: 'Cocke–Younger–Kasami (CYK)')
+🔍 Processing link:
+    Original: 'Grammatiche Context-free'
+    Cleaned: 'Grammatiche Context-free'
+    Lowercase: 'grammatiche context-free'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Grammatiche Context-free' -> nlp/Sintassi/Grammatiche Context-free
+🔍 Processing link:
+    Original: 'Algoritmo CKY'
+    Cleaned: 'Algoritmo CKY'
+    Lowercase: 'algoritmo cky'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Algoritmo CKY' -> nlp/Sintassi/Algoritmo CKY
+✓ Processed: nlp/Sintassi/Forma Normale di Chomsky.md -> nlp/Sintassi/Forma Normale di Chomsky.json
+📄 Processing: nlp/Part-of-Speech Tagging/Part-of-Speech Tagging.md
+🔍 Found 2 Obsidian links in this file
+   Link 1: 'Hidden Markov Models in PoS Tagging' (display: 'Qui')
+   Link 2: 'Maximum Entropy Models in PoS Tagging' (display: 'Qui')
+🔍 Processing link:
+    Original: 'Hidden Markov Models in PoS Tagging'
+    Cleaned: 'Hidden Markov Models in PoS Tagging'
+    Lowercase: 'hidden markov models in pos tagging'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Hidden Markov Models in PoS Tagging' -> nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging
+🔍 Processing link:
+    Original: 'Maximum Entropy Models in PoS Tagging'
+    Cleaned: 'Maximum Entropy Models in PoS Tagging'
+    Lowercase: 'maximum entropy models in pos tagging'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Maximum Entropy Models in PoS Tagging' - rendering as plain text
+✓ Processed: nlp/Part-of-Speech Tagging/Part-of-Speech Tagging.md -> nlp/Part-of-Speech Tagging/Part-of-Speech Tagging.json
+📄 Processing: nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Hidden Markov Models' (display: 'Qui')
+🔍 Processing link:
+    Original: 'Hidden Markov Models'
+    Cleaned: 'Hidden Markov Models'
+    Lowercase: 'hidden markov models'
+    Looking in map with 101 entries...
+❌ NO LINK CREATED: 'Hidden Markov Models' - rendering as plain text
+✓ Processed: nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging.md -> nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging.json
+📄 Processing: nlp/Part-of-Speech Tagging/MaxEnt models in PoS Tagging.md
+🔍 Found 1 Obsidian links in this file
+   Link 1: 'Part-of-Speech Tagging' (display: 'Part-of-Speech tagging')
+🔍 Processing link:
+    Original: 'Part-of-Speech Tagging'
+    Cleaned: 'Part-of-Speech Tagging'
+    Lowercase: 'part-of-speech tagging'
+    Looking in map with 101 entries...
+✅ CREATING BLUE LINK: 'Part-of-Speech Tagging' -> nlp/Part-of-Speech Tagging/Part-of-Speech Tagging
+✓ Processed: nlp/Part-of-Speech Tagging/MaxEnt models in PoS Tagging.md -> nlp/Part-of-Speech Tagging/MaxEnt models in PoS Tagging.json
+
+🎉 Content generation completed!
+📊 Processed 101/101 files
+📁 Output directory: public/data
+🖼️  Images directory: public/images
+🌐 Structure file: structure.json
+[0;32m✅ Static content generated[0m
+[0;34m🔄 Building React application...[0m
+
+> vite_react_shadcn_ts@0.0.0 build
+> vite build
+
+vite v5.4.10 building for production...
+transforming...
+✓ 2936 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     1.16 kB │ gzip:   0.59 kB
+dist/assets/index-3inP6f2v.css    108.45 kB │ gzip:  16.61 kB
+dist/assets/index-Co4gTZVr.js   1,058.04 kB │ gzip: 309.23 kB
+✓ built in 9.11s
+[0;32m✅ React app built successfully[0m
+[0;34m🔄 Setting up development server...[0m
+[0;32m✅ Server file copied to dist/[0m
+[0;34m════════════════════════════════════════[0m
+[0;32m✅ 🎉 Build completed successfully![0m
+[1;33mℹ️  📁 Files ready in: ./dist/[0m
+[1;33mℹ️  🌐 Starting development server...[0m
+[0;34m════════════════════════════════════════[0m
+[0;34m🔄 Launching server at http://localhost:8000[0m
+SPA Server running at http://localhost:8000/
+This server handles React Router routes correctly.
+Press Ctrl+C to stop.
+
+🛑 Server stopped by user
+👋 Goodbye!
+[0;32m✅ Server started successfully[0m
