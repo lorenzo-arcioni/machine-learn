@@ -76,9 +76,6 @@ print_info "📁 Files ready in: ./dist/"
 print_info "🌐 Starting development server..."
 print_separator
 
-rm -rf docs/*
-cp -r dist/* docs/
-
 # Step 6: Start server
 print_step "Launching server at http://localhost:8000"
 cd ./dist
