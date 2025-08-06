@@ -1,0 +1,79 @@
+[{
+  "_id": "machine-learning",
+  "title": "Introduzione al Machine Learning",
+  "description": "Un corso base che copre i fondamenti del machine learning",
+  "instructor": "Prof. Marco Rossi",
+  "duration": "8 settimane",
+  "level": "Principiante",
+  "price": "€99",
+  "category": "Machine Learning",
+  "image_url": "https://images.unsplash.com/photo-1488229297570-58520851e868",
+  "status": "available"
+},
+{
+  "_id": "deep-learning",
+  "title": "Deep Learning Avanzato",
+  "description": "Approfondimento su reti neurali e architetture deep learning",
+  "instructor": "Dr. Elena Bianchi",
+  "duration": "10 settimane",
+  "level": "Avanzato",
+  "price": "€149",
+  "category": "Machine Learning",
+  "image_url": "https://images.unsplash.com/photo-1503437313881-503a91226402",
+  "status": "available"
+},
+{
+  "_id": "linear-algebra",
+  "title": "Algebra Lineare per ML",
+  "description": "Concetti di algebra lineare essenziali per il machine learning",
+  "instructor": "Prof. Luigi Verdi",
+  "duration": "6 settimane",
+  "level": "Intermedio",
+  "price": "€79",
+  "category": "Matematica",
+  "image_url": "https://images.unsplash.com/photo-1509228468518-180dd4864904",
+  "status": "available"
+},
+{
+  "_id": "optimization-algorithms",
+  "title": "Algoritmi di Ottimizzazione",
+  "description": "Studio degli algoritmi di ottimizzazione usati in ML",
+  "instructor": "Dr. Paolo Neri",
+  "duration": "7 settimane",
+  "level": "Avanzato",
+  "price": "€129",
+  "category": "Algoritmi",
+  "image_url": "https://images.unsplash.com/photo-1496065187959-7f07b8353c55",
+  "status": "available"
+},
+{
+  "_id": "natural-language-processing",
+  "title": "titolo",
+  "description": "course",
+  "category": "natural-language-processing",
+  "level": "beginner",
+  "duration": "ciao",
+  "price": "100",
+  "instructor": "lor",
+  "image_url": "",
+  "url": "",
+  "created_at": {
+    "$date": "2025-06-18T18:06:59.109Z"
+  },
+  "created_by": "6802f5548a17664c3275fda3",
+  "status": "coming_soon"
+},
+{
+  "_id": "knn",
+  "title": "Algoritmo K-Nearest Neighbors (KNN)",
+  "description": "Comprendere l'algoritmo KNN dal punto di vista matematico e applicarlo a problemi pratici di classificazione e regressione, con implementazioni in Python, scikit-learn e Jupyter Notebook.",
+  "category": "Machine Learning",
+  "level": "beginner",
+  "duration": "2 hours",
+  "price": "Free",
+  "instructor": "Lorenzo Arcioni",
+  "image_url": "https://lorenzo-arcioni.github.io/images/immagine-corso-machine-learning-knn.jpg",
+  "url": "https://www.udemy.com/course/machine-learning-algoritmo-k-nearest-neighbors-knn/",
+  "status": "available",
+  "link": "https://www.udemy.com/course/machine-learning-algoritmo-k-nearest-neighbors-knn/"
+}]

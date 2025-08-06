@@ -1,0 +1,393 @@
+[{
+  "_id": {
+    "$oid": "680e20ce8fea73578a9aff83"
+  },
+  "course_id": {
+    "$oid": "680e20ce8fea73578a9aff83"
+  },
+  "title": "Machine Learning Fundamentals",
+  "description": "Corso completo di introduzione al Machine Learning",
+  "full_description": "Questo corso fornisce una solida base teorica e pratica nel Machine Learning. Imparerai i concetti fondamentali, gli algoritmi più importanti e come applicarli a problemi reali.\n\nDurante il corso esplorerai diversi tipi di apprendimento automatico: supervisionato, non supervisionato e per rinforzo. Ogni modulo include esempi pratici e progetti hands-on per consolidare le conoscenze acquisite.\n\nAl termine del corso sarai in grado di:\n- Comprendere quando e come applicare diversi algoritmi di ML\n- Implementare soluzioni complete di Machine Learning\n- Valutare e ottimizzare le performance dei modelli\n- Gestire progetti di ML dall'inizio alla produzione",
+  "instructor": "Dr. Marco Rossi",
+  "instructor_bio": "zionali e ha lavorato con aziende Fortune 500 per implementare soluzioni di intelligenza artificiale. Dr. Marco Rossi è un ricercatore e consulente con oltre 10 anni di esperienza nel campo del Machine Learning e dell'AI. Ha pubblicato più di 20 paper su riviste internazionali e ha lavorato con aziende Fortune 500 per implementare soluzioni di intelligenza artificiale.",
+  "instructor_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMs6rzFWwDKuqbrdAHdtZHsg1SM2GIMGmZsMS4PjQbauwt9QrCBoNNl_HvIV-RlLI2Ehk&usqp=CAU",
+  "duration": "8 settimane",
+  "level": "Intermedio",
+  "category": "Machine Learning",
+  "price": "€299",
+  "image_url": "https://images.unsplash.com/photo-1488229297570-58520851e868",
+  "learning_objectives": [
+    {
+      "objective": "Comprendere i fondamenti teorici del Machine Learning",
+      "description": "Teoria matematica e statistica alla base degli algoritmi"
+    },
+    {
+      "objective": "Implementare algoritmi di apprendimento supervisionato",
+      "description": "Regressione lineare, logistica, decision tree, random forest, SVM"
+    },
+    {
+      "objective": "Padroneggiare tecniche di apprendimento non supervisionato",
+      "description": "Clustering, riduzione dimensionalità, anomaly detection"
+    },
+    {
+      "objective": "Utilizzare librerie Python per ML",
+      "description": "Scikit-learn, Pandas, NumPy, Matplotlib"
+    },
+    {
+      "objective": "Valutare e ottimizzare modelli ML",
+      "description": "Cross-validation, grid search, metriche di performance"
+    },
+    {
+      "objective": "Gestire progetti ML end-to-end",
+      "description": "Dalla preparazione dei dati al deployment in produzione"
+    }
+  ],
+  "prerequisites": [
+    {
+      "title": "Conoscenza base di Python",
+      "description": "Sintassi, strutture dati, funzioni e programmazione orientata agli oggetti",
+      "is_required": true
+    },
+    {
+      "title": "Matematica di base",
+      "description": "Algebra lineare, calcolo differenziale e statistica descrittiva",
+      "is_required": true
+    },
+    {
+      "title": "Esperienza con Jupyter Notebook",
+      "description": "Utile ma non indispensabile, sarà coperto nelle prime lezioni",
+      "is_required": false
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "title": "Introduzione al Machine Learning",
+      "description": "Concetti fondamentali, tipi di apprendimento e panoramica degli algoritmi",
+      "estimated_hours": "3-4 ore",
+      "lessons": [
+        {
+          "id": 1,
+          "title": "Cos'è il Machine Learning",
+          "description": "Definizione, storia e applicazioni del ML nella vita quotidiana",
+          "duration": "25 min",
+          "video_url": "https://example.com/video1",
+          "materials": [
+            "slides_ml_intro.pdf",
+            "reading_list.pdf"
+          ],
+          "is_free": true
+        },
+        {
+          "id": 2,
+          "title": "Tipi di apprendimento automatico",
+          "description": "Supervisionato vs non supervisionato vs rinforzo",
+          "duration": "30 min",
+          "video_url": "https://example.com/video2",
+          "materials": [
+            "comparison_chart.pdf"
+          ],
+          "is_free": true
+        },
+        {
+          "id": 3,
+          "title": "Setup dell'ambiente di sviluppo",
+          "description": "Installazione Python, Anaconda, Jupyter e librerie essenziali",
+          "duration": "40 min",
+          "video_url": "https://example.com/video3",
+          "materials": [
+            "setup_guide.pdf",
+            "requirements.txt"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 4,
+          "title": "Il processo di ML: dalla teoria alla pratica",
+          "description": "Workflow completo di un progetto di Machine Learning",
+          "duration": "35 min",
+          "video_url": "https://example.com/video4",
+          "materials": [
+            "ml_workflow.pdf"
+          ],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Preparazione e Analisi dei Dati",
+      "description": "Data cleaning, feature engineering e analisi esplorativa",
+      "estimated_hours": "4-5 ore",
+      "lessons": [
+        {
+          "id": 5,
+          "title": "Caricamento e esplorazione dei dataset",
+          "description": "Pandas per la manipolazione dei dati, statistiche descrittive",
+          "duration": "45 min",
+          "video_url": "https://example.com/video5",
+          "materials": [
+            "pandas_cheatsheet.pdf",
+            "sample_dataset.csv"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 6,
+          "title": "Data Cleaning e gestione valori mancanti",
+          "description": "Tecniche per pulire i dati e gestire missing values",
+          "duration": "40 min",
+          "video_url": "https://example.com/video6",
+          "materials": [
+            "data_cleaning_techniques.pdf"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 7,
+          "title": "Feature Engineering",
+          "description": "Creazione e selezione delle caratteristiche più informative",
+          "duration": "50 min",
+          "video_url": "https://example.com/video7",
+          "materials": [
+            "feature_engineering_guide.pdf"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 8,
+          "title": "Visualizzazione dei dati",
+          "description": "Matplotlib e Seaborn per creare grafici informativi",
+          "duration": "35 min",
+          "video_url": "https://example.com/video8",
+          "materials": [
+            "visualization_examples.ipynb"
+          ],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Algoritmi di Apprendimento Supervisionato",
+      "description": "Regressione e classificazione con algoritmi principali",
+      "estimated_hours": "6-7 ore",
+      "lessons": [
+        {
+          "id": 9,
+          "title": "Regressione Lineare",
+          "description": "Teoria matematica e implementazione pratica",
+          "duration": "50 min",
+          "video_url": "https://example.com/video9",
+          "materials": [
+            "linear_regression_theory.pdf",
+            "linear_regression.ipynb"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 10,
+          "title": "Regressione Logistica",
+          "description": "Classificazione binaria e multinomiale",
+          "duration": "45 min",
+          "video_url": "https://example.com/video10",
+          "materials": [
+            "logistic_regression.ipynb"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 11,
+          "title": "Decision Trees e Random Forest",
+          "description": "Alberi decisionali e ensemble methods",
+          "duration": "55 min",
+          "video_url": "https://example.com/video11",
+          "materials": [
+            "trees_and_forests.ipynb"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 12,
+          "title": "Support Vector Machines",
+          "description": "SVM per classificazione e regressione",
+          "duration": "50 min",
+          "video_url": "https://example.com/video12",
+          "materials": [
+            "svm_guide.pdf",
+            "svm_examples.ipynb"
+          ],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Apprendimento Non Supervisionato",
+      "description": "Clustering, riduzione dimensionalità e anomaly detection",
+      "estimated_hours": "4-5 ore",
+      "lessons": [
+        {
+          "id": 13,
+          "title": "K-Means Clustering",
+          "description": "Algoritmo di clustering più popolare e sue varianti",
+          "duration": "40 min",
+          "video_url": "https://example.com/video13",
+          "materials": [
+            "kmeans_theory.pdf",
+            "clustering_examples.ipynb"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 14,
+          "title": "Hierarchical Clustering",
+          "description": "Clustering gerarchico agglomerativo e divisivo",
+          "duration": "35 min",
+          "video_url": "https://example.com/video14",
+          "materials": [
+            "hierarchical_clustering.ipynb"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 15,
+          "title": "Principal Component Analysis (PCA)",
+          "description": "Riduzione della dimensionalità per visualizzazione e preprocessing",
+          "duration": "45 min",
+          "video_url": "https://example.com/video15",
+          "materials": [
+            "pca_explained.pdf",
+            "pca_examples.ipynb"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 16,
+          "title": "Anomaly Detection",
+          "description": "Identificazione di outlier e anomalie nei dati",
+          "duration": "40 min",
+          "video_url": "https://example.com/video16",
+          "materials": [
+            "anomaly_detection.ipynb"
+          ],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Valutazione e Ottimizzazione dei Modelli",
+      "description": "Metriche, cross-validation e hyperparameter tuning",
+      "estimated_hours": "3-4 ore",
+      "lessons": [
+        {
+          "id": 17,
+          "title": "Metriche di valutazione",
+          "description": "Accuracy, precision, recall, F1-score, ROC-AUC",
+          "duration": "40 min",
+          "video_url": "https://example.com/video17",
+          "materials": [
+            "evaluation_metrics.pdf"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 18,
+          "title": "Cross-validation e overfitting",
+          "description": "Tecniche per valutare realmente le performance",
+          "duration": "45 min",
+          "video_url": "https://example.com/video18",
+          "materials": [
+            "cross_validation.ipynb"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 19,
+          "title": "Hyperparameter Tuning",
+          "description": "Grid search, random search e ottimizzazione bayesiana",
+          "duration": "50 min",
+          "video_url": "https://example.com/video19",
+          "materials": [
+            "hyperparameter_tuning.ipynb"
+          ],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Progetto Finale",
+      "description": "Implementazione completa di un progetto ML end-to-end",
+      "estimated_hours": "5-6 ore",
+      "lessons": [
+        {
+          "id": 20,
+          "title": "Definizione del problema e raccolta dati",
+          "description": "Come strutturare un progetto ML dall'idea iniziale",
+          "duration": "30 min",
+          "video_url": "https://example.com/video20",
+          "materials": [
+            "project_template.pdf"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 21,
+          "title": "Sviluppo e confronto di più modelli",
+          "description": "Implementazione pratica di diversi algoritmi",
+          "duration": "60 min",
+          "video_url": "https://example.com/video21",
+          "materials": [
+            "final_project.ipynb"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 22,
+          "title": "Deployment e messa in produzione",
+          "description": "Come portare un modello ML in produzione",
+          "duration": "45 min",
+          "video_url": "https://example.com/video22",
+          "materials": [
+            "deployment_guide.pdf",
+            "flask_app_example.py"
+          ],
+          "is_free": false
+        },
+        {
+          "id": 23,
+          "title": "Presentazione risultati e next steps",
+          "description": "Come comunicare i risultati e proseguire nello studio del ML",
+          "duration": "25 min",
+          "video_url": "https://example.com/video23",
+          "materials": [
+            "presentation_template.pptx",
+            "further_resources.pdf"
+          ],
+          "is_free": false
+        }
+      ]
+    }
+  ],
+  "certification": true,
+  "certificate_description": "Al completamento del corso riceverai un certificato digitale che attesta la tua competenza nei fondamenti del Machine Learning. Il certificato include il programma dettagliato e le ore di studio completate.",
+  "target_audience": [
+    "Sviluppatori Python che vogliono entrare nel mondo del ML",
+    "Data Analyst che vogliono aggiungere competenze di Machine Learning",
+    "Studenti universitari di informatica, matematica o ingegneria",
+    "Professionisti che vogliono applicare il ML nel loro settore",
+    "Chiunque sia curioso di capire come funziona l'intelligenza artificiale"
+  ],
+  "tools_required": [
+    "Computer con almeno 8GB di RAM",
+    "Python 3.8 o superiore",
+    "Anaconda Distribution",
+    "Jupyter Notebook o JupyterLab",
+    "Account GitHub (opzionale ma consigliato)"
+  ],
+  "created_at": "2024-01-15T10:00:00Z",
+  "updated_at": "2024-01-20T15:30:00Z",
+  "is_published": true
+}]

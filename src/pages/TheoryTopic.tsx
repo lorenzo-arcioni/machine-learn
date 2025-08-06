@@ -3,10 +3,11 @@ import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Loader2, BookOpen, Brain, Network, Zap, Globe, ChevronRight, ChevronDown, Search, BookMarked } from "lucide-react";
+import { ChevronLeft, Loader2, BookOpen, Brain, Network, Zap, Globe, ChevronRight, ChevronDown, Search, BookMarked, ArrowLeft, Book } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 // Tipizzazione globale per MathJax
 declare global {
@@ -31,33 +32,53 @@ interface TheoryContentResponse {
 }
 
 const topicConfig = {
-  intro: {
+  "math-for-ml": {
+    title: "Mathematics for Machine Learning",
+    icon: Brain,
+    color: "from-gray-900 to-gray-800",
+    bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
+    description: "Essential math concepts behind ML algorithms",
+    badge: "Beginner"
+  },
+  introduction: {
     title: "Introduction to Machine Learning",
     icon: BookOpen,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Fundamentals and core concepts"
+    description: "Fundamentals and core concepts",
+    badge: "Beginner"
   },
-  supervised: {
+  "supervised-learning": {
     title: "Supervised Learning",
     icon: Brain,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Learning with labeled data"
+    description: "Learning with labeled data",
+    badge: "Intermediate"
   },
-  unsupervised: {
+  "unsupervised-learning": {
     title: "Unsupervised Learning",
     icon: Network,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Discovering hidden patterns"
+    description: "Discovering hidden patterns",
+    badge: "Intermediate"
   },
   "deep-learning": {
     title: "Deep Learning",
     icon: Zap,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Neural networks and beyond"
+    description: "Neural networks and beyond",
+    badge: "Advanced"
+  },
+  nlp: {
+    title: "Natural Language Processing",
+    icon: Globe,
+    color: "from-gray-900 to-gray-800",
+    bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
+    description: "Techniques for processing and understanding human language",
+    badge: "Advanced"
   }
 };
 
@@ -356,73 +377,57 @@ const TheoryTopic = () => {
 
   return (
     <MainLayout hideFooter={true}>
-      {/* Hero Section with Back Button */}
-      <div className={`relative bg-white dark:bg-gray-900 overflow-hidden`}>
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-4 -left-4 w-72 h-72 bg-white/30 dark:bg-gray-800/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-8 -right-8 w-96 h-96 bg-gray-100/40 dark:bg-gray-900/40 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gray-200/30 dark:bg-gray-700/30 rounded-full blur-2xl animate-pulse delay-500"></div>
-        </div>
-        
-        <div className="relative w-full px-6 py-4">
-          <div className="mb-4">
-            {/* Title section with back button aligned */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-4">
-                <div className={`p-3 rounded-2xl bg-gradient-to-r ${currentTopic?.color || 'from-gray-900 to-gray-800'} shadow-lg`}>
-                  <IconComponent className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
-                    {currentTopic?.title || "Theory"}
-                  </h1>
-                  <p className="text-base text-gray-600 dark:text-gray-400 mt-1">
-                    {currentTopic?.description || "Explore the concepts"}
-                  </p>
-                </div>
-              </div>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => navigate("/theory")} 
-                className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-900 border-gray-300 dark:border-gray-600 shadow-lg"
-              >
-                <ChevronLeft className="mr-2 h-4 w-4" /> Back to Theory
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Separator line */}
-      <div className="w-full px-6">
-        <div className="border-t border-gray-200 dark:border-gray-700"></div>
-      </div>
-
-      {/* Main Content - Raised panels with visible bottom */}
-      <div className="w-full px-6 py-4 h-[calc(100vh-140px)]">
-        <div className="flex gap-8 h-full">
-          {/* Enhanced Sidebar - Shorter from bottom */}
+      {/* Main Content - Full height panels with minimal padding */}
+      <div className="w-full px-4 pt-4 pb-2 h-[calc(100vh-70px)]">
+        <div className="flex gap-4 h-full">
+          {/* Enhanced Sidebar - Con informazioni della macroarea */}
           <div className={`transition-all duration-300 ${sidebarExpanded ? 'w-[420px]' : 'w-0 overflow-hidden'} flex-shrink-0`}>
-            <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-xl h-[calc(100vh-200px)]">
+            <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-xl h-full">
               <CardContent className="p-6 h-full flex flex-col">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-gradient-to-r from-gray-900 to-gray-800">
-                      <BookOpen className="w-5 h-5 text-white" />
-                    </div>
-                    <h3 className="font-bold text-lg bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
-                      Topics
-                    </h3>
+                {/* Header con informazioni macroarea e pulsante back */}
+                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between mb-4">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => navigate("/theory")} 
+                      className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 -ml-2"
+                    >
+                      <ArrowLeft className="mr-2 h-4 w-4" /> Back to Theory
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setSidebarExpanded(!sidebarExpanded)}
+                      className="hover:bg-gray-100 dark:hover:bg-gray-800"
+                    >
+                      <ChevronRight className={`w-4 h-4 transition-transform ${sidebarExpanded ? 'rotate-180' : ''}`} />
+                    </Button>
                   </div>
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={() => setSidebarExpanded(!sidebarExpanded)}
-                    className="hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
-                    <ChevronRight className={`w-4 h-4 transition-transform ${sidebarExpanded ? 'rotate-180' : ''}`} />
-                  </Button>
+                  
+                  {/* Informazioni della macroarea */}
+                  {currentTopic && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <div className={`p-2 rounded-lg bg-gradient-to-r ${currentTopic.color}`}>
+                          <IconComponent className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100 leading-tight">
+                            {currentTopic.title}
+                          </h3>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Badge variant="secondary" className="text-xs">
+                              {currentTopic.badge}
+                            </Badge>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {currentTopic.description}
+                      </p>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Search Bar */}
@@ -525,9 +530,9 @@ const TheoryTopic = () => {
             </div>
           )}
 
-          {/* Enhanced Content Area - Raised and doesn't reach bottom */}
+          {/* Enhanced Content Area - Full height */}
           <div className="flex-1 min-w-0 h-full">
-            <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-xl h-[calc(100vh-200px)]">
+            <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-xl h-full">
               <div className="h-full overflow-y-auto">
                 <CardContent className="p-8">
                   {isLoadingContent ? (

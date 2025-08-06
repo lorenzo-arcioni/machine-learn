@@ -21,7 +21,6 @@ import {
   AlertCircle,
   Loader2
 } from "lucide-react";
-import { coursesApi } from '@/services/api';
 import { toast } from '@/components/ui/use-toast';
 
 interface Lesson {
@@ -54,8 +53,8 @@ interface LearningObjective {
 }
 
 interface CourseContentType {
-  id: number;
-  course_id: number;
+  _id?: string;
+  course_id?: string;
   title: string;
   description: string;
   full_description: string;
@@ -82,11 +81,11 @@ interface CourseContentType {
 const CourseContent = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  const [courseContent, setCourseContent] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [isEnrolling, setIsEnrolling] = useState(false);
-  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [courseContent, setCourseContent] = useState<CourseContentType | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isEnrolling, setIsEnrolling] = useState<boolean>(false);
+  const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
 
   useEffect(() => {
     const loadCourseContent = async () => {
@@ -95,26 +94,54 @@ const CourseContent = () => {
         setIsLoading(false);
         return;
       }
+      
       try {
-        const data = await coursesApi.getCourseContent(courseId);
-        setCourseContent(data);
+        setIsLoading(true);
+        
+        // Prima carica la lista dei corsi per trovare quello corretto
+        const coursesResponse = await fetch('/data/courses.json');
+        if (!coursesResponse.ok) {
+          throw new Error(`HTTP error! status: ${coursesResponse.status}`);
+        }
+        
+        const coursesArray = await coursesResponse.json();
+        const courseBasicInfo = coursesArray.find((course: any) => course._id === courseId);
+        
+        if (!courseBasicInfo) {
+          throw new Error('Corso non trovato');
+        }
+
+        // Poi carica il contenuto dettagliato del corso specifico
+        const contentResponse = await fetch(`/data/courses/${courseId}.json`);
+        if (!contentResponse.ok) {
+          throw new Error(`HTTP error! status: ${contentResponse.status}`);
+        }
+        
+        const courseContentArray = await contentResponse.json();
+        // Il file contiene un array con un solo elemento
+        const courseContentData = courseContentArray[0];
+        
+        setCourseContent(courseContentData);
       } catch (err) {
+        console.error('Error loading course content:', err);
+        setError('Impossibile caricare il contenuto del corso.');
         toast({
           title: 'Errore',
           description: 'Impossibile caricare il contenuto del corso.',
           variant: 'destructive'
         });
-        setError('Errore nel caricamento del corso.');
       } finally {
         setIsLoading(false);
       }
     };
+    
     loadCourseContent();
   }, [courseId]);
 
   const handleGoBack = () => navigate('/courses');
 
-  const calculateTotalLessons = modules => modules.reduce((total, m) => total + m.lessons.length, 0);
+  const calculateTotalLessons = (modules: Module[]) => 
+    modules.reduce((total, m) => total + m.lessons.length, 0);
 
   if (isLoading) return (
     <MainLayout>

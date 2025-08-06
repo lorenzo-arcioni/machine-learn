@@ -3,8 +3,7 @@ import MainLayout from '@/components/layout/MainLayout';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Book, Code, Cpu, Calculator, BookText, Loader2 } from "lucide-react";
-import { coursesApi } from '@/services/api'; // Importa il servizio API per i corsi
-import { toast } from '@/components/ui/use-toast'; // Assicurati di avere un componente toast
+import { toast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
 
 // Funzione per determinare l'icona in base alla categoria
@@ -33,22 +32,35 @@ const Courses = () => {
     const loadCourses = async () => {
       try {
         setIsLoading(true);
-        const data = await coursesApi.getCourses();
         
-        // Aggiungiamo le icone ai corsi
-        const coursesWithIcons = Object.fromEntries(
-          Object.entries(data).map(([category, courses]) => [
-            category,
-            (courses as any[]).map((course: any) => ({
-              ...course,
-              icon: getCategoryIcon(category),
-              // Aggiungiamo uno stato predefinito se non è presente
-              status: course.status || 'available'
-            }))
-          ])
-        );
+        // Carica il file JSON locale dalla cartella public
+        const response = await fetch('/data/courses.json');
         
-        setCoursesByCategory(coursesWithIcons);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const coursesArray = await response.json();
+        
+        // Raggruppa i corsi per categoria e aggiungi le icone
+        const coursesByCategory = coursesArray.reduce((acc: Record<string, any[]>, course: any) => {
+          const category = course.category;
+          
+          if (!acc[category]) {
+            acc[category] = [];
+          }
+          
+          acc[category].push({
+            ...course,
+            icon: getCategoryIcon(category),
+            // Aggiungiamo uno stato predefinito se non è presente
+            status: course.status || 'available'
+          });
+          
+          return acc;
+        }, {});
+        
+        setCoursesByCategory(coursesByCategory);
       } catch (err) {
         console.error('Error loading courses:', err);
         setError('Impossibile caricare i corsi. Riprova più tardi.');
@@ -65,10 +77,18 @@ const Courses = () => {
     loadCourses();
   }, []);
 
-  const handleCourseRedirect = (courseId: string) => {
-    console.log('Navigating to course:', courseId); // Debug log
+  const handleCourseRedirect = (course: any) => {
+    console.log('Navigating to course:', course._id); // Debug log
+    
+    // Se il corso ha un link esterno, aprilo in una nuova scheda
+    if (course.link) {
+      window.open(course.link, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    
+    // Altrimenti naviga alla pagina del contenuto del corso
+    const courseId = course._id || course.id;
     if (courseId) {
-      // Naviga alla pagina del contenuto del corso invece di usare window.location.href
       navigate(`/courses/${courseId}`);
     } else {
       console.error('Course ID is missing'); // Debug log
@@ -153,14 +173,13 @@ const Courses = () => {
                         variant={course.status === 'coming_soon' ? 'secondary' : 'default'}
                         onClick={() => {
                           if (course.status !== 'coming_soon') {
-                            // Usa _id invece di id
-                            const courseId = course._id || course.id;
-                            handleCourseRedirect(String(courseId));
+                            handleCourseRedirect(course);
                           }
                         }}
                         disabled={course.status === 'coming_soon'}
                       >
-                        {course.status === 'coming_soon' ? 'Prossimamente' : 'Vedi il programma'}
+                        {course.status === 'coming_soon' ? 'Prossimamente' : 
+                         course.link ? 'Vai al corso' : 'Vedi il programma'}
                       </Button>
                     </CardFooter>
                   </Card>
