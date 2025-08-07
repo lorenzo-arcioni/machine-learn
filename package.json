@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build",
+    "build": "node build-seo-pages.js && vite build",
     "build:dev": "vite build --mode development",
     "build:seo": "node build-seo-pages.js && npm run build",
     "lint": "eslint .",
