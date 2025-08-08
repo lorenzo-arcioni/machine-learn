@@ -52,7 +52,8 @@ const App: React.FC = () => (
             <Route path="/theory" element={<Theory />} />
             <Route path="/theory/:topicId/*" element={<TheoryTopic />} />
             <Route path="/practice" element={<Practice />} />
-            <Route path="/practice/:exerciseId" element={<ExerciseDetail />} />
+            <Route path="/exercise/:id" element={<ExerciseDetail />} />
+            <Route path="/practice/:level/:exerciseId" element={<ExerciseDetail />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:courseId" element={<CourseContent />} />

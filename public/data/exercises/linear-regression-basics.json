@@ -1,0 +1,64 @@
+{
+  "id": "linear-regression-basics",
+  "title": "Linear Regression Implementation",
+  "description": "Implement linear regression from scratch using NumPy. Learn the mathematical foundations and code the algorithm step by step.",
+  "category": "Supervised Learning",
+  "tags": ["NumPy", "Mathematics", "Regression"],
+  "estimatedTime": "45 min",
+  "difficulty": "Beginner",
+  "level": "beginner",
+  "prerequisites": ["Python Basics", "NumPy"],
+  
+  "problemStatement": {
+    "overview": "In this exercise, you will implement a simple linear regression model from scratch using only NumPy. You'll learn how to calculate the optimal parameters using the normal equation and gradient descent.",
+    "objectives": [
+      "Understand the mathematical foundation of linear regression",
+      "Implement the normal equation for finding optimal parameters",
+      "Code a gradient descent optimization algorithm",
+      "Evaluate your model using common metrics (MSE, R²)",
+      "Visualize the results and understand the fitting process"
+    ],
+    "context": "Linear regression is one of the fundamental algorithms in machine learning. It's used to predict a continuous target variable based on one or more input features by finding the best linear relationship between them."
+  },
+  
+  "documentation": {
+    "theory": "## Mathematical Foundation\n\nLinear regression tries to model the relationship between a dependent variable Y and independent variables X using a linear equation:\n\n**Y = β₀ + β₁X₁ + β₂X₂ + ... + βₙXₙ + ε**\n\nWhere:\n- Y is the dependent variable (target)\n- X₁, X₂, ..., Xₙ are independent variables (features)\n- β₀ is the intercept (bias)\n- β₁, β₂, ..., βₙ are the coefficients (weights)\n- ε is the error term\n\n## Normal Equation\nThe optimal parameters can be calculated directly using:\n**β = (XᵀX)⁻¹XᵀY**\n\n## Gradient Descent\nAlternatively, we can use gradient descent to iteratively find the optimal parameters:\n**β := β - α∇J(β)**\n\nWhere J(β) is the cost function (Mean Squared Error).",
+    "implementation": "## Implementation Steps\n\n1. **Data Preparation**\n   - Load and preprocess the dataset\n   - Add bias term (column of ones) to feature matrix\n   - Split data into training and testing sets\n\n2. **Normal Equation Method**\n   - Implement the normal equation formula\n   - Calculate optimal parameters directly\n   - Handle potential matrix inversion issues\n\n3. **Gradient Descent Method**\n   - Initialize parameters randomly\n   - Implement cost function (MSE)\n   - Implement gradient calculation\n   - Update parameters iteratively\n   - Monitor convergence\n\n4. **Model Evaluation**\n   - Calculate predictions\n   - Compute evaluation metrics (MSE, MAE, R²)\n   - Create visualization plots",
+    "tips": [
+      "Always normalize/standardize your features for better gradient descent performance",
+      "Check for matrix singularity before computing the normal equation",
+      "Monitor the cost function to ensure convergence in gradient descent",
+      "Visualize your results to understand if the model is fitting correctly",
+      "Try different learning rates to see their effect on convergence"
+    ]
+  },
+
+  "githubSolutionUrl": "https://gist.github.com/lorenzo-arcioni/4a2d972b2e308a3a7207d174a2c1776d.js",
+  
+  "starterCode": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import make_regression\nfrom sklearn.model_selection import train_test_split\n\nclass LinearRegression:\n    def __init__(self, method='normal_equation', learning_rate=0.01, max_iterations=1000):\n        \"\"\"\n        Initialize Linear Regression model\n        \n        Parameters:\n        method: 'normal_equation' or 'gradient_descent'\n        learning_rate: step size for gradient descent\n        max_iterations: maximum number of iterations for gradient descent\n        \"\"\"\n        self.method = method\n        self.learning_rate = learning_rate\n        self.max_iterations = max_iterations\n        self.weights = None\n        self.bias = None\n        self.cost_history = []\n    \n    def fit(self, X, y):\n        \"\"\"\n        Train the linear regression model\n        \n        Parameters:\n        X: Feature matrix (n_samples, n_features)\n        y: Target vector (n_samples,)\n        \"\"\"\n        # TODO: Implement this method\n        # Hint: Handle both normal equation and gradient descent methods\n        pass\n    \n    def predict(self, X):\n        \"\"\"\n        Make predictions using the trained model\n        \n        Parameters:\n        X: Feature matrix (n_samples, n_features)\n        \n        Returns:\n        predictions: Predicted values (n_samples,)\n        \"\"\"\n        # TODO: Implement this method\n        pass\n    \n    def _normal_equation(self, X, y):\n        \"\"\"\n        Calculate optimal parameters using normal equation\n        \"\"\"\n        # TODO: Implement normal equation\n        # Formula: theta = (X^T * X)^(-1) * X^T * y\n        pass\n    \n    def _gradient_descent(self, X, y):\n        \"\"\"\n        Calculate optimal parameters using gradient descent\n        \"\"\"\n        # TODO: Implement gradient descent\n        pass\n    \n    def _compute_cost(self, X, y):\n        \"\"\"\n        Compute Mean Squared Error cost\n        \"\"\"\n        # TODO: Implement cost function\n        pass\n\n# TODO: Test your implementation\nif __name__ == \"__main__\":\n    # Generate sample data\n    X, y = make_regression(n_samples=100, n_features=1, noise=10, random_state=42)\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n    \n    # Test normal equation method\n    model_normal = LinearRegression(method='normal_equation')\n    # TODO: Train and evaluate the model\n    \n    # Test gradient descent method  \n    model_gd = LinearRegression(method='gradient_descent', learning_rate=0.01)\n    # TODO: Train and evaluate the model\n    \n    # TODO: Compare results and create visualizations",
+  
+  "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import make_regression\nfrom sklearn.model_selection import train_test_split\n\nclass LinearRegression:\n    def __init__(self, method='normal_equation', learning_rate=0.01, max_iterations=1000):\n        self.method = method\n        self.learning_rate = learning_rate\n        self.max_iterations = max_iterations\n        self.weights = None\n        self.bias = None\n        self.cost_history = []\n    \n    def fit(self, X, y):\n        n_samples, n_features = X.shape\n        \n        if self.method == 'normal_equation':\n            self._normal_equation(X, y)\n        elif self.method == 'gradient_descent':\n            self._gradient_descent(X, y)\n    \n    def predict(self, X):\n        return X @ self.weights + self.bias\n    \n    def _normal_equation(self, X, y):\n        # Add bias column\n        X_with_bias = np.column_stack([np.ones(X.shape[0]), X])\n        \n        # Calculate: theta = (X^T * X)^(-1) * X^T * y\n        try:\n            theta = np.linalg.inv(X_with_bias.T @ X_with_bias) @ X_with_bias.T @ y\n            self.bias = theta[0]\n            self.weights = theta[1:]\n        except np.linalg.LinAlgError:\n            # Handle singular matrix\n            theta = np.linalg.pinv(X_with_bias.T @ X_with_bias) @ X_with_bias.T @ y\n            self.bias = theta[0]\n            self.weights = theta[1:]\n    \n    def _gradient_descent(self, X, y):\n        n_samples, n_features = X.shape\n        \n        # Initialize parameters\n        self.weights = np.random.normal(0, 0.01, n_features)\n        self.bias = 0\n        \n        for i in range(self.max_iterations):\n            # Forward pass\n            y_pred = self.predict(X)\n            \n            # Calculate cost\n            cost = self._compute_cost(y, y_pred)\n            self.cost_history.append(cost)\n            \n            # Calculate gradients\n            dw = (1/n_samples) * X.T @ (y_pred - y)\n            db = (1/n_samples) * np.sum(y_pred - y)\n            \n            # Update parameters\n            self.weights -= self.learning_rate * dw\n            self.bias -= self.learning_rate * db\n    \n    def _compute_cost(self, y_true, y_pred):\n        return np.mean((y_true - y_pred) ** 2)\n\n# Test implementation\nif __name__ == \"__main__\":\n    # Generate sample data\n    X, y = make_regression(n_samples=100, n_features=1, noise=10, random_state=42)\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n    \n    # Test both methods\n    methods = ['normal_equation', 'gradient_descent']\n    results = {}\n    \n    for method in methods:\n        model = LinearRegression(method=method, learning_rate=0.01, max_iterations=1000)\n        model.fit(X_train, y_train)\n        \n        train_pred = model.predict(X_train)\n        test_pred = model.predict(X_test)\n        \n        train_mse = np.mean((y_train - train_pred) ** 2)\n        test_mse = np.mean((y_test - test_pred) ** 2)\n        \n        results[method] = {\n            'train_mse': train_mse,\n            'test_mse': test_mse,\n            'weights': model.weights,\n            'bias': model.bias\n        }\n        \n        print(f\"{method.title()}:\")\n        print(f\"  Train MSE: {train_mse:.4f}\")\n        print(f\"  Test MSE: {test_mse:.4f}\")\n        print(f\"  Weights: {model.weights}\")\n        print(f\"  Bias: {model.bias:.4f}\")\n        print()\n    \n    # Visualization\n    plt.figure(figsize=(15, 5))\n    \n    # Plot results\n    for i, method in enumerate(methods):\n        plt.subplot(1, 3, i+1)\n        model = LinearRegression(method=method, learning_rate=0.01)\n        model.fit(X_train, y_train)\n        \n        plt.scatter(X_test, y_test, alpha=0.6, label='True values')\n        plt.scatter(X_test, model.predict(X_test), alpha=0.6, label='Predictions')\n        plt.plot(X_test, model.predict(X_test), 'r-', alpha=0.8)\n        plt.title(f'{method.title()}')\n        plt.legend()\n    \n    # Plot cost history for gradient descent\n    plt.subplot(1, 3, 3)\n    model_gd = LinearRegression(method='gradient_descent', learning_rate=0.01)\n    model_gd.fit(X_train, y_train)\n    plt.plot(model_gd.cost_history)\n    plt.title('Cost History (Gradient Descent)')\n    plt.xlabel('Iteration')\n    plt.ylabel('Cost')\n    \n    plt.tight_layout()\n    plt.show()",
+  
+  "testCases": [],
+  
+  "resources": [
+    {
+      "title": "Linear Regression Theory",
+      "type": "Theory",
+      "url": "/theory/linear-regression",
+      "description": "Mathematical foundations and intuition behind linear regression"
+    },
+    {
+      "title": "Gradient Descent Explained",
+      "type": "Theory", 
+      "url": "/theory/gradient-descent",
+      "description": "Deep dive into gradient descent optimization algorithm"
+    },
+    {
+      "title": "NumPy for Machine Learning",
+      "type": "Tutorial",
+      "url": "/tutorials/numpy-ml",
+      "description": "Essential NumPy operations for machine learning implementations"
+    }
+  ]
+}

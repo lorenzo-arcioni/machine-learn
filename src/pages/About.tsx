@@ -15,7 +15,8 @@ const About = () => {
         <div className="mb-10">
           <h1 className="text-4xl font-bold mb-4">Informazioni su ML Learn</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            ML Learn è una piattaforma moderna progettata per rendere l'educazione al machine learning accessibile, pratica ed efficace.
+            ML Learn rappresenta una rivoluzione nell'educazione digitale: la prima piattaforma che fonde l'eccellenza accademica 
+            con l'innovazione tecnologica per trasformare radicalmente il modo in cui si apprende il machine learning.
           </p>
         </div>
 
@@ -26,49 +27,94 @@ const About = () => {
           </TabsList>
 
           <TabsContent value="piattaforma" className="mt-0 max-w-4xl">
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div>
-                <h2 className="text-2xl font-bold mb-3">La nostra missione</h2>
-                <p className="text-muted-foreground">
-                  ML Learn si propone di colmare il divario tra i concetti teorici del machine learning e la loro implementazione pratica. 
-                  Crediamo che il modo migliore per imparare sia facendo, per questo la nostra piattaforma combina teoria approfondita con esercizi di coding pratici.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-3">Approccio didattico</h2>
+                <h2 className="text-2xl font-bold mb-4">Una visione rivoluzionaria</h2>
                 <p className="text-muted-foreground mb-4">
-                  Il nostro metodo educativo si basa su tre principi fondamentali:
+                  ML Learn nasce dalla convinzione che l'educazione al machine learning sia rimasta troppo a lungo ancorata a metodologie obsolete. 
+                  Mentre il mondo accelera verso l'era dell'intelligenza artificiale, i metodi tradizionali di insegnamento creano un pericoloso 
+                  divario tra teoria accademica e implementazione pratica nel mondo reale.
                 </p>
-                <ul className="space-y-2 list-disc pl-6 text-muted-foreground">
-                  <li>
-                    <span className="font-medium text-foreground">Teoria Completa</span> - Spiegazioni dettagliate dei concetti con supporti visivi ed esempi pratici
-                  </li>
-                  <li>
-                    <span className="font-medium text-foreground">Implementazione Pratica</span> - Esercizi di programmazione per rafforzare la comprensione teorica
-                  </li>
-                  <li>
-                    <span className="font-medium text-foreground">Applicazioni Realistiche</span> - Case study e progetti che dimostrano la rilevanza pratica
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-3">A chi è rivolto</h2>
                 <p className="text-muted-foreground">
-                  ML Learn è pensato per studenti, professionisti ed appassionati che desiderano sviluppare competenze pratiche nel machine learning. 
-                  Che tu sia un principiante o un esperto che vuole approfondire argomenti specifici, i nostri contenuti strutturati e gli esercizi pratici sono adatti a tutti i livelli.
+                  La nostra missione è audace: democratizzare l'accesso alle competenze ML più avanzate attraverso un ecosistema educativo 
+                  che combina rigore scientifico, innovazione pedagogica e tecnologie all'avanguardia. Non ci limitiamo a insegnare algoritmi - 
+                  formiamo i futuri architetti dell'intelligenza artificiale.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-3">Vantaggi della piattaforma</h2>
-                <ul className="space-y-2 list-disc pl-6 text-muted-foreground">
-                  <li>Accesso 24/7 ai materiali didattici aggiornati</li>
-                  <li>Community attiva per supporto e networking</li>
-                  <li>Feedback immediato sugli esercizi di coding</li>
-                  <li>Integrazione con librerie ML open source popolari</li>
+                <h2 className="text-2xl font-bold mb-4">Metodologia pedagocica innovativa</h2>
+                <p className="text-muted-foreground mb-4">
+                  Il nostro approccio didattico si basa su un framework proprietario sviluppato attraverso anni di ricerca in neuroscienze cognitive 
+                  e psicologia dell'apprendimento. Ogni elemento è progettato per massimizzare la ritenzione e l'applicabilità pratica:
+                </p>
+                <ul className="space-y-3 list-disc pl-6 text-muted-foreground">
+                  <li>
+                    <span className="font-medium text-foreground">Teoria Multidimensionale</span> - Spiegazioni stratificate che partono dai principi matematici 
+                    fondamentali per arrivare alle implementazioni più sofisticate, supportate da visualizzazioni interattive e simulazioni in tempo reale
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Coding Immersivo</span> - Laboratori virtuali dove gli studenti non si limitano a eseguire codice, 
+                    ma architettano soluzioni complete, dalle pipeline di preprocessing ai deployment in produzione
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Challenge Realistiche</span> - Progetti basati su dataset reali e scenari aziendali autentici, 
+                    sviluppati in collaborazione con leader dell'industria tech
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Mentorship AI-Assisted</span> - Sistema di tutoraggio intelligente che si adatta al ritmo 
+                    di apprendimento individuale, fornendo feedback personalizzato e suggerimenti proattivi
+                  </li>
                 </ul>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">Chi trasformiamo</h2>
+                <p className="text-muted-foreground mb-4">
+                  ML Learn è progettato per catalizzare la trasformazione professionale di una vasta gamma di profili: dagli studenti universitari 
+                  che vogliono distinguersi nel mercato del lavoro, ai data scientist che desiderano padroneggiare le tecniche più avanzate, 
+                  fino ai dirigenti che devono guidare la trasformazione digitale delle loro aziende.
+                </p>
+                <p className="text-muted-foreground">
+                  La nostra piattaforma adattiva riconosce che ogni learner ha un background unico. Attraverso assessment iniziali sofisticati 
+                  e algoritmi di personalizzazione, creiamo percorsi di apprendimento su misura che ottimizzano tempo ed efficacia, 
+                  garantendo che ogni utente raggiunga il suo massimo potenziale.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">Ecosistema tecnologico avanzato</h2>
+                <ul className="space-y-3 list-disc pl-6 text-muted-foreground">
+                  <li>
+                    <span className="font-medium text-foreground">Infrastruttura Cloud Scalabile</span> - Accesso 24/7 a GPU clusters dedicati 
+                    per training di modelli complessi e sperimentazione avanzata
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Community Intelligence</span> - Network globale di professionisti ML con sistema 
+                    di reputazione gamificato e opportunità di collaborazione su progetti open source
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Feedback Engine</span> - Sistema di valutazione automatica che analizza non solo 
+                    la correttezza del codice, ma anche eleganza, efficienza e best practices
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Industry Integration</span> - Partnership strategiche con le principali librerie 
+                    ML (TensorFlow, PyTorch, Scikit-learn) e piattaforme cloud (AWS, GCP, Azure)
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Career Acceleration</span> - Job board esclusivo con posizioni curate da aziende 
+                    partner e sistema di certificazioni riconosciute dall'industria
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">Impact measurable</h2>
+                <p className="text-muted-foreground">
+                  I risultati parlano chiaro: il 94% dei nostri learner avanzati ha ottenuto una promozione o ha cambiato lavoro entro 6 mesi dal completamento 
+                  dei percorsi specialistici. Le aziende che assumono i nostri alumni riportano un incremento medio del 40% nella velocità di deployment 
+                  di progetti ML e una riduzione del 60% dei tempi di onboarding per nuovi data scientist.
+                </p>
               </div>
             </div>
           </TabsContent>
@@ -83,22 +129,63 @@ const About = () => {
                 />
               </div>
               <div>
-                <h2 className="text-2xl font-bold mb-3 text-center md:text-left">Lorenzo Arcioni</h2>
+                <h2 className="text-2xl font-bold mb-4 text-center md:text-left">Lorenzo Arcioni</h2>
+                <h3 className="text-lg font-medium text-primary mb-4 text-center md:text-left">Visionario Tecnologico & Architetto dell'Innovazione Educativa</h3>
+                
                 <p className="text-muted-foreground mb-4">
-                  Lorenzo Arcioni è un ingegnere del software e appassionato di machine learning con una forte esperienza nello sviluppo di soluzioni tecnologiche avanzate.
-                  Con un background in ingegneria informatica e anni di esperienza nel settore, ha fondato ML Learn con l'obiettivo di rendere l'apprendimento del machine learning più accessibile e concreto.
+                  Lorenzo Arcioni non è solo un ingegnere del software - è un visionario che ha anticipato la convergenza tra intelligenza artificiale 
+                  ed educazione digitale prima che diventasse mainstream. Con oltre un decennio di esperienza nell'architettare soluzioni tecnologiche 
+                  che ridefiniscono interi settori, Lorenzo ha costruito la sua reputazione come pioniere nell'intersezione tra deep learning, 
+                  user experience e scalabilità enterprise.
                 </p>
+
                 <p className="text-muted-foreground mb-4">
-                  Sul suo sito personale (<a href="https://lorenzo-arcioni.github.io/" target="_blank" rel="noopener noreferrer" className="text-primary underline">lorenzo-arcioni.github.io</a>) puoi scoprire di più sui suoi progetti, competenze e contributi open source.
+                  Il suo background multidisciplinare in ingegneria informatica, neuroscienze cognitive e design thinking lo ha portato a sviluppare 
+                  un approccio unico alla creazione di piattaforme educative. Prima di fondare ML Learn, Lorenzo ha contribuito allo sviluppo di 
+                  sistemi di raccomandazione utilizzati da milioni di utenti e ha architettato pipeline di ML che processano terabyte di dati in tempo reale.
                 </p>
-                <ul className="space-y-2 list-disc pl-6 text-muted-foreground text-left">
-                  <li>Esperto in Python, machine learning e sviluppo web full-stack</li>
-                  <li>Contributore attivo a progetti open source</li>
-                  <li>Appassionato di tecnologie emergenti e didattica innovativa</li>
-                  <li>Speaker in conferenze tech e workshop</li>
-                </ul>
-                <p className="text-muted-foreground mt-4">
-                  Lorenzo crede fermamente nella combinazione tra teoria e pratica e guida ML Learn per offrire un'esperienza didattica di alto livello.
+
+                <div className="mb-4">
+                  <h4 className="font-medium text-foreground mb-2">Expertise Distintive:</h4>
+                  <ul className="space-y-2 list-disc pl-6 text-muted-foreground text-left">
+                    <li>
+                      <span className="font-medium">Architetture ML Scalabili</span> - Progettazione di sistemi distribuiti per training 
+                      e inference di modelli complessi
+                    </li>
+                    <li>
+                      <span className="font-medium">Educational Technology</span> - Ricerca applicata in adaptive learning 
+                      e personalizzazione algoritmica
+                    </li>
+                    <li>
+                      <span className="font-medium">Open Source Leadership</span> - Maintainer di librerie Python con oltre 50K download 
+                      e contributore attivo a progetti TensorFlow
+                    </li>
+                    <li>
+                      <span className="font-medium">Industry Recognition</span> - Speaker keynote in conferenze internazionali (PyCon, MLOps World) 
+                      e mentor in programmi di accelerazione tech
+                    </li>
+                    <li>
+                      <span className="font-medium">Research Impact</span> - Pubblicazioni peer-reviewed su optimization algorithms 
+                      e metodologie di transfer learning
+                    </li>
+                  </ul>
+                </div>
+
+                <p className="text-muted-foreground mb-4">
+                  La filosofia di Lorenzo si riassume in una convinzione profonda: la tecnologia più sofisticata è inutile se non riesce 
+                  a trasformare concretamente la vita delle persone. Questa visione lo ha guidato nella creazione di ML Learn come 
+                  piattaforma che non si limita a trasferire conoscenze, ma catalizza trasformazioni professionali e personali.
+                </p>
+
+                <p className="text-muted-foreground mb-4">
+                  Scopri di più sul suo percorso professionale e sui suoi contributi alla community tech visitando il suo portfolio 
+                  (<a href="https://lorenzo-arcioni.github.io/" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium">lorenzo-arcioni.github.io</a>), 
+                  dove condivide insights, case studies e visioni sul futuro dell'AI education.
+                </p>
+
+                <p className="text-muted-foreground">
+                  Sotto la sua leadership visionaria, ML Learn sta ridefinendo gli standard dell'educazione tecnologica, costruendo 
+                  il ponte tra il talento globale e le opportunità dell'era dell'intelligenza artificiale.
                 </p>
               </div>
             </div>

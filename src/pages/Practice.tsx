@@ -1,249 +1,415 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Search, Clock, Code, BookOpen, Grid3X3, List, AlertCircle } from 'lucide-react';
 
-import React, { useEffect, useState } from "react";
-import MainLayout from "@/components/layout/MainLayout";
-import { Link, useNavigate } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { AlertCircle, Lock, Search } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { authApi } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+// Dichiarazione di tipo per window.fs
+declare global {
+  interface Window {
+    fs?: {
+      readFile: (filename: string, options?: { encoding?: string }) => Promise<string | Uint8Array>;
+    };
+  }
+}
 
 interface Exercise {
   id: string;
   title: string;
   description: string;
-  difficulty: "Easy" | "Medium" | "Hard" | "Expert";
-  locked: boolean;
+  category: string;
+  tags: string[];
+  estimatedTime: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  prerequisites: string[];
 }
 
-type ExerciseLevel = "beginner" | "intermediate" | "advanced";
-type Exercises = Record<ExerciseLevel, Exercise[]>;
+interface ExercisesData {
+  beginner: Exercise[];
+  intermediate: Exercise[];
+  advanced: Exercise[];
+}
 
-const exercises: Exercises = {
-  beginner: [
-    { id: "linear-regression", title: "Linear Regression", description: "Implement a simple linear regression model", difficulty: "Easy", locked: false },
-    { id: "decision-trees", title: "Decision Trees", description: "Build a decision tree classifier", difficulty: "Medium", locked: false },
-    { id: "data-preprocessing", title: "Data Preprocessing", description: "Implement data preprocessing techniques", difficulty: "Hard", locked: false }
-  ],
-  intermediate: [
-    { id: "kmeans-clustering", title: "K-Means Clustering", description: "Implement K-Means clustering", difficulty: "Medium", locked: true },
-    { id: "random-forest", title: "Random Forest Classifier", description: "Build a random forest classifier", difficulty: "Medium", locked: true },
-    { id: "gradient-descent", title: "Gradient Descent", description: "Implement gradient descent optimization", difficulty: "Hard", locked: true }
-  ],
-  advanced: [
-    { id: "neural-network", title: "Neural Network from Scratch", description: "Build a neural network without frameworks", difficulty: "Hard", locked: true },
-    { id: "cnn-implementation", title: "CNN Implementation", description: "Implement a CNN for image classification", difficulty: "Expert", locked: true },
-    { id: "nlp-transformer", title: "Transformer for NLP", description: "Implement a transformer model for NLP", difficulty: "Expert", locked: true }
-  ]
-};
+type DifficultyLevel = keyof ExercisesData;
+type ViewMode = 'grid' | 'list';
 
-const topics = ["All Topics", "Linear Regression", "Classification", "Neural Networks", "Deep Learning", "NLP", "Computer Vision"] as const;
-
-const Practice = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get("search") || "";
-  const selectedTopic = searchParams.get("topic") || "All Topics";
+export default function Practice() {
   const navigate = useNavigate();
+  const [currentExercisesData, setCurrentExercisesData] = useState<ExercisesData>({
+    beginner: [],
+    intermediate: [],
+    advanced: []
+  });
+  const [loading, setLoading] = useState(true);
+  const [loadingErrors, setLoadingErrors] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('All');
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  const [activeLevel, setActiveLevel] = useState<DifficultyLevel>('beginner');
 
-  // Check authentication status using React Query
-  const { data: isAuthenticated = false, isLoading } = useQuery({
-    queryKey: ['auth-status'],
-    queryFn: async () => {
-      try {
-        const token = localStorage.getItem("ml_academy_token");
-        if (!token) return false;
-        
-        await authApi.getCurrentUser();
-        return true;
-      } catch (error) {
-        console.error("Auth check error:", error);
-        return false;
+  const categories = ['All Categories', 'Supervised Learning', 'Deep Learning', 'Data Processing', 'Optimization', 'NLP', 'Computer Vision', 'Reinforcement Learning'];
+  const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+
+  // Nome del file JSON da caricare
+  const jsonFilename = 'exercise-index.json';
+
+  // Funzione per caricare il file JSON con tutti gli esercizi
+  const loadExercisesJson = async (): Promise<ExercisesData | null> => {
+    try {
+      // Tenta di caricare il file usando window.fs se disponibile (per file caricati dall'utente)
+      if (typeof window !== 'undefined' && window.fs?.readFile) {
+        try {
+          const fileContent = await window.fs.readFile(jsonFilename, { encoding: 'utf8' }) as string;
+          const data = JSON.parse(fileContent);
+          return validateExercisesData(data);
+        } catch (fsError) {
+          console.log(`File ${jsonFilename} not found in uploaded files, trying fetch...`);
+        }
       }
-    },
-  });
 
-  // Get user progress if authenticated
-  const { data: progress } = useQuery({
-    queryKey: ['user-progress'],
-    queryFn: authApi.getUserProgress,
-    enabled: isAuthenticated,
-  });
-
-  const handleSearch = (value: string) => {
-    searchParams.set("search", value);
-    setSearchParams(searchParams);
+      // Fallback: tenta di caricare via fetch (per file nel progetto)
+      const response = await fetch(`/data/${jsonFilename}`);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const data = await response.json();
+      return validateExercisesData(data);
+    } catch (error) {
+      console.warn(`Failed to load ${jsonFilename}:`, error);
+      return null;
+    }
   };
 
-  const handleTopicChange = (value: string) => {
-    searchParams.set("topic", value);
-    setSearchParams(searchParams);
+  // Funzione per validare e normalizzare i dati caricati
+  const validateExercisesData = (data: any): ExercisesData => {
+    const result: ExercisesData = {
+      beginner: [],
+      intermediate: [],
+      advanced: []
+    };
+
+    if (data && typeof data === 'object') {
+      if (Array.isArray(data.beginner)) {
+        result.beginner = data.beginner;
+      }
+      if (Array.isArray(data.intermediate)) {
+        result.intermediate = data.intermediate;
+      }
+      if (Array.isArray(data.advanced)) {
+        result.advanced = data.advanced;
+      }
+    }
+
+    return result;
+  };
+
+  // Carica tutti gli esercizi dal file JSON
+  useEffect(() => {
+    const loadAllExercises = async () => {
+      setLoading(true);
+      setLoadingErrors([]);
+      
+      const exercisesData = await loadExercisesJson();
+      
+      if (exercisesData) {
+        setCurrentExercisesData(exercisesData);
+        console.log(`Loaded exercises:`, {
+          beginner: exercisesData.beginner.length,
+          intermediate: exercisesData.intermediate.length,
+          advanced: exercisesData.advanced.length
+        });
+        
+        // Imposta il tab attivo sul primo livello che ha esercizi
+        const availableLevels: DifficultyLevel[] = ['beginner', 'intermediate', 'advanced'];
+        const firstAvailableLevel = availableLevels.find(level => exercisesData[level].length > 0);
+        if (firstAvailableLevel) {
+          setActiveLevel(firstAvailableLevel);
+        }
+      } else {
+        setLoadingErrors([`Could not load ${jsonFilename}`]);
+      }
+
+      setLoading(false);
+    };
+
+    loadAllExercises();
+  }, []);
+
+  const getDifficultyColor = (difficulty: Exercise['difficulty']) => {
+    switch (difficulty) {
+      case 'Beginner': return 'bg-green-500';
+      case 'Intermediate': return 'bg-yellow-500';
+      case 'Advanced': return 'bg-red-500';
+      default: return 'bg-gray-500';
+    }
   };
 
   const filterExercises = (exercises: Exercise[]) => {
-    return exercises.filter((exercise) => {
-      const matchesSearch = exercise.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        exercise.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesTopic = selectedTopic === "All Topics" || exercise.title.includes(selectedTopic);
-      return matchesSearch && matchesTopic;
+    return exercises.filter(exercise => {
+      const searchLower = searchQuery.toLowerCase();
+      const matchesSearch =
+        exercise.title.toLowerCase().includes(searchLower) ||
+        exercise.description.toLowerCase().includes(searchLower) ||
+        exercise.tags.some(tag => tag.toLowerCase().includes(searchLower));
+      const matchesCategory = selectedCategory === 'All Categories' || exercise.category === selectedCategory;
+      const matchesDifficulty = selectedDifficulty === 'All' || exercise.difficulty === selectedDifficulty;
+      return matchesSearch && matchesCategory && matchesDifficulty;
     });
   };
 
-  return (
-    <MainLayout>
-      <div className="container py-12">
-        <div className="mb-10">
-          <h1 className="text-4xl font-bold mb-4">Practice</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            Apply your knowledge with hands-on coding exercises.
-          </p>
-  
-          {isAuthenticated && progress && (
-            <div className="mt-6 p-4 border rounded-lg bg-primary/5">
-              <div className="flex flex-col md:flex-row justify-between gap-4 items-center">
-                <div>
-                  <h3 className="font-medium">Your Progress</h3>
-                  <p className="text-sm text-muted-foreground">
-                    You've completed {progress.solved_exercises} out of {progress.total_exercises} exercises
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex flex-col items-center">
-                    <span className="text-lg font-bold text-primary">{Math.round(progress.progress_percentage)}%</span>
-                    <span className="text-xs text-muted-foreground">Progress</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <span className="text-lg font-bold text-primary">{progress.points}</span>
-                    <span className="text-xs text-muted-foreground">Points</span>
-                  </div>
-                  <Button variant="outline" onClick={() => navigate('/profile')}>
-                    View Profile
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-  
-          {!isAuthenticated && !isLoading && (
-            <Alert className="mt-6 border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100">
-              <AlertCircle className="h-4 w-4 mr-2" />
-              <AlertDescription>
-                You need to <Link to="/login" className="font-medium underline">log in</Link> to submit solutions and track your progress. Some exercises are only available to registered users.
-              </AlertDescription>
-            </Alert>
-          )}
+  const handleStartExercise = (id: string) => {
+    navigate(`/exercise/${id}`);
+  };
+
+  // Funzione per ricaricare i dati
+  const handleReload = () => {
+    window.location.reload();
+  };
+
+  const ExerciseCard: React.FC<{ exercise: Exercise; viewMode: ViewMode }> = ({ exercise, viewMode }) => (
+    <Card className={`transition-all duration-300 hover:shadow-lg cursor-pointer ${viewMode === 'list' ? 'flex' : ''}`}>
+      <CardHeader className={viewMode === 'list' ? 'flex-shrink-0 w-80' : ''}>
+        <div className="flex gap-2 flex-wrap mb-2">
+          <Badge className={getDifficultyColor(exercise.difficulty)}>{exercise.difficulty}</Badge>
+          <Badge variant="outline">{exercise.category}</Badge>
         </div>
-  
-        {/* Resto del codice della pagina di pratica */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search exercises..."
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
-              className="pl-9"
-            />
-          </div>
-          <Select value={selectedTopic} onValueChange={handleTopicChange}>
-            <SelectTrigger className="w-full md:w-[200px]">
-              <SelectValue placeholder="Select topic" />
-            </SelectTrigger>
-            <SelectContent>
-              {topics.map((topic) => (
-                <SelectItem key={topic} value={topic}>
-                  {topic}
-                </SelectItem>
+        <CardTitle className="text-lg">{exercise.title}</CardTitle>
+        <div className="flex items-center gap-4 text-sm text-gray-500 mt-2">
+          <Clock className="h-4 w-4" /> {exercise.estimatedTime}
+        </div>
+      </CardHeader>
+      <CardContent className={viewMode === 'list' ? 'flex-1' : ''}>
+        <p className="text-gray-600 mb-4">{exercise.description}</p>
+        <div className="space-y-3">
+          <div>
+            <h4 className="text-sm font-medium mb-1">Prerequisites:</h4>
+            <div className="flex gap-1 flex-wrap">
+              {exercise.prerequisites.map(prereq => (
+                <Badge key={prereq} variant="secondary" className="text-xs">{prereq}</Badge>
               ))}
-            </SelectContent>
-          </Select>
+            </div>
+          </div>
+          <div>
+            <h4 className="text-sm font-medium mb-1">Technologies:</h4>
+            <div className="flex gap-1 flex-wrap">
+              {exercise.tags.map(tag => (
+                <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
+              ))}
+            </div>
+          </div>
         </div>
-  
-        <Tabs defaultValue="beginner" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="beginner">Beginner</TabsTrigger>
-            <TabsTrigger value="intermediate">Intermediate</TabsTrigger>
-            <TabsTrigger value="advanced">Advanced</TabsTrigger>
-          </TabsList>
-  
-          {(["beginner", "intermediate", "advanced"] as const).map((level) => (
-            <TabsContent key={level} value={level} className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filterExercises(exercises[level]).map((exercise) => (
-                  <Card key={exercise.id} className={`card-hover ${exercise.locked ? 'opacity-80' : ''}`}>
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <Badge className={
-                          exercise.difficulty === "Easy" ? "bg-green-500" :
-                          exercise.difficulty === "Medium" ? "bg-amber-500" :
-                          exercise.difficulty === "Hard" ? "bg-red-500" : "bg-purple-600"
-                        }>
-                          {exercise.difficulty}
-                        </Badge>
-                        {exercise.locked && (
-                          <Lock className="h-5 w-5 text-muted-foreground" />
-                        )}
-                      </div>
-                      <CardTitle className="mt-2">{exercise.title}</CardTitle>
-                      <CardDescription>{exercise.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      {exercise.locked && !isAuthenticated ? (
-                        <p className="text-sm text-muted-foreground">
-                          This exercise is available only for registered users.
-                        </p>
-                      ) : (
-                        <p className="text-sm text-muted-foreground">
-                          Complete this coding challenge to test your understanding.
-                        </p>
-                      )}
-                    </CardContent>
-                    <CardFooter>
-                      {exercise.locked && !isAuthenticated ? (
-                        <Link
-                          to="/signup"
-                          className="text-sm font-medium text-primary hover:underline"
-                        >
-                          Create account to unlock →
-                        </Link>
-                      ) : (
-                        <Link
-                          to={`/practice/${exercise.id}`}
-                          className="text-sm font-medium text-primary hover:underline"
-                        >
-                          Start exercise →
-                        </Link>
-                      )}
-                    </CardFooter>
-                  </Card>
-                ))}
+        <div className="flex gap-2 mt-4">
+          <Button className="flex-1" onClick={() => handleStartExercise(exercise.id)}>
+            <Code className="h-4 w-4 mr-2" /> Start Exercise
+          </Button>
+          <Button variant="outline" size="icon" title="View Documentation">
+            <BookOpen className="h-4 w-4" />
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading exercises...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const totalExercises = currentExercisesData.beginner.length + currentExercisesData.intermediate.length + currentExercisesData.advanced.length;
+
+  // Se non ci sono esercizi caricati
+  if (totalExercises === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto py-8 px-4">
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-2">Machine Learning Practice</h1>
+            <p className="text-gray-600 text-lg">
+              Master machine learning through hands-on coding exercises.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg border p-8 text-center">
+            <AlertCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+            <h2 className="text-2xl font-semibold mb-2">No Exercise File Found</h2>
+            <p className="text-gray-600 mb-4">
+              Could not load the exercises file. Make sure the following file is available:
+            </p>
+            <ul className="text-sm text-gray-500 mb-6 space-y-1">
+              <li>• /data/exercise-index.json</li>
+            </ul>
+            {loadingErrors.length > 0 && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                <h3 className="text-sm font-medium text-red-800 mb-2">Loading Errors:</h3>
+                <ul className="text-sm text-red-600 space-y-1">
+                  {loadingErrors.map((error, index) => (
+                    <li key={index}>• {error}</li>
+                  ))}
+                </ul>
               </div>
-            </TabsContent>
-          ))}
+            )}
+            <Button onClick={handleReload}>
+              Try Again
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto py-8 px-4">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">Machine Learning Practice</h1>
+          <p className="text-gray-600 text-lg">
+            Master machine learning through hands-on coding exercises. {totalExercises} exercises available.
+          </p>
+        </div>
+
+        {/* Mostra eventuali errori di caricamento */}
+        {loadingErrors.length > 0 && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center gap-2 mb-2">
+              <AlertCircle className="h-4 w-4 text-yellow-600" />
+              <h3 className="text-sm font-medium text-yellow-800">Could not load exercises file:</h3>
+            </div>
+            <ul className="text-sm text-yellow-700 space-y-1">
+              {loadingErrors.map((error, index) => (
+                <li key={index}>• {error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Filters */}
+        <div className="bg-white rounded-lg border p-6 mb-8 shadow-sm">
+          <div className="flex flex-col lg:flex-row gap-4 items-center">
+            <div className="relative flex-1 min-w-0">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Input
+                placeholder="Search exercises, tags, or categories..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-48">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map(category => (
+                  <SelectItem key={category} value={category}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={selectedDifficulty} onValueChange={setSelectedDifficulty}>
+              <SelectTrigger className="w-32">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {difficulties.map(diff => (
+                  <SelectItem key={diff} value={diff}>
+                    {diff}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <div className="flex border rounded-md">
+              <Button 
+                variant={viewMode === 'grid' ? 'default' : 'ghost'} 
+                size="sm" 
+                onClick={() => setViewMode('grid')}
+                className="rounded-r-none"
+              >
+                <Grid3X3 className="h-4 w-4" />
+              </Button>
+              <Button 
+                variant={viewMode === 'list' ? 'default' : 'ghost'} 
+                size="sm" 
+                onClick={() => setViewMode('list')}
+                className="rounded-l-none"
+              >
+                <List className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <Tabs value={activeLevel} onValueChange={(val) => setActiveLevel(val as DifficultyLevel)} className="w-full">
+          <TabsList className="grid w-full max-w-md grid-cols-3 mb-6">
+            <TabsTrigger value="beginner" disabled={currentExercisesData.beginner.length === 0}>
+              Beginner ({currentExercisesData.beginner.length})
+            </TabsTrigger>
+            <TabsTrigger value="intermediate" disabled={currentExercisesData.intermediate.length === 0}>
+              Intermediate ({currentExercisesData.intermediate.length})
+            </TabsTrigger>
+            <TabsTrigger value="advanced" disabled={currentExercisesData.advanced.length === 0}>
+              Advanced ({currentExercisesData.advanced.length})
+            </TabsTrigger>
+          </TabsList>
+
+          {(['beginner', 'intermediate', 'advanced'] as DifficultyLevel[]).map(level => {
+            const filteredExercises = filterExercises(currentExercisesData[level]);
+            
+            return (
+              <TabsContent key={level} value={level}>
+                {filteredExercises.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="mb-4">
+                      <Search className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                      <p className="text-gray-500 text-lg mb-2">No exercises found</p>
+                      <p className="text-gray-400">
+                        {currentExercisesData[level].length === 0
+                          ? `No ${level} exercises available`
+                          : searchQuery || selectedCategory !== 'All Categories' || selectedDifficulty !== 'All'
+                          ? 'Try adjusting your filters'
+                          : 'No exercises available in this category'}
+                      </p>
+                    </div>
+                    {(searchQuery || selectedCategory !== 'All Categories' || selectedDifficulty !== 'All') && (
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setSearchQuery('');
+                          setSelectedCategory('All Categories');
+                          setSelectedDifficulty('All');
+                        }}
+                      >
+                        Clear All Filters
+                      </Button>
+                    )}
+                  </div>
+                ) : (
+                  <div className={viewMode === 'grid' 
+                    ? 'grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6' 
+                    : 'space-y-4'
+                  }>
+                    {filteredExercises.map(exercise => (
+                      <ExerciseCard key={exercise.id} exercise={exercise} viewMode={viewMode} />
+                    ))}
+                  </div>
+                )}
+              </TabsContent>
+            );
+          })}
         </Tabs>
       </div>
-    </MainLayout>
+    </div>
   );
-};
-
-// Add missing Button component import
-import { Button } from "@/components/ui/button";
-
-export default Practice;
+}

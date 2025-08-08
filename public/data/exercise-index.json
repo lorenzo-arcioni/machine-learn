@@ -1,0 +1,78 @@
+{
+  "beginner": [
+    {
+      "id": "linear-regression-basics",
+      "title": "Linear Regression Implementation",
+      "description": "Implement linear regression from scratch using NumPy. Learn the mathematical foundations and code the algorithm step by step.",
+      "category": "Supervised Learning",
+      "tags": ["NumPy", "Mathematics", "Regression"],
+      "estimatedTime": "45 min",
+      "difficulty": "Beginner",
+      "prerequisites": ["Python Basics", "NumPy"]
+    }
+  ],
+  "intermediate": [
+    {
+      "id": "logistic-regression-basics",
+      "title": "Logistic Regression Implementation",
+      "description": "Implement logistic regression from scratch using NumPy. Learn the mathematical foundations and code the algorithm step by step.",
+      "category": "Supervised Learning",
+      "tags": ["NumPy", "Mathematics", "Classification"],
+      "estimatedTime": "60 min",
+      "difficulty": "Intermediate",
+      "prerequisites": ["Linear Regression", "Python Basics"]
+    },
+    {
+      "id": "decision-tree-basics",
+      "title": "Decision Tree Implementation",
+      "description": "Implement a decision tree from scratch using NumPy. Learn the mathematical foundations and code the algorithm step by step.",
+      "category": "Supervised Learning",
+      "tags": ["NumPy", "Mathematics", "Classification"],
+      "estimatedTime": "60 min",
+      "difficulty": "Intermediate",
+      "prerequisites": ["Linear Regression", "Python Basics"]
+    }
+  ],
+  "advanced": [
+    {
+      "id": "transformer-implementation",
+      "title": "Transformer Architecture",
+      "description": "Implement the Transformer model for NLP tasks with multi-head attention, positional encoding, and layer normalization.",
+      "category": "NLP",
+      "tags": ["Transformers", "Attention", "PyTorch", "NLP"],
+      "estimatedTime": "180 min",
+      "difficulty": "Advanced",
+      "prerequisites": ["Neural Networks", "PyTorch", "NLP Basics"]
+    },
+    {
+      "id": "gan-implementation",
+      "title": "Generative Adversarial Networks",
+      "description": "Build a GAN from scratch to generate synthetic images, understanding the adversarial training process.",
+      "category": "Deep Learning",
+      "tags": ["GANs", "Generative Models", "PyTorch", "Computer Vision"],
+      "estimatedTime": "150 min",
+      "difficulty": "Advanced",
+      "prerequisites": ["Neural Networks", "PyTorch", "Computer Vision"]
+    },
+    {
+      "id": "reinforcement-learning-dqn",
+      "title": "Deep Q-Network (DQN)",
+      "description": "Implement a Deep Q-Network agent to solve classic control problems using reinforcement learning.",
+      "category": "Reinforcement Learning",
+      "tags": ["RL", "DQN", "PyTorch", "OpenAI Gym"],
+      "estimatedTime": "200 min",
+      "difficulty": "Advanced",
+      "prerequisites": ["Neural Networks", "PyTorch", "RL Basics"]
+    },
+    {
+      "id": "computer-vision-cnn",
+      "title": "Convolutional Neural Networks",
+      "description": "Build a CNN architecture for image classification with convolution, pooling, and batch normalization layers.",
+      "category": "Computer Vision",
+      "tags": ["CNN", "Computer Vision", "PyTorch", "Image Processing"],
+      "estimatedTime": "160 min",
+      "difficulty": "Advanced",
+      "prerequisites": ["Neural Networks", "PyTorch", "Linear Algebra"]
+    }
+  ]
+}

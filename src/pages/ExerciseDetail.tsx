@@ -1,310 +1,522 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { 
+  ArrowLeft, 
+  Clock, 
+  BookOpen, 
+  Copy,
+  Download,
+  ExternalLink,
+  Loader2,
+  Github,
+  Check,
+  Play
+} from 'lucide-react';
+import Gist from 'react-gist';
 
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import MainLayout from "@/components/layout/MainLayout";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertCircle, CheckCircle, DownloadCloud, RotateCcw } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge"; // Added missing import
-import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+// Componente per mostrare il Gist
+const GistViewer = ({ gistUrl, filename }) => {
+  const [gistId, setGistId] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [gistData, setGistData] = useState(null);
+  const [copySuccess, setCopySuccess] = useState(false);
 
-// This would be fetched from the API in a real application
-const exerciseData = {
-  "linear-regression": {
-    title: "Linear Regression Implementation",
-    description: "In this exercise, you will implement a simple linear regression model from scratch using NumPy.",
-    instructions: [
-      "Implement the `compute_coefficients` function to calculate the slope and intercept using the normal equation.",
-      "Create a `predict` function that uses the coefficients to make predictions on new data.",
-      "Implement the `compute_r_squared` function to evaluate your model's performance.",
-    ],
-    hints: [
-      "Remember that the normal equation is β = (X^T X)^(-1) X^T y",
-      "For prediction, use the formula y = mx + b",
-      "R² compares the model's predictions to the mean of the target variable",
-    ],
-    testCases: [
-      "Test with a simple dataset where X = [1, 2, 3, 4, 5] and y = [2, 4, 5, 4, 6]",
-      "Verify correct coefficient calculation",
-      "Test prediction accuracy on both training and test data",
-    ],
-    startingCode: `import numpy as np
+  useEffect(() => {
+    if (gistUrl) {
+      try {
+        // Estrae l'ID del Gist dall'URL
+        const id = gistUrl.split('/').pop()?.replace('.js', '');
+        if (id) {
+          setGistId(id);
+          setError(null);
+          fetchGistData(id);
+        } else {
+          setError('Invalid Gist URL');
+          setIsLoading(false);
+        }
+      } catch (err) {
+        setError('Failed to parse Gist URL');
+        setIsLoading(false);
+        console.error('Error parsing Gist URL:', err);
+      }
+    }
+  }, [gistUrl]);
 
-def compute_coefficients(X, y):
-    """
-    Compute the coefficients for linear regression using the normal equation.
-    
-    Parameters:
-    X (numpy.ndarray): Training data of shape (n_samples, 1)
-    y (numpy.ndarray): Target values of shape (n_samples,)
-    
-    Returns:
-    tuple: (slope, intercept)
-    """
-    # TODO: Implement this function
-    pass
-
-def predict(X, slope, intercept):
-    """
-    Make predictions using the linear regression model.
-    
-    Parameters:
-    X (numpy.ndarray): Data to predict on, shape (n_samples, 1)
-    slope (float): Slope coefficient
-    intercept (float): Intercept coefficient
-    
-    Returns:
-    numpy.ndarray: Predictions of shape (n_samples,)
-    """
-    # TODO: Implement this function
-    pass
-
-def compute_r_squared(y_true, y_pred):
-    """
-    Compute the coefficient of determination (R^2) for the model.
-    
-    Parameters:
-    y_true (numpy.ndarray): True target values
-    y_pred (numpy.ndarray): Predicted target values
-    
-    Returns:
-    float: The R^2 score
-    """
-    # TODO: Implement this function
-    pass
-
-# Example usage:
-if __name__ == "__main__":
-    # Sample data
-    X = np.array([[1], [2], [3], [4], [5]])
-    y = np.array([2, 4, 5, 4, 6])
-    
-    # Compute coefficients
-    slope, intercept = compute_coefficients(X, y)
-    print(f"Slope: {slope}, Intercept: {intercept}")
-    
-    # Make predictions
-    predictions = predict(X, slope, intercept)
-    print(f"Predictions: {predictions}")
-    
-    # Compute R^2 score
-    r2 = compute_r_squared(y, predictions)
-    print(f"R^2 Score: {r2}")
-`,
-  },
-};
-
-interface TestResult {
-  id: number;
-  status: "passed" | "failed";
-  description: string;
-  message: string;
-}
-
-interface Submission {
-  id: number;
-  timestamp: string;
-  status: "passed" | "failed";
-  score: number;
-}
-
-const ExerciseDetail = () => {
-  const { exerciseId } = useParams();
-  const [code, setCode] = useState(exerciseData[exerciseId as keyof typeof exerciseData]?.startingCode || "");
-  const [testResults, setTestResults] = useState<TestResult[]>([]);
-  const [submissions, setSubmissions] = useState<Submission[]>([
-    { id: 1, timestamp: "2024-04-17 10:30", status: "passed", score: 100 },
-    { id: 2, timestamp: "2024-04-17 10:15", status: "failed", score: 0 },
-  ]);
-
-  const exercise = exerciseData[exerciseId as keyof typeof exerciseData] || {
-    title: "Exercise Not Found",
-    description: "This exercise does not exist or has been removed.",
-    instructions: [],
-    hints: [],
-    testCases: [],
-    startingCode: "",
+  const fetchGistData = async (id) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`https://api.github.com/gists/${id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch Gist data');
+      }
+      const data = await response.json();
+      setGistData(data);
+      
+      // Simula un piccolo delay per mostrare il loading
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 800);
+    } catch (err) {
+      setError('Failed to load Gist data');
+      setIsLoading(false);
+      console.error('Error fetching Gist data:', err);
+    }
   };
 
-  const handleSubmit = () => {
-    // Mock test results - in a real app, this would come from the backend
-    setTestResults([
-      { id: 1, status: "passed", description: "Basic functionality", message: "All basic tests passed" },
-      { id: 2, status: "failed", description: "Edge cases", message: "Failed on input [0, 0, 0]" },
-    ]);
+  const getMainPythonFile = () => {
+    if (!gistData?.files) return null;
+    
+    if (filename && gistData.files[filename]) {
+      return gistData.files[filename];
+    }
+    
+    // Trova il primo file .py o .ipynb
+    const pythonFile = Object.values(gistData.files).find((file: any) => 
+      file.filename?.endsWith('.py') || file.filename?.endsWith('.ipynb')
+    );
+    
+    return pythonFile || Object.values(gistData.files)[0];
   };
 
-  const handleReset = () => {
-    setCode(exercise.startingCode);
+  const handleCopyCode = async () => {
+    const file = getMainPythonFile();
+    if (file?.content) {
+      try {
+        await navigator.clipboard.writeText(file.content);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      } catch (err) {
+        console.error('Failed to copy code:', err);
+      }
+    }
   };
 
-  const handleDownload = () => {
-    const blob = new Blob([code], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${exerciseId}-solution.py`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const handleDownloadCode = () => {
+    const file = getMainPythonFile();
+    if (file?.content) {
+      const blob = new Blob([file.content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = (file as any).filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   };
 
-  return (
-    <MainLayout>
-      <div className="container py-6">
-        <h1 className="text-3xl font-bold mb-4">{exercise.title}</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Instructions Panel */}
-          <Card className="w-full h-[800px] flex flex-col">
-            <CardHeader>
-              <CardTitle>Instructions</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-1">
-              <Tabs defaultValue="description" className="h-full flex flex-col">
-                <TabsList className="w-full justify-start mb-4">
-                  <TabsTrigger value="description">Description</TabsTrigger>
-                  <TabsTrigger value="hints">Hints</TabsTrigger>
-                  <TabsTrigger value="submissions">Submissions</TabsTrigger>
-                </TabsList>
-                
-                <ScrollArea className="flex-1">
-                  <TabsContent value="description" className="mt-0">
-                    <div className="space-y-4">
-                      <p className="text-muted-foreground">{exercise.description}</p>
-                      <div>
-                        <h3 className="font-semibold mb-2">Instructions:</h3>
-                        <ol className="list-decimal pl-5 space-y-2 text-muted-foreground">
-                          {exercise.instructions.map((instruction, index) => (
-                            <li key={index}>{instruction}</li>
-                          ))}
-                        </ol>
-                      </div>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="hints" className="mt-0">
-                    <div className="space-y-4">
-                      <h3 className="font-semibold">Helpful Hints:</h3>
-                      <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                        {exercise.hints.map((hint, index) => (
-                          <li key={index}>{hint}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </TabsContent>
+  const handleOpenInColab = () => {
+    const file = getMainPythonFile();
+    if (file?.content && gistUrl) {
+      // URL per aprire direttamente in Colab
+      const colabUrl = `https://colab.research.google.com/gist/${gistUrl.split('/').pop()}`;
+      window.open(colabUrl, '_blank');
+    }
+  };
 
-                  <TabsContent value="submissions" className="mt-0">
-                    <div className="space-y-4">
-                      <h3 className="font-semibold">Your Submissions:</h3>
-                      <div className="space-y-2">
-                        {submissions.map((submission) => (
-                          <div
-                            key={submission.id}
-                            className={cn(
-                              "p-4 rounded-lg",
-                              submission.status === "passed"
-                                ? "bg-green-50 border border-green-200"
-                                : "bg-red-50 border border-red-200"
-                            )}
-                          >
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm">
-                                {submission.timestamp}
-                              </span>
-                              <Badge
-                                className={cn(
-                                  submission.status === "passed"
-                                    ? "bg-green-500"
-                                    : "bg-red-500"
-                                )}
-                              >
-                                {submission.status} - Score: {submission.score}
-                              </Badge>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </TabsContent>
-                </ScrollArea>
-              </Tabs>
-            </CardContent>
-          </Card>
+  if (error) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-red-500 mb-4">{error}</p>
+        <Button variant="outline" asChild>
+          <a href={gistUrl} target="_blank" rel="noopener noreferrer">
+            <ExternalLink className="h-4 w-4 mr-2" />
+            View on GitHub
+          </a>
+        </Button>
+      </div>
+    );
+  }
 
-          {/* Code Editor Panel */}
-          <Card className="w-full h-[800px] flex flex-col">
-            <CardHeader className="flex-none border-b">
-              <div className="flex justify-between items-center">
-                <CardTitle>Code Editor</CardTitle>
-                <div className="space-x-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleReset}
-                    className="gap-1"
-                  >
-                    <RotateCcw className="h-4 w-4" />
-                    Reset
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleDownload}
-                    className="gap-1"
-                  >
-                    <DownloadCloud className="h-4 w-4" />
-                    Download
-                  </Button>
-                  <Button size="sm" onClick={handleSubmit}>
-                    Submit Solution
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-1 p-0">
-              <textarea
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                className="font-mono text-sm w-full h-full p-4 bg-ml-code-bg text-ml-code-text resize-none focus:outline-none border-none"
-              />
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Test Results */}
-        {testResults.length > 0 && (
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold mb-4">Test Results</h2>
-            <div className="space-y-4">
-              {testResults.map((result) => (
-                <Alert
-                  key={result.id}
-                  className={cn(
-                    result.status === "passed"
-                      ? "border-green-200 bg-green-50 text-green-900"
-                      : "border-red-200 bg-red-50 text-red-900"
-                  )}
-                >
-                  {result.status === "passed" ? (
-                    <CheckCircle className="h-4 w-4" />
-                  ) : (
-                    <AlertCircle className="h-4 w-4" />
-                  )}
-                  <AlertTitle>{result.description}</AlertTitle>
-                  <AlertDescription>{result.message}</AlertDescription>
-                </Alert>
-              ))}
+  if (isLoading) {
+    return (
+      <div className="relative">
+        {/* Loading Overlay */}
+        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-10 rounded-lg">
+          <div className="text-center">
+            <div className="relative">
+              <Loader2 className="h-8 w-8 animate-spin mx-auto mb-3 text-blue-600" />
+              <div className="absolute inset-0 rounded-full border-2 border-blue-100 animate-pulse"></div>
+            </div>
+            <p className="text-gray-600 font-medium">Loading Python code...</p>
+            <div className="mt-2 flex justify-center space-x-1">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
             </div>
           </div>
+        </div>
+        
+        {/* Placeholder content */}
+        <div className="min-h-[400px] bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center">
+          <div className="text-center text-gray-400">
+            <Github className="h-12 w-12 mx-auto mb-2 opacity-50" />
+            <p>Preparing code...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!gistId) {
+    return (
+      <div className="text-center py-8">
+        <Loader2 className="h-6 w-6 animate-spin mx-auto mb-2" />
+        <p className="text-gray-500">Loading Gist...</p>
+      </div>
+    );
+  }
+
+  const mainFile = getMainPythonFile();
+
+  return (
+    <div className="space-y-4">
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-2 justify-end">
+        <Button 
+          size="sm" 
+          variant="outline"
+          onClick={handleOpenInColab}
+          className="bg-orange-50 hover:bg-orange-100 border-orange-200 text-orange-700"
+        >
+          <Play className="h-4 w-4 mr-2" />
+          Open in Colab
+        </Button>
+        
+        <Button 
+          size="sm" 
+          variant="outline" 
+          onClick={handleCopyCode}
+          className="relative"
+        >
+          {copySuccess ? (
+            <>
+              <Check className="h-4 w-4 mr-2 text-green-600" />
+              Copied!
+            </>
+          ) : (
+            <>
+              <Copy className="h-4 w-4 mr-2" />
+              Copy Code
+            </>
+          )}
+        </Button>
+        
+        <Button 
+          size="sm" 
+          variant="outline" 
+          onClick={handleDownloadCode}
+          disabled={!mainFile}
+        >
+          <Download className="h-4 w-4 mr-2" />
+          Download
+        </Button>
+      </div>
+
+      {/* Gist Content */}
+      <div className="gist-container">
+        {filename ? (
+          <Gist id={gistId} file={filename} />
+        ) : (
+          <Gist id={gistId} />
         )}
       </div>
-    </MainLayout>
+
+      {/* File Info */}
+      {mainFile && (
+        <div className="text-sm text-gray-500 mt-2">
+          <span className="font-medium">{(mainFile as any).filename}</span>
+          {(mainFile as any).size && (
+            <span className="ml-2">({((mainFile as any).size / 1024).toFixed(1)} KB)</span>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
-export default ExerciseDetail;
+export default function ExerciseDetail() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [exerciseData, setExerciseData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState("problem");
+
+  // Aggiungi gli stili CSS per i Gist
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .gist-container .gist {
+        font-size: 14px !important;
+      }
+      .gist-container .gist .gist-file {
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+      }
+      .gist-container .gist .gist-meta {
+        background: #f9fafb !important;
+        border-top: 1px solid #e5e7eb !important;
+        padding: 12px 16px !important;
+      }
+      .gist-container .gist .highlight {
+        background: #1f2937 !important;
+      }
+      .gist-container .gist .blob-code-inner {
+        font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace !important;
+      }
+      
+      /* Loading animation styles */
+      @keyframes shimmer {
+        0% {
+          background-position: -468px 0;
+        }
+        100% {
+          background-position: 468px 0;
+        }
+      }
+      
+      .loading-shimmer {
+        animation: shimmer 1.5s infinite linear;
+        background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+        background-size: 800px 104px;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  // Carica i dati dell'esercizio
+  useEffect(() => {
+    const loadExercise = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/data/exercises/${id}.json`);
+        if (!response.ok) {
+          throw new Error('Exercise not found');
+        }
+        const data = await response.json();
+        setExerciseData(data);
+      } catch (err) {
+        setError(err.message || 'Failed to load exercise');
+        console.error('Error loading exercise:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadExercise();
+  }, [id]);
+
+  const getDifficultyColor = (difficulty) => {
+    switch (difficulty) {
+      case "Beginner": return "bg-green-500";
+      case "Intermediate": return "bg-yellow-500";
+      case "Advanced": return "bg-red-500";
+      default: return "bg-gray-500";
+    }
+  };
+
+  const handleBack = () => {
+    navigate('/practice');
+  };
+
+  const handleTabChange = (value) => {
+    setActiveTab(value);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+          <p>Loading exercise...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Exercise Not Found</h1>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <div className="space-x-4">
+            <Button onClick={handleBack}>Go Back</Button>
+            <Button variant="outline" onClick={() => navigate('/practice')}>
+              Browse Exercises
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!exerciseData) return null;
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto py-6 px-4">
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-6">
+          <Button variant="outline" size="sm" onClick={handleBack}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Practice
+          </Button>
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <Badge className={getDifficultyColor(exerciseData.difficulty)}>
+                {exerciseData.difficulty}
+              </Badge>
+              <Badge variant="outline">{exerciseData.category}</Badge>
+              <div className="flex items-center gap-1 text-sm text-gray-500">
+                <Clock className="h-4 w-4" />
+                {exerciseData.estimatedTime}
+              </div>
+            </div>
+            <h1 className="text-3xl font-bold">{exerciseData.title}</h1>
+            <p className="text-gray-600 mt-1">{exerciseData.description}</p>
+          </div>
+        </div>
+
+        {/* Prerequisites */}
+        {exerciseData.prerequisites?.length > 0 && (
+          <Alert className="mb-6 border-blue-200 bg-blue-50">
+            <BookOpen className="h-4 w-4" />
+            <AlertDescription>
+              <strong>Prerequisites:</strong> {exerciseData.prerequisites.join(", ")}
+            </AlertDescription>
+          </Alert>
+        )}
+
+        <div className={`grid grid-cols-1 gap-6 ${activeTab === "problem" ? "lg:grid-cols-5" : "lg:grid-cols-1"}`}>
+          {/* Left Column - Problem and Solution */}
+          <div className={`space-y-6 ${activeTab === "problem" ? "lg:col-span-4" : "lg:col-span-1"}`}>
+            <Tabs value={activeTab} onValueChange={handleTabChange}>
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="problem">Problem</TabsTrigger>
+                <TabsTrigger value="solution">Solution</TabsTrigger>
+              </TabsList>
+
+              {/* Problem */}
+              <TabsContent value="problem" className="mt-6">
+                <Card className="min-h-[600px]">
+                  <CardHeader>
+                    <CardTitle>Problem Statement</CardTitle>
+                  </CardHeader>
+                  <CardContent className="prose max-w-none pb-8">
+                    <h3 className="text-lg font-semibold mb-2">Overview</h3>
+                    <p>{exerciseData.problemStatement?.overview}</p>
+
+                    <h3 className="text-lg font-semibold mt-6 mb-2">Learning Objectives</h3>
+                    <ul className="list-disc list-inside space-y-1">
+                      {exerciseData.problemStatement?.objectives?.map((obj, idx) => (
+                        <li key={idx}>{obj}</li>
+                      ))}
+                    </ul>
+
+                    <h3 className="text-lg font-semibold mt-6 mb-2">Context</h3>
+                    <p className="mb-6">{exerciseData.problemStatement?.context}</p>
+
+                    <div className="flex gap-2 flex-wrap mt-6">
+                      {exerciseData.tags?.map((tag) => (
+                        <Badge key={tag} variant="secondary">{tag}</Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* Solution */}
+              <TabsContent value="solution" className="mt-6">
+                <Card className="min-h-[600px]">
+                  <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle className="flex items-center gap-2">
+                      <Github className="h-5 w-5" />
+                      Python Solution
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-8">
+                    {exerciseData.githubSolutionUrl ? (
+                      <GistViewer 
+                        gistUrl={exerciseData.githubSolutionUrl}
+                        filename={null} // Se vuoi mostrare un file specifico, passa il nome qui
+                      />
+                    ) : (
+                      <div className="text-center py-8">
+                        <p className="text-gray-500 italic">No solution available</p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </div>
+
+          {/* Right Column - Show only when Problem tab is active */}
+          {activeTab === "problem" && (
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {exerciseData.githubSolutionUrl && (
+                    <Button className="w-full" asChild>
+                      <a 
+                        href={exerciseData.githubSolutionUrl.replace('.js', '')} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="h-4 w-4 mr-2" />
+                        Open Gist
+                      </a>
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Exercise Info</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="text-sm font-medium">Difficulty</h4>
+                    <Badge className={getDifficultyColor(exerciseData.difficulty)}>
+                      {exerciseData.difficulty}
+                    </Badge>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-medium">Category</h4>
+                    <Badge variant="outline">{exerciseData.category}</Badge>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-medium">Estimated Time</h4>
+                    <div className="flex items-center gap-1 text-sm">
+                      <Clock className="h-4 w-4" />
+                      {exerciseData.estimatedTime}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

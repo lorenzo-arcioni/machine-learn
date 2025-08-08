@@ -1,0 +1,56 @@
+{
+  "id": "logistic-regression-basics",
+  "title": "Logistic Regression Implementation",
+  "description": "Implementa la regressione logistica da zero usando NumPy. Impara la classificazione binaria e il gradient descent per modelli non lineari.",
+  "category": "Supervised Learning",
+  "tags": ["NumPy", "Classification", "Statistics"],
+  "estimatedTime": "50 min",
+  "difficulty": "Beginner",
+  "level": "beginner",
+  "prerequisites": ["Python Basics", "NumPy", "Linear Regression"],
+  
+  "problemStatement": {
+    "overview": "In questo esercizio implementerai un modello di regressione logistica da zero usando solo NumPy. Imparerai come gestire problemi di classificazione binaria e come ottimizzare parametri usando il gradient descent con la funzione sigmoide.",
+    "objectives": [
+      "Comprendere la differenza tra regressione lineare e logistica",
+      "Implementare la funzione sigmoide e la sua derivata",
+      "Codificare l'algoritmo di gradient descent per classificazione",
+      "Valutare il modello usando metriche appropriate (accuracy, precision, recall)",
+      "Visualizzare il decision boundary e comprendere il processo di classificazione"
+    ],
+    "context": "La regressione logistica è l'algoritmo fondamentale per la classificazione binaria. A differenza della regressione lineare, usa la funzione sigmoide per mappare qualsiasi valore reale in un range [0,1], permettendo di predire probabilità."
+  },
+  
+  "documentation": {
+    "theory": "## Fondamenti Matematici\n\nLa regressione logistica usa la funzione sigmoide per modellare la probabilità:\n\n**σ(z) = 1 / (1 + e^(-z))**\n\nDove z = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ\n\n## Cost Function\nUsiamo la log-likelihood come funzione di costo:\n**J(β) = -(1/m) * Σ[y*log(h(x)) + (1-y)*log(1-h(x))]**\n\n## Gradient\nIl gradiente per l'aggiornamento dei parametri:\n**∇J = (1/m) * X^T * (h(x) - y)**",
+    "implementation": "## Passi di Implementazione\n\n1. **Preparazione Dati**\n   - Carica e preprocessa il dataset\n   - Aggiungi il termine bias\n   - Dividi in training e test set\n\n2. **Funzione Sigmoide**\n   - Implementa la sigmoide in modo numericalmente stabile\n   - Gestisci l'overflow per valori grandi\n\n3. **Gradient Descent**\n   - Inizializza parametri casualmente\n   - Implementa la cost function\n   - Calcola i gradienti\n   - Aggiorna parametri iterativamente\n\n4. **Valutazione**\n   - Calcola predizioni e probabilità\n   - Computa metriche di classificazione\n   - Visualizza decision boundary",
+    "tips": [
+      "Usa np.clip per evitare overflow nella funzione sigmoide",
+      "Monitora la cost function per verificare la convergenza",
+      "Prova diversi learning rates per ottimizzare la convergenza",
+      "Standardizza le features per migliorare le performance",
+      "Visualizza sempre i risultati per capire il comportamento del modello"
+    ]
+  },
+  
+  "starterCode": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import make_classification\nfrom sklearn.model_selection import train_test_split\n\nclass LogisticRegression:\n    def __init__(self, learning_rate=0.01, max_iterations=1000):\n        self.learning_rate = learning_rate\n        self.max_iterations = max_iterations\n        self.weights = None\n        self.bias = None\n        self.cost_history = []\n    \n    def sigmoid(self, z):\n        \"\"\"\n        Compute sigmoid function in a numerically stable way\n        \"\"\"\n        # TODO: Implement sigmoid function\n        # Hint: Handle large positive/negative values to avoid overflow\n        pass\n    \n    def fit(self, X, y):\n        \"\"\"\n        Train the logistic regression model\n        \"\"\"\n        # TODO: Implement training using gradient descent\n        pass\n    \n    def predict_proba(self, X):\n        \"\"\"\n        Predict class probabilities\n        \"\"\"\n        # TODO: Return probabilities for positive class\n        pass\n    \n    def predict(self, X):\n        \"\"\"\n        Make binary predictions\n        \"\"\"\n        # TODO: Return binary predictions (0 or 1)\n        pass\n    \n    def _compute_cost(self, y_true, y_prob):\n        \"\"\"\n        Compute logistic regression cost function\n        \"\"\"\n        # TODO: Implement log-likelihood cost function\n        pass\n\n# TODO: Test your implementation\nif __name__ == \"__main__\":\n    # Generate sample data\n    X, y = make_classification(n_samples=1000, n_features=2, n_redundant=0, \n                             n_informative=2, n_clusters_per_class=1, random_state=42)\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n    \n    # TODO: Train and evaluate the model\n    # TODO: Calculate accuracy, precision, recall\n    # TODO: Plot decision boundary and cost history",
+  
+  "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.datasets import make_classification\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import accuracy_score, precision_score, recall_score\n\nclass LogisticRegression:\n    def __init__(self, learning_rate=0.01, max_iterations=1000):\n        self.learning_rate = learning_rate\n        self.max_iterations = max_iterations\n        self.weights = None\n        self.bias = None\n        self.cost_history = []\n    \n    def sigmoid(self, z):\n        # Clip z to prevent overflow\n        z = np.clip(z, -500, 500)\n        return 1 / (1 + np.exp(-z))\n    \n    def fit(self, X, y):\n        n_samples, n_features = X.shape\n        \n        # Initialize parameters\n        self.weights = np.random.normal(0, 0.01, n_features)\n        self.bias = 0\n        \n        # Gradient descent\n        for i in range(self.max_iterations):\n            # Forward pass\n            z = X @ self.weights + self.bias\n            y_pred = self.sigmoid(z)\n            \n            # Compute cost\n            cost = self._compute_cost(y, y_pred)\n            self.cost_history.append(cost)\n            \n            # Compute gradients\n            dw = (1/n_samples) * X.T @ (y_pred - y)\n            db = (1/n_samples) * np.sum(y_pred - y)\n            \n            # Update parameters\n            self.weights -= self.learning_rate * dw\n            self.bias -= self.learning_rate * db\n    \n    def predict_proba(self, X):\n        z = X @ self.weights + self.bias\n        return self.sigmoid(z)\n    \n    def predict(self, X):\n        return (self.predict_proba(X) >= 0.5).astype(int)\n    \n    def _compute_cost(self, y_true, y_prob):\n        # Add small epsilon to prevent log(0)\n        epsilon = 1e-15\n        y_prob = np.clip(y_prob, epsilon, 1 - epsilon)\n        return -np.mean(y_true * np.log(y_prob) + (1 - y_true) * np.log(1 - y_prob))\n\n# Test implementation\nif __name__ == \"__main__\":\n    # Generate sample data\n    X, y = make_classification(n_samples=1000, n_features=2, n_redundant=0, \n                             n_informative=2, n_clusters_per_class=1, random_state=42)\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n    \n    # Train model\n    model = LogisticRegression(learning_rate=0.1, max_iterations=1000)\n    model.fit(X_train, y_train)\n    \n    # Make predictions\n    y_pred = model.predict(X_test)\n    y_prob = model.predict_proba(X_test)\n    \n    # Calculate metrics\n    accuracy = accuracy_score(y_test, y_pred)\n    precision = precision_score(y_test, y_pred)\n    recall = recall_score(y_test, y_pred)\n    \n    print(f\"Accuracy: {accuracy:.4f}\")\n    print(f\"Precision: {precision:.4f}\")\n    print(f\"Recall: {recall:.4f}\")\n    \n    # Visualization\n    plt.figure(figsize=(15, 5))\n    \n    # Plot decision boundary\n    plt.subplot(1, 3, 1)\n    h = 0.01\n    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1\n    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1\n    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),\n                         np.arange(y_min, y_max, h))\n    \n    mesh_points = np.c_[xx.ravel(), yy.ravel()]\n    Z = model.predict_proba(mesh_points)\n    Z = Z.reshape(xx.shape)\n    \n    plt.contourf(xx, yy, Z, levels=50, alpha=0.8, cmap=plt.cm.RdYlBu)\n    scatter = plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.RdYlBu, edgecolors='black')\n    plt.colorbar(scatter)\n    plt.title('Decision Boundary')\n    \n    # Plot cost history\n    plt.subplot(1, 3, 2)\n    plt.plot(model.cost_history)\n    plt.title('Cost History')\n    plt.xlabel('Iteration')\n    plt.ylabel('Cost')\n    \n    # Plot probability distribution\n    plt.subplot(1, 3, 3)\n    plt.hist(y_prob[y_test == 0], alpha=0.7, label='Class 0', bins=20)\n    plt.hist(y_prob[y_test == 1], alpha=0.7, label='Class 1', bins=20)\n    plt.axvline(x=0.5, color='red', linestyle='--', label='Threshold')\n    plt.xlabel('Predicted Probability')\n    plt.ylabel('Frequency')\n    plt.legend()\n    plt.title('Probability Distribution')\n    \n    plt.tight_layout()\n    plt.show()",
+  
+  "testCases": [],
+  
+  "resources": [
+    {
+      "title": "Logistic Regression Theory",
+      "type": "Theory",
+      "url": "/theory/logistic-regression",
+      "description": "Fondamenti matematici della regressione logistica e funzione sigmoide"
+    },
+    {
+      "title": "Classification Metrics",
+      "type": "Theory",
+      "url": "/theory/classification-metrics", 
+      "description": "Metriche per valutare modelli di classificazione: accuracy, precision, recall, F1-score"
+    }
+  ]
+}
