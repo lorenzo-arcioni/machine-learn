@@ -1,0 +1,85 @@
+{
+  "topics": [
+    {
+      "id": "math-for-ml",
+      "title": "Mathematics for Machine Learning",
+      "description": "Essential math concepts behind ML algorithms",
+      "icon": "Sigma",
+      "badge": "Beginner",
+      "subtopics": [
+        "Linear Algebra Basics",
+        "Matrix Operations",
+        "Calculus for Optimization",
+        "Probability and Statistics",
+        "Gradient Descent and Derivatives"
+      ]
+    },
+    {
+      "id": "introduction",
+      "title": "Introduction to Machine Learning",
+      "description": "Fundamentals of machine learning and its applications",
+      "icon": "BookOpen",
+      "badge": "Beginner",
+      "subtopics": [
+        "What is Machine Learning?",
+        "Types of Machine Learning",
+        "Applications and Use Cases"
+      ]
+    },
+    {
+      "id": "supervised-learning",
+      "title": "Supervised Learning",
+      "description": "Regression and classification algorithms for labeled data",
+      "icon": "BarChart4",
+      "badge": "Intermediate",
+      "subtopics": [
+        "Linear Regression",
+        "Logistic Regression",
+        "Decision Trees",
+        "Support Vector Machines"
+      ]
+    },
+    {
+      "id": "unsupervised-learning",
+      "title": "Unsupervised Learning",
+      "description": "Clustering and dimension reduction techniques",
+      "icon": "ScatterChart",
+      "badge": "Intermediate",
+      "subtopics": [
+        "K-Means Clustering",
+        "Hierarchical Clustering",
+        "Principal Component Analysis",
+        "t-SNE"
+      ]
+    },
+    {
+      "id": "deep-learning",
+      "title": "Deep Learning",
+      "description": "Neural networks and advanced models",
+      "icon": "BrainCircuit",
+      "badge": "Advanced",
+      "subtopics": [
+        "Neural Networks Basics",
+        "Convolutional Neural Networks",
+        "Recurrent Neural Networks",
+        "Transformers"
+      ]
+    },
+    {
+      "id": "nlp",
+      "title": "Natural Language Processing",
+      "description": "Techniques for processing and understanding human language",
+      "icon": "MessageSquareText",
+      "badge": "Advanced",
+      "subtopics": [
+        "Text Preprocessing",
+        "Bag of Words & TF-IDF",
+        "Word Embeddings (Word2Vec, GloVe)",
+        "Named Entity Recognition",
+        "Sentiment Analysis",
+        "Question Answering",
+        "Language Models (BERT, GPT)"
+      ]
+    }
+  ]
+}

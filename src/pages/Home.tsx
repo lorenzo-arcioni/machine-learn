@@ -217,20 +217,20 @@ const Home = () => {
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
             <div className="flex-1 space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Master Machine Learning with
-                <span className="text-primary"> Theory & Practice</span>
+                Padroneggia il Machine Learning con
+                <span className="text-primary"> Teoria e Pratica</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-md">
-                A modern platform for learning machine learning concepts and applying them with hands-on coding exercises.
+                Una piattaforma moderna per imparare i concetti del machine learning e applicarli con esercizi pratici di programmazione.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg" className="gap-2">
                   <Link to="/theory">
-                    Start Learning <ArrowRight className="h-4 w-4" />
+                    Inizia a Imparare <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link to="/practice">Explore Practice Exercises</Link>
+                  <Link to="/practice">Esplora gli Esercizi Pratici</Link>
                 </Button>
               </div>
             </div>
@@ -248,9 +248,9 @@ const Home = () => {
       <section className="py-20 px-4 md:px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Learn Machine Learning The Right Way</h2>
+            <h2 className="text-3xl font-bold mb-4">Impara il Machine Learning nel Modo Giusto</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Our platform combines theoretical knowledge with practical coding exercises to help you master machine learning concepts.
+              La nostra piattaforma combina conoscenze teoriche con esercizi pratici di programmazione per aiutarti a padroneggiare i concetti del machine learning.
             </p>
           </div>
 
@@ -259,9 +259,9 @@ const Home = () => {
               <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <BookOpen className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Comprehensive Theory</h3>
+              <h3 className="text-xl font-semibold mb-2">Teoria Completa</h3>
               <p className="text-muted-foreground">
-                In-depth explanations of machine learning concepts, algorithms, and mathematics behind the scenes.
+                Spiegazioni approfondite dei concetti di machine learning, algoritmi e matematica che li sottende.
               </p>
             </div>
 
@@ -269,9 +269,9 @@ const Home = () => {
               <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <Code className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Interactive Coding</h3>
+              <h3 className="text-xl font-semibold mb-2">Implementazione Pratica</h3>
               <p className="text-muted-foreground">
-                Practice what you learn with hands-on Python coding exercises and real-world examples.
+                Scopri come funzionano gli algoritmi di machine learning e data science implementandoli in Python con PyTorch.
               </p>
             </div>
 
@@ -279,28 +279,106 @@ const Home = () => {
               <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <BarChart className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Progress Tracking</h3>
+              <h3 className="text-xl font-semibold mb-2">Progetti Pratici</h3>
               <p className="text-muted-foreground">
-                Track your learning journey and see your progress through different topics and exercises.
+                Costruisci progetti completi di machine learning per applicare le conoscenze acquisite a scenari reali.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Learning Pipeline Section */}
       <section className="py-20 px-4 md:px-6 bg-muted/30">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Il Tuo Percorso di Apprendimento</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Un approccio strutturato che ti accompagna dalla teoria alla pratica professionale
+            </p>
+          </div>
+
+          <div className="relative">
+            {/* Pipeline Steps */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+              {/* Animated connecting line */}
+              <div className="hidden md:block absolute top-1/2 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-primary/20 via-primary/60 to-primary/20 transform -translate-y-1/2">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 animate-pulse"></div>
+              </div>
+
+              {/* Step 1 */}
+              <div className="relative bg-card rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-primary/10">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                </div>
+                <div className="text-center pt-4">
+                  <div className="h-16 w-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+                    <BookOpen className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Teoria Solida</h3>
+                  <p className="text-muted-foreground">
+                    Comprendi i fondamenti matematici e i concetti chiave del machine learning
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="relative bg-card rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-primary/10">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                </div>
+                <div className="text-center pt-4">
+                  <div className="h-16 w-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+                    <Code className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Pratica Guidata</h3>
+                  <p className="text-muted-foreground">
+                    Implementa gli algoritmi step-by-step con esercizi pratici in Python
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="relative bg-card rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-primary/10">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                </div>
+                <div className="text-center pt-4">
+                  <div className="h-16 w-16 bg-primary/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+                    <BarChart className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Progetti Reali</h3>
+                  <p className="text-muted-foreground">
+                    Applica le competenze acquisite su dataset e problemi del mondo reale
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Animated arrows for mobile */}
+            <div className="flex md:hidden justify-center my-6">
+              <div className="flex flex-col items-center space-y-2">
+                <ArrowRight className="h-6 w-6 text-primary rotate-90" />
+                <ArrowRight className="h-6 w-6 text-primary rotate-90" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 md:px-6">
         <div className="container mx-auto max-w-5xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Start Your ML Journey?</h2>
+          <h2 className="text-3xl font-bold mb-4">Pronto per Iniziare il Tuo Viaggio nel ML?</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Sign up today to access all practice exercises and track your progress.
+            Inizia subito ad accedere a tutti gli esercizi pratici e alla teoria disponibili.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">
-              <Link to="/signup">Create Free Account</Link>
+              <Link to="/theory">Esplora la Teoria</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link to="/theory">Browse Theory First</Link>
+              <Link to="/practice">Esplora Prima la Pratica</Link>
             </Button>
           </div>
         </div>

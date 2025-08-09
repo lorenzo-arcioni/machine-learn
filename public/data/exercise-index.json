@@ -1,5 +1,5 @@
 {
-  "beginner": [
+  "Principiante": [
     {
       "id": "linear-regression-basics",
       "title": "Linear Regression Implementation",
@@ -7,11 +7,11 @@
       "category": "Supervised Learning",
       "tags": ["NumPy", "Mathematics", "Regression"],
       "estimatedTime": "45 min",
-      "difficulty": "Beginner",
+      "difficulty": "Principiante",
       "prerequisites": ["Python Basics", "NumPy"]
     }
   ],
-  "intermediate": [
+  "Intermedio": [
     {
       "id": "logistic-regression-basics",
       "title": "Logistic Regression Implementation",
@@ -19,7 +19,7 @@
       "category": "Supervised Learning",
       "tags": ["NumPy", "Mathematics", "Classification"],
       "estimatedTime": "60 min",
-      "difficulty": "Intermediate",
+      "difficulty": "Intermedio",
       "prerequisites": ["Linear Regression", "Python Basics"]
     },
     {
@@ -29,11 +29,11 @@
       "category": "Supervised Learning",
       "tags": ["NumPy", "Mathematics", "Classification"],
       "estimatedTime": "60 min",
-      "difficulty": "Intermediate",
+      "difficulty": "Intermedio",
       "prerequisites": ["Linear Regression", "Python Basics"]
     }
   ],
-  "advanced": [
+  "Avanzato": [
     {
       "id": "transformer-implementation",
       "title": "Transformer Architecture",
@@ -41,7 +41,7 @@
       "category": "NLP",
       "tags": ["Transformers", "Attention", "PyTorch", "NLP"],
       "estimatedTime": "180 min",
-      "difficulty": "Advanced",
+      "difficulty": "Avanzato",
       "prerequisites": ["Neural Networks", "PyTorch", "NLP Basics"]
     },
     {
@@ -51,7 +51,7 @@
       "category": "Deep Learning",
       "tags": ["GANs", "Generative Models", "PyTorch", "Computer Vision"],
       "estimatedTime": "150 min",
-      "difficulty": "Advanced",
+      "difficulty": "Avanzato",
       "prerequisites": ["Neural Networks", "PyTorch", "Computer Vision"]
     },
     {
@@ -61,7 +61,7 @@
       "category": "Reinforcement Learning",
       "tags": ["RL", "DQN", "PyTorch", "OpenAI Gym"],
       "estimatedTime": "200 min",
-      "difficulty": "Advanced",
+      "difficulty": "Avanzato",
       "prerequisites": ["Neural Networks", "PyTorch", "RL Basics"]
     },
     {
@@ -71,7 +71,7 @@
       "category": "Computer Vision",
       "tags": ["CNN", "Computer Vision", "PyTorch", "Image Processing"],
       "estimatedTime": "160 min",
-      "difficulty": "Advanced",
+      "difficulty": "Avanzato",
       "prerequisites": ["Neural Networks", "PyTorch", "Linear Algebra"]
     }
   ]

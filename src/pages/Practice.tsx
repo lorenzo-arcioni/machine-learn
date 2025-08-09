@@ -24,14 +24,14 @@ interface Exercise {
   category: string;
   tags: string[];
   estimatedTime: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  difficulty: 'Principiante' | 'Intermedio' | 'Avanzato';
   prerequisites: string[];
 }
 
 interface ExercisesData {
-  beginner: Exercise[];
-  intermediate: Exercise[];
-  advanced: Exercise[];
+  Principiante: Exercise[];
+  Intermedio: Exercise[];
+  Avanzato: Exercise[];
 }
 
 type DifficultyLevel = keyof ExercisesData;
@@ -40,20 +40,20 @@ type ViewMode = 'grid' | 'list';
 export default function Practice() {
   const navigate = useNavigate();
   const [currentExercisesData, setCurrentExercisesData] = useState<ExercisesData>({
-    beginner: [],
-    intermediate: [],
-    advanced: []
+    Principiante: [],
+    Intermedio: [],
+    Avanzato: []
   });
   const [loading, setLoading] = useState(true);
   const [loadingErrors, setLoadingErrors] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All Categories');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('Tutte le Categorie');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('Tutte');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
-  const [activeLevel, setActiveLevel] = useState<DifficultyLevel>('beginner');
+  const [activeLevel, setActiveLevel] = useState<DifficultyLevel>('Principiante');
 
-  const categories = ['All Categories', 'Supervised Learning', 'Deep Learning', 'Data Processing', 'Optimization', 'NLP', 'Computer Vision', 'Reinforcement Learning'];
-  const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+  const categories = ['Tutte le Categorie', 'Supervised Learning', 'Deep Learning', 'Data Processing', 'Optimization', 'NLP', 'Computer Vision', 'Reinforcement Learning'];
+  const difficulties = ['Tutte', 'Principiante', 'Intermedio', 'Avanzato'];
 
   // Nome del file JSON da caricare
   const jsonFilename = 'exercise-index.json';
@@ -88,20 +88,20 @@ export default function Practice() {
   // Funzione per validare e normalizzare i dati caricati
   const validateExercisesData = (data: any): ExercisesData => {
     const result: ExercisesData = {
-      beginner: [],
-      intermediate: [],
-      advanced: []
+      Principiante: [],
+      Intermedio: [],
+      Avanzato: []
     };
 
     if (data && typeof data === 'object') {
-      if (Array.isArray(data.beginner)) {
-        result.beginner = data.beginner;
+      if (Array.isArray(data.Principiante)) {
+        result.Principiante = data.Principiante;
       }
-      if (Array.isArray(data.intermediate)) {
-        result.intermediate = data.intermediate;
+      if (Array.isArray(data.Intermedio)) {
+        result.Intermedio = data.Intermedio;
       }
-      if (Array.isArray(data.advanced)) {
-        result.advanced = data.advanced;
+      if (Array.isArray(data.Avanzato)) {
+        result.Avanzato = data.Avanzato;
       }
     }
 
@@ -119,13 +119,13 @@ export default function Practice() {
       if (exercisesData) {
         setCurrentExercisesData(exercisesData);
         console.log(`Loaded exercises:`, {
-          beginner: exercisesData.beginner.length,
-          intermediate: exercisesData.intermediate.length,
-          advanced: exercisesData.advanced.length
+          Principiante: exercisesData.Principiante.length,
+          Intermedio: exercisesData.Intermedio.length,
+          Avanzato: exercisesData.Avanzato.length
         });
         
         // Imposta il tab attivo sul primo livello che ha esercizi
-        const availableLevels: DifficultyLevel[] = ['beginner', 'intermediate', 'advanced'];
+        const availableLevels: DifficultyLevel[] = ['Principiante', 'Intermedio', 'Avanzato'];
         const firstAvailableLevel = availableLevels.find(level => exercisesData[level].length > 0);
         if (firstAvailableLevel) {
           setActiveLevel(firstAvailableLevel);
@@ -142,9 +142,9 @@ export default function Practice() {
 
   const getDifficultyColor = (difficulty: Exercise['difficulty']) => {
     switch (difficulty) {
-      case 'Beginner': return 'bg-green-500';
-      case 'Intermediate': return 'bg-yellow-500';
-      case 'Advanced': return 'bg-red-500';
+      case 'Principiante': return 'bg-green-500';
+      case 'Intermedio': return 'bg-yellow-500';
+      case 'Avanzato': return 'bg-red-500';
       default: return 'bg-gray-500';
     }
   };
@@ -156,8 +156,8 @@ export default function Practice() {
         exercise.title.toLowerCase().includes(searchLower) ||
         exercise.description.toLowerCase().includes(searchLower) ||
         exercise.tags.some(tag => tag.toLowerCase().includes(searchLower));
-      const matchesCategory = selectedCategory === 'All Categories' || exercise.category === selectedCategory;
-      const matchesDifficulty = selectedDifficulty === 'All' || exercise.difficulty === selectedDifficulty;
+      const matchesCategory = selectedCategory === 'Tutte le Categorie' || exercise.category === selectedCategory;
+      const matchesDifficulty = selectedDifficulty === 'Tutte' || exercise.difficulty === selectedDifficulty;
       return matchesSearch && matchesCategory && matchesDifficulty;
     });
   };
@@ -184,10 +184,10 @@ export default function Practice() {
         </div>
       </CardHeader>
       <CardContent className={viewMode === 'list' ? 'flex-1' : ''}>
-        <p className="text-gray-600 mb-4">{exercise.description}</p>
+        <p className={`text-gray-600 mb-4 ${viewMode === 'list' ? 'pt-4' : ''}`}>{exercise.description}</p>
         <div className="space-y-3">
           <div>
-            <h4 className="text-sm font-medium mb-1">Prerequisites:</h4>
+            <h4 className="text-sm font-medium mb-1">Prerequisiti:</h4>
             <div className="flex gap-1 flex-wrap">
               {exercise.prerequisites.map(prereq => (
                 <Badge key={prereq} variant="secondary" className="text-xs">{prereq}</Badge>
@@ -195,7 +195,7 @@ export default function Practice() {
             </div>
           </div>
           <div>
-            <h4 className="text-sm font-medium mb-1">Technologies:</h4>
+            <h4 className="text-sm font-medium mb-1">Strumenti:</h4>
             <div className="flex gap-1 flex-wrap">
               {exercise.tags.map(tag => (
                 <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
@@ -205,7 +205,7 @@ export default function Practice() {
         </div>
         <div className="flex gap-2 mt-4">
           <Button className="flex-1" onClick={() => handleStartExercise(exercise.id)}>
-            <Code className="h-4 w-4 mr-2" /> Start Exercise
+            <Code className="h-4 w-4 mr-2" /> Vai all'Esercizio
           </Button>
           <Button variant="outline" size="icon" title="View Documentation">
             <BookOpen className="h-4 w-4" />
@@ -226,7 +226,7 @@ export default function Practice() {
     );
   }
 
-  const totalExercises = currentExercisesData.beginner.length + currentExercisesData.intermediate.length + currentExercisesData.advanced.length;
+  const totalExercises = currentExercisesData.Principiante.length + currentExercisesData.Intermedio.length + currentExercisesData.Avanzato.length;
 
   // Se non ci sono esercizi caricati
   if (totalExercises === 0) {
@@ -272,9 +272,11 @@ export default function Practice() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto py-8 px-4">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Machine Learning Practice</h1>
-          <p className="text-gray-600 text-lg">
-            Master machine learning through hands-on coding exercises. {totalExercises} exercises available.
+          <h1 className="text-4xl font-bold mb-4">Laboratorio Pratico di Machine Learning</h1>
+          <p className="text-gray-600 text-lg w-full leading-relaxed">
+            Metti alla prova le tue competenze con esercizi di programmazione guidati e progetti hands-on. 
+            Il nostro laboratorio pratico ti offre un ambiente di apprendimento interattivo dove puoi 
+            applicare immediatamente i concetti teorici del machine learning.
           </p>
         </div>
 
@@ -299,7 +301,7 @@ export default function Practice() {
             <div className="relative flex-1 min-w-0">
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
-                placeholder="Search exercises, tags, or categories..."
+                placeholder="Cerca esercizi, tags, categorie..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 className="pl-9"
@@ -353,18 +355,18 @@ export default function Practice() {
         {/* Tabs */}
         <Tabs value={activeLevel} onValueChange={(val) => setActiveLevel(val as DifficultyLevel)} className="w-full">
           <TabsList className="grid w-full max-w-md grid-cols-3 mb-6">
-            <TabsTrigger value="beginner" disabled={currentExercisesData.beginner.length === 0}>
-              Beginner ({currentExercisesData.beginner.length})
+            <TabsTrigger value="Principiante" disabled={currentExercisesData.Principiante.length === 0}>
+              Principiante ({currentExercisesData.Principiante.length})
             </TabsTrigger>
-            <TabsTrigger value="intermediate" disabled={currentExercisesData.intermediate.length === 0}>
-              Intermediate ({currentExercisesData.intermediate.length})
+            <TabsTrigger value="Intermedio" disabled={currentExercisesData.Intermedio.length === 0}>
+              Intermedio ({currentExercisesData.Intermedio.length})
             </TabsTrigger>
-            <TabsTrigger value="advanced" disabled={currentExercisesData.advanced.length === 0}>
-              Advanced ({currentExercisesData.advanced.length})
+            <TabsTrigger value="Avanzato" disabled={currentExercisesData.Avanzato.length === 0}>
+              Avanzato ({currentExercisesData.Avanzato.length})
             </TabsTrigger>
           </TabsList>
 
-          {(['beginner', 'intermediate', 'advanced'] as DifficultyLevel[]).map(level => {
+          {(['Principiante', 'Intermedio', 'Avanzato'] as DifficultyLevel[]).map(level => {
             const filteredExercises = filterExercises(currentExercisesData[level]);
             
             return (
@@ -377,18 +379,18 @@ export default function Practice() {
                       <p className="text-gray-400">
                         {currentExercisesData[level].length === 0
                           ? `No ${level} exercises available`
-                          : searchQuery || selectedCategory !== 'All Categories' || selectedDifficulty !== 'All'
+                          : searchQuery || selectedCategory !== 'Tutte le Categorie' || selectedDifficulty !== 'Tutte'
                           ? 'Try adjusting your filters'
                           : 'No exercises available in this category'}
                       </p>
                     </div>
-                    {(searchQuery || selectedCategory !== 'All Categories' || selectedDifficulty !== 'All') && (
+                    {(searchQuery || selectedCategory !== 'Tutte le Categorie' || selectedDifficulty !== 'Tutte') && (
                       <Button
                         variant="outline"
                         onClick={() => {
                           setSearchQuery('');
-                          setSelectedCategory('All Categories');
-                          setSelectedDifficulty('All');
+                          setSelectedCategory('Tutte le Categorie');
+                          setSelectedDifficulty('Tutte');
                         }}
                       >
                         Clear All Filters

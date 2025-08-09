@@ -11,7 +11,8 @@ import {
   Loader2,
   Github,
   FileText,
-  RefreshCw
+  RefreshCw,
+  Download
 } from 'lucide-react';
 
 declare global {
@@ -19,6 +20,8 @@ declare global {
     fs?: {
       readFile: (filename: string, options?: { encoding?: string }) => Promise<string | Uint8Array>;
     };
+    marked?: any;
+    hljs?: any;
   }
 }
 
@@ -46,15 +49,14 @@ interface Exercise {
   }[];
 }
 
-const NBViewer = ({ notebookUrl }: { notebookUrl: string }) => {
+const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [containerHeight, setContainerHeight] = useState(1000);
-  const [notebookStats, setNotebookStats] = useState<{cells: number, estimatedHeight: number} | null>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [notebook, setNotebook] = useState<any>(null);
+  const [libsLoaded, setLibsLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Converte URL GitHub in raw URL
+  // Convert GitHub URL to raw URL
   const getRawNotebookUrl = (url: string) => {
     if (url.includes('github.com') && url.includes('/blob/')) {
       return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
@@ -62,142 +64,613 @@ const NBViewer = ({ notebookUrl }: { notebookUrl: string }) => {
     return url;
   };
 
-  // Crea URL NBViewer
-  const getNBViewerUrl = (url: string) => {
-    if (url.includes('github.com')) {
-      const githubPath = url.replace('https://github.com/', '');
-      return `https://nbviewer.org/github/${githubPath}`;
-    }
-    return `https://nbviewer.org/url/${encodeURIComponent(url)}`;
-  };
-
   const rawUrl = getRawNotebookUrl(notebookUrl);
-  const nbviewerUrl = getNBViewerUrl(notebookUrl);
 
-  // Analizza il notebook per stimare l'altezza
-  const analyzeNotebook = async () => {
-    try {
-      const response = await fetch(rawUrl);
-      if (!response.ok) throw new Error('Cannot fetch notebook');
-      
-      const notebook = await response.json();
-      if (!notebook.cells) throw new Error('Invalid notebook format');
-
-      let estimatedHeight = 150; // Header NBViewer
-      const cellCount = notebook.cells.length;
-
-      notebook.cells.forEach((cell: any) => {
-        // Padding base per ogni cella
-        estimatedHeight += 40;
-        
-        if (cell.cell_type === 'markdown') {
-          const content = Array.isArray(cell.source) ? cell.source.join('') : (cell.source || '');
-          // ~20px per riga di testo, minimo 30px
-          estimatedHeight += Math.max(30, content.split('\n').length * 20);
-        } 
-        else if (cell.cell_type === 'code') {
-          const sourceLines = Array.isArray(cell.source) ? cell.source.length : (cell.source || '').split('\n').length;
-          // ~18px per riga di codice
-          estimatedHeight += sourceLines * 18;
-          
-          // Analizza gli output
-          if (cell.outputs && cell.outputs.length > 0) {
-            cell.outputs.forEach((output: any) => {
-              if (output.output_type === 'display_data' || output.output_type === 'execute_result') {
-                // Grafici o immagini - altezza fissa generosa
-                estimatedHeight += 400;
-              } else if (output.output_type === 'stream') {
-                const textContent = Array.isArray(output.text) ? output.text.join('') : (output.text || '');
-                estimatedHeight += Math.min(textContent.split('\n').length * 16, 300);
-              } else if (output.output_type === 'error') {
-                estimatedHeight += 120; // Traceback error
-              }
-            });
-          }
-        }
-      });
-
-      // Aggiungi margine di sicurezza
-      const finalHeight = Math.max(600, Math.min(estimatedHeight + 200, 4000));
-      
-      setNotebookStats({ cells: cellCount, estimatedHeight: finalHeight });
-      setContainerHeight(finalHeight);
-      
-    } catch (error) {
-      console.log('Could not analyze notebook, using fallback height:', error);
-      setContainerHeight(1200);
+  // Function to resolve image paths
+  const resolveImagePath = (src: string): string => {
+    // If it's already an absolute URL, return as is
+    if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:')) {
+      return src;
     }
+
+    // If it's a relative path and we have a notebook URL, resolve it relative to the notebook
+    if (notebookUrl.includes('github.com')) {
+      const baseUrl = notebookUrl.replace('/blob/', '/raw/').replace(/\/[^\/]*\.ipynb$/, '/');
+      // Remove leading ./ if present
+      const cleanSrc = src.replace(/^\.\//, '');
+      return baseUrl + cleanSrc;
+    }
+
+    // Fallback: return the original src
+    return src;
   };
 
-  // Carica analisi del notebook
+  // Function to process external images in markdown content
+  const processExternalImages = (content: string): string => {
+    // Handle markdown image syntax ![alt](src)
+    content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+      const processedSrc = resolveImagePath(src);
+      return `![${alt}](${processedSrc})`;
+    });
+
+    // Handle HTML img tags
+    content = content.replace(/<img([^>]*)\s+src=["']([^"']+)["']([^>]*)>/gi, (match, beforeSrc, src, afterSrc) => {
+      const processedSrc = resolveImagePath(src);
+      return `<img${beforeSrc} src="${processedSrc}"${afterSrc}>`;
+    });
+
+    return content;
+  };
+
+  // Function to process HTML img tags in rendered content
+  const processHtmlImages = (container: Element) => {
+    const images = container.querySelectorAll('img');
+    images.forEach(img => {
+      // Add loading and error handling
+      img.onload = () => {
+        img.style.opacity = '1';
+      };
+      
+      img.onerror = () => {
+        // Create a placeholder for broken images
+        const placeholder = document.createElement('div');
+        placeholder.className = 'nb-image-placeholder';
+        placeholder.innerHTML = `
+          <div class="text-gray-400 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+            <svg class="w-8 h-8 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <p class="text-sm">Image not found</p>
+            <p class="text-xs text-gray-500">${img.alt || 'Unknown'}</p>
+          </div>
+        `;
+        img.parentNode?.replaceChild(placeholder, img);
+      };
+
+      // Style images
+      img.className = 'nb-markdown-image';
+      img.style.opacity = '0.5'; // Start with low opacity until loaded
+      img.style.transition = 'opacity 0.3s ease';
+    });
+  };
+
+  // Load required libraries
   useEffect(() => {
-    analyzeNotebook();
-  }, [rawUrl]);
-
-  // Gestione caricamento iframe
-  const handleIframeLoad = () => {
-    setIsLoading(false);
-    
-    // Prova tecniche avanzate per rilevare altezza effettiva
-    setTimeout(() => {
-      tryAdvancedHeightDetection();
-    }, 2000);
-  };
-
-  // Tecniche avanzate per il rilevamento altezza
-  const tryAdvancedHeightDetection = () => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-
-    try {
-      // Tenta accesso cross-origin (funziona raramente ma vale la pena provare)
-      const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-      if (iframeDoc) {
-        const body = iframeDoc.body;
-        const html = iframeDoc.documentElement;
-        
-        const height = Math.max(
-          body?.scrollHeight || 0,
-          body?.offsetHeight || 0,
-          html?.clientHeight || 0,
-          html?.scrollHeight || 0,
-          html?.offsetHeight || 0
-        );
-        
-        if (height > 200 && height !== containerHeight) {
-          setContainerHeight(height + 100);
-          console.log(`Detected actual height: ${height}px`);
+    const loadLibraries = async () => {
+      try {
+        // Load Marked.js for markdown parsing
+        if (!window.marked) {
+          const markedScript = document.createElement('script');
+          markedScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js';
+          document.head.appendChild(markedScript);
+          
+          await new Promise((resolve, reject) => {
+            markedScript.onload = resolve;
+            markedScript.onerror = reject;
+          });
         }
-      }
-    } catch (e) {
-      // Cross-origin blocked - normale per NBViewer
-      console.log('Cross-origin height detection blocked (expected)');
-    }
 
-    // Listener per messaggi dall'iframe
-    const messageHandler = (event: MessageEvent) => {
-      if (event.data && typeof event.data.height === 'number') {
-        const newHeight = event.data.height + 50;
-        if (newHeight > containerHeight && newHeight < 5000) {
-          setContainerHeight(newHeight);
+        // Load Highlight.js
+        if (!window.hljs) {
+          const hljsScript = document.createElement('script');
+          hljsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+          document.head.appendChild(hljsScript);
+          
+          const hljsCSS = document.createElement('link');
+          hljsCSS.rel = 'stylesheet';
+          hljsCSS.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
+          document.head.appendChild(hljsCSS);
+          
+          await new Promise((resolve, reject) => {
+            hljsScript.onload = resolve;
+            hljsScript.onerror = reject;
+          });
         }
+
+        // Load MathJax for LaTeX rendering
+        if (!window.MathJax) {
+          // Configure MathJax before loading
+          window.MathJax = {
+            tex: {
+              inlineMath: [['$', '$'], ['\\(', '\\)']],
+              displayMath: [['$$', '$$'], ['\\[', '\\]']],
+              processEscapes: true,
+              processEnvironments: true
+            },
+            options: {
+              skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+              ignoreHtmlClass: 'tex2jax_ignore',
+              processHtmlClass: 'tex2jax_process'
+            },
+            startup: {
+              typeset: false
+            }
+          };
+
+          const mathjaxScript = document.createElement('script');
+          mathjaxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js';
+          document.head.appendChild(mathjaxScript);
+          
+          await new Promise((resolve, reject) => {
+            mathjaxScript.onload = resolve;
+            mathjaxScript.onerror = reject;
+          });
+        }
+
+        setLibsLoaded(true);
+      } catch (err) {
+        console.error('Error loading libraries:', err);
+        setError('Failed to load required libraries');
       }
     };
+
+    loadLibraries();
+  }, []);
+
+  // Load and parse notebook
+  const loadNotebook = async () => {
+    if (!libsLoaded) return;
+
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const response = await fetch(rawUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch notebook: ${response.status} ${response.statusText}`);
+      }
+
+      const notebookData = await response.json();
+      
+      if (!notebookData.cells) {
+        throw new Error('Invalid notebook format: missing cells');
+      }
+
+      setNotebook(notebookData);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load notebook');
+      console.error('Error loading notebook:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const renderMarkdownCell = (cell: any) => {
+    const container = document.createElement('div');
+    container.className = 'nb-markdown-container tex2jax_process';
+
+    const sourceContent = Array.isArray(cell.source) ? cell.source.join('') : (cell.source || '');
     
-    window.addEventListener('message', messageHandler);
-    return () => window.removeEventListener('message', messageHandler);
+    if (sourceContent.trim()) {
+      let processedContent = sourceContent;
+      
+      // Process external image links (both markdown and HTML format)
+      processedContent = processExternalImages(processedContent);
+      
+      const rendered = window.marked.parse(processedContent);
+      container.innerHTML = rendered;
+      
+      // Process any remaining HTML img tags that might have been created
+      processHtmlImages(container);
+    }
+
+    return container;
+  };
+
+  const renderCodeCell = (cell: any, index: number) => {
+    const container = document.createElement('div');
+    container.className = 'nb-code-container';
+
+    // Input section (without prompt)
+    const inputSection = document.createElement('div');
+    inputSection.className = 'nb-input-section-no-prompt';
+
+    // Code input
+    const inputDiv = document.createElement('div');
+    inputDiv.className = 'nb-input';
+    
+    const pre = document.createElement('pre');
+    const code = document.createElement('code');
+    code.className = 'language-python hljs';
+    
+    const sourceContent = Array.isArray(cell.source) ? cell.source.join('') : (cell.source || '');
+    code.textContent = sourceContent;
+    
+    pre.appendChild(code);
+    inputDiv.appendChild(pre);
+    inputSection.appendChild(inputDiv);
+    
+    container.appendChild(inputSection);
+
+    // Output section
+    if (cell.outputs && cell.outputs.length > 0) {
+      cell.outputs.forEach((output: any, outputIndex: number) => {
+        const outputElement = renderOutput(output, cell.execution_count);
+        if (outputElement) {
+          container.appendChild(outputElement);
+        }
+      });
+    }
+
+    return container;
+  };
+
+  const renderOutput = (output: any, executionCount: any) => {
+    const outputSection = document.createElement('div');
+    outputSection.className = 'nb-output-section-no-prompt';
+
+    // Output content (without prompt)
+    const outputDiv = document.createElement('div');
+    outputDiv.className = 'nb-output';
+
+    if (output.output_type === 'stream') {
+      const streamDiv = document.createElement('pre');
+      streamDiv.className = 'nb-stream-output';
+      const text = Array.isArray(output.text) ? output.text.join('') : (output.text || '');
+      streamDiv.textContent = text;
+      outputDiv.appendChild(streamDiv);
+    } 
+    else if (output.output_type === 'execute_result' || output.output_type === 'display_data') {
+      if (output.data) {
+        if (output.data['image/png']) {
+          const img = document.createElement('img');
+          img.src = `data:image/png;base64,${output.data['image/png']}`;
+          img.className = 'nb-output-image';
+          outputDiv.appendChild(img);
+        }
+        else if (output.data['image/jpeg']) {
+          const img = document.createElement('img');
+          img.src = `data:image/jpeg;base64,${output.data['image/jpeg']}`;
+          img.className = 'nb-output-image';
+          outputDiv.appendChild(img);
+        }
+        else if (output.data['text/html']) {
+          const htmlDiv = document.createElement('div');
+          htmlDiv.className = 'nb-html-output';
+          const htmlContent = Array.isArray(output.data['text/html']) 
+            ? output.data['text/html'].join('') 
+            : output.data['text/html'];
+          htmlDiv.innerHTML = htmlContent;
+          outputDiv.appendChild(htmlDiv);
+        }
+        else if (output.data['text/plain']) {
+          const textDiv = document.createElement('pre');
+          textDiv.className = 'nb-text-output';
+          const textContent = Array.isArray(output.data['text/plain'])
+            ? output.data['text/plain'].join('')
+            : output.data['text/plain'];
+          textDiv.textContent = textContent;
+          outputDiv.appendChild(textDiv);
+        }
+      }
+    }
+    else if (output.output_type === 'error') {
+      const errorDiv = document.createElement('pre');
+      errorDiv.className = 'nb-error-output';
+      const traceback = output.traceback ? output.traceback.join('\n') : 
+        `${output.ename}: ${output.evalue}`;
+      errorDiv.textContent = traceback;
+      outputDiv.appendChild(errorDiv);
+    }
+
+    outputSection.appendChild(outputDiv);
+    return outputDiv.children.length > 0 ? outputSection : null;
+  };
+
+  const renderCell = (cell: any, index: number) => {
+    const cellDiv = document.createElement('div');
+    cellDiv.className = `nb-cell nb-${cell.cell_type}-cell`;
+    
+    if (cell.cell_type === 'code') {
+      cellDiv.appendChild(renderCodeCell(cell, index));
+    } else if (cell.cell_type === 'markdown') {
+      cellDiv.appendChild(renderMarkdownCell(cell));
+    }
+
+    return cellDiv;
+  };
+
+  // Render notebook using custom renderer
+  const renderNotebook = () => {
+    if (!notebook || !containerRef.current || !window.marked || !window.hljs) return;
+
+    try {
+      containerRef.current.innerHTML = '';
+      
+      const notebookDiv = document.createElement('div');
+      notebookDiv.className = 'jupyter-notebook';
+      
+      notebook.cells.forEach((cell: any, index: number) => {
+        const cellElement = renderCell(cell, index);
+        notebookDiv.appendChild(cellElement);
+      });
+
+      containerRef.current.appendChild(notebookDiv);
+      
+      // Apply syntax highlighting
+      setTimeout(() => {
+        if (window.hljs) {
+          window.hljs.highlightAll();
+        }
+      }, 100);
+
+    } catch (err) {
+      console.error('Error rendering notebook:', err);
+      setError('Failed to render notebook');
+    }
+  };
+
+  // Load notebook when libraries are ready
+  useEffect(() => {
+    if (libsLoaded) {
+      loadNotebook();
+    }
+  }, [libsLoaded, rawUrl]);
+
+  // Render notebook when data is available
+  useEffect(() => {
+    if (notebook && libsLoaded && !isLoading) {
+      renderNotebook();
+      addNotebookStyles();
+      
+      // Render MathJax equations after a short delay
+      setTimeout(() => {
+        if (window.MathJax?.typesetPromise) {
+          window.MathJax.typesetPromise([containerRef.current]).catch((err: any) => {
+            console.warn('MathJax rendering error:', err);
+          });
+        }
+      }, 500);
+    }
+  }, [notebook, libsLoaded, isLoading]);
+
+  const addNotebookStyles = () => {
+    const styleId = 'jupyter-notebook-styles';
+    if (document.getElementById(styleId)) return;
+
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      .jupyter-notebook {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        line-height: 1.6;
+        color: #24292f;
+        max-width: none;
+      }
+      
+      .nb-cell {
+        margin-bottom: 1rem;
+        position: relative;
+      }
+      
+      .nb-code-container {
+        margin-bottom: 1rem;
+      }
+      
+      .nb-input-section, .nb-output-section {
+        display: flex;
+        align-items: flex-start;
+        min-height: 30px;
+      }
+      
+      .nb-prompt {
+        flex: 0 0 80px;
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        font-size: 13px;
+        font-weight: bold;
+        text-align: right;
+        padding-right: 10px;
+        padding-top: 4px;
+        white-space: nowrap;
+      }
+      
+      .nb-input-prompt {
+        color: #0969da;
+      }
+      
+      .nb-output-prompt {
+        color: #d1242f;
+      }
+      
+      .nb-input, .nb-output {
+        flex: 1;
+        min-width: 0;
+      }
+      
+      .nb-input pre {
+        background: #f6f8fa;
+        border: 1px solid #d1d9e0;
+        border-radius: 6px;
+        padding: 16px;
+        margin: 0;
+        overflow-x: auto;
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+      
+      .nb-input pre code {
+        background: transparent;
+        padding: 0;
+        border: none;
+        font-size: inherit;
+        color: inherit;
+      }
+      
+      .nb-stream-output, .nb-text-output {
+        background: #f8f9fa;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        padding: 12px;
+        margin: 4px 0;
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        font-size: 14px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+      
+      .nb-error-output {
+        background: #fff5f5;
+        border: 1px solid #fd6c6c;
+        color: #d1242f;
+        border-radius: 6px;
+        padding: 12px;
+        margin: 4px 0;
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        font-size: 14px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+      
+      .nb-output-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin: 8px 0;
+      }
+      
+      .nb-html-output {
+        margin: 8px 0;
+      }
+      
+      .nb-html-output table {
+        border-collapse: collapse;
+        margin: 1em 0;
+        background: white;
+      }
+      
+      .nb-html-output table th,
+      .nb-html-output table td {
+        border: 1px solid #d8dee4;
+        padding: 8px 12px;
+        text-align: left;
+      }
+      
+      .nb-html-output table th {
+        background: #f6f8fa;
+        font-weight: 600;
+      }
+      
+      .nb-markdown-container {
+        margin: 1rem 0;
+        padding: 0 90px 0 0;
+      }
+      
+      .nb-markdown-container h1,
+      .nb-markdown-container h2,
+      .nb-markdown-container h3,
+      .nb-markdown-container h4,
+      .nb-markdown-container h5,
+      .nb-markdown-container h6 {
+        margin: 1.5em 0 0.5em 0;
+        font-weight: 600;
+        line-height: 1.25;
+      }
+      
+      .nb-markdown-container h1 {
+        font-size: 2em;
+        border-bottom: 1px solid #d8dee4;
+        padding-bottom: 0.3em;
+      }
+      
+      .nb-markdown-container h2 {
+        font-size: 1.5em;
+        border-bottom: 1px solid #d8dee4;
+        padding-bottom: 0.3em;
+      }
+      
+      .nb-markdown-container h3 {
+        font-size: 1.25em;
+      }
+      
+      .nb-markdown-container p {
+        margin: 1em 0;
+      }
+      
+      .nb-markdown-container ul,
+      .nb-markdown-container ol {
+        margin: 1em 0;
+        padding-left: 2em;
+      }
+      
+      .nb-markdown-container li {
+        margin: 0.25em 0;
+      }
+      
+      .nb-markdown-container code {
+        background: rgba(175, 184, 193, 0.2);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: 0.2em 0.4em;
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      }
+      
+      .nb-markdown-container pre {
+        background: #f6f8fa;
+        border: 1px solid #d1d9e0;
+        border-radius: 6px;
+        font-size: 85%;
+        line-height: 1.45;
+        overflow: auto;
+        padding: 16px;
+        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      }
+      
+      .nb-markdown-container pre code {
+        background: transparent;
+        font-size: inherit;
+        padding: 0;
+      }
+      
+      .nb-markdown-container blockquote {
+        border-left: 0.25em solid #d1d9e0;
+        color: #656d76;
+        margin: 0;
+        padding: 0 1em;
+      }
+      
+      .nb-markdown-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin: 16px 0;
+        display: block;
+      }
+      
+      .nb-image-placeholder {
+        margin: 16px 0;
+      }
+      
+      /* MathJax styling */
+      .MathJax {
+        font-size: 1em !important;
+      }
+      
+      .MathJax_Display {
+        margin: 1em 0 !important;
+        text-align: center;
+      }
+      
+      /* Inline math should not break lines awkwardly */
+      .nb-markdown-container .MathJax {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      
+      /* Loading state for MathJax */
+      .nb-markdown-container .tex2jax_process {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+    `;
+    document.head.appendChild(style);
   };
 
   const handleRefresh = () => {
-    setIsLoading(true);
-    if (iframeRef.current) {
-      iframeRef.current.src = nbviewerUrl;
-    }
-    analyzeNotebook();
-  };
-
-  const handleOpenInNewTab = () => {
-    window.open(nbviewerUrl, '_blank');
+    loadNotebook();
   };
 
   const handleOpenOriginal = () => {
@@ -214,19 +687,49 @@ const NBViewer = ({ notebookUrl }: { notebookUrl: string }) => {
     }
   };
 
+  const handleDownload = () => {
+    if (notebook) {
+      const blob = new Blob([JSON.stringify(notebook, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `notebook-${Date.now()}.ipynb`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  };
+
   if (error) {
     return (
       <div className="text-center py-8">
-        <p className="text-red-500 mb-4">{error}</p>
+        <div className="text-red-500 mb-4">
+          <FileText className="h-12 w-12 mx-auto mb-2 opacity-50" />
+          <p className="font-medium">Failed to load notebook</p>
+          <p className="text-sm">{error}</p>
+        </div>
         <div className="space-x-2">
-          <Button variant="outline" onClick={handleOpenInNewTab}>
-            <ExternalLink className="h-4 w-4 mr-2" />
-            Open in NBViewer
+          <Button variant="outline" onClick={handleRefresh}>
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Retry
           </Button>
           <Button variant="outline" onClick={handleOpenOriginal}>
             <Github className="h-4 w-4 mr-2" />
-            View Original
+            View on GitHub
           </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!libsLoaded) {
+    return (
+      <div className="flex items-center justify-center py-16">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-3 text-blue-600" />
+          <p className="text-gray-700 font-medium">Loading notebook renderer...</p>
+          <p className="text-sm text-gray-500 mt-2">Loading MathJax, Marked & Highlight.js...</p>
         </div>
       </div>
     );
@@ -237,18 +740,25 @@ const NBViewer = ({ notebookUrl }: { notebookUrl: string }) => {
       {/* Action Buttons */}
       <div className="flex flex-wrap gap-2 justify-between items-center">
         <div className="text-sm text-gray-600">
-          {notebookStats && (
+          {notebook && (
             <span className="bg-gray-100 px-2 py-1 rounded text-xs">
-              📊 {notebookStats.cells} cells • 📏 {containerHeight}px
+              📊 {notebook.cells?.length || 0} cells
             </span>
           )}
         </div>
         
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" onClick={handleRefresh}>
-            <RefreshCw className="h-4 w-4 mr-1" />
+          <Button size="sm" variant="outline" onClick={handleRefresh} disabled={isLoading}>
+            <RefreshCw className={`h-4 w-4 mr-1 ${isLoading ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
+
+          {notebook && (
+            <Button size="sm" variant="outline" onClick={handleDownload}>
+              <Download className="h-4 w-4 mr-1" />
+              Download
+            </Button>
+          )}
           
           <Button 
             size="sm" 
@@ -262,16 +772,6 @@ const NBViewer = ({ notebookUrl }: { notebookUrl: string }) => {
           
           <Button 
             size="sm" 
-            variant="outline"
-            onClick={handleOpenInNewTab}
-            className="bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-700"
-          >
-            <ExternalLink className="h-4 w-4 mr-2" />
-            New Tab
-          </Button>
-          
-          <Button 
-            size="sm" 
             variant="outline" 
             onClick={handleOpenOriginal}
           >
@@ -281,14 +781,10 @@ const NBViewer = ({ notebookUrl }: { notebookUrl: string }) => {
         </div>
       </div>
 
-      {/* NBViewer Container */}
-      <div 
-        ref={containerRef}
-        className="relative border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm"
-        style={{ height: `${containerHeight}px` }}
-      >
-        {isLoading && (
-          <div className="absolute inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center z-10">
+      {/* Notebook Container */}
+      <div className="border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm">
+        {isLoading ? (
+          <div className="flex items-center justify-center py-16">
             <div className="text-center">
               <Loader2 className="h-8 w-8 animate-spin mx-auto mb-3 text-blue-600" />
               <p className="text-gray-700 font-medium">Loading notebook...</p>
@@ -299,35 +795,55 @@ const NBViewer = ({ notebookUrl }: { notebookUrl: string }) => {
               </div>
             </div>
           </div>
+        ) : (
+          <div 
+            ref={containerRef}
+            className="p-6 min-h-[200px]"
+          />
         )}
-        
-        <iframe
-          ref={iframeRef}
-          src={nbviewerUrl}
-          className="w-full h-full border-0"
-          onLoad={handleIframeLoad}
-          onError={() => setError('Failed to load notebook')}
-          title="Jupyter Notebook"
-          sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-        />
       </div>
 
       {/* Footer Info */}
-      <div className="text-xs text-gray-500 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <FileText className="h-4 w-4" />
-          <span>NBViewer • Auto-sized container</span>
+      {notebook && !isLoading && (
+        <div className="text-xs text-gray-500 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FileText className="h-4 w-4" />
+            <span>Custom renderer • MathJax • External images • Syntax highlighting</span>
+          </div>
+          <div className="italic">
+            Jupyter Notebook ✨
+          </div>
         </div>
-        <div className="italic">
-          No scrollbars needed ✨
-        </div>
-      </div>
+      )}
     </div>
   );
 };
 
 export default function ExerciseDetail() {
-  const exerciseId = "linear-regression-basics";
+  // Get exercise ID from URL - try multiple methods to extract the ID
+  const getExerciseIdFromUrl = (): string | null => {
+    // Method 1: Check for query parameter ?id=exercise-id
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryId = urlParams.get('id');
+    if (queryId) return queryId;
+    
+    // Method 2: Extract from pathname /exercise/exercise-id
+    const pathParts = window.location.pathname.split('/');
+    const exerciseIndex = pathParts.indexOf('exercise');
+    if (exerciseIndex !== -1 && pathParts[exerciseIndex + 1]) {
+      return pathParts[exerciseIndex + 1];
+    }
+    
+    // Method 3: If pathname ends with exercise-id
+    const lastPart = pathParts[pathParts.length - 1];
+    if (lastPart && lastPart !== 'exercise' && lastPart !== '') {
+      return lastPart;
+    }
+    
+    return null;
+  };
+
+  const exerciseId = getExerciseIdFromUrl();
   
   const [exerciseData, setExerciseData] = useState<Exercise | null>(null);
   const [loading, setLoading] = useState(true);
@@ -337,21 +853,25 @@ export default function ExerciseDetail() {
     const filename = `${id}.json`;
     
     try {
+      // First try to load from uploaded files
       if (typeof window !== 'undefined' && window.fs?.readFile) {
         try {
           const fileContent = await window.fs.readFile(filename, { encoding: 'utf8' }) as string;
           const data = JSON.parse(fileContent);
+          console.log(`Loaded exercise ${id} from uploaded files`);
           return data as Exercise;
         } catch (fsError) {
-          console.log(`File ${filename} not found in uploaded files, trying fetch...`);
+          console.log(`File ${filename} not found in uploaded files, trying fetch from /data/exercises/...`);
         }
       }
 
+      // Fallback to fetch from /data/exercises/
       const response = await fetch(`/data/exercises/${filename}`);
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status} - Exercise not found`);
+        throw new Error(`HTTP ${response.status} - Exercise "${id}" not found at /data/exercises/${filename}`);
       }
       const data = await response.json();
+      console.log(`Loaded exercise ${id} from /data/exercises/`);
       return data as Exercise;
     } catch (error) {
       console.error(`Failed to load exercise ${filename}:`, error);
@@ -361,27 +881,32 @@ export default function ExerciseDetail() {
 
   useEffect(() => {
     const loadExercise = async () => {
+      if (!exerciseId) {
+        setError('No exercise ID found in URL. Expected format: /exercise/exercise-id or /exercise?id=exercise-id');
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         setError(null);
+        console.log(`Loading exercise: ${exerciseId}`);
         
         const data = await loadExerciseData(exerciseId);
         if (data) {
           setExerciseData(data);
         } else {
-          setError('Exercise data not found');
+          setError(`Exercise "${exerciseId}" data not found`);
         }
       } catch (err: any) {
-        setError(err.message || 'Failed to load exercise');
+        setError(err.message || `Failed to load exercise "${exerciseId}"`);
         console.error('Error loading exercise:', err);
       } finally {
         setLoading(false);
       }
     };
 
-    if (exerciseId) {
-      loadExercise();
-    }
+    loadExercise();
   }, [exerciseId]);
 
   const getDifficultyColor = (difficulty: string) => {
@@ -402,7 +927,10 @@ export default function ExerciseDetail() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p>Loading exercise...</p>
+          <p className="text-gray-600">Loading exercise...</p>
+          {exerciseId && (
+            <p className="text-sm text-gray-500 mt-2">Loading: {exerciseId}</p>
+          )}
         </div>
       </div>
     );
@@ -411,12 +939,30 @@ export default function ExerciseDetail() {
   if (error || !exerciseData) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Exercise Not Found</h1>
-          <p className="text-gray-600 mb-4">{error}</p>
+        <div className="text-center max-w-md">
+          <div className="mb-6">
+            <FileText className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold mb-2">Exercise Not Found</h1>
+            <p className="text-gray-600 mb-2">{error}</p>
+            {exerciseId && (
+              <div className="bg-gray-50 border rounded-lg p-3 text-left">
+                <p className="text-sm text-gray-600 mb-1">Looking for:</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded block">
+                  /data/exercises/{exerciseId}.json
+                </code>
+                <p className="text-sm text-gray-500 mt-2">Current URL: <code className="text-xs">{window.location.pathname}</code></p>
+                <p className="text-sm text-gray-500">Extracted ID: <code className="text-xs">{exerciseId}</code></p>
+              </div>
+            )}
+          </div>
           <div className="space-x-4">
-            <Button onClick={handleBack}>Go Back</Button>
-            <Button variant="outline">Browse Exercises</Button>
+            <Button onClick={handleBack}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Go Back
+            </Button>
+            <Button variant="outline" onClick={() => window.location.href = '/'}>
+              Browse Exercises
+            </Button>
           </div>
         </div>
       </div>
@@ -497,7 +1043,7 @@ export default function ExerciseDetail() {
           </CardHeader>
           <CardContent>
             {exerciseData.githubSolutionUrl ? (
-              <NBViewer notebookUrl={exerciseData.githubSolutionUrl} />
+              <NotebookViewer notebookUrl={exerciseData.githubSolutionUrl} />
             ) : (
               <div className="text-center py-8">
                 <p className="text-gray-500 italic">No notebook available for this exercise</p>

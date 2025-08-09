@@ -76,16 +76,13 @@ const DesktopNav = ({
   return (
     <nav className="flex items-center gap-6">
       <Link to="/theory" className="nav-link">
-        Theory
+        Teoria
       </Link>
       <Link to="/practice" className="nav-link">
-        Practice
-      </Link>
-      <Link to="/leaderboard" className="nav-link">
-        Leaderboard
+        Pratica
       </Link>
       <Link to="/courses" className="nav-link">
-        Courses
+        Corsi
       </Link>
       <Link to="/shop" className="nav-link">
         Shop
@@ -132,13 +129,13 @@ const DesktopNav = ({
                   <Button variant="ghost" className="justify-start" asChild>
                     <Link to="/profile" className="flex items-center">
                       <User className="mr-2 h-4 w-4" />
-                      Profile
+                      Profilo
                     </Link>
                   </Button>
                   <Button variant="ghost" className="justify-start" asChild>
                     <Link to="/profile?tab=settings" className="flex items-center">
                       <Settings className="mr-2 h-4 w-4" />
-                      Settings
+                      Impostazioni
                     </Link>
                   </Button>
                   <Button
@@ -147,19 +144,20 @@ const DesktopNav = ({
                     onClick={handleLogout}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
-                    Logout
+                    Esci
                   </Button>
                 </div>
               </PopoverContent>
             </Popover>
           </div>
         ) : (
-          <div className="flex gap-2">
+          // Pulsanti di login/signup nascosti temporaneamente
+          <div className="flex gap-2 opacity-0 pointer-events-none">
             <Button asChild variant="secondary">
-              <Link to="/login">Log in</Link>
+              <Link to="/login">Accedi</Link>
             </Button>
             <Button asChild>
-              <Link to="/signup">Sign up</Link>
+              <Link to="/signup">Registrati</Link>
             </Button>
           </div>
         )}
@@ -196,22 +194,17 @@ const MobileNav = ({ user, isLoading, handleLogout }: { user: any, isLoading: bo
           
           <SheetClose asChild>
             <Link to="/theory" className="nav-link">
-              Theory
+              Teoria
             </Link>
           </SheetClose>
           <SheetClose asChild>
             <Link to="/practice" className="nav-link">
-              Practice
-            </Link>
-          </SheetClose>
-          <SheetClose asChild>
-            <Link to="/leaderboard" className="nav-link">
-              Leaderboard
+              Pratica
             </Link>
           </SheetClose>
           <SheetClose asChild>
             <Link to="/courses" className="nav-link">
-              Courses
+              Corsi
             </Link>
           </SheetClose>
           <SheetClose asChild>
@@ -233,7 +226,7 @@ const MobileNav = ({ user, isLoading, handleLogout }: { user: any, isLoading: bo
                 <Button asChild variant="outline" className="w-full mt-2 justify-start">
                   <Link to="/profile" className="flex items-center">
                     <User className="mr-2 h-4 w-4" />
-                    Profile
+                    Profilo
                   </Link>
                 </Button>
               </SheetClose>
@@ -241,7 +234,7 @@ const MobileNav = ({ user, isLoading, handleLogout }: { user: any, isLoading: bo
                 <Button asChild variant="outline" className="w-full mt-2 justify-start">
                   <Link to="/profile?tab=settings" className="flex items-center">
                     <Settings className="mr-2 h-4 w-4" />
-                    Settings
+                    Impostazioni
                   </Link>
                 </Button>
               </SheetClose>
@@ -252,23 +245,24 @@ const MobileNav = ({ user, isLoading, handleLogout }: { user: any, isLoading: bo
                   onClick={handleLogout}
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  Logout
+                  Esci
                 </Button>
               </SheetClose>
             </>
           ) : (
-            <>
+            // Pulsanti di login/signup nascosti temporaneamente nella versione mobile
+            <div className="flex flex-col gap-2 mt-4 opacity-0 pointer-events-none">
               <SheetClose asChild>
-                <Button asChild variant="secondary" className="w-full mt-4">
-                  <Link to="/login">Log in</Link>
+                <Button asChild variant="secondary" className="w-full">
+                  <Link to="/login">Accedi</Link>
                 </Button>
               </SheetClose>
               <SheetClose asChild>
-                <Button asChild className="w-full mt-2">
-                  <Link to="/signup">Sign up</Link>
+                <Button asChild className="w-full">
+                  <Link to="/signup">Registrati</Link>
                 </Button>
               </SheetClose>
-            </>
+            </div>
           )}
         </nav>
       </SheetContent>

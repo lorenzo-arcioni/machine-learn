@@ -1,13 +1,39 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MainLayout from "@/components/layout/MainLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Linkedin,
+  Github,
+  Instagram,
+  BookOpen,
+} from "lucide-react";
 
 const About = () => {
+  const [currentTime, setCurrentTime] = useState('');
 
   // Scrolla in alto ogni volta che cambia il path (navigazione SPA)
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, []);
+
+  // Aggiorna l'orario ogni secondo
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const italyTime = now.toLocaleTimeString('it-IT', {
+        timeZone: 'Europe/Rome',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      setCurrentTime(italyTime);
+    };
+
+    updateTime(); // Aggiorna immediatamente
+    const interval = setInterval(updateTime, 1000); // Aggiorna ogni secondo
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <MainLayout>
@@ -43,7 +69,7 @@ const About = () => {
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">Metodologia pedagocica innovativa</h2>
+                <h2 className="text-2xl font-bold mb-4">Metodologia pedagogica innovativa</h2>
                 <p className="text-muted-foreground mb-4">
                   Il nostro approccio didattico si basa su un framework proprietario sviluppato attraverso anni di ricerca in neuroscienze cognitive 
                   e psicologia dell'apprendimento. Ogni elemento è progettato per massimizzare la ritenzione e l'applicabilità pratica:
@@ -127,6 +153,42 @@ const About = () => {
                   alt="Foto di Lorenzo Arcioni"
                   className="w-48 h-48 rounded-full border-4 border-primary object-cover"
                 />
+                
+                {/* Info in stile GitHub */}
+                <div className="mt-4 p-4 bg-muted/50 rounded-lg border text-sm space-y-2">
+                  <div className="flex items-center text-muted-foreground">
+                    <span className="w-4 h-4 mr-2">🇮🇹</span>
+                    Italy
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <span className="w-4 h-4 mr-2">🕐</span>
+                    {currentTime} (UTC +02:00)
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <span className="w-4 h-4 mr-2">🎓</span>
+                    BS Computer Science - Sapienza
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <span className="w-4 h-4 mr-2">🎓</span>
+                    MS Computer Science - Sapienza
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <span className="w-4 h-4 mr-2">💻</span>
+                    Linux | Python | PyTorch
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <span className="w-4 h-4 mr-2">🎯</span>
+                    AI Educator & Tech Lead
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <span className="w-4 h-4 mr-2">🚀</span>
+                    ML Platform Architect
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <span className="w-4 h-4 mr-2">📊</span>
+                    Data Science Expert
+                  </div>
+                </div>
               </div>
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-center md:text-left">Lorenzo Arcioni</h2>
@@ -183,7 +245,7 @@ const About = () => {
                   dove condivide insights, case studies e visioni sul futuro dell'AI education.
                 </p>
 
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground mt-6">
                   Sotto la sua leadership visionaria, ML Learn sta ridefinendo gli standard dell'educazione tecnologica, costruendo 
                   il ponte tra il talento globale e le opportunità dell'era dell'intelligenza artificiale.
                 </p>
@@ -191,6 +253,70 @@ const About = () => {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Sezione Contatti Social - Fuori dalle tab */}
+        <div className="mt-16 pt-8 border-t max-w-4xl">
+          <h2 className="text-2xl font-bold mb-4">Seguici sui nostri canali</h2>
+          <p className="text-muted-foreground mb-6">
+            Resta aggiornato sui nostri contenuti, progetti e opportunità seguendoci sui nostri canali ufficiali.
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              href="https://www.linkedin.com/in/lorenzo-arcioni-216b921b5/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+            >
+              <Linkedin className="w-5 h-5 mr-2" />
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/lorenzo-arcioni"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors shadow-md hover:shadow-lg"
+            >
+              <Github className="w-5 h-5 mr-2" />
+              GitHub
+            </a>
+            <a
+              href="https://www.kaggle.com/lorenzoarcioni"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center px-4 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition-colors shadow-md hover:shadow-lg"
+            >
+              <span className="w-5 h-5 mr-2 font-bold text-lg flex items-center justify-center">K</span>
+              Kaggle
+            </a>
+            <a
+              href="https://www.instagram.com/lorenzo_arcioni/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors shadow-md hover:shadow-lg"
+            >
+              <Instagram className="w-5 h-5 mr-2" />
+              Instagram
+            </a>
+            <a
+              href="https://medium.com/@lorenzo.arcioni2000/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors shadow-md hover:shadow-lg"
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              Medium
+            </a>
+            <a
+              href="https://medium.com/@lorenzo.arcioni2000/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              Facebook
+            </a>
+          </div>
+        </div>
       </div>
     </MainLayout>
   );
