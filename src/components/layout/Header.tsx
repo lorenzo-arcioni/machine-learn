@@ -48,11 +48,13 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-16 items-center">
         <Link to="/" className="flex items-center space-x-2">
           <img src="/logo.png" alt="Logo" className="rounded-md h-12 w-12" />
           <span className="font-bold text-xl">Machine Learn</span>
         </Link>
+
+        <div className="flex-1" />
 
         {isMobile ? (
           <MobileNav user={user} isLoading={isLoading} handleLogout={handleLogout} />
@@ -91,77 +93,77 @@ const DesktopNav = ({
         About
       </Link>
 
-      <div className="min-w-[120px] flex items-center justify-end ml-4">
-        {isLoading ? (
-          <div className="w-full h-9 bg-gray-200 animate-pulse rounded-md"></div>
-        ) : user ? (
-          <div className="flex items-center gap-4">
-            <NotificationPanel />
-            <Popover>
-              <PopoverTrigger asChild>
+      {isLoading ? (
+        <div className="w-[120px] h-9 bg-gray-200 animate-pulse rounded-md ml-4"></div>
+      ) : user ? (
+        <div className="flex items-center gap-4 ml-4">
+          <NotificationPanel />
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full p-0 h-9 w-9 overflow-hidden"
+              >
+                <Avatar className="h-9 w-9">
+                  <AvatarImage
+                    src={
+                      user.avatar_url
+                        ? `http://localhost:8000${user.avatar_url}`
+                        : undefined
+                    }
+                  />
+                  <AvatarFallback>
+                    {user.username
+                      ? user.username.charAt(0).toUpperCase()
+                      : <User className="h-4 w-4" />}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-56 p-2" align="end">
+              <div className="p-2 border-b mb-2">
+                <p className="font-medium">{user.full_name || user.username}</p>
+                <p className="text-xs text-muted-foreground">{user.email}</p>
+              </div>
+              <div className="grid gap-1">
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/profile" className="flex items-center">
+                    <User className="mr-2 h-4 w-4" />
+                    Profilo
+                  </Link>
+                </Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/profile?tab=settings" className="flex items-center">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Impostazioni
+                  </Link>
+                </Button>
                 <Button
                   variant="ghost"
-                  size="icon"
-                  className="rounded-full p-0 h-9 w-9 overflow-hidden"
+                  className="justify-start text-red-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950"
+                  onClick={handleLogout}
                 >
-                  <Avatar className="h-9 w-9">
-                    <AvatarImage
-                      src={
-                        user.avatar_url
-                          ? `http://localhost:8000${user.avatar_url}`
-                          : undefined
-                      }
-                    />
-                    <AvatarFallback>
-                      {user.username
-                        ? user.username.charAt(0).toUpperCase()
-                        : <User className="h-4 w-4" />}
-                    </AvatarFallback>
-                  </Avatar>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Esci
                 </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-56 p-2" align="end">
-                <div className="p-2 border-b mb-2">
-                  <p className="font-medium">{user.full_name || user.username}</p>
-                  <p className="text-xs text-muted-foreground">{user.email}</p>
-                </div>
-                <div className="grid gap-1">
-                  <Button variant="ghost" className="justify-start" asChild>
-                    <Link to="/profile" className="flex items-center">
-                      <User className="mr-2 h-4 w-4" />
-                      Profilo
-                    </Link>
-                  </Button>
-                  <Button variant="ghost" className="justify-start" asChild>
-                    <Link to="/profile?tab=settings" className="flex items-center">
-                      <Settings className="mr-2 h-4 w-4" />
-                      Impostazioni
-                    </Link>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="justify-start text-red-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950"
-                    onClick={handleLogout}
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Esci
-                  </Button>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </div>
-        ) : (
-          // Pulsanti di login/signup nascosti temporaneamente
-          <div className="flex gap-2 opacity-0 pointer-events-none">
-            <Button asChild variant="secondary">
-              <Link to="/login">Accedi</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/signup">Registrati</Link>
-            </Button>
-          </div>
-        )}
-      </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+      ) : null
+        // Pulsanti di login/signup commentati - nascosti temporaneamente
+        /* 
+        <div className="flex gap-2 ml-4">
+          <Button asChild variant="secondary">
+            <Link to="/login">Accedi</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/signup">Registrati</Link>
+          </Button>
+        </div>
+        */
+      }
     </nav>
   );
 };
@@ -249,9 +251,10 @@ const MobileNav = ({ user, isLoading, handleLogout }: { user: any, isLoading: bo
                 </Button>
               </SheetClose>
             </>
-          ) : (
-            // Pulsanti di login/signup nascosti temporaneamente nella versione mobile
-            <div className="flex flex-col gap-2 mt-4 opacity-0 pointer-events-none">
+          ) : null
+            // Pulsanti di login/signup commentati per versione mobile
+            /*
+            <div className="flex flex-col gap-2 mt-4">
               <SheetClose asChild>
                 <Button asChild variant="secondary" className="w-full">
                   <Link to="/login">Accedi</Link>
@@ -263,7 +266,8 @@ const MobileNav = ({ user, isLoading, handleLogout }: { user: any, isLoading: bo
                 </Button>
               </SheetClose>
             </div>
-          )}
+            */
+          }
         </nav>
       </SheetContent>
     </Sheet>

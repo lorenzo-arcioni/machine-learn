@@ -33,52 +33,52 @@ interface TheoryContentResponse {
 
 const topicConfig = {
   "math-for-ml": {
-    title: "Mathematics for Machine Learning",
+    title: "Matematica per il Machine Learning",
     icon: Brain,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Essential math concepts behind ML algorithms",
-    badge: "Beginner"
+    description: "Concetti matematici essenziali alla base degli algoritmi ML",
+    badge: "Principiante"
   },
   introduction: {
-    title: "Introduction to Machine Learning",
+    title: "Introduzione al Machine Learning",
     icon: BookOpen,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Fundamentals and core concepts",
-    badge: "Beginner"
+    description: "Fondamenti e concetti chiave",
+    badge: "Principiante"
   },
   "supervised-learning": {
-    title: "Supervised Learning",
+    title: "Apprendimento Supervisionato",
     icon: Brain,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Learning with labeled data",
-    badge: "Intermediate"
+    description: "Apprendimento con dati etichettati",
+    badge: "Intermedio"
   },
   "unsupervised-learning": {
-    title: "Unsupervised Learning",
+    title: "Apprendimento Non Supervisionato",
     icon: Network,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Discovering hidden patterns",
-    badge: "Intermediate"
+    description: "Scoprire pattern nascosti",
+    badge: "Intermedio"
   },
   "deep-learning": {
     title: "Deep Learning",
     icon: Zap,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Neural networks and beyond",
-    badge: "Advanced"
+    description: "Reti neurali e oltre",
+    badge: "Avanzato"
   },
   nlp: {
-    title: "Natural Language Processing",
+    title: "Elaborazione del Linguaggio Naturale",
     icon: Globe,
     color: "from-gray-900 to-gray-800",
     bgPattern: "bg-gradient-to-br from-gray-50 to-gray-100",
-    description: "Techniques for processing and understanding human language",
-    badge: "Advanced"
+    description: "Tecniche per elaborare e comprendere il linguaggio umano",
+    badge: "Avanzato"
   }
 };
 
@@ -225,13 +225,13 @@ const TheoryTopic = () => {
       try {
         const response = await fetch("/data/structure.json");
         if (!response.ok) {
-          throw new Error(`Failed to load structure: ${response.status}`);
+          throw new Error(`Impossibile caricare la struttura: ${response.status}`);
         }
         const data = await response.json();
         setStructure(data);
       } catch (err) {
-        console.error("Failed to fetch theory structure:", err);
-        setError("Failed to load the content structure. Please check if the static files have been generated.");
+        console.error("Errore nel caricamento della struttura teorica:", err);
+        setError("Impossibile caricare la struttura dei contenuti. Verifica che i file statici siano stati generati.");
       } finally {
         setIsLoadingStructure(false);
       }
@@ -251,15 +251,15 @@ const TheoryTopic = () => {
           const response = await fetch(jsonPath);
           
           if (!response.ok) {
-            throw new Error(`Content not found: ${response.status}`);
+            throw new Error(`Contenuto non trovato: ${response.status}`);
           }
           
           const data = await response.json();
           setContent(data);
           setError(null);
         } catch (err) {
-          console.error("Failed to fetch theory content:", err);
-          setError("Failed to load the requested content. It might not exist or the static files haven't been generated yet.");
+          console.error("Errore nel caricamento del contenuto teorico:", err);
+          setError("Impossibile caricare il contenuto richiesto. Potrebbe non esistere o i file statici non sono ancora stati generati.");
           setContent(null);
         } finally {
           setIsLoadingContent(false);
@@ -298,6 +298,8 @@ const TheoryTopic = () => {
 
   const renderNav = (category: Category, depth = 0, basePath = ""): JSX.Element => {
     const indent = depth * 16;
+    // Calcola la riduzione dal lato sinistro per i sottomenu
+    const leftMargin = depth * 8; // 8px di margine sinistro aggiuntivo per ogni livello di profondità
     const filteredFiles = filterItems(category.files, searchTerm);
     
     return (
@@ -312,7 +314,10 @@ const TheoryTopic = () => {
           return (
             <div key={key} className="group">
               <div 
-                style={{ paddingLeft: indent }} 
+                style={{ 
+                  paddingLeft: indent,
+                  marginLeft: `${leftMargin}px` // Aumenta il margine sinistro per accorciare il box
+                }} 
                 className="flex items-center gap-2 font-semibold text-sm text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                 onClick={() => toggleSection(sectionPath)}
               >
@@ -348,7 +353,10 @@ const TheoryTopic = () => {
             <Link
               key={file.path}
               to={linkPath}
-              style={{ paddingLeft: indent + 24 }}
+              style={{ 
+                paddingLeft: indent + 24,
+                marginLeft: `${leftMargin}px` // Applica il margine sinistro anche ai file
+              }}
               className={`group flex items-center gap-3 py-3 px-4 rounded-xl transition-all duration-200 hover:scale-[1.01] hover:shadow-sm ${
                 isActive 
                   ? `bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-100 dark:to-gray-200 text-white dark:text-gray-900 shadow-lg border-2 border-gray-700 dark:border-gray-400` 
@@ -393,7 +401,7 @@ const TheoryTopic = () => {
                       onClick={() => navigate("/theory")} 
                       className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 -ml-2"
                     >
-                      <ArrowLeft className="mr-2 h-4 w-4" /> Back to Theory
+                      <ArrowLeft className="mr-2 h-4 w-4" /> Torna alla Teoria
                     </Button>
                     <Button 
                       variant="ghost" 
@@ -434,7 +442,7 @@ const TheoryTopic = () => {
                 <div className="relative mb-6">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
-                    placeholder="Search topics..."
+                    placeholder="Cerca argomenti..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-gray-400 dark:focus:border-gray-500"
@@ -459,7 +467,7 @@ const TheoryTopic = () => {
                     onClick={() => setCollapsedSections(new Set())}
                     className="flex-1 text-xs bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    Expand All
+                    Espandi Tutti
                   </Button>
                   <Button
                     variant="outline"
@@ -480,7 +488,7 @@ const TheoryTopic = () => {
                     }}
                     className="flex-1 text-xs bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    Collapse All
+                    Chiudi Tutti
                   </Button>
                 </div>
                 
@@ -488,7 +496,7 @@ const TheoryTopic = () => {
                   <div className="flex items-center justify-center p-8">
                     <div className="flex flex-col items-center gap-3">
                       <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
-                      <span className="text-sm text-gray-500">Loading topics...</span>
+                      <span className="text-sm text-gray-500">Caricamento argomenti...</span>
                     </div>
                   </div>
                 ) : error && !currentCategory ? (
@@ -509,7 +517,7 @@ const TheoryTopic = () => {
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
                       <BookOpen className="w-8 h-8 text-gray-400" />
                     </div>
-                    <p className="text-sm text-gray-500">No content available</p>
+                    <p className="text-sm text-gray-500">Nessun contenuto disponibile</p>
                   </div>
                 )}
               </CardContent>
@@ -543,8 +551,8 @@ const TheoryTopic = () => {
                           <BookMarked className="w-6 h-6 text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                         </div>
                         <div className="text-center">
-                          <h3 className="font-semibold text-gray-700 dark:text-gray-300">Loading Content</h3>
-                          <p className="text-sm text-gray-500">Preparing your learning materials...</p>
+                          <h3 className="font-semibold text-gray-700 dark:text-gray-300">Caricamento Contenuto</h3>
+                          <p className="text-sm text-gray-500">Preparazione dei materiali di studio...</p>
                         </div>
                       </div>
                     </div>
@@ -554,15 +562,15 @@ const TheoryTopic = () => {
                         <div className="w-8 h-8 rounded-full bg-red-200 dark:bg-red-800 flex items-center justify-center">
                           <span className="text-red-700 dark:text-red-300 font-bold">!</span>
                         </div>
-                        <h3 className="font-semibold text-red-800 dark:text-red-200">Content Error</h3>
+                        <h3 className="font-semibold text-red-800 dark:text-red-200">Errore Contenuto</h3>
                       </div>
                       <p className="text-red-700 dark:text-red-300 leading-relaxed">{error}</p>
                       <div className="mt-4 text-sm text-red-600 dark:text-red-400">
-                        <p>Make sure you have:</p>
+                        <p>Assicurati di aver:</p>
                         <ul className="list-disc list-inside mt-2 space-y-1">
-                          <li>Run the build script: <code className="bg-red-200 dark:bg-red-800 px-1 rounded">python build-static-content.py</code></li>
-                          <li>Generated the static files in the <code className="bg-red-200 dark:bg-red-800 px-1 rounded">public/data/</code> directory</li>
-                          <li>Verified the content structure matches the expected format</li>
+                          <li>Eseguito lo script di build: <code className="bg-red-200 dark:bg-red-800 px-1 rounded">python build-static-content.py</code></li>
+                          <li>Generato i file statici nella directory <code className="bg-red-200 dark:bg-red-800 px-1 rounded">public/data/</code></li>
+                          <li>Verificato che la struttura dei contenuti corrisponda al formato previsto</li>
                         </ul>
                       </div>
                     </div>
@@ -572,7 +580,7 @@ const TheoryTopic = () => {
                       <div className="border-b border-gray-200 dark:border-gray-700 pb-6">
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-3 h-3 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600"></div>
-                          <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Static Content</span>
+                          <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Contenuto Statico</span>
                         </div>
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-2">
                           {content.title}
@@ -601,10 +609,10 @@ const TheoryTopic = () => {
                           <BookOpen className="w-12 h-12 text-gray-400" />
                         </div>
                         <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                          Ready to Learn?
+                          Pronto per Imparare?
                         </h3>
                         <p className="text-gray-500 leading-relaxed">
-                          Select a topic from the sidebar to begin your journey into machine learning concepts and theory.
+                          Seleziona un argomento dalla barra laterale per iniziare il tuo viaggio nei concetti e nella teoria del machine learning.
                         </p>
                       </div>
                     </div>

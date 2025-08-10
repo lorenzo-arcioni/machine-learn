@@ -420,7 +420,7 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
             console.warn('MathJax rendering error:', err);
           });
         }
-      }, 500);
+      }, 1000);
     }
   }, [notebook, libsLoaded, isLoading]);
 
