@@ -53,8 +53,86 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [notebook, setNotebook] = useState<any>(null);
-  const [libsLoaded, setLibsLoaded] = useState(false);
+  const [libsReady, setLibsReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Load all required libraries
+  const loadLibraries = async () => {
+    try {
+      // Load libraries in parallel but ensure MathJax config is set first
+      if (!window.MathJax) {
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+          },
+          startup: { 
+            typeset: false,
+            ready: () => {
+              window.MathJax.startup.defaultReady();
+              console.log('MathJax ready');
+            }
+          }
+        };
+      }
+
+      const loadPromises = [];
+
+      // Load Marked.js
+      if (!window.marked) {
+        loadPromises.push(new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js';
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        }));
+      }
+
+      // Load Highlight.js
+      if (!window.hljs) {
+        loadPromises.push(new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+
+          const css = document.createElement('link');
+          css.rel = 'stylesheet';
+          css.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
+          document.head.appendChild(css);
+        }));
+      }
+
+      // Load MathJax
+      if (!document.querySelector('script[src*="mathjax"]')) {
+        loadPromises.push(new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js';
+          script.onload = () => {
+            // Wait a bit for MathJax to fully initialize
+            setTimeout(resolve, 500);
+          };
+          script.onerror = reject;
+          document.head.appendChild(script);
+        }));
+      }
+
+      await Promise.all(loadPromises);
+      setLibsReady(true);
+    } catch (err) {
+      console.error('Error loading libraries:', err);
+      setError('Failed to load required libraries');
+    }
+  };
 
   // Convert GitHub URL to raw URL
   const getRawNotebookUrl = (url: string) => {
@@ -64,164 +142,21 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
     return url;
   };
 
-  const rawUrl = getRawNotebookUrl(notebookUrl);
-
-  // Function to resolve image paths
-  const resolveImagePath = (src: string): string => {
-    // If it's already an absolute URL, return as is
-    if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:')) {
-      return src;
-    }
-
-    // If it's a relative path and we have a notebook URL, resolve it relative to the notebook
-    if (notebookUrl.includes('github.com')) {
-      const baseUrl = notebookUrl.replace('/blob/', '/raw/').replace(/\/[^\/]*\.ipynb$/, '/');
-      // Remove leading ./ if present
-      const cleanSrc = src.replace(/^\.\//, '');
-      return baseUrl + cleanSrc;
-    }
-
-    // Fallback: return the original src
-    return src;
-  };
-
-  // Function to process external images in markdown content
-  const processExternalImages = (content: string): string => {
-    // Handle markdown image syntax ![alt](src)
-    content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
-      const processedSrc = resolveImagePath(src);
-      return `![${alt}](${processedSrc})`;
-    });
-
-    // Handle HTML img tags
-    content = content.replace(/<img([^>]*)\s+src=["']([^"']+)["']([^>]*)>/gi, (match, beforeSrc, src, afterSrc) => {
-      const processedSrc = resolveImagePath(src);
-      return `<img${beforeSrc} src="${processedSrc}"${afterSrc}>`;
-    });
-
-    return content;
-  };
-
-  // Function to process HTML img tags in rendered content
-  const processHtmlImages = (container: Element) => {
-    const images = container.querySelectorAll('img');
-    images.forEach(img => {
-      // Add loading and error handling
-      img.onload = () => {
-        img.style.opacity = '1';
-      };
-      
-      img.onerror = () => {
-        // Create a placeholder for broken images
-        const placeholder = document.createElement('div');
-        placeholder.className = 'nb-image-placeholder';
-        placeholder.innerHTML = `
-          <div class="text-gray-400 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-            <svg class="w-8 h-8 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-            <p class="text-sm">Image not found</p>
-            <p class="text-xs text-gray-500">${img.alt || 'Unknown'}</p>
-          </div>
-        `;
-        img.parentNode?.replaceChild(placeholder, img);
-      };
-
-      // Style images
-      img.className = 'nb-markdown-image';
-      img.style.opacity = '0.5'; // Start with low opacity until loaded
-      img.style.transition = 'opacity 0.3s ease';
-    });
-  };
-
-  // Load required libraries
-  useEffect(() => {
-    const loadLibraries = async () => {
-      try {
-        // Load Marked.js for markdown parsing
-        if (!window.marked) {
-          const markedScript = document.createElement('script');
-          markedScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js';
-          document.head.appendChild(markedScript);
-          
-          await new Promise((resolve, reject) => {
-            markedScript.onload = resolve;
-            markedScript.onerror = reject;
-          });
-        }
-
-        // Load Highlight.js
-        if (!window.hljs) {
-          const hljsScript = document.createElement('script');
-          hljsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
-          document.head.appendChild(hljsScript);
-          
-          const hljsCSS = document.createElement('link');
-          hljsCSS.rel = 'stylesheet';
-          hljsCSS.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
-          document.head.appendChild(hljsCSS);
-          
-          await new Promise((resolve, reject) => {
-            hljsScript.onload = resolve;
-            hljsScript.onerror = reject;
-          });
-        }
-
-        // Load MathJax for LaTeX rendering
-        if (!window.MathJax) {
-          // Configure MathJax before loading
-          window.MathJax = {
-            tex: {
-              inlineMath: [['$', '$'], ['\\(', '\\)']],
-              displayMath: [['$$', '$$'], ['\\[', '\\]']],
-              processEscapes: true,
-              processEnvironments: true
-            },
-            options: {
-              skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-              ignoreHtmlClass: 'tex2jax_ignore',
-              processHtmlClass: 'tex2jax_process'
-            },
-            startup: {
-              typeset: false
-            }
-          };
-
-          const mathjaxScript = document.createElement('script');
-          mathjaxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js';
-          document.head.appendChild(mathjaxScript);
-          
-          await new Promise((resolve, reject) => {
-            mathjaxScript.onload = resolve;
-            mathjaxScript.onerror = reject;
-          });
-        }
-
-        setLibsLoaded(true);
-      } catch (err) {
-        console.error('Error loading libraries:', err);
-        setError('Failed to load required libraries');
-      }
-    };
-
-    loadLibraries();
-  }, []);
-
-  // Load and parse notebook
+  // Load notebook data
   const loadNotebook = async () => {
-    if (!libsLoaded) return;
+    if (!libsReady) return;
 
     try {
       setIsLoading(true);
       setError(null);
 
+      const rawUrl = getRawNotebookUrl(notebookUrl);
       const response = await fetch(rawUrl);
       if (!response.ok) {
         throw new Error(`Failed to fetch notebook: ${response.status} ${response.statusText}`);
       }
 
       const notebookData = await response.json();
-      
       if (!notebookData.cells) {
         throw new Error('Invalid notebook format: missing cells');
       }
@@ -235,71 +170,131 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
     }
   };
 
-  const renderMarkdownCell = (cell: any) => {
-    const container = document.createElement('div');
-    container.className = 'nb-markdown-container tex2jax_process';
-
-    const sourceContent = Array.isArray(cell.source) ? cell.source.join('') : (cell.source || '');
-    
-    if (sourceContent.trim()) {
-      let processedContent = sourceContent;
-      
-      // Process external image links (both markdown and HTML format)
-      processedContent = processExternalImages(processedContent);
-      
-      const rendered = window.marked.parse(processedContent);
-      container.innerHTML = rendered;
-      
-      // Process any remaining HTML img tags that might have been created
-      processHtmlImages(container);
+  // Resolve image paths for GitHub notebooks
+  const resolveImagePath = (src: string): string => {
+    if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:')) {
+      return src;
     }
-
-    return container;
+    if (notebookUrl.includes('github.com')) {
+      const baseUrl = notebookUrl.replace('/blob/', '/raw/').replace(/\/[^\/]*\.ipynb$/, '/');
+      const cleanSrc = src.replace(/^\.\//, '');
+      return baseUrl + cleanSrc;
+    }
+    return src;
   };
 
-  const renderCodeCell = (cell: any, index: number) => {
-    const container = document.createElement('div');
-    container.className = 'nb-code-container';
-
-    // Input section (without prompt)
-    const inputSection = document.createElement('div');
-    inputSection.className = 'nb-input-section-no-prompt';
-
-    // Code input
-    const inputDiv = document.createElement('div');
-    inputDiv.className = 'nb-input';
-    
-    const pre = document.createElement('pre');
-    const code = document.createElement('code');
-    code.className = 'language-python hljs';
-    
-    const sourceContent = Array.isArray(cell.source) ? cell.source.join('') : (cell.source || '');
-    code.textContent = sourceContent;
-    
-    pre.appendChild(code);
-    inputDiv.appendChild(pre);
-    inputSection.appendChild(inputDiv);
-    
-    container.appendChild(inputSection);
-
-    // Output section
-    if (cell.outputs && cell.outputs.length > 0) {
-      cell.outputs.forEach((output: any, outputIndex: number) => {
-        const outputElement = renderOutput(output, cell.execution_count);
-        if (outputElement) {
-          container.appendChild(outputElement);
-        }
+  // Process images in markdown content
+  const processImages = (content: string): string => {
+    return content
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+        return `![${alt}](${resolveImagePath(src)})`;
+      })
+      .replace(/<img([^>]*)\s+src=["']([^"']+)["']([^>]*)>/gi, (match, before, src, after) => {
+        return `<img${before} src="${resolveImagePath(src)}"${after}>`;
       });
-    }
-
-    return container;
   };
 
-  const renderOutput = (output: any, executionCount: any) => {
-    const outputSection = document.createElement('div');
-    outputSection.className = 'nb-output-section-no-prompt';
+  // Render notebook cells
+  const renderNotebook = () => {
+    if (!notebook || !containerRef.current || !window.marked || !window.hljs) return;
 
-    // Output content (without prompt)
+    const container = containerRef.current;
+    container.innerHTML = '';
+
+    const notebookDiv = document.createElement('div');
+    notebookDiv.className = 'jupyter-notebook';
+
+    notebook.cells.forEach((cell: any, index: number) => {
+      const cellDiv = document.createElement('div');
+      cellDiv.className = `nb-cell nb-${cell.cell_type}-cell`;
+
+      if (cell.cell_type === 'markdown') {
+        const sourceContent = Array.isArray(cell.source) ? cell.source.join('') : (cell.source || '');
+        if (sourceContent.trim()) {
+          const processedContent = processImages(sourceContent);
+          const rendered = window.marked.parse(processedContent);
+          
+          const markdownDiv = document.createElement('div');
+          markdownDiv.className = 'nb-markdown-container tex2jax_process';
+          markdownDiv.innerHTML = rendered;
+          cellDiv.appendChild(markdownDiv);
+        }
+      } else if (cell.cell_type === 'code') {
+        // Code input
+        const inputDiv = document.createElement('div');
+        inputDiv.className = 'nb-code-input';
+        
+        const pre = document.createElement('pre');
+        const code = document.createElement('code');
+        code.className = 'language-python';
+        
+        const sourceContent = Array.isArray(cell.source) ? cell.source.join('') : (cell.source || '');
+        code.textContent = sourceContent;
+        
+        pre.appendChild(code);
+        inputDiv.appendChild(pre);
+        cellDiv.appendChild(inputDiv);
+
+        // Code outputs
+        if (cell.outputs && cell.outputs.length > 0) {
+          cell.outputs.forEach((output: any) => {
+            const outputDiv = renderOutput(output);
+            if (outputDiv) cellDiv.appendChild(outputDiv);
+          });
+        }
+      }
+
+      notebookDiv.appendChild(cellDiv);
+    });
+
+    container.appendChild(notebookDiv);
+    addNotebookStyles();
+
+    // Highlight code and process MathJax
+    setTimeout(() => {
+      if (window.hljs) {
+        window.hljs.highlightAll();
+      }
+      
+      // Process MathJax with proper error handling and retries
+      processMathJax();
+    }, 100);
+  };
+
+  // Process MathJax with retry logic
+  const processMathJax = async () => {
+    if (!window.MathJax || !containerRef.current) return;
+
+    let retries = 3;
+    
+    const tryProcess = async (): Promise<void> => {
+      try {
+        if (window.MathJax.typesetPromise) {
+          await window.MathJax.typesetPromise([containerRef.current]);
+          console.log('MathJax processed successfully');
+        } else if (window.MathJax.Hub) {
+          // Fallback for MathJax v2
+          window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, containerRef.current]);
+        }
+      } catch (err) {
+        console.warn('MathJax processing error:', err);
+        if (retries > 0) {
+          retries--;
+          setTimeout(tryProcess, 1000);
+        }
+      }
+    };
+
+    // Wait for MathJax to be fully ready
+    if (window.MathJax.startup && window.MathJax.startup.promise) {
+      await window.MathJax.startup.promise;
+    }
+    
+    setTimeout(tryProcess, 200);
+  };
+
+  // Render cell outputs
+  const renderOutput = (output: any) => {
     const outputDiv = document.createElement('div');
     outputDiv.className = 'nb-output';
 
@@ -309,22 +304,19 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
       const text = Array.isArray(output.text) ? output.text.join('') : (output.text || '');
       streamDiv.textContent = text;
       outputDiv.appendChild(streamDiv);
-    } 
-    else if (output.output_type === 'execute_result' || output.output_type === 'display_data') {
+    } else if (output.output_type === 'execute_result' || output.output_type === 'display_data') {
       if (output.data) {
         if (output.data['image/png']) {
           const img = document.createElement('img');
           img.src = `data:image/png;base64,${output.data['image/png']}`;
           img.className = 'nb-output-image';
           outputDiv.appendChild(img);
-        }
-        else if (output.data['image/jpeg']) {
+        } else if (output.data['image/jpeg']) {
           const img = document.createElement('img');
           img.src = `data:image/jpeg;base64,${output.data['image/jpeg']}`;
           img.className = 'nb-output-image';
           outputDiv.appendChild(img);
-        }
-        else if (output.data['text/html']) {
+        } else if (output.data['text/html']) {
           const htmlDiv = document.createElement('div');
           htmlDiv.className = 'nb-html-output';
           const htmlContent = Array.isArray(output.data['text/html']) 
@@ -332,8 +324,7 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
             : output.data['text/html'];
           htmlDiv.innerHTML = htmlContent;
           outputDiv.appendChild(htmlDiv);
-        }
-        else if (output.data['text/plain']) {
+        } else if (output.data['text/plain']) {
           const textDiv = document.createElement('pre');
           textDiv.className = 'nb-text-output';
           const textContent = Array.isArray(output.data['text/plain'])
@@ -343,8 +334,7 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
           outputDiv.appendChild(textDiv);
         }
       }
-    }
-    else if (output.output_type === 'error') {
+    } else if (output.output_type === 'error') {
       const errorDiv = document.createElement('pre');
       errorDiv.className = 'nb-error-output';
       const traceback = output.traceback ? output.traceback.join('\n') : 
@@ -353,77 +343,10 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
       outputDiv.appendChild(errorDiv);
     }
 
-    outputSection.appendChild(outputDiv);
-    return outputDiv.children.length > 0 ? outputSection : null;
+    return outputDiv.children.length > 0 ? outputDiv : null;
   };
 
-  const renderCell = (cell: any, index: number) => {
-    const cellDiv = document.createElement('div');
-    cellDiv.className = `nb-cell nb-${cell.cell_type}-cell`;
-    
-    if (cell.cell_type === 'code') {
-      cellDiv.appendChild(renderCodeCell(cell, index));
-    } else if (cell.cell_type === 'markdown') {
-      cellDiv.appendChild(renderMarkdownCell(cell));
-    }
-
-    return cellDiv;
-  };
-
-  // Render notebook using custom renderer
-  const renderNotebook = () => {
-    if (!notebook || !containerRef.current || !window.marked || !window.hljs) return;
-
-    try {
-      containerRef.current.innerHTML = '';
-      
-      const notebookDiv = document.createElement('div');
-      notebookDiv.className = 'jupyter-notebook';
-      
-      notebook.cells.forEach((cell: any, index: number) => {
-        const cellElement = renderCell(cell, index);
-        notebookDiv.appendChild(cellElement);
-      });
-
-      containerRef.current.appendChild(notebookDiv);
-      
-      // Apply syntax highlighting
-      setTimeout(() => {
-        if (window.hljs) {
-          window.hljs.highlightAll();
-        }
-      }, 100);
-
-    } catch (err) {
-      console.error('Error rendering notebook:', err);
-      setError('Failed to render notebook');
-    }
-  };
-
-  // Load notebook when libraries are ready
-  useEffect(() => {
-    if (libsLoaded) {
-      loadNotebook();
-    }
-  }, [libsLoaded, rawUrl]);
-
-  // Render notebook when data is available
-  useEffect(() => {
-    if (notebook && libsLoaded && !isLoading) {
-      renderNotebook();
-      addNotebookStyles();
-      
-      // Render MathJax equations after a short delay
-      setTimeout(() => {
-        if (window.MathJax?.typesetPromise) {
-          window.MathJax.typesetPromise([containerRef.current]).catch((err: any) => {
-            console.warn('MathJax rendering error:', err);
-          });
-        }
-      }, 1000);
-    }
-  }, [notebook, libsLoaded, isLoading]);
-
+  // Add notebook styles
   const addNotebookStyles = () => {
     const styleId = 'jupyter-notebook-styles';
     if (document.getElementById(styleId)) return;
@@ -435,49 +358,13 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
         line-height: 1.6;
         color: #24292f;
-        max-width: none;
       }
       
       .nb-cell {
-        margin-bottom: 1rem;
-        position: relative;
+        margin-bottom: 1.5rem;
       }
       
-      .nb-code-container {
-        margin-bottom: 1rem;
-      }
-      
-      .nb-input-section, .nb-output-section {
-        display: flex;
-        align-items: flex-start;
-        min-height: 30px;
-      }
-      
-      .nb-prompt {
-        flex: 0 0 80px;
-        font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-        font-size: 13px;
-        font-weight: bold;
-        text-align: right;
-        padding-right: 10px;
-        padding-top: 4px;
-        white-space: nowrap;
-      }
-      
-      .nb-input-prompt {
-        color: #0969da;
-      }
-      
-      .nb-output-prompt {
-        color: #d1242f;
-      }
-      
-      .nb-input, .nb-output {
-        flex: 1;
-        min-width: 0;
-      }
-      
-      .nb-input pre {
+      .nb-code-input pre {
         background: #f6f8fa;
         border: 1px solid #d1d9e0;
         border-radius: 6px;
@@ -489,12 +376,16 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
         line-height: 1.45;
       }
       
-      .nb-input pre code {
+      .nb-code-input pre code {
         background: transparent;
         padding: 0;
         border: none;
         font-size: inherit;
         color: inherit;
+      }
+      
+      .nb-output {
+        margin-top: 8px;
       }
       
       .nb-stream-output, .nb-text-output {
@@ -530,10 +421,6 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
         margin: 8px 0;
       }
       
-      .nb-html-output {
-        margin: 8px 0;
-      }
-      
       .nb-html-output table {
         border-collapse: collapse;
         margin: 1em 0;
@@ -554,7 +441,6 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
       
       .nb-markdown-container {
         margin: 1rem 0;
-        padding: 0 90px 0 0;
       }
       
       .nb-markdown-container h1,
@@ -594,10 +480,6 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
         padding-left: 2em;
       }
       
-      .nb-markdown-container li {
-        margin: 0.25em 0;
-      }
-      
       .nb-markdown-container code {
         background: rgba(175, 184, 193, 0.2);
         border-radius: 3px;
@@ -631,16 +513,11 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
         padding: 0 1em;
       }
       
-      .nb-markdown-image {
+      .nb-markdown-container img {
         max-width: 100%;
         height: auto;
         border-radius: 6px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        margin: 16px 0;
-        display: block;
-      }
-      
-      .nb-image-placeholder {
         margin: 16px 0;
       }
       
@@ -653,26 +530,30 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
         margin: 1em 0 !important;
         text-align: center;
       }
-      
-      /* Inline math should not break lines awkwardly */
-      .nb-markdown-container .MathJax {
-        display: inline-block;
-        vertical-align: middle;
-      }
-      
-      /* Loading state for MathJax */
-      .nb-markdown-container .tex2jax_process {
-        opacity: 1;
-        transition: opacity 0.3s ease;
-      }
     `;
     document.head.appendChild(style);
   };
 
-  const handleRefresh = () => {
-    loadNotebook();
-  };
+  // Effects
+  useEffect(() => {
+    loadLibraries();
+  }, []);
 
+  useEffect(() => {
+    if (libsReady) {
+      loadNotebook();
+    }
+  }, [libsReady, notebookUrl]);
+
+  useEffect(() => {
+    if (notebook && libsReady && !isLoading) {
+      renderNotebook();
+    }
+  }, [notebook, libsReady, isLoading]);
+
+  // Event handlers
+  const handleRefresh = () => loadNotebook();
+  
   const handleOpenOriginal = () => {
     window.open(notebookUrl, '_blank');
   };
@@ -701,6 +582,7 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
     }
   };
 
+  // Render component
   if (error) {
     return (
       <div className="text-center py-8">
@@ -723,7 +605,7 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
     );
   }
 
-  if (!libsLoaded) {
+  if (!libsReady) {
     return (
       <div className="flex items-center justify-center py-16">
         <div className="text-center">
@@ -820,21 +702,17 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
 };
 
 export default function ExerciseDetail() {
-  // Get exercise ID from URL - try multiple methods to extract the ID
   const getExerciseIdFromUrl = (): string | null => {
-    // Method 1: Check for query parameter ?id=exercise-id
     const urlParams = new URLSearchParams(window.location.search);
     const queryId = urlParams.get('id');
     if (queryId) return queryId;
     
-    // Method 2: Extract from pathname /exercise/exercise-id
     const pathParts = window.location.pathname.split('/');
     const exerciseIndex = pathParts.indexOf('exercise');
     if (exerciseIndex !== -1 && pathParts[exerciseIndex + 1]) {
       return pathParts[exerciseIndex + 1];
     }
     
-    // Method 3: If pathname ends with exercise-id
     const lastPart = pathParts[pathParts.length - 1];
     if (lastPart && lastPart !== 'exercise' && lastPart !== '') {
       return lastPart;
@@ -844,7 +722,6 @@ export default function ExerciseDetail() {
   };
 
   const exerciseId = getExerciseIdFromUrl();
-  
   const [exerciseData, setExerciseData] = useState<Exercise | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -853,7 +730,6 @@ export default function ExerciseDetail() {
     const filename = `${id}.json`;
     
     try {
-      // First try to load from uploaded files
       if (typeof window !== 'undefined' && window.fs?.readFile) {
         try {
           const fileContent = await window.fs.readFile(filename, { encoding: 'utf8' }) as string;
@@ -865,7 +741,6 @@ export default function ExerciseDetail() {
         }
       }
 
-      // Fallback to fetch from /data/exercises/
       const response = await fetch(`/data/exercises/${filename}`);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status} - Exercise "${id}" not found at /data/exercises/${filename}`);
@@ -919,7 +794,7 @@ export default function ExerciseDetail() {
   };
 
   const handleBack = () => {
-    window.history.back();
+    window.location.href = '/practice';
   };
 
   if (loading) {
@@ -958,10 +833,10 @@ export default function ExerciseDetail() {
           <div className="space-x-4">
             <Button onClick={handleBack}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Go Back
+              Torna Indietro
             </Button>
             <Button variant="outline" onClick={() => window.location.href = '/'}>
-              Browse Exercises
+              Vai agli Esercizi
             </Button>
           </div>
         </div>
@@ -976,7 +851,7 @@ export default function ExerciseDetail() {
         <div className="flex items-center gap-4 mb-6">
           <Button variant="outline" size="sm" onClick={handleBack}>
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
+            Torna agli Esercizi
           </Button>
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">

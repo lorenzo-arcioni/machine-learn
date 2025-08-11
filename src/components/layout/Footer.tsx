@@ -13,44 +13,43 @@ const Footer = () => {
               <span className="font-bold text-xl">ML Learn</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              A modern platform for learning Machine Learning through theory and practice.
+              Una piattaforma moderna per imparare il Machine Learning attraverso teoria e pratica.
             </p>
           </div>
           
           <div>
-            <h3 className="font-semibold mb-3">Platform</h3>
+            <h3 className="font-semibold mb-3">Piattaforma</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/theory" className="hover:text-primary">Theory</Link></li>
-              <li><Link to="/practice" className="hover:text-primary">Practice</Link></li>
-              <li><Link to="/courses" className="hover:text-primary">Courses</Link></li>
+              <li><Link to="/theory" className="hover:text-primary">Teoria</Link></li>
+              <li><Link to="/practice" className="hover:text-primary">Pratica</Link></li>
+              <li><Link to="/courses" className="hover:text-primary">Corsi</Link></li>
               <li><Link to="/shop" className="hover:text-primary">Shop</Link></li>
               <li><Link to="/about" className="hover:text-primary">About</Link></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="font-semibold mb-3">Resources</h3>
+            <h3 className="font-semibold mb-3">Risorse</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/resources/documentation" className="hover:text-primary">Documentation</Link></li>
+              <li><Link to="/resources/documentation" className="hover:text-primary">Documentazione</Link></li>
               <li><Link to="/resources/api" className="hover:text-primary">API</Link></li>
               <li><Link to="/resources/community" className="hover:text-primary">Community</Link></li>
-              <li><Link to="/leaderboard" className="hover:text-primary">Leaderboard</Link></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="font-semibold mb-3">Legal</h3>
+            <h3 className="font-semibold mb-3">Legale</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/privacy" className="hover:text-primary">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="hover:text-primary">Terms of Service</Link></li>
-              <li><Link to="/cookie-policy" className="hover:text-primary">Cookie Policy</Link></li>
+              <li><Link to="/privacy" className="hover:text-primary">Informativa sulla Privacy</Link></li>
+              <li><Link to="/terms" className="hover:text-primary">Termini di Servizio</Link></li>
+              <li><Link to="/cookie-policy" className="hover:text-primary">Policy sui Cookie</Link></li>
             </ul>
           </div>
         </div>
         
         <div className="border-t mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} ML Learn. All rights reserved.
+            © {new Date().getFullYear()} ML Learn. Tutti i diritti riservati.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <a href="#" className="text-muted-foreground hover:text-primary">
