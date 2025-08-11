@@ -701,6 +701,23 @@ const NotebookViewer = ({ notebookUrl }: { notebookUrl: string }) => {
   );
 };
 
+// Floating Back Button Component
+const FloatingBackButton = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <div className="fixed top-24 z-50" style={{ left: 'calc(50% + 448px + 2rem)' }}>
+      <Button
+        onClick={onClick}
+        variant="outline"
+        size="sm"
+        className="bg-white hover:bg-gray-50 shadow-lg hover:shadow-xl transition-all duration-200 border-gray-300"
+      >
+        <ArrowLeft className="h-4 w-4 mr-2" />
+        Torna agli Esercizi
+      </Button>
+    </div>
+  );
+};
+
 export default function ExerciseDetail() {
   const getExerciseIdFromUrl = (): string | null => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -840,33 +857,29 @@ export default function ExerciseDetail() {
             </Button>
           </div>
         </div>
+        {/* Floating Back Button for Error State */}
+        <FloatingBackButton onClick={handleBack} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative">
       <div className="container mx-auto py-6 px-4 max-w-7xl">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <Button variant="outline" size="sm" onClick={handleBack}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Torna agli Esercizi
-          </Button>
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
-              <Badge className={getDifficultyColor(exerciseData.difficulty)}>
-                {exerciseData.difficulty}
-              </Badge>
-              <Badge variant="outline">{exerciseData.category}</Badge>
-              <div className="flex items-center gap-1 text-sm text-gray-500">
-                <Clock className="h-4 w-4" />
-                {exerciseData.estimatedTime}
-              </div>
+        {/* Header - senza pulsante back */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-2">
+            <Badge className={getDifficultyColor(exerciseData.difficulty)}>
+              {exerciseData.difficulty}
+            </Badge>
+            <Badge variant="outline">{exerciseData.category}</Badge>
+            <div className="flex items-center gap-1 text-sm text-gray-500">
+              <Clock className="h-4 w-4" />
+              {exerciseData.estimatedTime}
             </div>
-            <h1 className="text-3xl font-bold">{exerciseData.title}</h1>
-            <p className="text-gray-600 mt-1">{exerciseData.description}</p>
           </div>
+          <h1 className="text-3xl font-bold">{exerciseData.title}</h1>
+          <p className="text-gray-600 mt-1">{exerciseData.description}</p>
         </div>
 
         {/* Prerequisites */}
@@ -956,7 +969,13 @@ export default function ExerciseDetail() {
             </CardContent>
           </Card>
         )}
+
+        {/* Spazio aggiuntivo in fondo per evitare che il contenuto sia nascosto dal floating button */}
+        <div className="h-4"></div>
       </div>
+
+      {/* Floating Back Button */}
+      <FloatingBackButton onClick={handleBack} />
     </div>
   );
 }

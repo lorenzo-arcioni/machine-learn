@@ -149,8 +149,8 @@ const About = () => {
         {/* Tab Content - Founder */}
         {activeTab === 'founder' && (
           <div className="mt-0 max-w-4xl">
-            <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-10">
-              <div className="flex-shrink-0">
+            <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-10">
+              <div className="flex flex-col items-center md:self-start">
                 <img
                   src="https://lorenzo-arcioni.github.io/images/profile.jpg"
                   alt="Foto di Lorenzo Arcioni"
@@ -158,7 +158,7 @@ const About = () => {
                 />
                 
                 {/* Info GitHub Style */}
-                <div className="mt-4 p-4 bg-gray-100 rounded-lg border text-sm space-y-2">
+                <div className="mt-4 p-4 bg-gray-100 rounded-lg border text-sm space-y-2 w-80">
                   <div className="flex items-center text-gray-600">
                     <span className="w-4 h-4 mr-2">🇮🇹</span>
                     Italy
@@ -201,12 +201,12 @@ const About = () => {
                 </h3>
                 
                 <p className="text-gray-600 mb-4">
-                  Dal primo giorno all’ITIS in informatica, passando per la laurea triennale e magistrale, 
+                  Dal primo giorno all'ITIS in informatica, passando per la laurea triennale e magistrale, 
                   ho sempre cercato più di una risposta pratica: volevo capire i meccanismi invisibili dietro 
                   la tecnologia. Il Machine Learning è diventato il terreno perfetto per coltivare questa 
-                  sete di comprensione profonda — non solo “come” far funzionare un modello, ma “perché” funziona. 
+                  sete di comprensione profonda — non solo "come" far funzionare un modello, ma "perché" funziona. 
                   Colmare questa distanza tra uso e comprensione è stato il filo conduttore del mio percorso, 
-                  ed è l’essenza di ML Learn.
+                  ed è l'essenza di ML Learn.
                 </p>
 
                 <div className="mb-4">

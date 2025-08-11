@@ -1367,122 +1367,130 @@ const Home = () => {
 
      {/* Pricing - Bianco */}
      <section className="py-24 px-4 md:px-6 bg-white dark:bg-gray-950">
-       <div className="container mx-auto max-w-6xl">
-         <div className="text-center mb-16">
-           <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-gray-100">Investi nel Tuo Futuro</h2>
-           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-             Un investimento che si ripaga rapidamente: il costo del corso viene tipicamente recuperato 
-             con il primo aumento di stipendio. Tre opzioni per adattarsi alle tue esigenze e budget.
-           </p>
-         </div>
+      <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-gray-100">Investi nel Tuo Futuro</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              Un investimento che si ripaga rapidamente: il costo del corso viene tipicamente recuperato 
+              con il primo aumento di stipendio. Tre opzioni per adattarsi alle tue esigenze e budget.
+            </p>
+          </div>
 
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-           {/* Basic Plan */}
-           <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
-             <div className="text-center">
-               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Essential</h3>
-               <div className="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">€297</div>
-               <div className="text-gray-600 dark:text-gray-400 mb-6">per mese × 12 mesi</div>
-               <div className="text-lg text-gray-700 dark:text-gray-300 mb-6">Totale: €3,564</div>
-             </div>
-             <ul className="space-y-3 mb-8">
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Accesso completo al curriculum</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Community forum e study groups</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Progetti pratici e code reviews</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Certificazione professionale</span>
-               </li>
-             </ul>
-             <Button className="w-full" variant="outline">
-               Inizia Essential
-             </Button>
-           </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {/* Basic Plan */}
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800 transition-all duration-500 ease-in-out hover:shadow-2xl hover:-translate-y-2 hover:border-gray-300 dark:hover:border-gray-600 flex flex-col group">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Essential</h3>
+                <div className="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100 group-hover:scale-110 transition-transform duration-300">€297</div>
+                <div className="text-gray-600 dark:text-gray-400 mb-6">per mese × 12 mesi</div>
+                <div className="text-lg text-gray-700 dark:text-gray-300 mb-6">Totale: €3,564</div>
+              </div>
+              <ul className="space-y-3 mb-8 flex-grow">
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Accesso completo al curriculum</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Community forum e study groups</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Progetti pratici e code reviews</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Certificazione professionale</span>
+                </li>
+              </ul>
+              <Button 
+                className="w-full mt-auto transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-blue-600 hover:border-blue-600 hover:text-white" 
+                variant="outline"
+              >
+                Inizia Essential
+              </Button>
+            </div>
 
-           {/* Premium Plan */}
-           <div className="bg-gray-900 dark:bg-gray-800 rounded-2xl p-8 shadow-xl border-2 border-gray-700 dark:border-gray-600 relative">
-             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-               <div className="bg-gray-800 dark:bg-gray-600 text-white dark:text-gray-100 px-4 py-2 rounded-full text-sm font-semibold">
-                 PIÙ POPOLARE
-               </div>
-             </div>
-             <div className="text-center text-white dark:text-gray-100">
-               <h3 className="text-2xl font-bold mb-4">Professional</h3>
-               <div className="text-4xl font-bold mb-2">€497</div>
-               <div className="text-gray-300 dark:text-gray-200 mb-6">per mese × 12 mesi</div>
-               <div className="text-lg text-gray-200 dark:text-gray-200 mb-6">Totale: €5,964</div>
-             </div>
-             <ul className="space-y-3 mb-8 text-white dark:text-gray-100">
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300" />
-                 <span>Tutto del piano Essential</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300" />
-                 <span>Mentorship 1-on-1 mensile</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300" />
-                 <span>Career coaching e job placement</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300" />
-                 <span>Accesso a dataset proprietari enterprise</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300" />
-                 <span>Workshop esclusivi con industry leaders</span>
-               </li>
-             </ul>
-             <Button className="w-full bg-white text-gray-900 hover:bg-gray-100">
-               Inizia Professional
-             </Button>
-           </div>
+            {/* Premium Plan */}
+            <div className="bg-gray-900 dark:bg-gray-800 rounded-2xl p-8 shadow-xl border-2 border-gray-700 dark:border-gray-600 relative transition-all duration-500 ease-in-out hover:shadow-2xl hover:-translate-y-3 hover:border-gray-500 dark:hover:border-gray-400 flex flex-col group">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <div className="bg-gray-800 dark:bg-gray-600 text-white dark:text-gray-100 px-4 py-2 rounded-full text-sm font-semibold group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:animate-pulse transition-all duration-300">
+                  PIÙ POPOLARE
+                </div>
+              </div>
+              <div className="text-center text-white dark:text-gray-100">
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-blue-300 transition-colors duration-300">Professional</h3>
+                <div className="text-4xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">€497</div>
+                <div className="text-gray-300 dark:text-gray-200 mb-6">per mese × 12 mesi</div>
+                <div className="text-lg text-gray-200 dark:text-gray-200 mb-6">Totale: €5,964</div>
+              </div>
+              <ul className="space-y-3 mb-8 text-white dark:text-gray-100 flex-grow">
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300 group-hover/item:text-green-400 transition-colors duration-200" />
+                  <span>Tutto del piano Essential</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300 group-hover/item:text-green-400 transition-colors duration-200" />
+                  <span>Mentorship 1-on-1 mensile</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300 group-hover/item:text-green-400 transition-colors duration-200" />
+                  <span>Career coaching e job placement</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300 group-hover/item:text-green-400 transition-colors duration-200" />
+                  <span>Accesso a dataset proprietari enterprise</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-300 dark:text-gray-300 group-hover/item:text-green-400 transition-colors duration-200" />
+                  <span>Workshop esclusivi con industry leaders</span>
+                </li>
+              </ul>
+              <Button 
+                className="w-full bg-white text-gray-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 hover:text-white hover:scale-105 hover:shadow-xl mt-auto transition-all duration-300" 
+              >
+                Inizia Professional
+              </Button>
+            </div>
 
-           {/* Elite Plan */}
-           <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
-             <div className="text-center">
-               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Elite</h3>
-               <div className="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">€797</div>
-               <div className="text-gray-600 dark:text-gray-400 mb-6">per mese × 12 mesi</div>
-               <div className="text-lg text-gray-700 dark:text-gray-300 mb-6">Totale: €9,564</div>
-             </div>
-             <ul className="space-y-3 mb-8">
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Tutto del piano Professional</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Mentorship settimanale personalizzata</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Progetti enterprise custom</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Direct access to instructors</span>
-               </li>
-               <li className="flex items-center gap-2">
-                 <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                 <span className="text-gray-700 dark:text-gray-300">Garanzia placement o rimborso completo</span>
-               </li>
-             </ul>
-             <Button className="w-full" variant="outline">
-               Contatta Sales
-             </Button>
-           </div>
-         </div>
+            {/* Elite Plan */}
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800 transition-all duration-500 ease-in-out hover:shadow-2xl hover:-translate-y-2 hover:border-gray-300 dark:hover:border-gray-600 flex flex-col group">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">Elite</h3>
+                <div className="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100 group-hover:scale-110 transition-transform duration-300">€797</div>
+                <div className="text-gray-600 dark:text-gray-400 mb-6">per mese × 12 mesi</div>
+                <div className="text-lg text-gray-700 dark:text-gray-300 mb-6">Totale: €9,564</div>
+              </div>
+              <ul className="space-y-3 mb-8 flex-grow">
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Tutto del piano Professional</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Mentorship settimanale personalizzata</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Progetti enterprise custom</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Direct access to instructors</span>
+                </li>
+                <li className="flex items-center gap-2 group/item">
+                  <CheckCircle className="h-4 w-4 text-gray-600 dark:text-gray-400 group-hover/item:text-green-500 transition-colors duration-200" />
+                  <span className="text-gray-700 dark:text-gray-300">Garanzia placement o rimborso completo</span>
+                </li>
+              </ul>
+              <Button 
+                className="w-full mt-auto transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-purple-600 hover:border-purple-600 hover:text-white" 
+                variant="outline"
+              >
+                Contatta Sales
+              </Button>
+            </div>
+          </div>
 
          {/* Value proposition */}
          <div className="text-center bg-gray-900 dark:bg-gray-800 rounded-2xl p-8 text-white dark:text-gray-100">
