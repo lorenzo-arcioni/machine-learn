@@ -20,7 +20,6 @@ import { User, Settings, LogOut } from "lucide-react";
 import { NotificationPanel } from '../notifications/NotificationPanel';
 
 const Header = () => {
-  const location = useLocation();
   const isMobile = useIsMobile();
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
@@ -75,9 +74,16 @@ const DesktopNav = ({
   isLoading: boolean;
   handleLogout: () => void;
 }) => {
+  const location = useLocation();  
+  const handleHomeClick = (e) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   return (
     <nav className="flex items-center gap-6">
-      <Link to="/" className="nav-link">
+      <Link to="/" className="nav-link" onClick={handleHomeClick}>
         Home
       </Link>
       <Link to="/theory" className="nav-link">

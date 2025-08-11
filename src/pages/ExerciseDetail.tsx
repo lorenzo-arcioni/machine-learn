@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import MainLayout from "@/components/layout/MainLayout";
 import { 
   ArrowLeft, 
   Clock, 
@@ -864,8 +865,9 @@ export default function ExerciseDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 relative">
-      <div className="container mx-auto py-6 px-4 max-w-7xl">
+    <MainLayout>
+      <div className="min-h-screen bg-gray-50 relative">
+        <div className="container mx-auto py-6 px-4 max-w-7xl">
         {/* Header - senza pulsante back */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
@@ -977,5 +979,6 @@ export default function ExerciseDetail() {
       {/* Floating Back Button */}
       <FloatingBackButton onClick={handleBack} />
     </div>
+    </MainLayout>
   );
 }
