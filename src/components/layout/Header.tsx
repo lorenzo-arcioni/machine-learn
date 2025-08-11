@@ -77,6 +77,9 @@ const DesktopNav = ({
 }) => {
   return (
     <nav className="flex items-center gap-6">
+      <Link to="/" className="nav-link">
+        Home
+      </Link>
       <Link to="/theory" className="nav-link">
         Teoria
       </Link>
@@ -194,6 +197,11 @@ const MobileNav = ({ user, isLoading, handleLogout }: { user: any, isLoading: bo
             </div>
           )}
           
+          <SheetClose asChild>
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
+          </SheetClose>
           <SheetClose asChild>
             <Link to="/theory" className="nav-link">
               Teoria

@@ -1,57 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
-import {
-  Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Handshake, FileText, Package, Loader2 } from "lucide-react";
-import ConsultationRequestForm from "@/components/shop/ConsultationRequestForm";
-import { shopApi } from '@/services/api';
+import { ShoppingBag, Package, Laptop, BookOpen, Cpu, Calculator, Code, BookText, Loader2, ShoppingCart } from "lucide-react";
 import { toast } from '@/components/ui/use-toast';
+import { useNavigate } from 'react-router-dom';
 
-// Sceglie l'icona in base alla categoria
+// Funzione per determinare l'icona in base alla categoria
 const getCategoryIcon = (category: string) => {
   switch (category) {
-    case "Consulenze": return Handshake;
-    case "Prodotti Digitali": return FileText;
-    case "Prodotti Fisici": return Package;
-    default: return Package;
+    case "Machine Learning":
+      return Cpu;
+    case "Matematica":
+      return Calculator;
+    case "Programmazione":
+      return Code;
+    case "Algoritmi":
+      return BookText;
+    case "Natural Language Processing":
+      return BookOpen;
+    case "Hardware":
+      return Laptop;
+    case "Software":
+      return Package;
+    default:
+      return ShoppingBag;
   }
 };
 
 const Shop = () => {
   const [productsByCategory, setProductsByCategory] = useState<Record<string, any[]>>({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
         setIsLoading(true);
-        const data = await shopApi.getProducts() as Record<string, any[]>;
-
-        // Trasforma _id in id e aggiungi icona
-        const productsWithIcons = Object.fromEntries(
-          Object.entries(data).map(([category, prods]) => [
-            category,
-            prods.map((prod) => ({
-              id: prod._id,
-              ...prod,
-              icon: getCategoryIcon(category),
-            }))
-          ])
-        );
-
-        setProductsByCategory(productsWithIcons);
+        
+        // Carica il file JSON locale dalla cartella public
+        const response = await fetch('/data/shop.json');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const productsArray = await response.json();
+        
+        // Raggruppa i prodotti per categoria e aggiungi le icone
+        const productsByCategory = productsArray.reduce((acc: Record<string, any[]>, product: any) => {
+          const category = product.category;
+          
+          if (!acc[category]) {
+            acc[category] = [];
+          }
+          
+          acc[category].push({
+            ...product,
+            icon: getCategoryIcon(category),
+            // Aggiungiamo uno stato predefinito se non è presente
+            status: product.status || 'available'
+          });
+          
+          return acc;
+        }, {});
+        
+        setProductsByCategory(productsByCategory);
       } catch (err) {
-        console.error('Errore caricamento prodotti:', err);
+        console.error('Error loading products:', err);
         setError('Impossibile caricare i prodotti. Riprova più tardi.');
         toast({
           title: 'Errore',
           description: 'Impossibile caricare i prodotti. Riprova più tardi.',
-          variant: 'destructive',
+          variant: 'destructive'
         });
       } finally {
         setIsLoading(false);
@@ -61,31 +83,59 @@ const Shop = () => {
     loadProducts();
   }, []);
 
-  const handleBuyClick = (product: any, category: string) => {
-    if (category === "Consulenze") {
-      setSelectedProduct(product);
-      setIsFormOpen(true);
+  const handleProductAction = (product: any) => {
+    console.log('Product action:', product._id); // Debug log
+    
+    // Se il prodotto ha un link esterno, aprilo in una nuova scheda
+    if (product.link || product.url) {
+      const link = product.link || product.url;
+      window.open(link, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    
+    // Altrimenti naviga alla pagina del prodotto
+    const productId = product._id || product.id;
+    if (productId) {
+      navigate(`/shop/${productId}`);
     } else {
+      console.error('Product ID is missing'); // Debug log
       toast({
-        title: 'Acquisto',
-        description: `Aggiunto al carrello: ${product.title}`,
+        title: 'Errore',
+        description: 'ID del prodotto non disponibile',
+        variant: 'destructive'
       });
     }
   };
 
-  // Costruiamo l'ordine delle categorie: prima "Consulenze", poi le altre
-  const orderedCategories = React.useMemo(() => {
-    const cats = Object.keys(productsByCategory);
-    return [
-      ...cats.filter(cat => cat === "Consulenze"),
-      ...cats.filter(cat => cat !== "Consulenze")
-    ];
-  }, [productsByCategory]);
+  const handleAddToCart = (product: any, e: React.MouseEvent) => {
+    e.stopPropagation(); // Previeni la navigazione quando si clicca "Aggiungi al carrello"
+    
+    // Qui potresti implementare la logica per aggiungere al carrello
+    toast({
+      title: 'Prodotto aggiunto!',
+      description: `${product.title} è stato aggiunto al carrello`,
+      variant: 'default'
+    });
+  };
+
+  const getButtonText = (product: any) => {
+    if (product.status === 'coming_soon') return 'Prossimamente';
+    if (product.status === 'out_of_stock') return 'Esaurito';
+    if (product.link || product.url) return 'Vai al prodotto';
+    return 'Vedi dettagli';
+  };
+
+  const isProductUnavailable = (product: any) => {
+    return product.status === 'coming_soon' || product.status === 'out_of_stock';
+  };
 
   return (
     <MainLayout>
       <div className="container mx-auto py-8">
-        <h1 className="text-4xl font-bold mb-8">Shop</h1>
+        <div className="flex items-center gap-3 mb-8">
+          <ShoppingBag className="h-8 w-8" />
+          <h1 className="text-4xl font-bold">Shop</h1>
+        </div>
 
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
@@ -96,67 +146,106 @@ const Shop = () => {
           <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md">
             {error}
           </div>
-        ) : orderedCategories.length === 0 ? (
+        ) : Object.keys(productsByCategory).length === 0 ? (
           <div className="text-center py-12">
+            <ShoppingBag className="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <p className="text-lg text-gray-600">Nessun prodotto disponibile al momento.</p>
           </div>
         ) : (
-          orderedCategories.map((category) => {
-            const categoryProducts = productsByCategory[category];
-            return (
-              <div key={category} className="mb-12">
-                <div className="flex items-center gap-2 mb-6">
-                  {React.createElement(getCategoryIcon(category), { className: "h-6 w-6" })}
-                  <h2 className="text-2xl font-semibold">{category}</h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {categoryProducts.map((product) => (
-                    <Card
-                      key={String(product.id)}
-                      className="overflow-hidden flex flex-col"
-                    >
-                      <div className="h-48 overflow-hidden">
-                        <img
-                          src={product.image_url}
-                          alt={product.title}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = '/placeholder-product.jpg';
-                          }}
-                        />
-                      </div>
-                      <CardHeader>
-                        <CardTitle>{product.title}</CardTitle>
-                        <CardDescription>{product.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-2xl font-bold text-primary">{product.price}</p>
-                      </CardContent>
-                      <CardFooter className="mt-auto">
-                        <Button
-                          className="w-full"
-                          onClick={() => handleBuyClick(product, category)}
-                        >
-                          {category === "Consulenze" ? "Richiedi Consulenza" : "Acquista Ora"}
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
-                </div>
+          Object.entries(productsByCategory).map(([category, products]) => (
+            <div key={category} className="mb-12">
+              <div className="flex items-center gap-2 mb-6">
+                {React.createElement(getCategoryIcon(category), { className: "h-6 w-6" })}
+                <h2 className="text-2xl font-semibold">{category}</h2>
               </div>
-            );
-          })
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {products.map((product) => (
+                  <Card key={String(product._id)} className="overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
+                    <div className="h-48 overflow-hidden relative">
+                      <img
+                        src={product.image_url}
+                        alt={product.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback se l'immagine non carica
+                          (e.target as HTMLImageElement).src = '/placeholder-product.jpg';
+                        }}
+                      />
+                      {product.status === 'coming_soon' && (
+                        <div className="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-md text-xs font-medium">
+                          Presto
+                        </div>
+                      )}
+                      {product.status === 'out_of_stock' && (
+                        <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-medium">
+                          Esaurito
+                        </div>
+                      )}
+                      {product.price === 'Free' && product.status === 'available' && (
+                        <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-md text-xs font-medium">
+                          Gratis
+                        </div>
+                      )}
+                    </div>
+                    <CardHeader>
+                      <CardTitle className="text-lg">{product.title}</CardTitle>
+                      <CardDescription className="text-sm line-clamp-3">{product.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <div className="grid grid-cols-1 gap-2 text-sm">
+                        {product.instructor && (
+                          <div>
+                            <span className="font-medium">Creatore:</span> {product.instructor}
+                          </div>
+                        )}
+                        {product.duration && (
+                          <div>
+                            <span className="font-medium">Durata:</span> {product.duration}
+                          </div>
+                        )}
+                        {product.level && (
+                          <div>
+                            <span className="font-medium">Livello:</span> {product.level}
+                          </div>
+                        )}
+                        <div className="flex items-center justify-between mt-4">
+                          <div className="text-lg font-bold text-primary">
+                            {product.price}
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex gap-2">
+                      <Button 
+                        className="flex-1" 
+                        variant={isProductUnavailable(product) ? 'secondary' : 'default'}
+                        onClick={() => {
+                          if (!isProductUnavailable(product)) {
+                            handleProductAction(product);
+                          }
+                        }}
+                        disabled={isProductUnavailable(product)}
+                      >
+                        {getButtonText(product)}
+                      </Button>
+                      {product.status === 'available' && product.price !== 'Free' && (
+                        <Button 
+                          variant="outline"
+                          size="icon"
+                          onClick={(e) => handleAddToCart(product, e)}
+                          title="Aggiungi al carrello"
+                        >
+                          <ShoppingCart className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          ))
         )}
       </div>
-
-      {isFormOpen && selectedProduct && (
-        <ConsultationRequestForm
-          isOpen={isFormOpen}
-          onClose={() => setIsFormOpen(false)}
-          product={selectedProduct}
-          consultationProducts={productsByCategory["Consulenze"] || []}
-        />
-      )}
     </MainLayout>
   );
 };

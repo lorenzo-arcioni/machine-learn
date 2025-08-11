@@ -48,19 +48,15 @@
 },
 {
   "_id": "natural-language-processing",
-  "title": "titolo",
-  "description": "course",
-  "category": "natural-language-processing",
-  "level": "beginner",
-  "duration": "ciao",
-  "price": "100",
-  "instructor": "lor",
-  "image_url": "",
+  "title": "Introduzione al Natural Language Processing",
+  "description": "Corso completo per principianti sul Natural Language Processing, che copre concetti fondamentali, tecniche e applicazioni pratiche.",
+  "category": "Natural Language Processing",
+  "level": "Beginner",
+  "duration": "8 settimane",
+  "price": "€399",
+  "instructor": "Lorenzo Rossi",
+  "image_url": "https://www.smartdatacollective.com/wp-content/uploads/2018/03/Natural-Language-Processing-NLP-AI.jpg",
   "url": "",
-  "created_at": {
-    "$date": "2025-06-18T18:06:59.109Z"
-  },
-  "created_by": "6802f5548a17664c3275fda3",
   "status": "coming_soon"
 },
 {
