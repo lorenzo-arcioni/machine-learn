@@ -12,14 +12,28 @@ Un aspetto cruciale della discesa del gradiente è che, nel caso di funzioni **n
 
 In pratica, anche se ci si può avvicinare a un punto di sella, la discesa del gradiente tende naturalmente a superarlo e continuare verso un minimo.
 
+Nel contesto del *model fitting*, l’obiettivo consiste nel minimizzare una **funzione di perdita** (*loss function*), definita come applicazione:  
+
+$$
+\ell: \mathbb{R}^n \; \longrightarrow \; \mathbb{R}
+$$
+
+dove:  
+
+- il **dominio** è lo spazio dei parametri del modello, $\mathbb{R}^n$,  
+- il **codominio** è l’asse reale, $\mathbb{R}$.  
+
+Il processo di ottimizzazione ha inizio a partire da una **condizione iniziale**, ossia da un punto $\Theta^{(0)} \in \mathbb{R}^n$ che rappresenta un insieme di valori iniziali per i parametri del modello.  
+Tale punto può essere determinato in maniera **casuale** oppure tramite una procedura di **inizializzazione mirata**, progettata per favorire la successiva convergenza dell’algoritmo di ottimizzazione.  
+
 L'intuizione alla base della discesa del gradiente è piuttosto semplice:
 
-1. Si parte da un punto iniziale nello spazio dei parametri.  
+1. Si parte da un punto $\Theta^{(0)}$ iniziale nello spazio dei parametri.  
 2. Si calcola il gradiente della funzione obiettivo in quel punto, il quale indica la direzione di massima crescita.  
 3. Per minimizzare la funzione, ci si sposta nella direzione opposta a quella del gradiente, effettuando un "passo" in quella direzione.  
 4. Questo processo viene ripetuto fino al raggiungimento di un criterio di arresto (convergenza).
 
-<img src="../../../images/gradient-descent.jpg" alt="Gradient Descent">
+<img src="../../../images/gradient-descent.jpg" alt="Gradient Descent" style="display: block; margin-left: auto; margin-right: auto;">
 
 *Figura 1.0: Discesa del Gradiente su una funzione loss non convessa*
 
@@ -35,13 +49,20 @@ dove:
 - $\alpha$ è il **tasso di apprendimento** (*learning rate*), un iperparametro che determina l'ampiezza del passo nella direzione del gradiente,
 - $\nabla \ell_{\Theta^{(t)}}$ è il gradiente della funzione di perdita $\ell$ rispetto ai parametri $\Theta$.
 
+Il criterio di arresto può essere formalizzato come segue:
+
+$$
+||\nabla \ell_{\Theta^{(t)}}|| \leq \epsilon.
+$$
+per un certo $\epsilon > 0$.
+
 Ovviamente, per poter calcolare correttamente il gradiente di una funzione, e quindi eseguire correttamente la discesa del gradiente, abbiamo bisogno che la funzione $\ell$ sia differenziabile in ogni suo punto.
 
 Infatti, non basta che sia definita la derivata parziale di $\ell$ rispetto a ogni singola variabile $\theta_i$, ma è necessario che $\ell$ abbia un gradiente continuo.
 
 ## Differenziabilità
 
-Come abbiamo visto, il gradiente è l’elemento chiave nel funzionamento della discesa del gradiente. Ma ci si potrebbe chiedere: **tutte le funzioni di perdita permettono il calcolo del gradiente?**
+Come abbiamo visto, il gradiente è l’elemento chiave nel funzionamento di questo tipo di ottimizzazione non lineare. Ma ci si potrebbe chiedere: **tutte le funzioni di perdita permettono il calcolo del gradiente?**
 
 La risposta è: **non sempre**.
 
@@ -103,7 +124,7 @@ plt.show()
 
 *Figura 1.3: Funzione non differenziabile*
 
-Questa funzione ha derivate parziali definite ovunque, ma sono **discontinue nell’origine**, e questo significa che $f$ **non è differenziabile** in $(0, 0)$.
+Questa funzione ha derivate parziali definite ovunque, ma sono **discontinue nell'origine**, e questo significa che $f$ **non è differenziabile** in $(0, 0)$.
 
 #### 1. Derivate parziali in $(0,0)$  
 Per definizione,
@@ -116,7 +137,7 @@ f_y(0,0)
 =\lim_{k\to0}\frac{f(0,k)-f(0,0)}{k}
 =\lim_{k\to0}\frac{0-0}{k}=0.
 $$
-
+Dove $f_x$ e $f_y$ sono le derivate parziali di $f$ rispetto a $x$ e a $y$, rispettivamente.
 #### 2. Espressioni di $f_x$ e $f_y$ per $(x,y)\neq(0,0)$  
 Usando la derivazione di un quoziente:
 $$
@@ -175,11 +196,19 @@ In conclusione, **la differenziabilità è un requisito fondamentale per l’app
 
 ## Interpretazione Geometrica
 
-Dal punto di vista geometrico, la discesa del gradiente segue una traiettoria nello spazio dei parametri, cercando il punto in cui la funzione di perdita assume un valore minimo. Se la funzione è convessa, l'algoritmo convergerà al minimo globale; altrimenti, si fermerà in un minimo locale. 
+Dal punto di vista geometrico, la discesa del gradiente segue una traiettoria nello spazio dei parametri, cercando il punto in cui la funzione di perdita assume un valore minimo. Se la funzione è convessa, l'algoritmo convergerà al minimo globale; altrimenti, si fermerà in un minimo locale.
 
-È importante notare che, a causa della precisione finita delle macchine, difficilmente si raggiungerà un punto esattamente stazionario, ma ci si fermerà quando la variazione della funzione di perdita diventa trascurabile.
+Un concetto importante in questo contesto è quello dei **punti stazionari**. Un punto stazionario di una funzione differenziabile è un punto in cui tutte le derivate parziali sono nulle, cioè il gradiente è zero. Dal punto di vista del *gradient descent*, questo significa che l’algoritmo può “bloccarsi” in questi punti:
 
-Volendo possiamo anche, tramite l'unrolling ricorsivo, riscrivere esplicitamente $\Theta^{(t+1)}$ come:
+$$
+\Theta^{(t+1)} = \Theta^{(t)} - \bcancel{\alpha \nabla \ell_{\Theta^{(t)}}}.
+$$
+
+Non tutti i punti stazionari sono minimi: esistono anche massimi locali e punti sella, ossia punti in cui la funzione aumenta lungo un asse e diminuisce lungo un altro. Il tipo di punto stazionario verso cui l’algoritmo converge dipende dall’inizializzazione; ad esempio, se si parte esattamente in un massimo locale o in un punto sella (evento molto improbabile in pratica), l’algoritmo si fermerà immediatamente, poiché il gradiente è zero, anche se tali punti non rappresentano minimi della funzione.
+
+È importante notare che, a causa della precisione finita delle macchine, difficilmente si raggiungerà un punto stazionario esatto, ma ci si fermerà quando la variazione della funzione di perdita diventa trascurabile.
+
+Volendo, possiamo anche, tramite l'unrolling ricorsivo, riscrivere esplicitamente $\Theta^{(t+1)}$ come:
 
 $$
 \begin{align*}
@@ -199,7 +228,7 @@ $$
 
 dove $\epsilon$ è una soglia positiva molto piccola che determina il livello di precisione desiderato.
 
-Ma ce ne sono anche altri come:
+Altri criteri possibili sono:
 
 - **Nessuna modifica dei parametri**: se $\Theta^{(t+1)} = \Theta^{(t)}$, il criterio di arresto viene raggiunto.
 - **Loss non migliorata**: se $|\ell_{\Theta^{(t)}} - \ell_{\Theta^{(t+1)}}| \leq \epsilon$, il criterio di arresto viene raggiunto.
@@ -219,6 +248,8 @@ D_{\mathbf{v}} f(\mathbf{x}) = \lim_{h \to 0} \frac{f(\mathbf{x} + h \mathbf{v})
 $$
 
 Questa definizione generalizza la derivata parziale $\frac{\partial f}{\partial x}$, che assume che la direzione considerata sia allineata con uno degli assi canonici (ovvero, solo una variabile cambia alla volta mentre le altre restano fisse). Al contrario, la derivata direzionale consente una variazione simultanea di tutte le variabili lungo una direzione arbitraria $\mathbf{v}$.
+
+>Si consiglia la lettura di [[Relazione tra derivata direzionale e gradiente]] prima di proseguire con questa nota.
 
 ### Relazione tra Curve di Livello, Derivata Direzionale e Gradiente
 
@@ -340,6 +371,104 @@ plt.show()
 
 Questa proprietà è fondamentale nelle tecniche di ottimizzazione basate sul gradiente, in quanto garantisce che muovendosi nella direzione opposta al gradiente si riduce il valore della funzione obiettivo.
 
+### Visualizzazione di vettori tangenti, gradiente e campo vettoriale
+
+Vediamo ora un esempio di quanto detto prima.
+
+#### 1. Definizione della funzione e del gradiente
+
+Consideriamo una funzione quadratica semplice:
+
+$$
+f(x, y) = \frac{1}{2} x^2 + y^2
+$$
+
+Il gradiente di $f$ è dato da:
+
+$$
+\nabla f(x, y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right) = (x, 2y)
+$$
+
+#### 2. Punto di interesse
+
+Scegliamo un punto specifico $P_0 = (1,1)$ e calcoliamo il gradiente in questo punto:
+
+$$
+\nabla f(P_0) = \begin{pmatrix} 1 \\ 2 \end{pmatrix}
+$$
+
+#### 3. Direzione tangente
+
+Vogliamo trovare un vettore tangente $\mathbf{v} = \begin{pmatrix} v_x \\ v_y \end{pmatrix}$ tale che la derivata direzionale lungo $\mathbf{v}$ sia nulla:
+
+$$
+\frac{df}{d\mathbf{v}}(P_0) = \langle \nabla f(P_0), \mathbf{v} \rangle = g_x v_x + g_y v_y = 0.
+$$
+Questo implica che il vettore $\mathbf v$ ortogonale a $\nabla f(P_0)$ è tangente alla curva di livello, perché la derivata direzionale della funzione nella direzione $\mathbf v$ è nulla, e quindi la funzione è costante lungo quella direzione.
+
+La condizione di ortogonalità è **una sola equazione lineare** per le due componenti $v_x$ e $v_y$:
+
+$$
+g_x v_x + g_y v_y = 0.
+$$
+
+Questa equazione vincola $v_x$ e $v_y$ a essere correlati, ma **non determina univocamente** un singolo vettore.  
+
+Infatti esistono infiniti vettori $\mathbf{v}$ che soddisfano questa condizione: tutti i vettori lungo la retta definita da $v_y = -\frac{g_x}{g_y} v_x$.
+
+> Una sola equazione con due incognite: $v_x$ e $v_y$
+
+Possiamo scegliere arbitrariamente una delle due componenti di $\mathbf{v}$. Ad esempio, fissiamo:
+
+$$
+v_x = g_y
+$$
+Dalla condizione di ortogonalità:
+
+$$
+g_x v_x + g_y v_y = 0 \quad \implies \quad g_x g_y + g_y v_y = 0
+$$
+
+$$
+v_y = -g_x
+$$
+
+Otteniamo quindi il vettore tangente non normalizzato:
+
+$$
+\mathbf{v} = \begin{pmatrix} v_x \\ v_y \end{pmatrix} = \begin{pmatrix} g_y \\ -g_x \end{pmatrix} = \begin{pmatrix} 2 \\ -1 \end{pmatrix}
+$$
+
+<img src="/images/tikz/b31c02191ba705274ef7d7041b817dc1.svg" style="display: block; width: 100%; height: auto; max-height: 600px;" class="tikz-svg" />
+Il vettore unitario tangente è:
+
+$$
+\hat{\mathbf{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|} = \frac{1}{\sqrt{v_x^2 + v_y^2}} \begin{pmatrix} v_x \\ v_y \end{pmatrix}
+$$
+$$
+\mathbf{v} = \begin{pmatrix} 2 \\ -1 \end{pmatrix}, \quad
+\hat{\mathbf{v}} = \frac{1}{\sqrt{2^2 + (-1)^2}} \begin{pmatrix} 2 \\ -1 \end{pmatrix} = \frac{1}{\sqrt{5}} \begin{pmatrix} 2 \\ -1 \end{pmatrix}
+$$
+> Questo garantisce che il vettore sia ortogonale al gradiente in $P_0$ e tangente alla curva di livello.
+#### 4. Vettore di discesa del gradiente
+
+La direzione di discesa del gradiente è opposta al gradiente:
+
+$$
+-\nabla f(P_0) = \begin{pmatrix} -1 \\ -2 \end{pmatrix}, \quad
+\text{unitario: } \hat{g} = \frac{-\nabla f(P_0)}{\|\nabla f(P_0)\|}
+$$
+
+#### 5. Campo vettoriale del gradiente
+
+Il campo vettoriale dell'intero gradiente è dato da:
+
+$$
+\text{campo vettoriale: } (x, y) \mapsto \nabla f(x, y) = (x, 2y)
+$$
+
+> Questo permette di visualizzare in ogni punto la direzione e la magnitudine del gradiente, utile per capire il comportamento della funzione.
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -362,53 +491,70 @@ Z = f(X, Y)
 P0 = (1, 1)
 gx, gy = grad_f(P0[0], P0[1])  # gradiente in P0
 
-# Calcolo della direzione tangente (v) a partire dalla condizione: <grad, v> = 0
-# Scegliamo v = (2, -1) che è ortogonale a (1,2) (poichè 1*2 + 2*(-1) = 0)
-v = np.array([2, -1], dtype=float)
+# Calcolo della direzione tangente (v) ortogonale al gradiente
+v = np.array([gy, -gx], dtype=float)  # v = (2, -1)
 v = v / np.linalg.norm(v)  # normalizzo
 
 # Calcolo del vettore -gradiente in P0 (direzione di discesa)
 neg_grad = -np.array([gx, gy])
-if np.linalg.norm(neg_grad) > 1e-10:
-    neg_grad_unit = neg_grad / np.linalg.norm(neg_grad)
-else:
-    neg_grad_unit = neg_grad
+neg_grad_unit = neg_grad / np.linalg.norm(neg_grad)
 
-# Lunghezze per le frecce
+# Lunghezza delle frecce
 arrow_len = 0.5
+
+# Punti finali dei vettori
+P1_tangent = np.array(P0) + arrow_len * v
+P2_grad = np.array(P0) + arrow_len * neg_grad_unit
+
+# Valore della funzione in P0 per assicurarsi che sia su una curva di livello
+f_P0 = f(P0[0], P0[1])
+
+# Creazione dei livelli che includono esplicitamente f(P0)
+levels_base = np.linspace(Z.min(), Z.max(), 14)
+levels_with_P0 = np.append(levels_base, f_P0)
+levels_with_P0 = np.sort(np.unique(levels_with_P0))
+
+# Rimuoviamo la linea di livello appena sotto f(P0) per maggiore chiarezza
+levels_below_P0 = levels_with_P0[levels_with_P0 < f_P0]
+if len(levels_below_P0) > 0:
+    # Rimuovi il livello più alto tra quelli sotto f(P0)
+    level_to_remove = levels_below_P0[-1]
+    levels_with_P0 = levels_with_P0[levels_with_P0 != level_to_remove]
 
 # Creazione della figura con 3 pannelli affiancati
 fig, axes = plt.subplots(1, 3, figsize=(16, 5))
 
 # ---------------------------
-# Pannello 1: Curva di livello + vettore tangente (df/dv = 0)
+# Pannello 1: Curva di livello + vettore tangente
 # ---------------------------
 ax1 = axes[0]
-cont1 = ax1.contour(X, Y, Z, levels=15, cmap='viridis')
-ax1.plot(P0[0], P0[1], 'ko', label=r'$P_0$')
-# Calcolo del punto finale per la freccia tangente
-P1 = (P0[0] + arrow_len * v[0], P0[1] + arrow_len * v[1])
-ax1.annotate('', xy=P1, xytext=P0, 
-             arrowprops=dict(arrowstyle='->', color='blue', lw=2))
+cont1 = ax1.contour(X, Y, Z, levels=levels_with_P0, cmap='viridis')
+ax1.plot(P0[0], P0[1], 'ko', markersize=8)
+# Freccia che parte da P0 e va verso P1_tangent
+ax1.arrow(P0[0], P0[1], 
+          P1_tangent[0] - P0[0], P1_tangent[1] - P0[1],
+          head_width=0.08, head_length=0.08, fc='gray', ec='gray', lw=2)
 ax1.set_title(r'Vettore tangente: $\frac{df}{dv}(P_0)=0$')
 ax1.set_xlabel('x')
 ax1.set_ylabel('y')
 ax1.set_aspect('equal')
+ax1.grid(True, alpha=0.3)
 
 # ---------------------------
 # Pannello 2: Curva di livello + vettore -gradiente
 # ---------------------------
 ax2 = axes[1]
-cont2 = ax2.contour(X, Y, Z, levels=15, cmap='viridis')
-ax2.plot(P0[0], P0[1], 'ko', label=r'$P_0$')
-# Punto finale per la freccia -gradiente
-P2 = (P0[0] + arrow_len * neg_grad_unit[0], P0[1] + arrow_len * neg_grad_unit[1])
-ax2.annotate('', xy=P2, xytext=P0,
-             arrowprops=dict(arrowstyle='->', color='red', lw=2))
+cont2 = ax2.contour(X, Y, Z, levels=levels_with_P0, cmap='viridis')
+ax2.plot(P0[0], P0[1], 'ko', markersize=8)
+# Freccia che parte da P0 e va verso P2_grad
+ax2.arrow(P0[0], P0[1], 
+          P2_grad[0] - P0[0], P2_grad[1] - P0[1],
+          head_width=0.08, head_length=0.08, fc='gray', ec='gray', lw=2)
 ax2.set_title(r'Vettore -$\nabla f$ in $P_0$')
 ax2.set_xlabel('x')
 ax2.set_ylabel('y')
 ax2.set_aspect('equal')
+ax2.grid(True, alpha=0.3)
 
 # ---------------------------
 # Pannello 3: Campo vettoriale dell'intero gradiente
@@ -416,6 +562,7 @@ ax2.set_aspect('equal')
 ax3 = axes[2]
 cont3 = ax3.contourf(X, Y, Z, levels=15, cmap='viridis', alpha=0.7)
 ax3.contour(X, Y, Z, levels=15, colors='black', linewidths=0.5, alpha=0.5)
+
 # Campo vettoriale (quiver) per il gradiente
 step = 10
 xq = X[::step, ::step]
@@ -428,16 +575,15 @@ ax3.set_ylabel('y')
 ax3.set_aspect('equal')
 
 plt.tight_layout()
-plt.savefig('./images/gradient.jpg', 
+plt.savefig('gradient-orthogonal.jpg', 
            dpi=300, 
            bbox_inches='tight',
-           pad_inches=0.05,  # Aggiungere questo parametro
-           #facecolor=fig.get_facecolor(),  # Mantenere il colore di sfondo
-           transparent=False)  # Disabilitare la trasparenza
+           pad_inches=0.05,
+           transparent=False)
 plt.show()
 ```
 
-<img src="../../../images/gradient-orthogonal.jpg" alt="Gradient Descent 2">
+<img src="../../../images/gradient-orthogonal.jpg" alt="Gradient Descent 2" style="display: block; margin-left: auto; margin-right: auto;">
 
 *Figura 1.2: Ortogonalità tra il vettore tangente alla curva di livello e il vettore -gradiente*
 
@@ -456,6 +602,12 @@ Il learning rate è **sempre positivo**: se fosse negativo, infatti, ci si muove
 ### Effetti del learning rate
 
 Il valore di $\alpha$ determina **quanto grande è ogni passo** che l’algoritmo compie nella direzione opposta al gradiente. Non coincide esattamente con la lunghezza del passo (che dipende anche dalla norma del gradiente), ma è **proporzionale ad essa**.
+
+Infatti, 
+
+$$
+\|\mathbf{x}^{(t+1)} - \mathbf{x}^{(t)}\| = \|\alpha \nabla f(\mathbf{x}^{(t)})\| = \alpha \|\nabla f(\mathbf{x}^{(t)})\|.
+$$
 
 A seconda della sua scelta, il comportamento dell’algoritmo può variare notevolmente:
 
@@ -529,7 +681,7 @@ plt.show()
 ```
 
 <p align="center">
-  <img src="../../../images/learning-rate-comparison-sgd.png" alt="Confronto tra diversi learning rate">
+  <img src="../../../images/learning-rate-comparison-sgd.png" alt="Confronto tra diversi learning rate" style="display: block; margin: 0 auto;">
 </p>
 
 *Figura 2.0: Confronto tra learning rate troppo piccolo, troppo grande e ottimale*

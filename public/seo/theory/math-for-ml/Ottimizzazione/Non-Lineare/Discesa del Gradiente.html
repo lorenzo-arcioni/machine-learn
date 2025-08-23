@@ -35,7 +35,7 @@
       "headline": "Discesa del Gradiente",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente",
-      "datePublished": "2025-08-10T01:15:55.184Z",
+      "datePublished": "2025-08-23T17:28:54.520Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -133,7 +133,7 @@
                 <h1>Discesa del Gradiente</h1>
                 <div class="meta">
                     <strong>Topic:</strong> Mathematics for Machine Learning | 
-                    <strong>Updated:</strong> 10/08/2025
+                    <strong>Updated:</strong> 23/08/2025
                 </div>
             </header>
             
@@ -302,14 +302,25 @@ details.code-container .code-wrapper {
 </li>
 </ol>
 <p>In pratica, anche se ci si può avvicinare a un punto di sella, la discesa del gradiente tende naturalmente a superarlo e continuare verso un minimo.</p>
+<p>Nel contesto del <em>model fitting</em>, l’obiettivo consiste nel minimizzare una <strong>funzione di perdita</strong> (<em>loss function</em>), definita come applicazione:  </p>
+$$
+\ell: \mathbb{R}^n \; \longrightarrow \; \mathbb{R}
+$$
+<p>dove:  </p>
+<ul>
+<li>il <strong>dominio</strong> è lo spazio dei parametri del modello, $\mathbb{R}^n$,  </li>
+<li>il <strong>codominio</strong> è l’asse reale, $\mathbb{R}$.  </li>
+</ul>
+<p>Il processo di ottimizzazione ha inizio a partire da una <strong>condizione iniziale</strong>, ossia da un punto $\Theta^{(0)} \in \mathbb{R}^n$ che rappresenta un insieme di valori iniziali per i parametri del modello.<br />
+Tale punto può essere determinato in maniera <strong>casuale</strong> oppure tramite una procedura di <strong>inizializzazione mirata</strong>, progettata per favorire la successiva convergenza dell’algoritmo di ottimizzazione.  </p>
 <p>L&rsquo;intuizione alla base della discesa del gradiente è piuttosto semplice:</p>
 <ol>
-<li>Si parte da un punto iniziale nello spazio dei parametri.  </li>
+<li>Si parte da un punto $\Theta^{(0)}$ iniziale nello spazio dei parametri.  </li>
 <li>Si calcola il gradiente della funzione obiettivo in quel punto, il quale indica la direzione di massima crescita.  </li>
 <li>Per minimizzare la funzione, ci si sposta nella direzione opposta a quella del gradiente, effettuando un &ldquo;passo&rdquo; in quella direzione.  </li>
 <li>Questo processo viene ripetuto fino al raggiungimento di un criterio di arresto (convergenza).</li>
 </ol>
-<p><img src="/images/posts/gradient-descent.jpg" alt="Gradient Descent"></p>
+<p><img src="/images/posts/gradient-descent.jpg" alt="Gradient Descent" style="display: block; margin-left: auto; margin-right: auto;"></p>
 <p><em>Figura 1.0: Discesa del Gradiente su una funzione loss non convessa</em></p>
 <p>Formalmente, il processo di aggiornamento iterativo può essere espresso come:</p>
 $$
@@ -321,13 +332,18 @@ $$
 <li>$\alpha$ è il <strong>tasso di apprendimento</strong> (<em>learning rate</em>), un iperparametro che determina l&rsquo;ampiezza del passo nella direzione del gradiente,</li>
 <li>$\nabla \ell_{\Theta^{(t)}}$ è il gradiente della funzione di perdita $\ell$ rispetto ai parametri $\Theta$.</li>
 </ul>
+<p>Il criterio di arresto può essere formalizzato come segue:</p>
+$$
+||\nabla \ell_{\Theta^{(t)}}|| \leq \epsilon.
+$$
+per un certo $\epsilon > 0$.</p>
 <p>Ovviamente, per poter calcolare correttamente il gradiente di una funzione, e quindi eseguire correttamente la discesa del gradiente, abbiamo bisogno che la funzione $\ell$ sia differenziabile in ogni suo punto.</p>
 <p>Infatti, non basta che sia definita la derivata parziale di $\ell$ rispetto a ogni singola variabile $\theta_i$, ma è necessario che $\ell$ abbia un gradiente continuo.</p>
 <h2 id="differenziabilita">Differenziabilità</h2>
-<p>Come abbiamo visto, il gradiente è l’elemento chiave nel funzionamento della discesa del gradiente. Ma ci si potrebbe chiedere: <strong>tutte le funzioni di perdita permettono il calcolo del gradiente?</strong></p>
+<p>Come abbiamo visto, il gradiente è l’elemento chiave nel funzionamento di questo tipo di ottimizzazione non lineare. Ma ci si potrebbe chiedere: <strong>tutte le funzioni di perdita permettono il calcolo del gradiente?</strong></p>
 <p>La risposta è: <strong>non sempre</strong>.</p>
 <p>Non tutte le funzioni sono <strong>differenziabili</strong>, cioè non tutte ammettono un gradiente ben definito in ogni punto del dominio. Questo è un problema rilevante, perché <strong>la discesa del gradiente richiede che la funzione sia differenziabile</strong>, altrimenti il gradiente potrebbe non esistere in certi punti e l’algoritmo potrebbe bloccarsi o dare risultati errati.</p>
-<h3 id="derivate-parziali-definite-math_inline_42-differenziabilita">Derivate parziali definite $≠$ Differenziabilità</h3>
+<h3 id="derivate-parziali-definite-math_inline_64-differenziabilita">Derivate parziali definite $≠$ Differenziabilità</h3>
 <p>In una funzione di più variabili, avere <strong>tutte le derivate parziali definite</strong> non è sufficiente per garantire la differenziabilità. Infatti, può succedere che tutte le derivate esistano, ma non siano continue — e questo è un segnale che la funzione <strong>non è veramente differenziabile</strong>.</p>
 <p>Un esempio classico è la seguente funzione:</p>
 <ul>
@@ -391,8 +407,8 @@ $$
 
 <p><img src="/images/posts/gradient-non-differentiable.png" alt="Gradient Descent 3" width="1000" style="display: block; margin: 0 auto;"></p>
 <p><em>Figura 1.3: Funzione non differenziabile</em></p>
-<p>Questa funzione ha derivate parziali definite ovunque, ma sono <strong>discontinue nell’origine</strong>, e questo significa che $f$ <strong>non è differenziabile</strong> in $(0, 0)$.</p>
-<h4 id="1-derivate-parziali-in-math_inline_48">1. Derivate parziali in $(0,0)$</h4>
+<p>Questa funzione ha derivate parziali definite ovunque, ma sono <strong>discontinue nell&rsquo;origine</strong>, e questo significa che $f$ <strong>non è differenziabile</strong> in $(0, 0)$.</p>
+<h4 id="1-derivate-parziali-in-math_inline_70">1. Derivate parziali in $(0,0)$</h4>
 <p>Per definizione,
 $$
 f_x(0,0)
@@ -402,8 +418,9 @@ f_x(0,0)
 f_y(0,0)
 =\lim_{k\to0}\frac{f(0,k)-f(0,0)}{k}
 =\lim_{k\to0}\frac{0-0}{k}=0.
-$$</p>
-<h4 id="2-espressioni-di-math_inline_49-e-math_inline_50-per-math_inline_51">2. Espressioni di $f_x$ e $f_y$ per $(x,y)\neq(0,0)$</h4>
+$$
+Dove $f_x$ e $f_y$ sono le derivate parziali di $f$ rispetto a $x$ e a $y$, rispettivamente.</p>
+<h4 id="2-espressioni-di-math_inline_76-e-math_inline_77-per-math_inline_78">2. Espressioni di $f_x$ e $f_y$ per $(x,y)\neq(0,0)$</h4>
 <p>Usando la derivazione di un quoziente:
 $$
 f(x,y)=\frac{u(x,y)}{v(x,y)},
@@ -421,8 +438,8 @@ f_y
 =\frac{u_y\,v - u\,v_y}{v^2}
 =\frac{(x^2)(x^2+y^2) - (x^2y)(2y)}{(x^2+y^2)^2}
 =\frac{x^4 - x^2y^2}{(x^2+y^2)^2}.
-$$</p>
-<h4 id="3-limiti-lungo-la-retta-math_inline_52">3. Limiti lungo la retta $y = m x$</h4>
+$$
+<h4 id="3-limiti-lungo-la-retta-math_inline_79">3. Limiti lungo la retta $y = m x$</h4>
 <p>Sostituiamo $y=mx$ con $x\to0$:
 $$
 f_x(x,mx)
@@ -454,9 +471,14 @@ assume valori diversi a seconda della retta di avvicinamento ($m$ diverso), il g
 </ul>
 <p>In conclusione, <strong>la differenziabilità è un requisito fondamentale per l’applicazione diretta della discesa del gradiente</strong>, ma esistono metodi e tecniche per aggirare o gestire in modo efficace i casi in cui essa venga meno.</p>
 <h2 id="interpretazione-geometrica">Interpretazione Geometrica</h2>
-<p>Dal punto di vista geometrico, la discesa del gradiente segue una traiettoria nello spazio dei parametri, cercando il punto in cui la funzione di perdita assume un valore minimo. Se la funzione è convessa, l&rsquo;algoritmo convergerà al minimo globale; altrimenti, si fermerà in un minimo locale. </p>
-<p>È importante notare che, a causa della precisione finita delle macchine, difficilmente si raggiungerà un punto esattamente stazionario, ma ci si fermerà quando la variazione della funzione di perdita diventa trascurabile.</p>
-<p>Volendo possiamo anche, tramite l&rsquo;unrolling ricorsivo, riscrivere esplicitamente $\Theta^{(t+1)}$ come:</p>
+<p>Dal punto di vista geometrico, la discesa del gradiente segue una traiettoria nello spazio dei parametri, cercando il punto in cui la funzione di perdita assume un valore minimo. Se la funzione è convessa, l&rsquo;algoritmo convergerà al minimo globale; altrimenti, si fermerà in un minimo locale.</p>
+<p>Un concetto importante in questo contesto è quello dei <strong>punti stazionari</strong>. Un punto stazionario di una funzione differenziabile è un punto in cui tutte le derivate parziali sono nulle, cioè il gradiente è zero. Dal punto di vista del <em>gradient descent</em>, questo significa che l’algoritmo può “bloccarsi” in questi punti:</p>
+$$
+\Theta^{(t+1)} = \Theta^{(t)} - \bcancel{\alpha \nabla \ell_{\Theta^{(t)}}}.
+$$
+<p>Non tutti i punti stazionari sono minimi: esistono anche massimi locali e punti sella, ossia punti in cui la funzione aumenta lungo un asse e diminuisce lungo un altro. Il tipo di punto stazionario verso cui l’algoritmo converge dipende dall’inizializzazione; ad esempio, se si parte esattamente in un massimo locale o in un punto sella (evento molto improbabile in pratica), l’algoritmo si fermerà immediatamente, poiché il gradiente è zero, anche se tali punti non rappresentano minimi della funzione.</p>
+<p>È importante notare che, a causa della precisione finita delle macchine, difficilmente si raggiungerà un punto stazionario esatto, ma ci si fermerà quando la variazione della funzione di perdita diventa trascurabile.</p>
+<p>Volendo, possiamo anche, tramite l&rsquo;unrolling ricorsivo, riscrivere esplicitamente $\Theta^{(t+1)}$ come:</p>
 $$
 \begin{align*}
 \Theta^{(1)}   &= \Theta^{(0)} - \alpha \nabla \ell_{\Theta^{(0)}}\\
@@ -471,7 +493,7 @@ $$
 \|\nabla \ell_{\Theta^{(t)}}\| \leq \epsilon
 $$
 <p>dove $\epsilon$ è una soglia positiva molto piccola che determina il livello di precisione desiderato.</p>
-<p>Ma ce ne sono anche altri come:</p>
+<p>Altri criteri possibili sono:</p>
 <ul>
 <li><strong>Nessuna modifica dei parametri</strong>: se $\Theta^{(t+1)} = \Theta^{(t)}$, il criterio di arresto viene raggiunto.</li>
 <li><strong>Loss non migliorata</strong>: se $|\ell_{\Theta^{(t)}} - \ell_{\Theta^{(t+1)}}| \leq \epsilon$, il criterio di arresto viene raggiunto.</li>
@@ -485,6 +507,9 @@ $$
 D_{\mathbf{v}} f(\mathbf{x}) = \lim_{h \to 0} \frac{f(\mathbf{x} + h \mathbf{v}) - f(\mathbf{x})}{h}.
 $$
 <p>Questa definizione generalizza la derivata parziale $\frac{\partial f}{\partial x}$, che assume che la direzione considerata sia allineata con uno degli assi canonici (ovvero, solo una variabile cambia alla volta mentre le altre restano fisse). Al contrario, la derivata direzionale consente una variazione simultanea di tutte le variabili lungo una direzione arbitraria $\mathbf{v}$.</p>
+<blockquote>
+<p>Si consiglia la lettura di <a href="/theory/math-for-ml/Calcolo/Calcolo Matriciale/Relazione tra derivata direzionale e gradiente" class="text-blue-600 hover:underline">Relazione tra derivata direzionale e gradiente</a> prima di proseguire con questa nota.</p>
+</blockquote>
 <h3 id="relazione-tra-curve-di-livello-derivata-direzionale-e-gradiente">Relazione tra Curve di Livello, Derivata Direzionale e Gradiente</h3>
 <p>Le <strong>curve di livello</strong> di una funzione sono le curve (o ipersuperfici) lungo le quali la funzione assume lo stesso valore. Ciò implica che la derivata direzionale della funzione in un punto appartenente alla curva, lungo una direzione tangente alla curva stessa, sia nulla, poiché la funzione non varia localmente in quella direzione.</p>
 <p>Formalmente, se $\mathbf{v}$ è un vettore tangente alla curva di livello di $f$, allora</p>
@@ -609,6 +634,78 @@ $$
 <p><img src="/images/posts/gradient.jpg" alt="Gradient Descent"></p>
 <p><em>Figura 1.1: Visualizzazione della funzione $f(x,y)$ con la sua superficie 3D, mappa di livello e campi vettoriali del gradiente positivo e negativo, evidenziando le direzioni di massima variazione.</em></p>
 <p>Questa proprietà è fondamentale nelle tecniche di ottimizzazione basate sul gradiente, in quanto garantisce che muovendosi nella direzione opposta al gradiente si riduce il valore della funzione obiettivo.</p>
+<h3 id="visualizzazione-di-vettori-tangenti-gradiente-e-campo-vettoriale">Visualizzazione di vettori tangenti, gradiente e campo vettoriale</h3>
+<p>Vediamo ora un esempio di quanto detto prima.</p>
+<h4 id="1-definizione-della-funzione-e-del-gradiente">1. Definizione della funzione e del gradiente</h4>
+<p>Consideriamo una funzione quadratica semplice:</p>
+$$
+f(x, y) = \frac{1}{2} x^2 + y^2
+$$
+<p>Il gradiente di $f$ è dato da:</p>
+$$
+\nabla f(x, y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right) = (x, 2y)
+$$
+<h4 id="2-punto-di-interesse">2. Punto di interesse</h4>
+<p>Scegliamo un punto specifico $P_0 = (1,1)$ e calcoliamo il gradiente in questo punto:</p>
+$$
+\nabla f(P_0) = \begin{pmatrix} 1 \\ 2 \end{pmatrix}
+$$
+<h4 id="3-direzione-tangente">3. Direzione tangente</h4>
+<p>Vogliamo trovare un vettore tangente $\mathbf{v} = \begin{pmatrix} v_x \\ v_y \end{pmatrix}$ tale che la derivata direzionale lungo $\mathbf{v}$ sia nulla:</p>
+$$
+\frac{df}{d\mathbf{v}}(P_0) = \langle \nabla f(P_0), \mathbf{v} \rangle = g_x v_x + g_y v_y = 0.
+$$
+Questo implica che il vettore $\mathbf v$ ortogonale a $\nabla f(P_0)$ è tangente alla curva di livello, perché la derivata direzionale della funzione nella direzione $\mathbf v$ è nulla, e quindi la funzione è costante lungo quella direzione.</p>
+<p>La condizione di ortogonalità è <strong>una sola equazione lineare</strong> per le due componenti $v_x$ e $v_y$:</p>
+<p>$$
+g_x v_x + g_y v_y = 0.
+$$
+<p>Questa equazione vincola $v_x$ e $v_y$ a essere correlati, ma <strong>non determina univocamente</strong> un singolo vettore.  </p>
+<p>Infatti esistono infiniti vettori $\mathbf{v}$ che soddisfano questa condizione: tutti i vettori lungo la retta definita da $v_y = -\frac{g_x}{g_y} v_x$.</p>
+<blockquote>
+<p>Una sola equazione con due incognite: $v_x$ e $v_y$</p>
+</blockquote>
+<p>Possiamo scegliere arbitrariamente una delle due componenti di $\mathbf{v}$. Ad esempio, fissiamo:</p>
+$$
+v_x = g_y
+$$
+Dalla condizione di ortogonalità:</p>
+<p>$$
+g_x v_x + g_y v_y = 0 \quad \implies \quad g_x g_y + g_y v_y = 0
+$$
+$$
+v_y = -g_x
+$$
+<p>Otteniamo quindi il vettore tangente non normalizzato:</p>
+$$
+\mathbf{v} = \begin{pmatrix} v_x \\ v_y \end{pmatrix} = \begin{pmatrix} g_y \\ -g_x \end{pmatrix} = \begin{pmatrix} 2 \\ -1 \end{pmatrix}
+$$
+<p><img src="/images/tikz/b31c02191ba705274ef7d7041b817dc1.svg" style="display: block; width: 100%; height: auto; max-height: 600px;" class="tikz-svg" />
+Il vettore unitario tangente è:</p>
+$$
+\hat{\mathbf{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|} = \frac{1}{\sqrt{v_x^2 + v_y^2}} \begin{pmatrix} v_x \\ v_y \end{pmatrix}
+$$
+$$
+\mathbf{v} = \begin{pmatrix} 2 \\ -1 \end{pmatrix}, \quad
+\hat{\mathbf{v}} = \frac{1}{\sqrt{2^2 + (-1)^2}} \begin{pmatrix} 2 \\ -1 \end{pmatrix} = \frac{1}{\sqrt{5}} \begin{pmatrix} 2 \\ -1 \end{pmatrix}
+$$
+<blockquote>
+<p>Questo garantisce che il vettore sia ortogonale al gradiente in $P_0$ e tangente alla curva di livello.</p>
+</blockquote>
+<h4 id="4-vettore-di-discesa-del-gradiente">4. Vettore di discesa del gradiente</h4>
+<p>La direzione di discesa del gradiente è opposta al gradiente:</p>
+$$
+-\nabla f(P_0) = \begin{pmatrix} -1 \\ -2 \end{pmatrix}, \quad
+\text{unitario: } \hat{g} = \frac{-\nabla f(P_0)}{\|\nabla f(P_0)\|}
+$$
+<h4 id="5-campo-vettoriale-del-gradiente">5. Campo vettoriale del gradiente</h4>
+<p>Il campo vettoriale dell&rsquo;intero gradiente è dato da:</p>
+$$
+\text{campo vettoriale: } (x, y) \mapsto \nabla f(x, y) = (x, 2y)
+$$
+<blockquote>
+<p>Questo permette di visualizzare in ogni punto la direzione e la magnitudine del gradiente, utile per capire il comportamento della funzione.</p>
+</blockquote>
 <details class="code-container">
 <summary>Code</summary>
 <div class="code-wrapper">
@@ -641,53 +738,70 @@ $$
 <span class="n">P0</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">gx</span><span class="p">,</span> <span class="n">gy</span> <span class="o">=</span> <span class="n">grad_f</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># gradiente in P0</span>
 
-<span class="c1"># Calcolo della direzione tangente (v) a partire dalla condizione: &lt;grad, v&gt; = 0</span>
-<span class="c1"># Scegliamo v = (2, -1) che è ortogonale a (1,2) (poichè 1*2 + 2*(-1) = 0)</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="c1"># Calcolo della direzione tangente (v) ortogonale al gradiente</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gy</span><span class="p">,</span> <span class="o">-</span><span class="n">gx</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># v = (2, -1)</span>
 <span class="n">v</span> <span class="o">=</span> <span class="n">v</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>  <span class="c1"># normalizzo</span>
 
 <span class="c1"># Calcolo del vettore -gradiente in P0 (direzione di discesa)</span>
 <span class="n">neg_grad</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gx</span><span class="p">,</span> <span class="n">gy</span><span class="p">])</span>
-<span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">neg_grad</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-10</span><span class="p">:</span>
-    <span class="n">neg_grad_unit</span> <span class="o">=</span> <span class="n">neg_grad</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">neg_grad</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">neg_grad_unit</span> <span class="o">=</span> <span class="n">neg_grad</span>
+<span class="n">neg_grad_unit</span> <span class="o">=</span> <span class="n">neg_grad</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">neg_grad</span><span class="p">)</span>
 
-<span class="c1"># Lunghezze per le frecce</span>
+<span class="c1"># Lunghezza delle frecce</span>
 <span class="n">arrow_len</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="c1"># Punti finali dei vettori</span>
+<span class="n">P1_tangent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">P0</span><span class="p">)</span> <span class="o">+</span> <span class="n">arrow_len</span> <span class="o">*</span> <span class="n">v</span>
+<span class="n">P2_grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">P0</span><span class="p">)</span> <span class="o">+</span> <span class="n">arrow_len</span> <span class="o">*</span> <span class="n">neg_grad_unit</span>
+
+<span class="c1"># Valore della funzione in P0 per assicurarsi che sia su una curva di livello</span>
+<span class="n">f_P0</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Creazione dei livelli che includono esplicitamente f(P0)</span>
+<span class="n">levels_base</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">Z</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">14</span><span class="p">)</span>
+<span class="n">levels_with_P0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">levels_base</span><span class="p">,</span> <span class="n">f_P0</span><span class="p">)</span>
+<span class="n">levels_with_P0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">levels_with_P0</span><span class="p">))</span>
+
+<span class="c1"># Rimuoviamo la linea di livello appena sotto f(P0) per maggiore chiarezza</span>
+<span class="n">levels_below_P0</span> <span class="o">=</span> <span class="n">levels_with_P0</span><span class="p">[</span><span class="n">levels_with_P0</span> <span class="o">&lt;</span> <span class="n">f_P0</span><span class="p">]</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels_below_P0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># Rimuovi il livello più alto tra quelli sotto f(P0)</span>
+    <span class="n">level_to_remove</span> <span class="o">=</span> <span class="n">levels_below_P0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">levels_with_P0</span> <span class="o">=</span> <span class="n">levels_with_P0</span><span class="p">[</span><span class="n">levels_with_P0</span> <span class="o">!=</span> <span class="n">level_to_remove</span><span class="p">]</span>
 
 <span class="c1"># Creazione della figura con 3 pannelli affiancati</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
 <span class="c1"># ---------------------------</span>
-<span class="c1"># Pannello 1: Curva di livello + vettore tangente (df/dv = 0)</span>
+<span class="c1"># Pannello 1: Curva di livello + vettore tangente</span>
 <span class="c1"># ---------------------------</span>
 <span class="n">ax1</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">cont1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$P_0$&#39;</span><span class="p">)</span>
-<span class="c1"># Calcolo del punto finale per la freccia tangente</span>
-<span class="n">P1</span> <span class="o">=</span> <span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">arrow_len</span> <span class="o">*</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">arrow_len</span> <span class="o">*</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">P1</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="n">P0</span><span class="p">,</span> 
-             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">cont1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels_with_P0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="c1"># Freccia che parte da P0 e va verso P1_tangent</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+          <span class="n">P1_tangent</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P1_tangent</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+          <span class="n">head_width</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Vettore tangente: $\frac{df}{dv}(P_0)=0$&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
 <span class="c1"># ---------------------------</span>
 <span class="c1"># Pannello 2: Curva di livello + vettore -gradiente</span>
 <span class="c1"># ---------------------------</span>
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">cont2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$P_0$&#39;</span><span class="p">)</span>
-<span class="c1"># Punto finale per la freccia -gradiente</span>
-<span class="n">P2</span> <span class="o">=</span> <span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">arrow_len</span> <span class="o">*</span> <span class="n">neg_grad_unit</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">arrow_len</span> <span class="o">*</span> <span class="n">neg_grad_unit</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">P2</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="n">P0</span><span class="p">,</span>
-             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">cont2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels_with_P0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="c1"># Freccia che parte da P0 e va verso P2_grad</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+          <span class="n">P2_grad</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">P0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P2_grad</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">P0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+          <span class="n">head_width</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Vettore -$\nabla f$ in $P_0$&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
 <span class="c1"># ---------------------------</span>
 <span class="c1"># Pannello 3: Campo vettoriale dell&#39;intero gradiente</span>
@@ -695,6 +809,7 @@ $$
 <span class="n">ax3</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">cont3</span> <span class="o">=</span> <span class="n">ax3</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
 <span class="c1"># Campo vettoriale (quiver) per il gradiente</span>
 <span class="n">step</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">xq</span> <span class="o">=</span> <span class="n">X</span><span class="p">[::</span><span class="n">step</span><span class="p">,</span> <span class="p">::</span><span class="n">step</span><span class="p">]</span>
@@ -707,18 +822,17 @@ $$
 <span class="n">ax3</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/gradient.jpg&#39;</span><span class="p">,</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;gradient-orthogonal.jpg&#39;</span><span class="p">,</span> 
            <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> 
            <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span>
-           <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>  <span class="c1"># Aggiungere questo parametro</span>
-           <span class="c1">#facecolor=fig.get_facecolor(),  # Mantenere il colore di sfondo</span>
-           <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Disabilitare la trasparenza</span>
+           <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+           <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 </div>
 </details>
 
-<p><img src="/images/posts/gradient-orthogonal.jpg" alt="Gradient Descent 2"></p>
+<p><img src="/images/posts/gradient-orthogonal.jpg" alt="Gradient Descent 2" style="display: block; margin-left: auto; margin-right: auto;"></p>
 <p><em>Figura 1.2: Ortogonalità tra il vettore tangente alla curva di livello e il vettore -gradiente</em></p>
 <h2 id="learning-rate">Learning Rate</h2>
 <p>Nella legge di aggiornamento della discesa del gradiente:</p>
@@ -729,6 +843,10 @@ $$
 <p>Il learning rate è <strong>sempre positivo</strong>: se fosse negativo, infatti, ci si muoverebbe nella direzione opposta a quella desiderata, <strong>massimizzando</strong> invece che minimizzando la funzione di perdita.</p>
 <h3 id="effetti-del-learning-rate">Effetti del learning rate</h3>
 <p>Il valore di $\alpha$ determina <strong>quanto grande è ogni passo</strong> che l’algoritmo compie nella direzione opposta al gradiente. Non coincide esattamente con la lunghezza del passo (che dipende anche dalla norma del gradiente), ma è <strong>proporzionale ad essa</strong>.</p>
+<p>Infatti, </p>
+$$
+\|\mathbf{x}^{(t+1)} - \mathbf{x}^{(t)}\| = \|\alpha \nabla f(\mathbf{x}^{(t)})\| = \alpha \|\nabla f(\mathbf{x}^{(t)})\|.
+$$
 <p>A seconda della sua scelta, il comportamento dell’algoritmo può variare notevolmente:</p>
 <ul>
 <li>Se <strong>$\alpha$ è troppo piccolo</strong>, l’algoritmo avanza molto lentamente e richiede molte iterazioni per convergere.</li>
@@ -812,7 +930,7 @@ $$
 </details>
 
 <p align="center">
-  <img src="/images/posts/learning-rate-comparison-sgd.png" alt="Confronto tra diversi learning rate">
+  <img src="/images/posts/learning-rate-comparison-sgd.png" alt="Confronto tra diversi learning rate" style="display: block; margin: 0 auto;">
 </p>
 
 <p><em>Figura 2.0: Confronto tra learning rate troppo piccolo, troppo grande e ottimale</em></p>
@@ -1131,7 +1249,7 @@ $$
 \end{cases}
 $$
 <p>Vogliamo <strong>unrollare</strong> queste relazioni fino all’iterazione iniziale $\Theta^{(0)}$.</p>
-<h4 id="1-espressione-ricorsiva-di-math_inline_112">1. Espressione ricorsiva di $\mathbf{v}^{(t+1)}$</h4>
+<h4 id="1-espressione-ricorsiva-di-math_inline_154">1. Espressione ricorsiva di $\mathbf{v}^{(t+1)}$</h4>
 <p>Applichiamo più volte la definizione di $\mathbf{v}$:</p>
 $$
 \begin{aligned}
@@ -1154,7 +1272,7 @@ $$
 \mathbf{v}^{(t+1)}
 = -\,\alpha \sum_{i=0}^{t} \lambda^{\,t-i}\,\nabla \ell\bigl(\Theta^{(i)}\bigr).
 $$
-<h4 id="2-unrolling-di-math_inline_116">2. Unrolling di $\Theta^{(t+1)}$</h4>
+<h4 id="2-unrolling-di-math_inline_158">2. Unrolling di $\Theta^{(t+1)}$</h4>
 <p>Ora inseriamo $\mathbf{v}^{(t+1)}$ nell’aggiornamento di $\Theta$:</p>
 $$
 \begin{aligned}
@@ -1261,7 +1379,7 @@ $$
 <li><strong>GD</strong>: calcola il gradiente <strong>esatto</strong>, sommando i contributi di tutti i $n$ esempi.</li>
 <li><strong>SGD</strong>: usa un <strong>solo</strong> esempio (o minibatch), abbattendo il costo computazionale per iterazione.</li>
 </ul>
-<h3 id="numero-di-iterazioni-per-raggiungere-precisione-math_inline_147">📈 Numero di Iterazioni per Raggiungere Precisione $\rho$</h3>
+<h3 id="numero-di-iterazioni-per-raggiungere-precisione-math_inline_189">📈 Numero di Iterazioni per Raggiungere Precisione $\rho$</h3>
 <table>
 <thead>
 <tr>

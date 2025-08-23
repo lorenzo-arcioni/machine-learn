@@ -68,6 +68,10 @@
               {
                 "name": "Operazioni Elementari su Scalari, Vettori, Matrici e Tensori",
                 "path": "math-for-ml/Calcolo/Calcolo Matriciale/Operazioni Elementari su Scalari, Vettori, Matrici e Tensori.md"
+              },
+              {
+                "name": "Relazione tra derivata direzionale e gradiente",
+                "path": "math-for-ml/Calcolo/Calcolo Matriciale/Relazione tra derivata direzionale e gradiente.md"
               }
             ]
           }
@@ -103,6 +107,10 @@
               {
                 "name": "Ottimizzazione non Lineare",
                 "path": "math-for-ml/Ottimizzazione/Non-Lineare/Ottimizzazione non Lineare.md"
+              },
+              {
+                "name": "Introduzione all'Ottimizzazione non Lineare",
+                "path": "math-for-ml/Ottimizzazione/Non-Lineare/Introduzione all'Ottimizzazione non Lineare.md"
               }
             ]
           },
@@ -196,6 +204,10 @@
           {
             "name": "Basi di Probabilità",
             "path": "math-for-ml/Probabilità/Basi di Probabilità.md"
+          },
+          {
+            "name": "Introduzione alla Probabilità",
+            "path": "math-for-ml/Probabilità/Introduzione alla Probabilità.md"
           }
         ]
       },

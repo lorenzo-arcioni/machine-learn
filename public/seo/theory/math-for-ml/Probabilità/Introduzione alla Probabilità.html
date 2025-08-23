@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probabilità nel Machine Learning: Fondamenti Teorici | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, model, data, neural">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Probabilità nel Machine Learning: Fondamenti Teorici">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Probabilità/Introduzione alla Probabilità">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Probabilità nel Machine Learning: Fondamenti Teorici">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Probabilità/Introduzione alla Probabilità">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Probabilità nel Machine Learning: Fondamenti Teorici",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Probabilità/Introduzione alla Probabilità",
+      "datePublished": "2025-08-23T17:28:54.538Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Probabilità/Introduzione alla Probabilità" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Probabilità nel Machine Learning: Fondamenti Teorici</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 23/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione-perche-la-probabilita-e-cruciale-nel-ml">Introduzione: Perché la Probabilità è Cruciale nel ML</h2>
+<p>La probabilità è il linguaggio matematico con cui descriviamo e quantifichiamo l&rsquo;incertezza. Nel machine learning e nella data science, questa incertezza è onnipresente: dai dati rumorosi alle predizioni sui futuri eventi, dalla stima dei parametri di un modello alla valutazione della confidenza nelle nostre previsioni.</p>
+<p>Come affermava Pierre-Simon Laplace nel 1812: <em>&ldquo;La teoria della probabilità non è altro che buon senso ridotto a calcolo&rdquo;</em>. Questa affermazione cattura perfettamente l&rsquo;essenza della probabilità nel contesto moderno dell&rsquo;intelligenza artificiale: trasformare l&rsquo;intuizione umana sull&rsquo;incertezza in strumenti matematici rigorosi e computabili.</p>
+<h2 id="1-cose-la-probabilita-due-visioni-complementari">1. Cos&rsquo;è la Probabilità: Due Visioni Complementari</h2>
+<h3 id="11-linterpretazione-frequentista">1.1 L&rsquo;Interpretazione Frequentista</h3>
+<p>L&rsquo;approccio frequentista interpreta la probabilità come <strong>frequenza limite</strong> di eventi ripetibili. Quando diciamo che una moneta ha probabilità 50% di uscire testa, intendiamo che, lanciandola infinite volte, la proporzione di teste convergerebbe al 50%.</p>
+<p><strong>Caratteristiche principali:</strong></p>
+<ul>
+<li>Basata su esperimenti ripetibili</li>
+<li>La probabilità è una proprietà intrinseca del sistema</li>
+<li>Richiede grandi quantità di dati per essere accurata</li>
+<li>Ideale per fenomeni fisici ben definiti</li>
+</ul>
+<p><strong>Esempio pratico:</strong> La probabilità che un chip elettronico sia difettoso in una catena di produzione può essere stimata osservando migliaia di chip prodotti.</p>
+<h3 id="12-linterpretazione-bayesiana">1.2 L&rsquo;Interpretazione Bayesiana</h3>
+<p>L&rsquo;approccio bayesiano interpreta la probabilità come <strong>grado di credenza</strong> o <strong>misura dell&rsquo;incertezza soggettiva</strong>. Non richiede esperimenti ripetibili e può essere applicata a eventi unici.</p>
+<p><strong>Caratteristiche principali:</strong></p>
+<ul>
+<li>Quantifica l&rsquo;incertezza soggettiva</li>
+<li>Applicabile a eventi irripetibili</li>
+<li>Incorpora conoscenza a priori</li>
+<li>Aggiorna le credenze con nuove evidenze</li>
+</ul>
+<p><strong>Esempio pratico:</strong> La probabilità che i ghiacciai polari si sciolgano entro il 2030 è un evento unico, ma possiamo comunque quantificare la nostra incertezza basandoci sui dati climatici disponibili.</p>
+<h3 id="13-confronto-frequentista-e-bayesiano">1.3 Confronto Frequentista e Bayesiano</h3>
+<p>Il seguente esempio confronta due interpretazioni della probabilità: quella <strong>frequentista</strong> e quella <strong>bayesiana</strong>. Vengono mostrati due grafici affiancati per evidenziare le differenze concettuali e visive.</p>
+<h4 id="approccio-frequentista">Approccio Frequentista</h4>
+<p>Nel grafico a sinistra, simuliamo il lancio di una moneta sbilanciata con probabilità di successo $p = 0.6$. La <strong>frequenza osservata</strong> (rapporto tra teste e numero totale di lanci) converge verso la probabilità vera all&rsquo;aumentare del numero di lanci:</p>
+<ul>
+<li>La linea blu mostra la frequenza cumulativa dei successi.</li>
+<li>La linea rossa tratteggiata indica la probabilità vera (0.6).</li>
+<li>Con il crescere dei lanci, la frequenza si stabilizza intorno al valore reale.</li>
+</ul>
+<p>Questo grafico illustra la filosofia frequentista: la probabilità è il limite della frequenza relativa di eventi ripetuti.</p>
+<h4 id="approccio-bayesiano">Approccio Bayesiano</h4>
+<p>Nel grafico a destra, mostriamo come si aggiorna la <strong>credibilità</strong> della probabilità di successo osservando i dati sequenzialmente, usando un prior uniforme Beta(1,1):</p>
+<ul>
+<li>Ogni curva rappresenta la <strong>distribuzione a posteriori</strong> dopo un certo numero di osservazioni.</li>
+<li>Le curve diventano progressivamente più concentrate man mano che arrivano nuovi dati.</li>
+<li>Il colore delle curve aumenta di intensità per evidenziare l&rsquo;accumularsi delle osservazioni.</li>
+</ul>
+<p>Questo grafico illustra l’approccio bayesiano: la probabilità è una misura della nostra <strong>certezza</strong> sul valore del parametro, aggiornata via Bayes dopo ogni nuova osservazione.</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">beta</span>
+
+<span class="c1"># ---------------------------</span>
+<span class="c1"># Parametri generali</span>
+<span class="c1"># ---------------------------</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">NUM_FLIPS</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">TRUE_PROB</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="n">OBSERVATIONS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">PRIOR_ALPHA</span><span class="p">,</span> <span class="n">PRIOR_BETA</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># ---------------------------</span>
+<span class="c1"># Creazione figure</span>
+<span class="c1"># ---------------------------</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+
+<span class="c1"># ===========================</span>
+<span class="c1"># Frequentista</span>
+<span class="c1"># ===========================</span>
+<span class="n">flips</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">TRUE_PROB</span><span class="p">,</span> <span class="n">NUM_FLIPS</span><span class="p">)</span>
+<span class="n">frequencies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">flips</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NUM_FLIPS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">NUM_FLIPS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dodgerblue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Frequenza cumulativa&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">TRUE_PROB</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Probabilità vera (0.6)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Numero di lanci&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequenza osservata&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Interpretazione Frequentista&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># ===========================</span>
+<span class="c1"># Bayesiano</span>
+<span class="c1"># ===========================</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">OBSERVATIONS</span><span class="p">[:</span><span class="mi">5</span><span class="p">]):</span>
+    <span class="n">posterior_alpha</span> <span class="o">=</span> <span class="n">PRIOR_ALPHA</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">OBSERVATIONS</span><span class="p">[:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">posterior_beta</span> <span class="o">=</span> <span class="n">PRIOR_BETA</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">OBSERVATIONS</span><span class="p">[:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">posterior</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">posterior_alpha</span><span class="p">,</span> <span class="n">posterior_beta</span><span class="p">)</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">posterior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+             <span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>  <span class="c1"># Sfumatura progressiva</span>
+             <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Dopo </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1"> osservazioni&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Probabilità di successo&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Densità di probabilità&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Interpretazione Bayesiana&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># ===========================</span>
+<span class="c1"># Layout e salvataggio</span>
+<span class="c1"># ===========================</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;probabilità-frequentista-vs-bayesiana.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/probabilità-frequentista-vs-bayesiana.png" alt="probabilità-frequentista-vs-bayesiana" style="display: block; margin: 0 auto;"></p>
+<h3 id="14-quale-approccio-nel-machine-learning">1.4 Quale Approccio nel Machine Learning?</h3>
+<p>Nel ML moderno, l&rsquo;approccio <strong>bayesiano</strong> è prevalente per diverse ragioni:</p>
+<ol>
+<li><strong>Flessibilità</strong>: Può gestire eventi unici e irripetibili</li>
+<li><strong>Incorporazione della conoscenza a priori</strong>: Utile quando i dati sono scarsi</li>
+<li><strong>Quantificazione dell&rsquo;incertezza</strong>: Essenziale per decisioni critiche</li>
+<li><strong>Aggiornamento incrementale</strong>: Perfetto per l&rsquo;apprendimento online</li>
+</ol>
+<h2 id="2-tipologie-di-incertezza-nel-machine-learning">2. Tipologie di Incertezza nel Machine Learning</h2>
+<h3 id="21-incertezza-epistemica-model-uncertainty">2.1 Incertezza Epistemica (Model Uncertainty)</h3>
+<p>Deriva dalla nostra <strong>ignoranza</strong> sui meccanismi sottostanti che generano i dati. È riducibile raccogliendo più dati o migliorando il modello.</p>
+<p><strong>Esempi:</strong></p>
+<ul>
+<li>Non conoscere la funzione vera che lega input e output</li>
+<li>Incertezza sui parametri del modello</li>
+<li>Scelta dell&rsquo;architettura di rete neurale</li>
+</ul>
+<h4 id="esempio-pratico">Esempio pratico:</h4>
+<p>In questo esempio mostriamo come i Gaussian Process (GP) possano modellare l&rsquo;incertezza epistemica, cioè l&rsquo;incertezza dovuta alla mancanza di conoscenza completa della funzione sottostante.</p>
+<ol>
+<li>
+<p><strong>Funzione vera</strong><br />
+   La funzione reale che vogliamo stimare è una combinazione di un termine quadratico, un termine sinusoidale e un termine lineare. Questa funzione è sconosciuta al modello.</p>
+</li>
+<li>
+<p><strong>Dati di training limitati</strong><br />
+   Generiamo pochi punti campionati casualmente sulla funzione vera, con un piccolo rumore. Questi punti rappresentano le informazioni disponibili al modello.</p>
+</li>
+<li>
+<p><strong>Gaussian Process per modellare l&rsquo;incertezza</strong><br />
+   Il GP è un modello probabilistico che fornisce una distribuzione di probabilità su tutte le possibili funzioni compatibili con i dati osservati. Utilizza un kernel (in questo caso RBF) per definire la correlazione tra i punti.</p>
+</li>
+<li>
+<p><strong>Predizione e incertezza</strong><br />
+   Il GP restituisce sia la media predetta sia la deviazione standard, che rappresenta l&rsquo;incertezza epistemica. L&rsquo;incertezza è maggiore nelle regioni dove non ci sono dati osservati e diminuisce vicino ai punti di training.</p>
+</li>
+<li>
+<p><strong>Visualizzazione</strong>  </p>
+</li>
+<li>La linea verde mostra la funzione vera.  </li>
+<li>La linea blu rappresenta la predizione media del GP.  </li>
+<li>L’area azzurra sfumata indica l’incertezza epistemica al 95% (cioè l’intervallo ±2 deviazioni standard).  </li>
+<li>I punti rossi corrispondono ai dati di training osservati.  </li>
+</ol>
+<p>Questo grafico evidenzia come il GP sia più incerto lontano dai dati osservati e come l’incertezza diminuisca in corrispondenza dei punti di training.</p>
+<p>Questo esempio mostra come i Gaussian Process permettano di rappresentare in modo naturale e visivo l’incertezza epistemica quando i dati disponibili sono limitati.</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.gaussian_process</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.gaussian_process.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">RBF</span>
+
+<span class="c1"># Imposta stile elegante integrato in Matplotlib</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+
+<span class="c1"># Funzione vera (sconosciuta al modello)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">true_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="c1"># Dati di training limitati</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">true_function</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># Gaussian Process per modellare l&#39;incertezza epistemica</span>
+<span class="n">gp</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+<span class="n">gp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Predizioni con incertezza</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y_pred</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">true_function</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+
+<span class="c1"># Creazione del grafico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Funzione vera&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predizione GP&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> 
+                 <span class="n">y_pred</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="p">,</span> 
+                 <span class="n">y_pred</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="p">,</span> 
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Incertezza epistemica (95%)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Dati di training&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Input x&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Output y&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Incertezza Epistemica: Non conosciamo la funzione vera&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Salva immagine ad alta qualità</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;epistemic_uncertainty.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/epistemic_uncertainty.png" alt="Incertezza Epistemica" style="display: block; margin: 0 auto;"></p>
+<h3 id="22-incertezza-aleatoria-data-uncertainty">2.2 Incertezza Aleatoria (Data Uncertainty)</h3>
+<p>Deriva dalla <strong>variabilità intrinseca</strong> dei dati e non può essere ridotta nemmeno con infinite osservazioni.</p>
+<p><strong>Esempi:</strong></p>
+<ul>
+<li>Rumore nelle misurazioni</li>
+<li>Variabilità biologica nei dati medici</li>
+<li>Comportamento umano imprevedibile</li>
+</ul>
+<h4 id="esempio-pratico_1">Esempio pratico:</h4>
+<p>In questo esempio mostriamo l&rsquo;incertezza aleatoria, cioè la variabilità intrinseca dei dati che non può essere ridotta osservando più campioni della stessa funzione.</p>
+<ol>
+<li>
+<p><strong>Processo con rumore intrinseco</strong><br />
+   La funzione sottostante è una combinazione di un termine sinusoidale e lineare. A questa funzione aggiungiamo un rumore fisso, che rappresenta l&rsquo;incertezza aleatoria.</p>
+</li>
+<li>
+<p><strong>Generazione di molte realizzazioni</strong><br />
+   Simuliamo numerose osservazioni indipendenti della stessa funzione con rumore. Ogni realizzazione differisce leggermente a causa del rumore intrinseco.</p>
+</li>
+<li>
+<p><strong>Visualizzazione</strong>  </p>
+</li>
+<li>Le linee grigie sottili rappresentano le diverse realizzazioni del processo con rumore, evidenziando la variabilità dei dati.  </li>
+<li>La linea rossa spessa indica la media vera della funzione sottostante, cioè il valore atteso senza rumore.  </li>
+<li>
+<p>L’area arancione sfumata mostra l’intervallo di ±2 deviazioni standard, rappresentando l’incertezza aleatoria al 95%.  </p>
+</li>
+<li>
+<p><strong>Interpretazione</strong><br />
+   Questo grafico mette in evidenza che, anche con molti dati, non possiamo eliminare completamente l’incertezza aleatoria, perché è intrinseca al processo stesso.</p>
+</li>
+</ol>
+<p>L&rsquo;esempio illustra la natura inevitabile dell’incertezza aleatoria, distinta dall’incertezza epistemica che può essere ridotta con dati aggiuntivi.</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Imposta stile elegante integrato in Matplotlib</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+
+<span class="c1"># Simulazione processo con rumore intrinseco</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">true_mean</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">noise_std</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># Rumore intrinseco fisso</span>
+
+<span class="c1"># Creazione figura</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Generazione di più realizzazioni del processo con rumore</span>
+<span class="n">n_realizations</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_realizations</span><span class="p">):</span>
+    <span class="n">y_noisy</span> <span class="o">=</span> <span class="n">true_mean</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">noise_std</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_noisy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Linea della media vera</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">true_mean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Media vera&#39;</span><span class="p">)</span>
+
+<span class="c1"># Area di incertezza aleatoria (±2σ)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">true_mean</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">noise_std</span><span class="p">,</span> <span class="n">true_mean</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">noise_std</span><span class="p">,</span> 
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Incertezza aleatoria (95%)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Personalizzazione grafico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Input x&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Output y&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Incertezza Aleatoria: Variabilità intrinseca dei dati&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Salva immagine ad alta qualità</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;aleatoric_uncertainty.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/aleatoric_uncertainty.png" alt="Incertezza Aleatoria" style="display: block; margin: 0 auto;"></p>
+<h3 id="23-perche-distinguere-le-due-incertezze">2.3 Perché Distinguere le Due Incertezze?</h3>
+<p>Questa distinzione è <strong>cruciale</strong> per:</p>
+<ol>
+<li><strong>Active Learning</strong>: Raccogliere dati dove l&rsquo;incertezza epistemica è alta</li>
+<li><strong>Allocazione delle risorse</strong>: Non sprecare tempo dove l&rsquo;incertezza è solo aleatoria</li>
+<li><strong>Interpretabilità</strong>: Capire se possiamo migliorare il modello o se abbiamo raggiunto il limite teorico</li>
+<li><strong>Decisioni critiche</strong>: Sapere quando fidarsi delle predizioni del modello</li>
+</ol>
+<h2 id="3-probabilita-come-estensione-della-logica-e-teoria-degli-insiemi">3. Probabilità come Estensione della Logica e Teoria degli Insiemi</h2>
+<h3 id="31-lo-spazio-campionario-il-teatro-degli-eventi">3.1 Lo Spazio Campionario: Il Teatro degli Eventi</h3>
+<p>Prima di addentrarci nel formalismo matematico, è essenziale comprendere il <strong>contesto</strong> in cui tutti gli eventi probabilistici si svolgono. Immaginiamo di essere degli osservatori che assistono a un esperimento: lanciamo una moneta, estraiamo una carta da un mazzo, osserviamo il meteo di domani. In ciascuno di questi casi, c&rsquo;è un insieme ben definito di <strong>tutti i possibili risultati</strong> che possono verificarsi.</p>
+<h4 id="311-definizione-dello-spazio-campionario">3.1.1 Definizione dello Spazio Campionario</h4>
+<p><strong>Definizione formale:</strong> Lo <strong>spazio campionario</strong> $\Omega$ (omega maiuscola) è l&rsquo;insieme di tutti i possibili risultati di un esperimento aleatorio.</p>
+<p>Questa definizione, apparentemente semplice, nasconde una profondità matematica considerevole. Lo spazio campionario non è solo una collezione astratta di simboli, ma rappresenta la <strong>totalità delle possibilità</strong> che la natura (o il processo che stiamo studiando) può manifestare.</p>
+<p><strong>Esempi concreti per costruire l&rsquo;intuizione:</strong></p>
+<ol>
+<li><strong>Lancio di una moneta:</strong> $\Omega = \{T, C\}$ dove $T$ = testa e $C$ = croce</li>
+<li><strong>Lancio di un dado:</strong> $\Omega = \{1, 2, 3, 4, 5, 6\}$</li>
+<li><strong>Durata di vita di una lampadina:</strong> $\Omega = [0, +\infty)$ (numeri reali non negativi)</li>
+<li><strong>Temperatura di Roma domani:</strong> $\Omega = (-50°C, +60°C)$ (intervallo realistico)</li>
+<li><strong>Sequenza di lanci di moneta:</strong> $\Omega = \{T, C\}^{\infty}$ (sequenze infinite)</li>
+</ol>
+<p>Osserviamo come lo spazio campionario possa essere <strong>discreto</strong> (primo e secondo esempio), <strong>continuo</strong> (terzo e quarto esempio), o addirittura <strong>infinito</strong> (quinto esempio). Questa varietà riflette la ricchezza dei fenomeni che la teoria della probabilità può descrivere.</p>
+<h4 id="312-gli-eventi-sottoinsiemi-significativi-dello-spazio-campionario">3.1.2 Gli Eventi: Sottoinsiemi Significativi dello Spazio Campionario</h4>
+<p>Una volta definito il nostro &ldquo;universo delle possibilità&rdquo; $\Omega$, possiamo identificare <strong>sottoinsiemi particolari</strong> che rappresentano eventi di interesse.</p>
+<p><strong>Definizione formale:</strong> Un <strong>evento</strong> $A$ è un sottoinsieme dello spazio campionario, ossia $A \subseteq \Omega$.</p>
+<p>Ma cosa significa questa definizione in termini concreti? Un evento rappresenta una <strong>collezione di risultati</strong> che condividono una proprietà comune che ci interessa osservare.</p>
+<p><strong>Esempi per chiarire il concetto:</strong></p>
+<p>Consideriamo il lancio di un dado ($\Omega = \{1, 2, 3, 4, 5, 6\}$):</p>
+<ul>
+<li><strong>Evento &ldquo;numero pari&rdquo;:</strong> $A = \{2, 4, 6\}$</li>
+<li><strong>Evento &ldquo;numero maggiore di 4&rdquo;:</strong> $B = \{5, 6\}$</li>
+<li><strong>Evento &ldquo;numero uguale a 3&rdquo;:</strong> $C = \{3\}$</li>
+<li><strong>Evento &ldquo;numero minore di 1&rdquo;:</strong> $D = \emptyset$ (insieme vuoto)</li>
+<li><strong>Evento &ldquo;numero compreso tra 1 e 6&rdquo;:</strong> $E = \{1, 2, 3, 4, 5, 6\} = \Omega$</li>
+</ul>
+<p>Ogni evento ha una <strong>interpretazione linguistica naturale</strong>: invece di dire &ldquo;è uscito 2 oppure 4 oppure 6&rdquo;, diciamo semplicemente &ldquo;è uscito un numero pari&rdquo;. Gli eventi ci permettono di <strong>aggregare risultati elementari</strong> in categorie significative.</p>
+<h4 id="313-classificazione-degli-eventi">3.1.3 Classificazione degli Eventi</h4>
+<p>Per completezza matematica, distinguiamo diversi tipi di eventi:</p>
+<p><strong>Eventi elementari:</strong> Contengono un solo risultato. Per esempio, $\{3\}$ nel lancio del dado.</p>
+<p><strong>Eventi composti:</strong> Contengono più di un risultato. Per esempio, $\{2, 4, 6\}$.</p>
+<p><strong>Evento impossibile:</strong> L&rsquo;insieme vuoto $\emptyset$. Non può mai verificarsi.</p>
+<p><strong>Evento certo:</strong> L&rsquo;intero spazio campionario $\Omega$. Si verifica sempre.</p>
+<p>Questa classificazione non è meramente accademica: riflette <strong>gradi diversi di specificità</strong> nelle nostre domande. Un evento elementare corrisponde a una domanda molto specifica (&ldquo;uscirà esattamente 3?&rdquo;), mentre un evento composto corrisponde a una domanda più generale (&ldquo;uscirà un numero pari?&rdquo;).</p>
+<h3 id="32-la-probabilita-come-funzione-dal-concetto-intuitivo-alla-definizione-matematica">3.2 La Probabilità come Funzione: Dal Concetto Intuitivo alla Definizione Matematica</h3>
+<p>Ora che abbiamo stabilito il nostro framework insiemistico, possiamo finalmente definire cosa sia una <strong>probabilità</strong> in senso matematico.</p>
+<h4 id="321-la-probabilita-come-misura">3.2.1 La Probabilità come Misura</h4>
+<p><strong>Definizione informale:</strong> La probabilità è una <strong>funzione</strong> che assegna a ogni evento un numero compreso tra 0 e 1, interpretabile come &ldquo;grado di credibilità&rdquo; o &ldquo;frequenza attesa&rdquo; dell&rsquo;evento.</p>
+<p><strong>Definizione formale:</strong> Una <strong>misura di probabilità</strong> (o semplicemente <strong>probabilità</strong>) è una funzione $P: \mathcal{F} \to [0,1]$ dove $\mathcal{F}$ è una σ-algebra di sottoinsiemi di $\Omega$, tale che soddisfa gli assiomi di Kolmogorov.</p>
+<p>Sia $(\Omega, \mathcal{F})$ uno spazio di probabilità. Una misura di probabilità $P: \mathcal{F} \to [0,1]$ soddisfa i seguenti assiomi di Kolmogorov:</p>
+<ol>
+<li>
+<p><strong>Non negatività:</strong><br />
+   Per ogni evento $A \in \mathcal{F}$,<br />
+   $$
+   P(A) \ge 0
+   $$</p>
+</li>
+<li>
+<p><strong>Normalizzazione:</strong><br />
+   La probabilità dell&rsquo;intero spazio è 1:<br />
+   $$
+   P(\Omega) = 1
+   $$</p>
+</li>
+<li>
+<p><strong>σ-additività (o additività numerabile):</strong><br />
+   Per ogni sequenza numerabile di eventi disgiunti $A_1, A_2, \dots \in \mathcal{F}$,<br />
+   $$
+   P\Big(\bigcup_{i=1}^{\infty} A_i\Big) = \sum_{i=1}^{\infty} P(A_i)
+   $$</p>
+</li>
+</ol>
+<p><em>Nota tecnica: La σ-algebra $\mathcal{F}$ è una collezione di sottoinsiemi di $\Omega$ che include $\Omega$, è chiusa rispetto al complemento e all&rsquo;unione numerabile. Per i nostri scopi pratici, possiamo pensare a $\mathcal{F}$ come alla collezione di &ldquo;tutti gli eventi di interesse&rdquo;.</em></p>
+<p><strong>Interpretazione intuitiva:</strong> La probabilità è una <strong>macchina matematica</strong> che prende in input un evento (sottoinsieme) e restituisce un numero che quantifica quanto è plausibile che quell&rsquo;evento si verifichi.</p>
+<ul>
+<li>$P(A) = 0$: l&rsquo;evento $A$ è impossibile</li>
+<li>$P(A) = 1$: l&rsquo;evento $A$ è certo</li>
+<li>$P(A) = 0.5$: l&rsquo;evento $A$ ha la stessa plausibilità del suo complemento</li>
+<li>$P(A) > P(B)$: l&rsquo;evento $A$ è più plausibile dell&rsquo;evento $B$</li>
+</ul>
+<h4 id="322-dal-calcolo-proposizionale-alla-probabilita-lestensione-naturale">3.2.2 Dal Calcolo Proposizionale alla Probabilità: L&rsquo;Estensione Naturale</h4>
+<p>La connessione tra logica e probabilità diventa ora cristallina. Nella <strong>logica proposizionale classica</strong>, lavoriamo con valori di verità discreti:</p>
+<ul>
+<li>Una proposizione $p$ è vera ($p = 1$) o falsa ($p = 0$)</li>
+<li>Le operazioni logiche (AND, OR, NOT) combinano questi valori discreti</li>
+</ul>
+<p>La <strong>teoria della probabilità</strong> estende questo framework permettendo <strong>valori intermedi</strong>:</p>
+<ul>
+<li>Un evento $A$ ha probabilità $P(A) \in [0,1]$</li>
+<li>Le operazioni probabilistiche corrispondono alle operazioni insiemistiche</li>
+</ul>
+<p>Questa estensione non è arbitraria, ma segue una <strong>logica interna</strong> rigorosa. Quando l&rsquo;incertezza è assente ($P(A) \in \{0,1\}$), ritroviamo esattamente la logica classica. Quando l&rsquo;incertezza è presente, la probabilità fornisce un framework coerente per ragionare con informazione incompleta.</p>
+<h4 id="323-la-corrispondenza-fondamentale">3.2.3 La Corrispondenza Fondamentale</h4>
+<p>Ora possiamo stabilire la corrispondenza precisa tra operazioni logiche e operazioni probabilistiche:</p>
+<table>
+<thead>
+<tr>
+<th>Operazione Logica</th>
+<th>Operazione Insiemistica</th>
+<th>Operazione Probabilistica</th>
+<th>Interpretazione Intuitiva</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$A \lor B$ (OR)</td>
+<td>$A \cup B$ (unione)</td>
+<td>$P(A \cup B)$</td>
+<td>&ldquo;A oppure B (o entrambi)&rdquo;</td>
+</tr>
+<tr>
+<td>$A \land B$ (AND)</td>
+<td>$A \cap B$ (intersezione)</td>
+<td>$P(A \cap B)$</td>
+<td>&ldquo;A e B simultaneamente&rdquo;</td>
+</tr>
+<tr>
+<td>$\neg A$ (NOT)</td>
+<td>$A^c$ (complemento)</td>
+<td>$P(A^c) = 1 - P(A)$</td>
+<td>&ldquo;non A&rdquo;</td>
+</tr>
+<tr>
+<td>$A \rightarrow B$ (IMPLICA)</td>
+<td>-</td>
+<td>$P(B|A)$</td>
+<td>&ldquo;B dato che A si è verificato&rdquo;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Aspetto cruciale:</strong> Questa corrispondenza non è solo una curiosità matematica, ma riflette il fatto che <strong>la probabilità è il linguaggio naturale per ragionare con incertezza</strong>. Quando facciamo inferenze nel mondo reale, stiamo implicitamente eseguendo operazioni probabilistiche che corrispondono a operazioni logiche.</p>
+<h3 id="33-probabilita-condizionale-restrizione-dello-spazio-campionario">3.3 Probabilità Condizionale: Restrizione dello Spazio Campionario</h3>
+<p>La probabilità condizionale $P(B|A)$ può essere interpretata geometricamente come una <strong>normalizzazione</strong>: restringiamo lo spazio campionario ad $A$ e ricalcoliamo le probabilità relative.</p>
+<p>$P(B|A) = \frac{P(A \cap B)}{P(A)} = \frac{|A \cap B|/|\Omega|}{|A|/|\Omega|} = \frac{|A \cap B|}{|A|}$</p>
+<p><strong>Interpretazione insiemistica:</strong> Tra tutti i risultati in $A$, quale frazione appartiene anche a $B$?</p>
+<h3 id="34-assiomi-di-kolmogorov-fondamenti-matematici">3.4 Assiomi di Kolmogorov: Fondamenti Matematici</h3>
+<p>Gli <strong>assiomi di Kolmogorov</strong> formalizzano matematicamente questi concetti:</p>
+<ol>
+<li><strong>Non-negatività:</strong> $P(A) \geq 0$ per ogni evento $A$</li>
+<li><strong>Normalizzazione:</strong> $P(\Omega) = 1$</li>
+<li><strong>σ-additività:</strong> Per eventi disgiunti $A_1, A_2, \ldots$:
+   $P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$</li>
+</ol>
+<p>Questi assiomi garantiscono che la probabilità si comporti in modo coerente con la nostra intuizione insiemistica.</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Rectangle</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span> <span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># 1. Eventi come sottoinsiemi</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span>
+
+<span class="n">circle_A</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">((</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">circle_B</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">((</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">circle_A</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">circle_B</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n_points</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">x_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_points</span><span class="p">)</span>
+<span class="n">y_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_points</span><span class="p">)</span>
+
+<span class="n">in_A</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_points</span> <span class="o">-</span> <span class="mf">0.35</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y_points</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mf">0.25</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">in_B</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_points</span> <span class="o">-</span> <span class="mf">0.65</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y_points</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mf">0.25</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">in_both</span> <span class="o">=</span> <span class="n">in_A</span> <span class="o">&amp;</span> <span class="n">in_B</span>
+<span class="n">in_neither</span> <span class="o">=</span> <span class="o">~</span><span class="n">in_A</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_B</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_points</span><span class="p">[</span><span class="n">in_both</span><span class="p">],</span> <span class="n">y_points</span><span class="p">[</span><span class="n">in_both</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;A∩B&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_points</span><span class="p">[</span><span class="n">in_A</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_B</span><span class="p">],</span> <span class="n">y_points</span><span class="p">[</span><span class="n">in_A</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_B</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_points</span><span class="p">[</span><span class="n">in_B</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_A</span><span class="p">],</span> <span class="n">y_points</span><span class="p">[</span><span class="n">in_B</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_A</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_points</span><span class="p">[</span><span class="n">in_neither</span><span class="p">],</span> <span class="n">y_points</span><span class="p">[</span><span class="n">in_neither</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Eventi come Sottoinsiemi di Ω&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Spazio Campionario Ω&#39;</span><span class="p">)</span>
+
+<span class="c1"># Spostiamo il testo delle probabilità più in basso</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;P(A) ≈ </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">in_A</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, P(B) ≈ </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">in_B</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, P(A∩B) ≈ </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">in_both</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+             <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.18</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># --------------------------------------</span>
+<span class="c1"># 2. Diagramma di Venn (due insiemi)</span>
+<span class="c1"># --------------------------------------</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">universe</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+
+<span class="n">set_A</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">((</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">set_B</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">((</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">set_A</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">set_B</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;A</span><span class="se">\\</span><span class="s1">B&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;B</span><span class="se">\\</span><span class="s1">A&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;A∩B&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="s1">&#39;Aᶜ∩Bᶜ&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Diagramma di Venn: Operazioni Insiemistiche&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># -------------------------------------------------</span>
+<span class="c1"># 3. Probabilità condizionale</span>
+<span class="c1"># -------------------------------------------------</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">])</span>  <span class="c1"># y più basso</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Spazio campionario originale</span>
+<span class="n">original_space</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">original_space</span><span class="p">)</span>
+
+<span class="c1"># Evento A</span>
+<span class="n">cond_space</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">cond_space</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+
+<span class="c1"># Evento B|A</span>
+<span class="n">event_b_given_a</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">((</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">event_b_given_a</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Probabilità Condizionale P(B|A)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;Spazio campionario ristretto ad A&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># -------------------------------------------------</span>
+<span class="c1"># 4. Principio di inclusione-esclusione</span>
+<span class="c1"># -------------------------------------------------</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">])</span>  <span class="c1"># leggermente più in basso</span>
+
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+
+<span class="c1"># Centri spostati e raggio aumentato per evidenziare intersezione</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">)]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]</span>
+<span class="n">radii</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">centers</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">alphas</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">radii</span><span class="p">)):</span>
+    <span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">ax4</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+
+<span class="n">formula_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;P(A∪B∪C) = P(A) + P(B) + P(C)</span>
+<span class="s2">- P(A∩B) - P(A∩C) - P(B∩C)</span>
+<span class="s2">+ P(A∩B∩C)&quot;&quot;&quot;</span>
+
+<span class="n">ax4</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">formula_text</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> 
+         <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round,pad=0.3&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">))</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Principio di Inclusione-Esclusione&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;probability_view.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/probability_view.png" alt="Probability View" style="display: block; margin: 0 auto;"></p>
+<h3 id="35-implicazioni-per-il-machine-learning">3.5 Implicazioni per il Machine Learning</h3>
+<p>Questa connessione tra logica, teoria degli insiemi e probabilità è fondamentale nel ML:</p>
+<ol>
+<li><strong>Classificazione</strong>: Ogni classe può essere vista come un evento/insieme</li>
+<li><strong>Feature Selection</strong>: L&rsquo;indipendenza condizionale guida la selezione delle variabili</li>
+<li><strong>Bayes Networks</strong>: La struttura riflette le dipendenze condizionali tra eventi</li>
+<li><strong>Regole di Associazione</strong>: Basate su intersezioni tra insiemi di transazioni</li>
+<li><strong>Teoria dell&rsquo;Informazione</strong>: L&rsquo;entropia misura l&lsquo;&ldquo;incertezza&rdquo; di una partizione probabilistica dello spazio</li>
+</ol>
+<p>La bellezza di questa formulazione è che <strong>trasforma problemi probabilistici complessi in operazioni geometriche intuitive</strong> su insiemi, fornendo sia rigore matematico che comprensione visiva.</p>
+<h3 id="36-visualizzazione-delle-probabilita">3.6 Visualizzazione delle Probabilità</h3>
+<ul>
+<li>
+<p><strong>Probabilità Congiunta P(A∩B)</strong><br />
+  Mostra la sovrapposizione di due eventi A (blu) e B (rosso). L’area viola rappresenta l’intersezione, cioè la probabilità che entrambi gli eventi si verifichino contemporaneamente.</p>
+</li>
+<li>
+<p><strong>Probabilità Unione P(A∪B)</strong><br />
+  Illustra l’unione degli eventi A e B. Tutte le aree blu e rosse contano, ma l’intersezione va sottratta per evitare doppio conteggio. La formula (P(A∪B) = P(A) + P(B) - P(A∩B)) è riportata sotto il grafico.</p>
+</li>
+<li>
+<p><strong>Eventi Indipendenti</strong><br />
+  Mostra due insiemi di punti (A blu, B rosso) distribuiti casualmente nello spazio. La disposizione casuale indica che la presenza di un evento non influenza l’altro.</p>
+</li>
+<li>
+<p><strong>Eventi Dipendenti</strong><br />
+  Visualizza A e B come cluster correlati. L’andamento concentrato dei punti rossi rispetto ai blu mostra che la probabilità di B dipende dalla presenza di A, evidenziando la dipendenza tra eventi.</p>
+</li>
+</ul>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span> <span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># 1. Probabilità Congiunta</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;A∩B&#39;</span><span class="p">))</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Probabilità Congiunta P(A∩B)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># 2. Probabilità Unione</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Probabilità Unione P(A∪B)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;P(A∪B) = P(A) + P(B) - P(A∩B)&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># 3. Eventi Indipendenti</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">x_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">x_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_a</span><span class="p">,</span> <span class="n">y_a</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Eventi A&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_b</span><span class="p">,</span> <span class="n">y_b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Eventi B&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Eventi Indipendenti&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------</span>
+<span class="c1"># 4. Eventi Dipendenti</span>
+<span class="c1"># -----------------------------</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">x_dep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">y_dep</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">x_dep_b</span> <span class="o">=</span> <span class="n">x_dep</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">y_dep_b</span> <span class="o">=</span> <span class="n">y_dep</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">ax4</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_dep</span><span class="p">,</span> <span class="n">y_dep</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Eventi A&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_dep_b</span><span class="p">,</span> <span class="n">y_dep_b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Eventi B&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Eventi Dipendenti&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;probability_concepts.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/probability_concepts.png" alt="Probability Concepts" style="display: block; margin: 0 auto"></p>
+<h2 id="conclusione">Conclusione</h2>
+<p>Questi concetti fondamentali costituiscono la base matematica su cui poggiano tutti gli algoritmi di machine learning moderni. Dall&rsquo;inferenza bayesiana alle reti neurali, dalla regressione logistica ai modelli generativi, tutto parte da questi principi probabilistici.</p>
+<p>Nei prossimi capitoli esploreremo come questi concetti si traducono in strumenti pratici per l&rsquo;analisi dei dati e la costruzione di modelli predittivi robusti e interpretabili.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, model, data, neural</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Probabilità/Introduzione alla Probabilità">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Probabilità nel Machine Learning: Fondamenti Teorici',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Probabilità/Introduzione alla Probabilità'
+        });
+      }
+    </script>
+</body>
+</html>
