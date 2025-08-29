@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Variabili Casuali: Dal Caos alla Comprensione Quantitativa | Mathematics for Machine Learning | ML Theory</title>
     <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
-    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, model, data">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, model">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph -->
@@ -35,7 +35,7 @@
       "headline": "Variabili Casuali: Dal Caos alla Comprensione Quantitativa",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/math-for-ml/Probabilità/Variabili Aleatorie",
-      "datePublished": "2025-08-23T17:28:54.530Z",
+      "datePublished": "2025-08-29T00:38:10.568Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -133,7 +133,7 @@
                 <h1>Variabili Casuali: Dal Caos alla Comprensione Quantitativa</h1>
                 <div class="meta">
                     <strong>Topic:</strong> Mathematics for Machine Learning | 
-                    <strong>Updated:</strong> 23/08/2025
+                    <strong>Updated:</strong> 29/08/2025
                 </div>
             </header>
             
@@ -336,7 +336,7 @@ Paradossalmente, ciò che è imprevedibile a livello individuale diventa prevedi
 <ul>
 <li>Un singolo lancio di moneta è imprevedibile</li>
 <li>La proporzione di teste in 10.000 lanci è altamente prevedibile</li>
-<li>Questo principio è alla base della <strong>Legge dei Grandi Numeri</strong></li>
+<li>Questo principio è alla base della <strong><span class="text-gray-600">Legge dei Grandi Numeri</span></strong></li>
 </ul>
 <h3 id="il-ruolo-del-punto-campionario">Il Ruolo del Punto Campionario</h3>
 <p>Ogni variabile casuale $X$ ha il suo valore determinato dal <strong>punto campionario</strong> $\omega$ che si realizza nell&rsquo;esperimento $\mathcal{E}$. Questo concetto è fondamentale perché:</p>
@@ -345,7 +345,6 @@ Paradossalmente, ciò che è imprevedibile a livello individuale diventa prevedi
 <li><strong>$X(\omega)$ è il valore numerico</strong> associato a quello stato specifico  </li>
 <li><strong>L&rsquo;incertezza nasce</strong> dal fatto che non conosciamo in anticipo quale $\omega$ si realizzerà.</li>
 </ul>
-<p>$\mathcal X = \{X(\omega): \omega \in \Omega\}$</p>
 <h2 id="definizione-formale">Definizione Formale</h2>
 <p><strong>Definizione 1.6 (Variabile Casuale)</strong>
 Sia $\Omega$ uno spazio campionario corrispondente a un esperimento $\mathcal E$, e sia $X: \Omega \to \mathbb{R}$ una funzione che mappa lo spazio campionario sulla retta reale in generale. Allora $X$ è detta <strong>variabile casuale</strong>.</p>
@@ -361,7 +360,7 @@ Sia $\Omega$ uno spazio campionario corrispondente a un esperimento $\mathcal E$
 <li><strong>La variabile casuale</strong> $X$  </li>
 <li><strong>Lo spazio degli stati della variabile</strong> $\mathcal{X}$  </li>
 </ol>
-<h4 id="spazio-campionario-math_inline_37">Spazio Campionario ($\Omega$)</h4>
+<h4 id="spazio-campionario-math_inline_43">Spazio Campionario ($\Omega$)</h4>
 <p>Lo <strong>spazio campionario</strong> (o <strong>universo</strong>) è l’insieme di <em>tutti i possibili esiti elementari</em> di un esperimento casuale.<br />
 Ogni elemento $\omega \in \Omega$ rappresenta un <strong>singolo risultato osservabile</strong>.</p>
 $$
@@ -372,7 +371,7 @@ $$
 <li>Viene definito <strong>prima</strong> di introdurre qualunque variabile casuale.  </li>
 <li>È su $\Omega$ che si definisce la <strong>misura di probabilità</strong> $P$.  </li>
 </ul>
-<h4 id="variabile-casuale-math_inline_41">Variabile Casuale ($X$)</h4>
+<h4 id="variabile-casuale-math_inline_47">Variabile Casuale ($X$)</h4>
 <p>Una <strong>variabile casuale</strong> è una funzione che associa ad ogni esito elementare $\omega \in \Omega$ un valore numerico:</p>
 $$
 X : \Omega \to \mathcal{X}, \quad \omega \mapsto X(\omega)
@@ -382,7 +381,7 @@ $$
 <li>La casualità nasce dal fatto che non sappiamo <em>a priori</em> quale $\omega$ si verificherà.  </li>
 <li>Quindi la variabile casuale “eredita” l’incertezza da $\Omega$.  </li>
 </ul>
-<h4 id="spazio-degli-stati-math_inline_45">Spazio degli Stati ($\mathcal{X}$)</h4>
+<h4 id="spazio-degli-stati-math_inline_51">Spazio degli Stati ($\mathcal{X}$)</h4>
 <p>Lo <strong>spazio degli stati</strong> (o <strong>insieme dei valori possibili della variabile casuale</strong>) è semplicemente l’immagine della funzione $X$:  </p>
 $$
 \mathcal{X} = \{ X(\omega) : \omega \in \Omega \}
@@ -390,8 +389,9 @@ $$
 <ul>
 <li>Contiene tutti i valori che la variabile casuale può assumere.  </li>
 <li>È un sottoinsieme dei numeri reali (o più in generale di uno spazio matematico).  </li>
-<li>Mentre $\Omega$ descrive i “risultati fisici” dell’esperimento, $\mathcal{X}$ descrive i “valori numerici” associati.  </li>
+<li>Mentre $\Omega$ descrive i “risultati fisici” dell’esperimento, $\mathcal{X}$ descrive i “valori numerici” associati.</li>
 </ul>
+<p>Lo spazio degli stati $\mathcal{X}$ serve per rappresentare i valori della variabile casuale e facilitare calcoli probabilistici.</p>
 <h3 id="esempio-lancio-di-un-dado">Esempio: Lancio di un dado</h3>
 <ul>
 <li>
@@ -532,17 +532,101 @@ $$p(x) \triangleq \Pr(X = x)$$
 
 <p><img src="/images/posts/distribuzioni_discrete.png" alt="Distribuzioni Discrete" style="display: block; margin-left: auto; margin-right: auto;"></p>
 <h2 id="variabili-casuali-continue">Variabili Casuali Continue</h2>
-<p>Se $X \in \mathbb{R}$ è una quantità a valori reali, è chiamata <strong>variabile casuale continua</strong>. In questo caso, non possiamo più creare un insieme finito (o numerabile) di valori distinti che può assumere. Tuttavia, c&rsquo;è un numero numerabile di intervalli in cui possiamo partizionare la retta reale.</p>
+<p>Se $X \in \mathbb{R}$ rappresenta una quantità che può assumere valori reali, si dice che $X$ è una <strong>variabile casuale continua</strong>. Questo concetto differisce da quello di variabile casuale discreta, dove l&rsquo;insieme dei valori possibili è finito o numerabile. Nel caso continuo, non esiste un insieme numerabile di valori distinti che possa descrivere completamente tutte le possibili realizzazioni della variabile.</p>
+<p>Tuttavia, è possibile considerare intervalli della retta reale. La probabilità che $X$ cada in un intervallo specifico può essere definita, mentre la probabilità che $X$ assuma esattamente un valore puntuale è sempre nulla:</p>
+$$
+\Pr(X = x) = 0 \quad \forall x \in \mathcal{X}.
+$$
+<p>In altre parole, per una variabile casuale continua, i valori singoli sono infinitamente “sottile” rispetto all’intero insieme dei valori possibili, e pertanto non hanno una probabilità positiva associata. È utile, quindi, ragionare in termini di probabilità su intervalli piuttosto che su punti isolati.</p>
+<p>Questa proprietà fondamentale implica anche che, al contrario delle variabili discrete, non possiamo elencare o contare tutte le possibili realizzazioni di $X$, ma dobbiamo ricorrere a strumenti matematici più avanzati per descriverne il comportamento probabilistico.</p>
+<h3 id="funzione-di-densita-di-probabilita-pdf">Funzione di Densità di Probabilità (PDF)</h3>
+<p>Per una <strong>variabile casuale continua</strong> $X$, la <strong>funzione di densità di probabilità</strong> (o <strong>pdf</strong>) è uno strumento matematico fondamentale che descrive come la probabilità si distribuisce lungo la retta reale. Se la funzione di distribuzione cumulativa $P(x)$ è derivabile, definiamo formalmente la pdf come:</p>
+$$
+p(x) \triangleq \frac{d}{dx} P(x)
+$$
+<p>Questa definizione implica che la pdf rappresenta la <strong>derivata della CDF</strong>, ovvero il tasso istantaneo di variazione della probabilità cumulata in corrispondenza di ciascun punto $x$.<br />
+⚠️ Non tutte le variabili continue possiedono una CDF derivabile ovunque; in tali casi la pdf può non essere definita in alcuni punti.</p>
+<p>La pdf consente di calcolare la probabilità che $X$ cada in un <strong>intervallo finito</strong> $[x_1, x_2]$ mediante l’integrazione:</p>
+$$
+\Pr(x_1 < X \leq x_2) = \int_{x_1}^{x_2} p(x) \, dx = P(x_2) - P(x_1)
+$$
+<p>Questo chiarisce perché la probabilità di un singolo punto è nulla: un intervallo di lunghezza zero produce un integrale nullo.  </p>
+<p>In termini infinitesimali, considerando un intervallo molto piccolo $[x, x+dx]$, possiamo approssimare la probabilità come:</p>
+$$
+\Pr(x < X \leq x + dx) \approx p(x) \, dx
+$$
+<p>Intuitivamente, la <strong>densità di probabilità in $x$</strong> misura quanto “concentrata” è la probabilità attorno a quel punto. La probabilità di un intervallo infinitesimale è proporzionale sia alla densità in $x$ sia alla larghezza $dx$ dell’intervallo.<br />
+In altre parole, la pdf non fornisce direttamente la probabilità di un singolo valore, ma permette di stimare la probabilità di eventi su intervalli, fornendo una descrizione continua e rigorosa del comportamento probabilistico della variabile.</p>
 <h3 id="funzione-di-distribuzione-cumulativa-cdf">Funzione di Distribuzione Cumulativa (CDF)</h3>
-<p>Definiamo gli eventi $D = (X \leq x_1)$, $E = (X \leq x_2)$ e $F = (x_1 < X \leq x_2)$, dove $x_1 < x_2$. Abbiamo che $E = D \lor F$, e poiché $D$ e $F$ sono mutuamente esclusivi, la regola della somma dà:</p>
-$$\Pr(E) = \Pr(D) + \Pr(F)$$
-<p>e quindi la probabilità di essere nell&rsquo;intervallo $F$ è data da:</p>
-$$\Pr(F) = \Pr(E) - \Pr(D)$$
-<p>In generale, definiamo la <strong>funzione di distribuzione cumulativa</strong> o <strong>cdf</strong> della variabile casuale $X$ come segue:</p>
-$$P(x) \triangleq \Pr(X \leq x)$$
-<p>Usando questa definizione, possiamo calcolare la probabilità di essere in qualsiasi intervallo come segue:</p>
-$$\Pr(x_1 < X \leq x_2) = P(x_2) - P(x_1)$$
-<p>Le CDF sono funzioni monotonicamente non-decrescenti.</p>
+<p>La <strong>funzione di distribuzione cumulativa</strong> (o <strong>cdf</strong>) di una variabile casuale $X$ è definita formalmente come:</p>
+$$
+P(x) \triangleq \Pr(X \leq x)
+$$
+<p>Essa rappresenta la probabilità cumulata che la variabile assuma un valore minore o uguale a $x$, fornendo quindi una descrizione completa del comportamento probabilistico di $X$.  </p>
+<p>Alcune proprietà tecniche fondamentali delle CDF sono:</p>
+<ol>
+<li>
+<p><strong>Monotonia non decrescente</strong>:<br />
+   Per ogni $x_1 < x_2$, vale sempre:
+   $$
+   P(x_1) \leq P(x_2)
+   $$
+   Questo deriva dal fatto che l’insieme $\{X \leq x_1\}$ è incluso nell’insieme $\{X \leq x_2\}$.</p>
+</li>
+<li>
+<p><strong>Limiti alle estremità della retta reale</strong>:<br />
+   $$
+   \lim_{x \to -\infty} P(x) = 0, \quad \lim_{x \to +\infty} P(x) = 1
+   $$
+   Ciò riflette la certezza che $X$ assumerà un valore finito e reale.</p>
+</li>
+<li>
+<p><strong>Continuità a destra</strong>:<br />
+   Per ogni $x \in \mathbb{R}$, la CDF soddisfa:
+   $$
+   P(x) = \lim_{\epsilon \to 0^+} P(x+\epsilon)
+   $$
+   Questa proprietà è fondamentale nella teoria delle probabilità e garantisce che non ci siano “salti” verso sinistra nella funzione.</p>
+</li>
+<li>
+<p><strong>Probabilità su intervalli</strong>:<br />
+   Considerando due punti $x_1 < x_2$, definiamo gli eventi
+   $$
+   D = \{X \leq x_1\}, \quad E = \{X \leq x_2\}, \quad F = \{x_1 < X \leq x_2\}
+   $$
+   Poiché $D$ e $F$ sono mutuamente esclusivi e $E = D \cup F$, vale:
+   $$
+   \Pr(F) = \Pr(E) - \Pr(D) = P(x_2) - P(x_1)
+   $$
+   Questa regola consente di calcolare la probabilità di qualsiasi intervallo finito, rendendo la CDF uno strumento estremamente generale.</p>
+</li>
+<li>
+<p><strong>Discontinuità per variabili discrete</strong>:<br />
+   Nel caso di variabili miste o discrete, la CDF può presentare salti, con l’altezza del salto pari alla probabilità del punto corrispondente. Per variabili continue, la CDF è continua, ma queste proprietà tecniche restano valide in senso generale.</p>
+</li>
+<li>
+<p><strong>Inversibilità (quantili)</strong>:<br />
+   La CDF è utilizzata per definire i quantili di una variabile casuale, tramite la funzione inversa $P^{-1}$. Questo concetto è centrale in statistica e simulazioni probabilistiche. Vedremo degli esempi più avanti.</p>
+</li>
+</ol>
+<p>La CDF fornisce una rappresentazione completa e rigorosa della distribuzione di probabilità di $X$, valida sia per variabili continue sia discrete, e costituisce la base formale per calcolare probabilità su intervalli e per derivare ulteriori strumenti statistici.</p>
+<h3 id="collegamento-tra-pdf-e-cdf">Collegamento tra PDF e CDF</h3>
+<p>Le due funzioni, PDF e CDF, sono strettamente collegate:</p>
+<ol>
+<li><strong>Dalla CDF alla PDF</strong>:<br />
+   Se la CDF $P(x)$ è derivabile, la PDF si ottiene come derivata:</li>
+</ol>
+$$
+   p(x) = \frac{d}{dx} P(x)
+   $$
+<ol>
+<li><strong>Dalla PDF alla CDF</strong>:<br />
+   Se conosciamo la PDF $p(x)$, possiamo ricostruire la CDF mediante integrazione:</li>
+</ol>
+$$
+   P(x) = \int_{-\infty}^{x} p(t) \, dt
+   $$
+<p>La CDF accumula probabilità lungo la retta reale, mentre la PDF descrive come la probabilità è distribuita istante per istante. Entrambe forniscono descrizioni equivalenti del comportamento probabilistico di una variabile continua, ma da prospettive diverse: la CDF è cumulativa, la PDF è locale.</p>
 <details class="code-container">
 <summary>Code</summary>
 <div class="code-wrapper">
@@ -580,23 +664,42 @@ $$\Pr(x_1 < X \leq x_2) = P(x_2) - P(x_1)$$
 </details>
 
 <p><img src="/images/posts/cdf_gaussiana.png" alt="Funzione di Distribuzione Cumulativa (CDF) - Gaussiana Standard" style="display: block; margin-left: auto; margin-right: auto;"></p>
-<h3 id="funzione-di-densita-di-probabilita-pdf">Funzione di Densità di Probabilità (PDF)</h3>
-<p>Definiamo la <strong>funzione di densità di probabilità</strong> o <strong>pdf</strong> come la derivata della <strong>cdf</strong>:</p>
-$$p(x) \triangleq \frac{d}{dx}P(x)$$
-<p>(Nota che questa derivata non sempre esiste, nel qual caso la <strong>pdf</strong> non è definita.)</p>
-<p>Data una <strong>pdf</strong>, possiamo calcolare la probabilità di una variabile continua di essere in un intervallo finito come segue:</p>
-$$\Pr(x_1 < X \leq x_2) = \int_{x_1}^{x_2} p(x)dx = P(x_2) - P(x_1)$$
-<p>Quando la dimensione dell&rsquo;intervallo diventa più piccola, possiamo scrivere:</p>
-$$\Pr(x < X \leq x + dx) \approx p(x)dx$$
-<p>Intuitivamente, questo dice che la probabilità che $X$ sia in un piccolo intervallo attorno a $x$ è la densità in $x$ moltiplicata per la larghezza dell&rsquo;intervallo.</p>
 <h3 id="quantili">Quantili</h3>
-<p>Se la cdf $P$ è strettamente monotonicamente crescente, ha un&rsquo;inversa, chiamata <strong>cdf inversa</strong>, o <strong>funzione del punto percentile (ppf)</strong>, o <strong>funzione quantile</strong>.</p>
-<p>Se $P$ è la cdf di $X$, allora $P^{-1}(q)$ è il valore $x_q$ tale che $\Pr(X \leq x_q) = q$; questo è chiamato il <strong>$q$-esimo quantile</strong> di $P$.</p>
-<p><strong>Quantili Importanti:</strong>
-- $P^{-1}(0.5)$ è la <strong>mediana</strong> della distribuzione, con metà della massa di probabilità a sinistra e metà a destra
-- $P^{-1}(0.25)$ e $P^{-1}(0.75)$ sono i <strong>quartili inferiore e superiore</strong></p>
-<p><strong>Esempio con la Distribuzione Gaussiana:</strong>
-Sia $\Phi$ la cdf della distribuzione gaussiana $N(0,1)$, e $\Phi^{-1}$ la cdf inversa. Allora i punti a sinistra di $\Phi^{-1}(\alpha/2)$ contengono $\alpha/2$ della massa di probabilità. Per simmetria, i punti a destra di $\Phi^{-1}(1-\alpha/2)$ contengono anch&rsquo;essi $\alpha/2$ della massa. Quindi l&rsquo;intervallo centrale $(\Phi^{-1}(\alpha/2), \Phi^{-1}(1-\alpha/2))$ contiene $1-\alpha$ della massa.</p>
+<p>I <strong>quantili</strong> sono valori della variabile casuale che suddividono la distribuzione in proporzioni prefissate di probabilità. Formalmente, se la CDF $P$ di una variabile casuale $X$ è <strong>strettamente monotona crescente</strong>, essa possiede un&rsquo;inversa, chiamata <strong>CDF inversa</strong>, <strong>funzione dei percentili (ppf, percentile point function)</strong> o <strong>funzione quantile</strong>.</p>
+<p>Se $P$ è la CDF di $X$, allora per ogni $q \in (0,1)$ definiamo il <strong>$q$-esimo quantile</strong> $x_q$ come:</p>
+$$
+x_q = P^{-1}(q) \quad \Longleftrightarrow \quad \Pr(X \leq x_q) = q
+$$
+<p>In altre parole, il $q$-esimo quantile è il valore sotto il quale cade una frazione $q$ della distribuzione.</p>
+<p>Intuitivamente, il $q$-esimo quantile rappresenta un punto della distribuzione che “divide” la probabilità cumulata: una frazione $q$ della massa di probabilità si trova <strong>a sinistra</strong> del quantile e una frazione $1-q$ si trova <strong>a destra</strong>.  </p>
+<h4 id="quantili-particolarmente-importanti">Quantili particolarmente importanti</h4>
+<ul>
+<li>
+<p><strong>Mediana</strong>: $x_{0.5} = P^{-1}(0.5)$<br />
+  Divide la distribuzione in due metà, con il 50% della probabilità a sinistra e il 50% a destra.  </p>
+</li>
+<li>
+<p><strong>Quartili</strong>:  </p>
+</li>
+<li>$x_{0.25} = P^{-1}(0.25)$ è il <strong>quartile inferiore</strong>  </li>
+<li>
+<p>$x_{0.75} = P^{-1}(0.75)$ è il <strong>quartile superiore</strong>  </p>
+</li>
+<li>
+<p><strong>Altri quantili</strong>: ad esempio, i decili ($x_{0.1}, x_{0.2}, \dots, x_{0.9}$) suddividono la distribuzione in dieci parti uguali di probabilità.</p>
+</li>
+</ul>
+<h4 id="esempio-distribuzione-normale-standard">Esempio: Distribuzione Normale Standard</h4>
+<p>Sia $\Phi$ la CDF della distribuzione gaussiana standard $N(0,1)$ e $\Phi^{-1}$ la sua inversa. Per un livello di confidenza $1-\alpha$, possiamo definire l’intervallo centrale che contiene la frazione $1-\alpha$ della massa di probabilità:</p>
+<ul>
+<li>Il punto inferiore $\Phi^{-1}(\alpha/2)$ delimita la coda sinistra con $\alpha/2$ della probabilità.  </li>
+<li>Il punto superiore $\Phi^{-1}(1-\alpha/2)$ delimita la coda destra con $\alpha/2$ della probabilità.  </li>
+</ul>
+<p>Quindi l’intervallo centrale:</p>
+$$
+\left(\Phi^{-1}(\alpha/2), \, \Phi^{-1}(1-\alpha/2)\right)
+$$
+<p>contiene esattamente $1-\alpha$ della probabilità totale. Questa proprietà è fondamentale per costruire <strong>intervalli di confidenza</strong> e analizzare la dispersione dei dati.</p>
 <details class="code-container">
 <summary>Code</summary>
 <div class="code-wrapper">
@@ -664,6 +767,12 @@ Sia $\Phi$ la cdf della distribuzione gaussiana $N(0,1)$, e $\Phi^{-1}$ la cdf i
 
 <p><img src="/images/posts/pdf_gaussiana_quantili.png" alt="Funzione di Densità di Probabilità (PDF) - Gaussiana Standard" style="display: block; margin-left: auto; margin-right: auto;"></p>
 <p><br></p>
+<h4 id="note-tecniche-aggiuntive">Note tecniche aggiuntive</h4>
+<ol>
+<li>La funzione quantile $P^{-1}$ è <strong>monotonicamente crescente</strong>: valori di $q$ maggiori corrispondono a valori $x_q$ maggiori della variabile casuale.  </li>
+<li>Per variabili discrete, l’inversa della CDF può essere definita in senso di <strong>minimo valore che supera la probabilità $q$</strong>, poiché la CDF presenta salti.  </li>
+<li>I quantili forniscono informazioni robuste sulla distribuzione, indipendentemente dalla forma della PDF, e sono utilizzati per misure di posizione, dispersione e outlier.</li>
+</ol>
 <p>Se impostiamo $\alpha = 0.05$, l&rsquo;intervallo centrale del 95% è coperto dal range:</p>
 $$(\Phi^{-1}(0.025), \Phi^{-1}(0.975)) = (-1.96, 1.96)$$
 <p><em>Nota: Storicamente, le variabili casuali nacquero in contesti di gioco d&rsquo;azzardo, rendendo i casi a valori interi (es. la somma di due lanci di dado) gli esempi più intuitivi.</em></p>
@@ -700,7 +809,7 @@ $$(\Phi^{-1}(0.025), \Phi^{-1}(0.975)) = (-1.96, 1.96)$$
             </div>
             
             <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
-                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, model, data</p>
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, model</p>
                 <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Probabilità/Variabili Aleatorie">Click here for the interactive experience</a>.</small></p>
             </footer>
         </article>

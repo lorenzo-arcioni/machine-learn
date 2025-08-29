@@ -16,7 +16,6 @@ rm -rf ./content/theory/math-for-ml/*
 rm -rf ./content/theory/deep-learning/*
 rm -rf ./content/theory/computer-vision/*
 rm -rf ./content/theory/nlp/*
-rm -rf ./content/theory/reinforcement-learning/*
 rm -rf ./content/theory/generative-models/*
 rm -rf ./static/images/posts/*
 #rm -rf ./static/images/tikz/*
@@ -25,6 +24,7 @@ cp -rf "../my-obsidian-vault/00_Informatica/$content_1/Introduzione al Machine L
 cp -rf "../my-obsidian-vault/00_Informatica/$content_1/Supervised Learning/"* ./content/theory/supervised-learning/
 cp -rf "../my-obsidian-vault/00_Informatica/$content_1/Unsupervised Learning/"* ./content/theory/unsupervised-learning/
 cp -rf "../my-obsidian-vault/00_Informatica/$content_1/Natural Language Processing/"* ./content/theory/nlp/
+cp -rf "../my-obsidian-vault/00_Informatica/$content_1/Deep Learning/"* ./content/theory/deep-learning/
 cp -rf "../my-obsidian-vault/01_Matematica/$content_2"  ./content/theory/math-for-ml/
 cp -rf "../my-obsidian-vault/01_Matematica/$content_3"  ./content/theory/math-for-ml/
 cp -rf "../my-obsidian-vault/01_Matematica/$content_4"  ./content/theory/math-for-ml/

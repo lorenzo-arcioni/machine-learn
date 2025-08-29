@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Meccanismo di Attention: Una Guida Completa | Deep Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="deep learning, neural networks, CNN, RNN, transformers, model, neural, training">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Il Meccanismo di Attention: Una Guida Completa">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/deep-learning/Transformers/Attention">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Il Meccanismo di Attention: Una Guida Completa">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/deep-learning/Transformers/Attention">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Il Meccanismo di Attention: Una Guida Completa",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/deep-learning/Transformers/Attention",
+      "datePublished": "2025-08-29T00:38:10.489Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/deep-learning/Transformers/Attention" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Il Meccanismo di Attention: Una Guida Completa</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Deep Learning | 
+                    <strong>Updated:</strong> 29/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione-e-intuizione">Introduzione e Intuizione</h2>
+<p>Il meccanismo di <strong>attention</strong> rappresenta una delle innovazioni più rivoluzionarie nel deep learning moderno. Per comprenderne l&rsquo;importanza, partiamo da un&rsquo;osservazione semplice ma profonda: quando leggiamo una frase complessa, non prestiamo la stessa attenzione a tutte le parole. Alcune sono cruciali per il significato, altre sono accessorie. Il nostro cervello è straordinariamente bravo a identificare dinamicamente dove focalizzare l&rsquo;attenzione.</p>
+<p>Consideriamo questa frase: <em>&ldquo;Il gatto nero del vicino ha mangiato il pesce rosso che nuotava nella boccia.&rdquo;</em> Quando cerchiamo di capire &ldquo;chi ha mangiato cosa&rdquo;, la nostra attenzione si focalizza principalmente su &ldquo;gatto&rdquo;, &ldquo;ha mangiato&rdquo; e &ldquo;pesce&rdquo;, mentre parole come &ldquo;del&rdquo; o &ldquo;che&rdquo; ricevono meno attenzione diretta, pur contribuendo alla comprensione strutturale.</p>
+<p>Questa capacità di <strong>attenzione selettiva</strong> è esattamente quello che l&rsquo;attention mechanism cerca di replicare artificialmente. L&rsquo;idea è permettere a ogni elemento (una parola/un token) di una sequenza di &ldquo;guardare&rdquo; tutti gli altri elementi, decidendo dinamicamente a quali prestare maggiore attenzione per costruire la propria rappresentazione.</p>
+<h2 id="i-problemi-delle-architetture-precedenti">I Problemi delle Architetture Precedenti</h2>
+<p>Per apprezzare pienamente l&rsquo;innovazione dell&rsquo;attention, dobbiamo comprendere le limitazioni che affliggevano i modelli precedenti, in particolare le Reti Neurali Ricorrenti (RNN) e le loro varianti come LSTM e GRU.</p>
+<h3 id="il-bottleneck-sequenziale">Il Bottleneck Sequenziale</h3>
+<p>Le RNN processano le sequenze in modo strettamente sequenziale: per comprendere la parola in posizione $t$, il modello deve aver elaborato tutte le parole dalle posizioni $1$ a $t-1$. Questo approccio, seppur intuitivo, presenta problemi fondamentali.</p>
+<p>Immaginiamo di dover tradurre una frase lunga dal tedesco all&rsquo;inglese. In tedesco, il verbo principale spesso appare alla fine della frase. Una RNN deve &ldquo;ricordare&rdquo; tutte le informazioni accumulate dall&rsquo;inizio della frase fino al verbo finale, mantenendo questa informazione in un singolo vettore di stato nascosto. È come cercare di ricordare una lista della spesa sempre più lunga senza poterla scrivere: prima o poi alcune informazioni si perdono.</p>
+<p>Matematicamente, questo si manifesta nel problema del <strong>vanishing gradient</strong>: l&rsquo;informazione delle parole iniziali deve &ldquo;viaggiare&rdquo; attraverso molti passaggi computazionali per raggiungere le posizioni finali, e durante questo viaggio si degrada progressivamente. Se abbiamo una sequenza di lunghezza $T$, il gradiente che deve propagare dalla fine all&rsquo;inizio viene moltiplicato $T$ volte per i pesi della rete. Se questi pesi hanno norma minore di 1, il gradiente si riduce esponenzialmente.</p>
+<h3 id="limpossibilita-di-parallelizzazione">L&rsquo;Impossibilità di Parallelizzazione</h3>
+<p>Un secondo problema cruciale è l&rsquo;impossibilità di parallelizzare il calcolo. Per calcolare l&rsquo;output in posizione $t$, dobbiamo necessariamente aver calcolato gli output in tutte le posizioni precedenti. Questo rende l&rsquo;addestramento estremamente lento, specialmente su sequenze lunghe e con l&rsquo;hardware moderno che è ottimizzato per calcoli paralleli.</p>
+<h3 id="i-pesi-fissi">I Pesi Fissi</h3>
+<p>In una <strong>rete neurale standard</strong>, diversi input influenzano l&rsquo;output in misura diversa secondo i valori dei pesi che moltiplicano quegli input. Questo meccanismo è il cuore dell&rsquo;apprendimento nelle reti neurali: durante la fase di training, la rete regola questi pesi per minimizzare l&rsquo;errore sui dati di addestramento.</p>
+<p>Tuttavia, una volta che la rete è stata addestrata, <strong>quei pesi, e i loro input associati, sono fissi</strong>. Questo significa che la &ldquo;importanza&rdquo; relativa di ogni caratteristica di input è determinata una volta per tutte durante l&rsquo;addestramento e rimane costante per tutti gli input futuri.</p>
+<h2 id="lintuizione-dellattention-una-media-pesata-intelligente">L&rsquo;Intuizione dell&rsquo;Attention: Una Media Pesata Intelligente</h2>
+<p>L&rsquo;attention risolve questi problemi attraverso un cambio di paradigma radicale. Invece di processare sequenzialmente, permette a ogni elemento di &ldquo;guardare&rdquo; direttamente tutti gli altri elementi della sequenza. Inoltre, la rete con attention cambia i pesi dinamicamente in base all&rsquo;input. </p>
+<h3 id="un-esempio-concreto">Un Esempio Concreto</h3>
+<p>Consideriamo la frase: <em>&ldquo;La chiave è sul tavolo nella cucina.&rdquo;</em> Supponiamo di voler determinare la rappresentazione della parola &ldquo;chiave&rdquo;. Un meccanismo di attention permetterebbe a &ldquo;chiave&rdquo; di guardare direttamente tutte le altre parole e decidere quanto ciascuna sia rilevante:</p>
+<ul>
+<li>&ldquo;La&rdquo;: bassa rilevanza (articolo generico)</li>
+<li>&ldquo;è&rdquo;: media rilevanza (connette il soggetto al resto)</li>
+<li>&ldquo;sul&rdquo;: alta rilevanza (preposizione che indica posizione)</li>
+<li>&ldquo;tavolo&rdquo;: altissima rilevanza (oggetto su cui si trova la chiave)</li>
+<li>&ldquo;nella&rdquo;: media rilevanza (ulteriore specificazione di posizione)</li>
+<li>&ldquo;cucina&rdquo;: alta rilevanza (luogo specifico)</li>
+</ul>
+<p>La rappresentazione finale di &ldquo;chiave&rdquo; sarebbe una combinazione pesata di tutte queste informazioni, con pesi proporzionali alla rilevanza.</p>
+<h3 id="codifica-delle-parole-da-one-hot-a-embedding">Codifica delle Parole: da One-Hot a Embedding</h3>
+<p>Per poter applicare meccanismi di attention sui testi, dobbiamo prima rappresentare le parole in forma numerica. Due approcci principali sono il <strong>one-hot encoding</strong> e gli <strong>embedding</strong>.</p>
+<h4 id="one-hot-encoding">One-Hot Encoding</h4>
+<ul>
+<li>Supponiamo di avere un vocabolario con $V$ parole distinte.  </li>
+<li>Ogni parola $w_i$ viene rappresentata come un vettore sparso $\mathbf{e}_i \in \mathbb{R}^V$, con un unico elemento pari a 1 nella posizione corrispondente all&rsquo;indice della parola nel vocabolario:</li>
+</ul>
+$$
+\mathbf{e}_i = [0, 0, \dots, 1, \dots, 0]
+$$
+<ul>
+<li>
+<p>Questo metodo è semplice e diretto, ma presenta alcuni svantaggi:</p>
+</li>
+<li>
+<p>La dimensione dei vettori cresce rapidamente con il vocabolario.  </p>
+</li>
+<li>Non cattura la <strong>similarità semantica</strong>: parole come &ldquo;cane&rdquo; e &ldquo;gatto&rdquo; risultano ortogonali, anche se semanticamente vicine, e parole come &ldquo;divano&rdquo; e &ldquo;topo&rdquo; risultano ortogonali anche se semanticamente distanti.  </li>
+<li>Non permette generalizzazione: ogni parola è completamente indipendente dalle altre.  </li>
+</ul>
+<h4 id="embedding">Embedding</h4>
+<p>Per superare questi limiti, si utilizzano i <strong>Dense Word Embeddings</strong>:</p>
+<ul>
+<li>Ogni parola $w_m$ viene rappresentata da un vettore <strong>denso</strong> $\mathbf{x}_m \in \mathbb{R}^d$, con $d \ll V$.  </li>
+<li>Gli embedding vengono <strong>appresi</strong> dal modello durante il training, in modo che parole semanticamente simili abbiano rappresentazioni vicine nello spazio degli embeddings:</li>
+</ul>
+$$
+\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_N \in \mathbb{R}^d
+$$
+<ul>
+<li>Questi vettori densi sono la rappresentazione numerica di partenza per il <strong>meccanismo di attention</strong>: a differenza dei one-hot, gli embedding permettono di catturare relazioni semantiche e di ridurre drasticamente la dimensionalità.</li>
+</ul>
+<p>Un Transformer rappresenta un&rsquo;evoluzione degli embedding tradizionali: invece di assegnare a ogni vettore una rappresentazione fissa, lo colloca in uno spazio che tiene conto del contesto fornito da tutti gli altri vettori della sequenza.</p>
+<h3 id="formulazione-matematica">Formulazione Matematica</h3>
+<p>Consideriamo $N$ token in input, ognuno rappresentato da un embedding $\mathbf{x}_m \in \mathbb{R}^d$.</p>
+<p>L&rsquo;idea alla base della self-attention è quella di calcolare, per ciascun token (embedding), una <strong>combinazione pesata</strong> di tutti i token della sequenza.<br />
+In altre parole, ogni output è una media pesata adattiva dei vettori di input.</p>
+<h4 id="definizione-dei-value">Definizione dei Value</h4>
+<p>Per ciascun embedding $\mathbf{x}_m \in \mathbb{R}^d$, costruiamo un <strong>value vector</strong> $\mathbf{v}_m \in \mathbb{R}^{d_v}$ tramite una trasformazione lineare:</p>
+$$
+\mathbf{v}_m = \mathbf{W}_v \mathbf{x}_m + \mathbf{b}_v
+\quad\text{con}\quad 
+\mathbf{W}_v \in \mathbb{R}^{d_v \times d}, \; \mathbf{b}_v \in \mathbb{R}^{d_v}
+$$
+<p>dove $\mathbf{W}_v$ e $\mathbf{b}_v$ sono parametri appresi durante il training e $d_v$ indica la dimensione dei value vectors.</p>
+<p>Tipicamente $d_v = d$ per permettere le residual connections, ma non è sempre necessariamente così.</p>
+<h4 id="self-attention-come-combinazione-pesata">Self-Attention come combinazione pesata</h4>
+<p>Il vettore di output corrispondente alla posizione $n$ è una combinazione lineare di tutti i value $\mathbf{v}_1, \dots, \mathbf{v}_N$, pesata dai coefficienti di attenzione $a_{nm}$:</p>
+$$
+\mathbf{sa}_n[\mathbf{x}_1, \dots, \mathbf{x}_N] = \mathbf{y}_n = \sum_{m=1}^N a_{nm} \,\mathbf{v}_m
+$$
+<p>dove $a_{nm}$ indica <strong>quanto l&rsquo;output in posizione $n$ presta attenzione all&rsquo;input in posizione $m$</strong>.</p>
+<h4 id="vincoli-sui-pesi-di-attenzione">Vincoli sui pesi di attenzione</h4>
+<p>I pesi $a_{nm}$ hanno due proprietà fondamentali:</p>
+<ul>
+<li><strong>Non negatività:</strong><br />
+  $a_{nm} \geq 0 \quad \forall n,m$</li>
+<li><strong>Normalizzazione:</strong><br />
+  $\sum_{m=1}^N a_{nm} = 1 \quad \forall n$</li>
+</ul>
+<p>Queste condizioni garantiscono che $\mathbf{y}_n$ sia una <strong>combinazione convessa</strong> dei value $\mathbf{v}_m$, rendendo il modello stabile e interpretabile.</p>
+<p><img src="/images/posts/attention-mechanism.png" alt="Self-Attention" style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p><br></p>
+<p><strong>Figura 1 – La self-attention come instradamento (routing).</strong><br />
+Il meccanismo di self-attention prende in input $N$ vettori $\mathbf{x}_1, \ldots, \mathbf{x}_N \in \mathbb{R}^d$<br />
+(qui $N = 3$ e $d = 4$) e li processa separatamente per calcolare $N$ vettori <em>value</em>.  </p>
+<p>L&rsquo;output $n$-esimo $\mathbf{sa}_n[\mathbf{x}_1, \ldots, \mathbf{x}_N]$ (scritto in breve come $\mathbf{sa}_n[\mathbf{x}_\bullet]$)<br />
+viene quindi calcolato come una <strong>somma pesata</strong> dei $N$ vettori <em>value</em>, dove i pesi sono positivi e sommano a uno.  </p>
+<ul>
+<li>
+<p><strong>(a)</strong> L&rsquo;output $\mathbf{sa}_1[\mathbf{x}_\bullet]$ è calcolato come<br />
+  $a_{11} = 0.1$ volte il primo vettore <em>value</em> $\mathbf{v}_1$,<br />
+  $a_{12} = 0.3$ volte il secondo vettore <em>value</em> $\mathbf{v}_2$,<br />
+  e $a_{13} = 0.6$ volte il terzo vettore <em>value</em> $\mathbf{v}_3$.  </p>
+</li>
+<li>
+<p><strong>(b)</strong> L&rsquo;output $\mathbf{sa}_2[\mathbf{x}_\bullet]$ è calcolato nello stesso modo,<br />
+  ma con pesi $a_{21} = 0.5$, $a_{22} = 0.2$ e $a_{23} = 0.3$.  </p>
+</li>
+<li>
+<p><strong>(c)</strong> Il calcolo dell&rsquo;output $\mathbf{sa}_3[\mathbf{x}_\bullet]$ utilizza ancora pesi diversi:<br />
+  $a_{31}$, $a_{32}$, $a_{33}$ con valori specifici per questa posizione.  </p>
+</li>
+</ul>
+<p>In sintesi, ciascun output può essere visto come un <strong>instradamento differente dei $N$ vettori value</strong>.</p>
+<h4 id="interpretazione">Interpretazione</h4>
+<p>La self-attention può quindi essere vista come un <strong>meccanismo di instradamento (routing)</strong>:<br />
+ogni output $\mathbf{y}_n$ è costruito mescolando i value $\mathbf{v}_m$ in proporzioni determinate dai pesi $a_{nm}$.  </p>
+<p>Nelle sezioni successive vedremo come vengono calcolati in pratica questi pesi $a_{nm}$ utilizzando le <strong>query</strong> e le <strong>key</strong>, e come questo porti alla definizione della <strong>dot-product self-attention</strong>.</p>
+<p>La vera innovazione sta nel modo in cui vengono calcolati i pesi $a_{nm}$. Non sono fissi o predeterminati, ma vengono calcolati <strong>dinamicamente</strong> in base al contenuto effettivo della sequenza.</p>
+<h3 id="il-concetto-di-query">Il Concetto di Query</h3>
+<p>La <strong>query</strong> $\mathbf{q}_n \in \mathbb{R}^{d_k}$ rappresenta &ldquo;cosa sta cercando&rdquo; l&rsquo;elemento in posizione $n$. È una domanda posta in forma vettoriale. Quando calcoliamo la rappresentazione di &ldquo;chiave&rdquo; nel nostro esempio precedente, la query potrebbe essere interpretata come &ldquo;Sto cercando informazioni che mi aiutino a capire dove mi trovo e cosa mi circonda&rdquo;.</p>
+<p>Matematicamente, la query viene ottenuta attraverso una trasformazione lineare dell&rsquo;input originale:
+$$\mathbf{q}_n = \mathbf{W}_q \mathbf{x}_n + \mathbf{b}_q$$
+dove $\mathbf{W}_q \in \mathbb{R}^{d_k \times d}$ è una matrice di pesi apprendibili e $\mathbf{b}_q \in \mathbb{R}^{d_k}$ è un vettore di bias. La dimensione $d_k$ (dimensione delle query e key) può essere diversa da $d$ (dimensione dell&rsquo;input).</p>
+<p>L&rsquo;effetto della dimensione $d_k$ sull&rsquo;apprendimento è legato alla <strong>granularità delle relazioni</strong> che il modello riesce a cogliere:
+- <strong>$d_k$ piccolo</strong> → il modello riesce a rappresentare solo poche caratteristiche.<br />
+  Questo porta a un&rsquo;attenzione più semplice e focalizzata, ma con rischio di perdere dettagli.
+- <strong>$d_k$ grande</strong> → il modello ha accesso a molte più informazioni.<br />
+  Questo aumenta la capacità rappresentativa, ma può introdurre ridondanza e maggior costo computazionale.</p>
+<p>Quindi $d_k$ non è scelto a caso, ma rappresenta un compromesso tra <strong>espressività</strong>, <strong>stabilità numerica</strong> e <strong>efficienza</strong>.</p>
+<p>Per questo nei transformer standard si utilizza la regola:
+$$
+d_k = \frac{d}{h}
+$$
+dove:
+- $d$ = dimensione dell&rsquo;embedding di input
+- $h$ = numero di teste di attenzione.</p>
+<h3 id="il-concetto-di-key">Il Concetto di Key</h3>
+<p>La <strong>key</strong> $\mathbf{k}_m$ rappresenta &ldquo;cosa può offrire&rdquo; l&rsquo;elemento in posizione $m$. È una sorta di &ldquo;biglietto da visita&rdquo; che descrive il tipo di informazione disponibile in quella posizione. Tornando al nostro esempio, la key di &ldquo;tavola&rdquo; potrebbe essere interpretata come &ldquo;Sono un oggetto fisico, posso fornire informazioni su posizione e supporto di altri oggetti&rdquo;.</p>
+$$\mathbf{k}_m = \mathbf{W}_k \mathbf{x}_m + \mathbf{b}_k$$
+dove $\mathbf{W}_k \in \mathbb{R}^{d_k \times d}$ e $\mathbf{b}_k \in \mathbb{R}^{d_k}$ sono i parametri per la trasformazione delle key.</p>
+<h3 id="il-concetto-di-value">Il Concetto di Value</h3>
+<p>Il <strong>value</strong> $\mathbf{v}_m$ rappresenta &ldquo;il contenuto informativo effettivo&rdquo; dell&rsquo;elemento in posizione $m$. Una volta che abbiamo deciso di prestare attenzione a un elemento (attraverso la compatibilità query-key), il value è ciò che effettivamente &ldquo;prendiamo&rdquo; da quell&rsquo;elemento.</p>
+<p>$$\mathbf{v}_m = \mathbf{W}_v \mathbf{x}_m + \mathbf{b}_v$$
+dove $\mathbf{W}_v \in \mathbb{R}^{d_v \times d}$ e $\mathbf{b}_v \in \mathbb{R}^{d_v}$ sono i parametri per la trasformazione dei value. Notate che $d_v$ (dimensione dei value) può essere diversa sia da $d$ che da $d_k$.</p>
+<h3 id="perche-tre-trasformazioni-separate">Perché Tre Trasformazioni Separate?</h3>
+<p>La separazione in query, key e value non è arbitraria ma serve scopi precisi e ha profonde implicazioni teoriche:</p>
+<p><strong>Decoupling semantico</strong>: La compatibilità (determinata da query e key) è separata dal contenuto (determinato dai value). Questo permette al modello di dire &ldquo;So che devo prestare attenzione a questa posizione&rdquo; (alta compatibilità query-key) indipendentemente da &ldquo;Cosa prendo effettivamente da questa posizione&rdquo; (value).</p>
+<p><strong>Flessibilità rappresentazionale</strong>: Ogni trasformazione può specializzarsi nel catturare aspetti diversi dell&rsquo;informazione. Le query possono imparare a rappresentare &ldquo;bisogni informativi&rdquo;, le key possono rappresentare &ldquo;capacità informative&rdquo;, e i value possono rappresentare &ldquo;contenuti informativi&rdquo;.</p>
+<p><strong>Controllo dimensionale</strong>: Permettere dimensioni diverse ottimizza l&rsquo;efficienza computazionale. Tipicamente $d_k$ è più piccolo di $d$ per rendere più efficiente il calcolo delle similarità.</p>
+<h2 id="dot-product-attention-il-cuore-del-meccanismo">Dot-Product Attention: Il Cuore del Meccanismo</h2>
+<h3 id="calcolo-della-compatibilita">Calcolo della Compatibilità</h3>
+<p>Il cuore dell&rsquo;<strong>attention mechanism</strong> è il calcolo della compatibilità tra key e query attraverso il <strong>prodotto scalare</strong>:</p>
+<p>$$\text{score}(\mathbf{k}_m, \mathbf{q}_n) = \mathbf{k}_m^T \mathbf{q}_n = \sum_{\ell=1}^{d_k} k_{m,\ell} \cdot q_{n,\ell}$$
+<p>dove $m$ indica la posizione della key (input) e $n$ indica la posizione della query (output).</p>
+<p>Questa scelta del prodotto scalare non è casuale ma ha solide motivazioni matematiche e computazionali. Il prodotto scalare misura la proiezione di un vettore sull&rsquo;altro, catturando così quanto due vettori &ldquo;puntino nella stessa direzione&rdquo; nello spazio delle caratteristiche.</p>
+<p>Se consideriamo vettori normalizzati, il prodotto scalare diventa il <strong>coseno dell&rsquo;angolo</strong> tra i vettori, fornendo una misura di similarità geometrica intuitiva. Vettori paralleli (stessa direzione) hanno prodotto scalare massimo, vettori ortogonali hanno prodotto scalare zero, vettori opposti hanno prodotto scalare minimo.</p>
+<h3 id="il-problema-dello-scaling-e-la-sua-soluzione">Il Problema dello Scaling e la Sua Soluzione</h3>
+<p>Quando le dimensioni dei vettori key e query diventano grandi, i prodotti scalari possono assumere valori molto grandi in magnitudine. Questo crea problemi significativi per la funzione softmax che viene applicata successivamente.</p>
+<p>Per comprendere il problema, consideriamo la funzione softmax applicata ai punteggi per la query in posizione $n$:</p>
+$$\text{softmax}(\mathbf{s}_n)_m = \frac{e^{s_{mn}}}{\sum_{k=1}^{N} e^{s_{kn}}}$$
+<p>dove $\mathbf{s}_n = [s_{1n}, s_{2n}, \ldots, s_{Nn}]^T$ è il vettore dei punteggi per la query $n$.</p>
+<p>Se gli elementi di $\mathbf{s}_n$ sono molto grandi, la funzione esponenziale li amplifica enormemente, causando due problemi:</p>
+<ol>
+<li><strong>Saturazione</strong>: La softmax si concentra quasi tutto il peso su un singolo elemento, perdendo la capacità di distribuire l&rsquo;attenzione</li>
+<li><strong>Instabilità numerica</strong>: Valori molto grandi possono causare overflow nell&rsquo;esponenziale</li>
+</ol>
+<h3 id="analisi-teorica-dello-scaling-factor">Analisi Teorica dello Scaling Factor</h3>
+<p>Per risolvere questo problema, introduciamo un fattore di scala $\sqrt{d_k}$:</p>
+$$\text{score}(\mathbf{k}_m, \mathbf{q}_n) = \frac{\mathbf{k}_m^T \mathbf{q}_n}{\sqrt{d_k}}$$
+<p>La giustificazione teorica è elegante. Assumiamo che le componenti delle key e query siano variabili aleatorie indipendenti con media zero e varianza unitaria. Per una generica coppia key-query, il prodotto scalare è:</p>
+$$\mathbf{k}^T \mathbf{q} = \sum_{\ell=1}^{d_k} k_\ell q_\ell$$
+<p>La varianza di questa somma è:</p>
+$$\text{Var}(\mathbf{k}^T \mathbf{q}) = \text{Var}\left(\sum_{\ell=1}^{d_k} k_\ell q_\ell\right) = \sum_{\ell=1}^{d_k} \text{Var}(k_\ell q_\ell)$$
+<p>Poiché $k_\ell$ e $q_\ell$ sono indipendenti con media zero e varianza unitaria:</p>
+$$\text{Var}(k_\ell q_\ell) = \mathbb{E}[(k_\ell q_\ell)^2] - (\mathbb{E}[k_\ell q_\ell])^2 = \mathbb{E}[k_\ell^2]\mathbb{E}[q_\ell^2] - 0 = 1 \cdot 1 = 1$$
+<p>Quindi:</p>
+$$\text{Var}(\mathbf{k}^T \mathbf{q}) = d_k$$
+<p>Dividendo per $\sqrt{d_k}$, otteniamo:</p>
+$$\text{Var}\left(\frac{\mathbf{k}^T \mathbf{q}}{\sqrt{d_k}}\right) = \frac{\text{Var}(\mathbf{k}^T \mathbf{q})}{d_k} = \frac{d_k}{d_k} = 1$$
+<p>Questo mantiene la varianza dei punteggi costante, indipendentemente dalla dimensionalità, stabilizzando il comportamento della softmax.</p>
+<h3 id="la-softmax-competizione-e-normalizzazione">La Softmax: Competizione e Normalizzazione</h3>
+<p>I punteggi scalati vengono trasformati in pesi probabilistici attraverso la softmax. Per la query in posizione $n$:</p>
+$$a_{mn} = \frac{\exp\left(\frac{\mathbf{k}_m^T \mathbf{q}_n}{\sqrt{d_k}}\right)}{\sum_{\ell=1}^{N} \exp\left(\frac{\mathbf{k}_\ell^T \mathbf{q}_n}{\sqrt{d_k}}\right)}$$
+<p>La softmax ha proprietà cruciali per l&rsquo;attention:</p>
+<p><strong>Competizione</strong>: I pesi &ldquo;competono&rdquo; tra loro. Se un punteggio aumenta, gli altri diminuiscono automaticamente per mantenere la somma pari a 1. Questo crea un meccanismo di <strong>competizione soft</strong> dove l&rsquo;attenzione si concentra sui punteggi più alti.</p>
+<p><strong>Differenziabilità</strong>: È completamente differenziabile, permettendo l&rsquo;addestramento end-to-end tramite backpropagation.</p>
+<p><strong>Interpretabilità</strong>: I pesi risultanti possono essere interpretati come probabilità, fornendo insight su dove il modello sta &ldquo;guardando&rdquo;.</p>
+<h2 id="formulazione-matriciale-e-implementazione">Formulazione Matriciale e Implementazione</h2>
+<h3 id="efficienza-computazionale">Efficienza Computazionale</h3>
+<p>Per implementare efficientemente l&rsquo;attention, utilizziamo operazioni matriciali che sfruttano l&rsquo;hardware moderno ottimizzato per il calcolo parallelo.</p>
+<p>Organizziamo tutti gli input in una matrice $\mathbf{X} \in \mathbb{R}^{d \times N}$ dove ogni colonna $n$ contiene l&rsquo;embedding $\mathbf{x}_n$. Le matrici di query, key e value diventano:</p>
+$$\mathbf{Q} = \mathbf{W}_q \mathbf{X} + \mathbf{b}_q \mathbf{1}^T \in \mathbb{R}^{d_k \times N}$$
+$$\mathbf{K} = \mathbf{W}_k \mathbf{X} + \mathbf{b}_k \mathbf{1}^T \in \mathbb{R}^{d_k \times N}$$
+$$\mathbf{V} = \mathbf{W}_v \mathbf{X} + \mathbf{b}_v \mathbf{1}^T \in \mathbb{R}^{d_v \times N}$$
+<p>dove $\mathbf{1} \in \mathbb{R}^{1 \times N}$ è un vettore riga di tutti 1.</p>
+<p>In questa formulazione:
+- La colonna $n$ di $\mathbf{Q}$ contiene $\mathbf{q}_n$
+- La colonna $m$ di $\mathbf{K}$ contiene $\mathbf{k}_m$
+- La colonna $m$ di $\mathbf{V}$ contiene $\mathbf{v}_m$</p>
+<h3 id="la-formula-completa">La Formula Completa</h3>
+<p>L&rsquo;intero meccanismo di attention si riduce a una singola operazione matriciale:</p>
+$$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \mathbf{V} \cdot \text{softmax}\left(\frac{\mathbf{K}^T\mathbf{Q}}{\sqrt{d_k}}\right)$$
+<p>Analizziamo i passaggi:</p>
+<ol>
+<li>
+<p><strong>$\mathbf{K}^T\mathbf{Q} \in \mathbb{R}^{N \times N}$</strong>: Calcola tutti i prodotti scalari key-query simultaneamente, dove l&rsquo;elemento $(m,n)$ è $\mathbf{k}_m^T \mathbf{q}_n$</p>
+</li>
+<li>
+<p><strong>Divisione per $\sqrt{d_k}$</strong>: Applica lo scaling factor elemento per elemento</p>
+</li>
+<li>
+<p><strong>Softmax</strong>: Normalizza ogni colonna della matrice (ogni colonna $n$ corrisponde ai pesi di attenzione $a_{mn}$ per $m = 1, \ldots, N$)</p>
+</li>
+<li>
+<p><strong>Moltiplicazione per $\mathbf{V}$</strong>: Calcola la combinazione pesata dei value. Il risultato è una matrice $\mathbb{R}^{d_v \times N}$ dove la colonna $n$ contiene $\mathbf{y}_n = \sum_{m=1}^N a_{mn} \mathbf{v}_m$</p>
+</li>
+</ol>
+<h2 id="self-attention-il-dialogo-interno-della-sequenza">Self-Attention: Il Dialogo Interno della Sequenza</h2>
+<h3 id="definizione-e-significato">Definizione e Significato</h3>
+<p>Nel <strong>self-attention</strong>, tutte le query, key e value provengono dalla stessa sequenza di input. Questo significa che ogni elemento della sequenza può prestare attenzione a tutti gli altri elementi, incluso se stesso.</p>
+<p>Matematicamente, tutti derivano dalla stessa matrice $\mathbf{X}$:
+$$\mathbf{Q} = \mathbf{W}_q \mathbf{X} + \mathbf{b}_q \mathbf{1}^T$$
+$$\mathbf{K} = \mathbf{W}_k \mathbf{X} + \mathbf{b}_k \mathbf{1}^T$$<br />
+$$\mathbf{V} = \mathbf{W}_v \mathbf{X} + \mathbf{b}_v \mathbf{1}^T$$</p>
+<h3 id="un-esempio-dettagliato">Un Esempio Dettagliato</h3>
+<p>Consideriamo la frase: <em>&ldquo;Il gatto caccia il topo.&rdquo;</em> Nel self-attention, ogni parola può prestare attenzione a tutte le altre:</p>
+<ul>
+<li><strong>&ldquo;gatto&rdquo;</strong> (posizione 2) potrebbe avere $a_{32}$ alto per &ldquo;caccia&rdquo; (relazione soggetto-verbo) e $a_{52}$ significativo per &ldquo;topo&rdquo; (relazione semantica predatore-preda)</li>
+<li><strong>&ldquo;caccia&rdquo;</strong> (posizione 3) potrebbe avere $a_{23}$ alto per &ldquo;gatto&rdquo; (chi fa l&rsquo;azione) e $a_{53}$ alto per &ldquo;topo&rdquo; (oggetto dell&rsquo;azione)</li>
+<li><strong>&ldquo;topo&rdquo;</strong> (posizione 5) potrebbe prestare attenzione a &ldquo;caccia&rdquo; e &ldquo;gatto&rdquo; per comprendere il suo ruolo nella situazione</li>
+</ul>
+<p>Questo crea rappresentazioni <strong>contestuali</strong>: la rappresentazione di ogni parola $\mathbf{y}_n$ incorpora informazioni da tutte le altre parole nella frase attraverso i coefficienti $a_{mn}$.</p>
+<h3 id="vantaggi-del-self-attention">Vantaggi del Self-Attention</h3>
+<p><strong>Cattura di dipendenze a lungo raggio</strong>: Due parole distanti nella sequenza (posizioni $n$ e $m$ con $|n-m|$ grande) possono interagire direttamente senza passaggi intermedi.</p>
+<p><strong>Parallelizzazione completa</strong>: Tutti i calcoli possono essere eseguiti simultaneamente, non c&rsquo;è dipendenza sequenziale.</p>
+<p><strong>Flessibilità</strong>: Il modello impara automaticamente quali relazioni $a_{mn}$ sono importanti, senza assumzioni a priori sulla struttura linguistica.</p>
+<h2 id="implementazione-in-python">Implementazione in Python</h2>
+<p>Vediamo ora un&rsquo;implementazione pratica del meccanismo di self-attention:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">BasicSelfAttention</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementazione di Self-Attention che segue esattamente il formalismo matematico:</span>
+
+<span class="sd">    Formalismo:</span>
+<span class="sd">    - X ∈ R^(d × N): matrice input con features sulle righe, sequenze sulle colonne</span>
+<span class="sd">    - Q = W_q @ X + b_q @ 1^T ∈ R^(d_k × N)</span>
+<span class="sd">    - K = W_k @ X + b_k @ 1^T ∈ R^(d_k × N)  </span>
+<span class="sd">    - V = W_v @ X + b_v @ 1^T ∈ R^(d_v × N)</span>
+<span class="sd">    - Scores = K^T @ Q / √d_k ∈ R^(N × N), dove scores[m,n] = k_m^T @ q_n</span>
+<span class="sd">    - Attention = V @ softmax_col(Scores) ∈ R^(d_v × N)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">d_k</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">d_v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Dimensioni di default</span>
+        <span class="k">if</span> <span class="n">d_k</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">d_k</span> <span class="o">=</span> <span class="n">d_model</span>
+        <span class="k">if</span> <span class="n">d_v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">d_v</span> <span class="o">=</span> <span class="n">d_model</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_model</span> <span class="o">=</span> <span class="n">d_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_k</span> <span class="o">=</span> <span class="n">d_k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_v</span> <span class="o">=</span> <span class="n">d_v</span>
+
+        <span class="c1"># Matrici di trasformazione come definite nel formalismo</span>
+        <span class="c1"># W_q ∈ R^(d_k × d_model)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_q</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">d_k</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d_model</span><span class="p">))</span>
+        <span class="c1"># W_k ∈ R^(d_k × d_model)  </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_k</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">d_k</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d_model</span><span class="p">))</span>
+        <span class="c1"># W_v ∈ R^(d_v × d_model)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_v</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">d_v</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d_model</span><span class="p">))</span>
+
+        <span class="c1"># Vettori di bias</span>
+        <span class="c1"># b_q ∈ R^(d_k × 1)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_q</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d_k</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="c1"># b_k ∈ R^(d_k × 1)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_k</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d_k</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  
+        <span class="c1"># b_v ∈ R^(d_v × 1)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_v</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d_v</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">return_attention</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forward pass seguendo il formalismo matematico.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x: Input tensor di shape (batch_size, seq_len, d_model)</span>
+<span class="sd">            return_attention: Se ritornare i pesi di attention</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            output: Tensor di shape (batch_size, seq_len, d_v)</span>
+<span class="sd">            attention_weights: Tensor di shape (batch_size, seq_len, seq_len) se return_attention=True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">d_model</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+        <span class="c1"># PASSO 1: Riorganizza input secondo il formalismo</span>
+        <span class="c1"># x: (batch_size, seq_len, d_model) → X: (batch_size, d_model, seq_len)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  
+
+        <span class="c1"># PASSO 2: Calcola Q, K, V seguendo esattamente il formalismo</span>
+        <span class="c1"># Q = W_q @ X + b_q @ 1^T</span>
+        <span class="n">ones</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>  <span class="c1"># 1^T ∈ R^(1 × N)</span>
+
+        <span class="n">Q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_q</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b_q</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ones</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_k</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b_k</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ones</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_v</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b_v</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ones</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># PASSO 3: Calcola scores = K^T @ Q / √d_k</span>
+        <span class="c1"># K^T: (batch_size, seq_len, d_k)</span>
+        <span class="c1"># Q: (batch_size, d_k, seq_len)</span>
+        <span class="c1"># Risultato: (batch_size, seq_len, seq_len) dove [m,n] = k_m^T @ q_n</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">Q</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_k</span><span class="p">)</span>
+
+        <span class="c1"># PASSO 4: Applica softmax per colonne</span>
+        <span class="c1"># softmax_col normalizza lungo la dimensione delle key (dim=-2)</span>
+        <span class="c1"># Così ∑_m a_{mn} = 1 per ogni query n</span>
+        <span class="n">attention_weights</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># PASSO 5: Calcola output = V @ attention_weights</span>
+        <span class="c1"># V: (batch_size, d_v, seq_len)</span>
+        <span class="c1"># attention_weights: (batch_size, seq_len, seq_len)</span>
+        <span class="c1"># Risultato: (batch_size, d_v, seq_len)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">attention_weights</span><span class="p">)</span>
+
+        <span class="c1"># PASSO 6: Riporta alla convenzione standard PyTorch</span>
+        <span class="c1"># (batch_size, d_v, seq_len) → (batch_size, seq_len, d_v)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">return_attention</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="n">attention_weights</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">output</span>
+</code></pre></div>
+</div>
+</details>
+
+<h2 id="complessita-computazionale-e-considerazioni-pratiche">Complessità Computazionale e Considerazioni Pratiche</h2>
+<h3 id="analisi-della-complessita">Analisi della Complessità</h3>
+<p>La complessità computazionale del self-attention è dominata da due operazioni principali:</p>
+<p><strong>Calcolo di $\mathbf{Q}\mathbf{K}^T$</strong>: Richiede $O(N^2 d_k)$ operazioni, dove $N$ è la lunghezza della sequenza.</p>
+<p><strong>Calcolo dell&rsquo;output</strong>: La moltiplicazione dei pesi per i value richiede $O(N^2 d_v)$ operazioni.</p>
+<p>La <strong>complessità totale</strong> è quindi $O(N^2 d)$ dove $d = \max(d_k, d_v)$.</p>
+<h3 id="confronto-con-le-rnn">Confronto con le RNN</h3>
+<p>Le RNN hanno complessità $O(N d^2)$ per layer, che sembra migliore per $N < d$. Tuttavia, il vantaggio cruciale dell&rsquo;attention è la <strong>parallelizzazione</strong>: mentre le RNN richiedono $O(N)$ operazioni sequenziali, l&rsquo;attention richiede solo $O(1)$.</p>
+<h3 id="limitazioni-pratiche">Limitazioni Pratiche</h3>
+<p><strong>Consumo di memoria</strong>: La matrice di attention $N \times N$ può diventare proibitivamente grande per sequenze lunghe. Per $N = 10000$, abbiamo 100 milioni di elementi.</p>
+<p><strong>Scaling quadratico</strong>: Il tempo di calcolo cresce quadraticamente con la lunghezza della sequenza, limitando l&rsquo;applicabilità a documenti molto lunghi.</p>
+<h2 id="proprieta-matematiche-e-interpretazione">Proprietà Matematiche e Interpretazione</h2>
+<h3 id="interpretazione-geometrica">Interpretazione Geometrica</h3>
+<p>L&rsquo;attention può essere vista come un meccanismo che &ldquo;mescola&rdquo; i vettori di input in modo intelligente. Ogni output è un punto nel convex hull dei vettori di input, con la posizione determinata dai pesi di attention.</p>
+<p>Geometricamente, se i value sono punti nello spazio, l&rsquo;attention calcola un &ldquo;centro di massa&rdquo; pesato di questi punti per ogni query.</p>
+<h3 id="connessioni-con-la-teoria-dellinformazione">Connessioni con la Teoria dell&rsquo;Informazione</h3>
+<p>I pesi di attention possono essere interpretati come una distribuzione di probabilità condizionale:</p>
+$$P(\text{prestare attenzione alla posizione } j | \text{query in posizione } i) = a_{ij}$$
+<p>L&rsquo;output è quindi il valore atteso dei value sotto questa distribuzione. Questo collega l&rsquo;attention alla teoria dell&rsquo;informazione e ai modelli probabilistici.</p>
+<h3 id="invarianze-e-simmetrie">Invarianze e Simmetrie</h3>
+<p>Il meccanismo di attention ha alcune proprietà di invarianza interessanti:</p>
+<p><strong>Permutation equivariance</strong>: Se permuti gli input, gli output vengono permutati allo stesso modo (senza positional encoding).</p>
+<p><strong>Scale invariance</strong>: Moltiplicare tutti gli input per una costante non cambia i pesi di attention (grazie alla normalizzazione softmax).</p>
+<h2 id="conclusioni">Conclusioni</h2>
+<p>Il meccanismo di attention ha rivoluzionato il deep learning fornendo un modo elegante e efficace per catturare relazioni complesse in sequenze di dati. La sua capacità di permettere interazioni dirette tra elementi distanti, mantenendo al contempo la parallelizzazione completa, lo ha reso la base per i Transformer e, di conseguenza, per i modelli linguistici moderni.</p>
+<p>L&rsquo;intuizione fondamentale - permettere a ogni elemento di &ldquo;prestare attenzione&rdquo; a tutti gli altri elementi - è semplice ma potente. La sua implementazione attraverso query, key e value fornisce la flessibilità necessaria per apprendere relazioni complesse, mentre la formulazione matriciale garantisce l&rsquo;efficienza computazionale.</p>
+<p>Sebbene presenti limitazioni in termini di complessità quadratica, l&rsquo;attention rimane uno strumento fondamentale nell&rsquo;arsenale del deep learning moderno, e continua a ispirare nuove architetture e applicazioni in numerosi domini oltre al natural language processing.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> deep learning, neural networks, CNN, RNN, transformers, model, neural, training</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/deep-learning/Transformers/Attention">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Il Meccanismo di Attention: Una Guida Completa',
+          page_location: 'http://localhost:3000/theory/deep-learning/Transformers/Attention'
+        });
+      }
+    </script>
+</body>
+</html>

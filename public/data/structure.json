@@ -1,4 +1,35 @@
 {
+  "deep-learning": {
+    "subcategories": {
+      "Transformers": {
+        "subcategories": {},
+        "files": [
+          {
+            "name": "Attention",
+            "path": "deep-learning/Transformers/Attention.md"
+          },
+          {
+            "name": "Introduzione ai Transformers",
+            "path": "deep-learning/Transformers/Introduzione ai Transformers.md"
+          }
+        ]
+      },
+      "Recurrent Neural Networks": {
+        "subcategories": {},
+        "files": [
+          {
+            "name": "LSTM",
+            "path": "deep-learning/Recurrent Neural Networks/LSTM.md"
+          },
+          {
+            "name": "GRU",
+            "path": "deep-learning/Recurrent Neural Networks/GRU.md"
+          }
+        ]
+      }
+    },
+    "files": []
+  },
   "introduction": {
     "subcategories": {
       "Tipologie di Problemi": {
