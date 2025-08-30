@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Attention: Ponte tra Sequenze Diverse | Deep Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="deep learning, neural networks, CNN, RNN, transformers, model, data, neural">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cross-Attention: Ponte tra Sequenze Diverse">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/deep-learning/Transformers/Attention/Cross-Attention">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cross-Attention: Ponte tra Sequenze Diverse">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/deep-learning/Transformers/Attention/Cross-Attention">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Cross-Attention: Ponte tra Sequenze Diverse",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/deep-learning/Transformers/Attention/Cross-Attention",
+      "datePublished": "2025-08-30T19:21:57.214Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/deep-learning/Transformers/Attention/Cross-Attention" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Cross-Attention: Ponte tra Sequenze Diverse</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Deep Learning | 
+                    <strong>Updated:</strong> 30/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione-e-motivazione">Introduzione e Motivazione</h2>
+<p>Mentre la <strong>self-attention</strong> permette agli elementi di una sequenza di &ldquo;comunicare&rdquo; tra loro, la <strong>cross-attention</strong> estende questo concetto permettendo a elementi di sequenze diverse di interagire. È il meccanismo che consente a due flussi informativi indipendenti di influenzarsi reciprocamente in modo selettivo e intelligente.</p>
+<p>Immaginiamo di dover tradurre la frase inglese <em>&ldquo;The cat is sleeping on the couch&rdquo;</em> in italiano. Il nostro cervello non processa la traduzione parola per parola in modo meccanico. Invece, per generare &ldquo;Il gatto&rdquo;, guardiamo a &ldquo;The cat&rdquo;; per &ldquo;sta dormendo&rdquo;, consideriamo &ldquo;is sleeping&rdquo;; e così via. Questo processo di <strong>allineamento selettivo</strong> tra le parole della lingua sorgente e quelle della lingua target è esattamente ciò che la cross-attention modella matematicamente.</p>
+<h3 id="il-problema-dellallineamento-tra-sequenze">Il Problema dell&rsquo;Allineamento tra Sequenze</h3>
+<p>Prima dell&rsquo;avvento dell&rsquo;attention, i modelli di traduzione automatica usavano architetture encoder-decoder con RNN, dove l&rsquo;encoder comprimeva l&rsquo;intera frase sorgente in un singolo vettore di stato. Il decoder doveva poi &ldquo;decomprimere&rdquo; questo vettore per generare la traduzione. Questo approccio soffriva di due problemi fondamentali:</p>
+<ol>
+<li>
+<p><strong>Bottleneck informativo</strong>: Tutto il contenuto della frase sorgente doveva essere compresso in un vettore di dimensione fissa, causando perdita di informazione per frasi lunghe.</p>
+</li>
+<li>
+<p><strong>Allineamento implicito</strong>: Il modello doveva imparare implicitamente le corrispondenze tra parole sorgenti e target senza un meccanismo esplicito per farlo.</p>
+</li>
+</ol>
+<p>La cross-attention risolve entrambi i problemi fornendo un meccanismo esplicito e differenziabile per l&rsquo;allineamento tra sequenze.</p>
+<h2 id="lintuizione-della-cross-attention">L&rsquo;Intuizione della Cross-Attention</h2>
+<h3 id="lanalogia-del-traduttore-esperto">L&rsquo;Analogia del Traduttore Esperto</h3>
+<p>Un traduttore esperto, quando traduce una frase, mantiene costantemente l&rsquo;attenzione sulla frase originale. Per ogni parola che genera nella lingua target, il traduttore:</p>
+<ol>
+<li><strong>Consulta</strong> l&rsquo;intera frase sorgente</li>
+<li><strong>Identifica</strong> quali parti sono più rilevanti per la parola corrente</li>
+<li><strong>Estrae</strong> le informazioni necessarie da quelle parti</li>
+<li><strong>Combina</strong> queste informazioni per generare la parola target</li>
+</ol>
+<p>La cross-attention replica esattamente questo processo:</p>
+<ul>
+<li>La <strong>query</strong> rappresenta &ldquo;cosa sto cercando&rdquo; (la parola target che stiamo generando)</li>
+<li>Le <strong>key</strong> rappresentano &ldquo;cosa può essere trovato&rdquo; (le parole nella frase sorgente)</li>
+<li>I <strong>value</strong> rappresentano &ldquo;il contenuto informativo&rdquo; di ciascuna parola sorgente</li>
+<li>I <strong>pesi di attention</strong> determinano quanto ogni parola sorgente è rilevante per la parola target corrente</li>
+</ul>
+<h3 id="un-esempio-dettagliato">Un Esempio Dettagliato</h3>
+<p>Consideriamo la traduzione di <em>&ldquo;The black cat sleeps&rdquo;</em> → <em>&ldquo;Il gatto nero dorme&rdquo;</em>.</p>
+<p>Quando generiamo &ldquo;nero&rdquo;:
+- <strong>Query</strong>: rappresentazione di &ldquo;nero&rdquo; (informazione target)
+- <strong>Key</strong>: rappresentazioni di [&ldquo;The&rdquo;, &ldquo;black&rdquo;, &ldquo;cat&rdquo;, &ldquo;sleeps&rdquo;] 
+- La cross-attention assegnerà peso alto a &ldquo;black&rdquo; e pesi bassi alle altre parole
+- <strong>Value</strong>: contenuti informativi delle parole sorgenti
+- <strong>Output</strong>: combinazione pesata che enfatizza l&rsquo;informazione da &ldquo;black&rdquo;</p>
+<p>Quando generiamo &ldquo;dorme&rdquo;:
+- La stessa query &ldquo;dorme&rdquo; guarderà alle stesse key sorgenti
+- Stavolta il peso maggiore andrà a &ldquo;sleeps&rdquo;
+- L&rsquo;output incorporerà principalmente l&rsquo;informazione da &ldquo;sleeps&rdquo;</p>
+<h2 id="formulazione-matematica-della-cross-attention">Formulazione Matematica della Cross-Attention</h2>
+<h3 id="setup-delle-sequenze">Setup delle Sequenze</h3>
+<p>Consideriamo due sequenze:
+- <strong>Sequenza sorgente</strong>: $\mathbf{X}^{src} \in \mathbb{R}^{d \times N_{src}}$ con $N_{src}$ elementi
+- <strong>Sequenza target</strong>: $\mathbf{X}^{tgt} \in \mathbb{R}^{d \times N_{tgt}}$ con $N_{tgt}$ elementi</p>
+<p>Nella cross-attention, le <strong>query</strong> provengono dalla sequenza target, mentre <strong>key</strong> e <strong>value</strong> provengono dalla sequenza sorgente:</p>
+$$\mathbf{Q} = \mathbf{W}_q \mathbf{X}^{tgt} + \mathbf{b}_q \mathbf{1}^T \in \mathbb{R}^{d_k \times N_{tgt}}$$
+$$\mathbf{K} = \mathbf{W}_k \mathbf{X}^{src} + \mathbf{b}_k \mathbf{1}^T \in \mathbb{R}^{d_k \times N_{src}}$$
+$$\mathbf{V} = \mathbf{W}_v \mathbf{X}^{src} + \mathbf{b}_v \mathbf{1}^T \in \mathbb{R}^{d_v \times N_{src}}$$
+<h3 id="matrice-dei-punteggi-asimmetrica">Matrice dei Punteggi Asimmetrica</h3>
+<p>La matrice dei punteggi ha dimensioni $N_{src} \times N_{tgt}$:</p>
+$$\mathbf{S} = \frac{\mathbf{K}^T \mathbf{Q}}{\sqrt{d_k}} \in \mathbb{R}^{N_{src} \times N_{tgt}}$$
+<p>Dove:
+- L&rsquo;elemento $S_{m,n} = \frac{\mathbf{k}_m^T \mathbf{q}_n}{\sqrt{d_k}}$ rappresenta la compatibilità tra il key $m$-esimo (sorgente) e la query $n$-esima (target)
+- La riga $m$ contiene i punteggi del key sorgente $m$ rispetto a tutte le query target
+- La colonna $n$ contiene i punteggi della query target $n$ rispetto a tutti i key sorgenti</p>
+<h3 id="normalizzazione-e-pesi-di-attention">Normalizzazione e Pesi di Attention</h3>
+<p>La softmax viene applicata <strong>lungo ogni colonna</strong> (normalizzazione sulla dimensione sorgente per ogni query target):</p>
+$$a_{m,n} = \frac{\exp(S_{m,n})}{\sum_{\ell=1}^{N_{src}} \exp(S_{\ell,n})}$$
+<p>Questo garantisce che per ogni query target $n$:
+$$\sum_{m=1}^{N_{src}} a_{m,n} = 1$$</p>
+<p>I pesi $a_{m,n}$ indicano quanto la posizione $m$ nella sequenza sorgente è rilevante per la posizione $n$ nella sequenza target.</p>
+<h3 id="calcolo-delloutput">Calcolo dell&rsquo;Output</h3>
+<p>L&rsquo;output della cross-attention è:</p>
+$$\mathbf{Y} = \mathbf{V} \cdot \mathbf{A} \in \mathbb{R}^{d_v \times N_{tgt}}$$
+<p>dove $\mathbf{A} \in \mathbb{R}^{N_{src} \times N_{tgt}}$ è la matrice dei pesi di attention.</p>
+<p>Esplicitamente, l&rsquo;output per la posizione target $n$ è:</p>
+$$\mathbf{y}_n = \sum_{m=1}^{N_{src}} a_{m,n} \mathbf{v}_m$$
+<p>Questa è una <strong>combinazione pesata</strong> di tutti i value della sequenza sorgente, dove i pesi sono determinati dalla rilevanza di ciascun elemento sorgente per la query target corrente.</p>
+<h2 id="interpretazione-geometrica-e-semantica">Interpretazione Geometrica e Semantica</h2>
+<h3 id="spazio-delle-query-vs-spazio-delle-key">Spazio delle Query vs Spazio delle Key</h3>
+<p>La cross-attention opera in uno scenario dove:</p>
+<ul>
+<li>Le <strong>query</strong> vivono nello spazio semantico della sequenza target</li>
+<li>Le <strong>key</strong> e <strong>value</strong> vivono nello spazio semantico della sequenza sorgente</li>
+<li>Le trasformazioni lineari $\mathbf{W}_q$ e $\mathbf{W}_k$ proiettano questi spazi diversi in uno <strong>spazio comune di compatibilità</strong></li>
+</ul>
+<p>Questo spazio comune è dove avviene il &ldquo;matching&rdquo; tra informazioni provenienti da domini diversi.</p>
+<h3 id="funzione-di-allineamento">Funzione di Allineamento</h3>
+<p>La cross-attention può essere vista come una <strong>funzione di allineamento soft</strong> $\alpha: [1, N_{tgt}] \times [1, N_{src}] \rightarrow [0,1]$ dove:</p>
+$$\alpha(n,m) = a_{m,n}$$
+<p>rappresenta quanto l&rsquo;elemento target $n$ è allineato con l&rsquo;elemento sorgente $m$.</p>
+<p>A differenza degli allineamenti hard tradizionali (una corrispondenza uno-a-uno), l&rsquo;allineamento soft permette:
+- <strong>Allineamenti molti-a-uno</strong>: una parola target può allinearsi con multiple parole sorgenti
+- <strong>Allineamenti uno-a-molti</strong>: una parola sorgente può influenzare multiple parole target
+- <strong>Allineamenti parziali</strong>: connessioni con pesi frazionari</p>
+<h2 id="cross-attention-vs-self-attention-differenze-fondamentali">Cross-Attention vs Self-Attention: Differenze Fondamentali</h2>
+<h3 id="struttura-delle-matrici">Struttura delle Matrici</h3>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Self-Attention</th>
+<th>Cross-Attention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dimensioni Query</strong></td>
+<td>$d_k \times N$</td>
+<td>$d_k \times N_{tgt}$</td>
+</tr>
+<tr>
+<td><strong>Dimensioni Key</strong></td>
+<td>$d_k \times N$</td>
+<td>$d_k \times N_{src}$</td>
+</tr>
+<tr>
+<td><strong>Dimensioni Value</strong></td>
+<td>$d_v \times N$</td>
+<td>$d_v \times N_{src}$</td>
+</tr>
+<tr>
+<td><strong>Matrice Punteggi</strong></td>
+<td>$N \times N$ (quadrata)</td>
+<td>$N_{src} \times N_{tgt}$ (rettangolare)</td>
+</tr>
+<tr>
+<td><strong>Simmetria</strong></td>
+<td>Simmetrica se $\mathbf{W}_q = \mathbf{W}_k$</td>
+<td>Asimmetrica per costruzione</td>
+</tr>
+</tbody>
+</table>
+<h3 id="semantica-delle-operazioni">Semantica delle Operazioni</h3>
+<p><strong>Self-Attention</strong>: &ldquo;Come ogni elemento della sequenza dovrebbe guardare agli altri elementi della stessa sequenza?&rdquo;</p>
+<p><strong>Cross-Attention</strong>: &ldquo;Come ogni elemento della sequenza target dovrebbe guardare agli elementi della sequenza sorgente?&rdquo;</p>
+<h3 id="pattern-di-dipendenza">Pattern di Dipendenza</h3>
+<p><strong>Self-Attention</strong>: Cattura dipendenze <strong>intra-sequenza</strong> (all&rsquo;interno della stessa sequenza).</p>
+<p><strong>Cross-Attention</strong>: Cattura dipendenze <strong>inter-sequenza</strong> (tra sequenze diverse).</p>
+<h2 id="multi-head-cross-attention">Multi-Head Cross-Attention</h2>
+<h3 id="estensione-naturale">Estensione Naturale</h3>
+<p>Come per la self-attention, la cross-attention beneficia dell&rsquo;uso di multiple teste per catturare diversi tipi di allineamenti:</p>
+$$\text{MultiHeadCross}(\mathbf{X}^{tgt}, \mathbf{X}^{src}) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)\mathbf{W}^O$$
+<p>dove:</p>
+$$\text{head}_i = \text{CrossAttention}(\mathbf{X}^{tgt}\mathbf{W}_i^Q, \mathbf{X}^{src}\mathbf{W}_i^K, \mathbf{X}^{src}\mathbf{W}_i^V)$$
+<h3 id="specializzazione-delle-teste">Specializzazione delle Teste</h3>
+<p>Nella cross-attention multi-head, le diverse teste possono specializzarsi in:</p>
+<p><strong>Allineamenti lessicali</strong>: Corrispondenze dirette tra parole (es. &ldquo;cat&rdquo; → &ldquo;gatto&rdquo;)</p>
+<p><strong>Allineamenti sintattici</strong>: Strutture grammaticali equivalenti (es. soggetto con soggetto)</p>
+<p><strong>Allineamenti semantici</strong>: Concetti correlati (es. &ldquo;automobile&rdquo; → &ldquo;veicolo&rdquo;)</p>
+<p><strong>Allineamenti di ordine</strong>: Gestione delle differenze nell&rsquo;ordine delle parole tra lingue</p>
+<h2 id="applicazioni-della-cross-attention">Applicazioni della Cross-Attention</h2>
+<h3 id="1-traduzione-automatica-neurale">1. Traduzione Automatica Neurale</h3>
+<p><strong>Architettura</strong>: Transformer Encoder-Decoder
+- <strong>Encoder</strong>: Processa la sequenza sorgente con self-attention
+- <strong>Decoder</strong>: Usa self-attention per la sequenza target + cross-attention per accedere alla sorgente
+- <strong>Vantaggi</strong>: Allineamento esplicito, gestione di sequenze di lunghezza diversa</p>
+<p><strong>Formula nel Decoder</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code># Self-attention sul target
+target_self_attn = SelfAttention(target_sequence)
+
+# Cross-attention tra target e source  
+cross_attn = CrossAttention(target_self_attn, encoder_output)
+
+# Feed-forward
+output = FeedForward(cross_attn)
+</code></pre></div>
+</div>
+</details>
+
+<h3 id="2-question-answering">2. Question Answering</h3>
+<p><strong>Setup</strong>: Data una domanda $Q$ e un contesto $C$, trova la risposta.
+- <strong>Query</strong>: Rappresentazione della domanda
+- <strong>Key/Value</strong>: Rappresentazioni del contesto
+- <strong>Output</strong>: Parti del contesto rilevanti per la domanda</p>
+<p><strong>Esempio</strong>:
+- Domanda: &ldquo;Quale animale dorme?&rdquo;
+- Contesto: &ldquo;Il gatto nero sta dormendo sul divano mentre il cane corre.&rdquo;
+- Cross-attention: Alto peso su &ldquo;gatto&rdquo; e &ldquo;dormendo&rdquo;</p>
+<h3 id="3-image-captioning">3. Image Captioning</h3>
+<p><strong>Architettura</strong>: CNN + Transformer Decoder
+- <strong>CNN</strong>: Estrae features visive da regioni dell&rsquo;immagine
+- <strong>Cross-Attention</strong>: Allinea parole del caption con regioni visive
+- <strong>Self-Attention</strong>: Mantiene coerenza linguistica nel caption</p>
+<p><strong>Formula</strong>:
+$$\text{word}_t = \text{CrossAttention}(\text{previous_words}, \text{image_regions})$$</p>
+<h3 id="4-multimodal-understanding">4. Multimodal Understanding</h3>
+<p><strong>Vision-Language Models</strong>:
+- <strong>Query</strong>: Rappresentazioni testuali
+- <strong>Key/Value</strong>: Rappresentazioni visuali
+- <strong>Applicazioni</strong>: VQA (Visual Question Answering), image retrieval</p>
+<p><strong>Speech-Text Alignment</strong>:
+- <strong>Query</strong>: Features audio
+- <strong>Key/Value</strong>: Rappresentazioni testuali
+- <strong>Applicazioni</strong>: Speech recognition, text-to-speech</p>
+<h2 id="architetture-che-utilizzano-cross-attention">Architetture che Utilizzano Cross-Attention</h2>
+<h3 id="transformer-encoder-decoder">Transformer Encoder-Decoder</h3>
+<p><strong>Struttura Completa</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code>Encoder:
+  - Multi-Head Self-Attention
+  - Position-wise Feed-Forward
+
+Decoder:
+  - Masked Multi-Head Self-Attention  # Evita lookahead
+  - Multi-Head Cross-Attention        # Con encoder output
+  - Position-wise Feed-Forward
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Flusso dell&rsquo;Informazione</strong>:
+1. Encoder processa la sequenza sorgente
+2. Decoder genera la sequenza target autoregressivamente
+3. Ad ogni step, il decoder usa cross-attention per &ldquo;consultare&rdquo; l&rsquo;encoder</p>
+<h3 id="bert-like-models-con-cross-attention">BERT-like Models con Cross-Attention</h3>
+<p><strong>Modelli Multimodali</strong> come ViLBERT, LXMERT:
+- <strong>Stream Visivo</strong>: Processa features delle immagini
+- <strong>Stream Testuale</strong>: Processa token del testo<br />
+- <strong>Cross-Modal Layers</strong>: Cross-attention tra i due stream</p>
+<h3 id="retrieval-augmented-generation-rag">Retrieval-Augmented Generation (RAG)</h3>
+<p><strong>Architettura</strong>:
+1. <strong>Retriever</strong>: Trova documenti rilevanti
+2. <strong>Cross-Attention</strong>: Allinea la query con i documenti retrieved
+3. <strong>Generator</strong>: Produce la risposta basandosi su query + documenti</p>
+<h2 id="analisi-della-complessita-computazionale">Analisi della Complessità Computazionale</h2>
+<h3 id="complessita-temporale">Complessità Temporale</h3>
+<p>Per sequenze di lunghezza $N_{src}$ e $N_{tgt}$:</p>
+<p><strong>Calcolo dei punteggi</strong>: $\mathbf{K}^T \mathbf{Q}$ richiede $O(N_{src} \times N_{tgt} \times d_k)$</p>
+<p><strong>Applicazione della softmax</strong>: $O(N_{src} \times N_{tgt})$</p>
+<p><strong>Moltiplicazione finale</strong>: $\mathbf{V} \times \mathbf{A}$ richiede $O(N_{src} \times N_{tgt} \times d_v)$</p>
+<p><strong>Complessità totale</strong>: $O(N_{src} \times N_{tgt} \times d)$ dove $d = \max(d_k, d_v)$</p>
+<h3 id="confronto-con-self-attention">Confronto con Self-Attention</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Complessità Temporale</th>
+<th>Complessità Spaziale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Self-Attention</td>
+<td>$O(N^2 d)$</td>
+<td>$O(N^2)$</td>
+</tr>
+<tr>
+<td>Cross-Attention</td>
+<td>$O(N_{src} N_{tgt} d)$</td>
+<td>$O(N_{src} N_{tgt})$</td>
+</tr>
+</tbody>
+</table>
+<h3 id="implicazioni-pratiche">Implicazioni Pratiche</h3>
+<p><strong>Quando $N_{src} \approx N_{tgt}$</strong>: La complessità è simile alla self-attention.</p>
+<p><strong>Quando $N_{src} \gg N_{tgt}$</strong>: La cross-attention può essere più costosa (es. image captioning con molte regioni visive).</p>
+<p><strong>Quando $N_{src} \ll N_{tgt}$</strong>: La cross-attention è più efficiente (es. conditioning su un piccolo prompt).</p>
+<h2 id="mascheramento-nella-cross-attention">Mascheramento nella Cross-Attention</h2>
+<h3 id="causal-masking-nel-decoder">Causal Masking nel Decoder</h3>
+<p>Nel decoder autoregressivo, si applica un mascheramento <strong>causale</strong> alla self-attention per prevenire che il modello &ldquo;veda il futuro&rdquo;:</p>
+$$\text{mask}_{i,j} = \begin{cases}
+-\infty & \text{se } j > i \\
+0 & \text{se } j \leq i
+\end{cases}$$
+<p><strong>Importante</strong>: Questo mascheramento si applica solo alla <strong>self-attention</strong> nel decoder, NON alla cross-attention, perché:
+- La cross-attention accede all&rsquo;intera sequenza sorgente (già completamente osservata)
+- Non c&rsquo;è rischio di &ldquo;vedere il futuro&rdquo; nella sequenza sorgente</p>
+<h3 id="padding-masking">Padding Masking</h3>
+<p>Per gestire sequenze di lunghezza variabile, si maschera l&rsquo;attention sui token di padding:</p>
+$$a_{m,n} = \begin{cases}
+\frac{\exp(S_{m,n})}{\sum_{\ell \neq \text{pad}} \exp(S_{\ell,n})} & \text{se key}_m \neq \text{PAD} \\
+0 & \text{se key}_m = \text{PAD}
+\end{cases}$$
+<h3 id="content-based-masking">Content-Based Masking</h3>
+<p>In alcune applicazioni, si possono applicare maschere basate sul contenuto:
+- <strong>Entity Masking</strong>: Nascondere entità specifiche
+- <strong>Domain Masking</strong>: Limitare l&rsquo;attention a parti specifiche della sorgente
+- <strong>Relevance Masking</strong>: Usare soglie per eliminare connessioni deboli</p>
+<h2 id="ottimizzazioni-e-implementazioni-efficienti">Ottimizzazioni e Implementazioni Efficienti</h2>
+<h3 id="batching-efficiente">Batching Efficiente</h3>
+<p>[Placeholder per implementazione ottimizzata del batching per cross-attention]</p>
+<h3 id="memory-efficient-cross-attention">Memory-Efficient Cross-Attention</h3>
+<p>Per sequenze molto lunghe, si possono usare:</p>
+<p><strong>Checkpointing</strong>: Ricalcolare i gradienti invece di memorizzarli.</p>
+<p><strong>Chunked Cross-Attention</strong>: Processare la cross-attention in blocchi.</p>
+<p><strong>Sparse Cross-Attention</strong>: Limitare l&rsquo;attention a subset delle posizioni.</p>
+<h3 id="implementazione-hardware-aware">Implementazione Hardware-Aware</h3>
+<p><strong>GPU Optimization</strong>: 
+- Fusione delle operazioni matriciali
+- Utilizzazione della memoria shared
+- Ottimizzazione dei pattern di accesso alla memoria</p>
+<p><strong>TPU Optimization</strong>:
+- Batching delle operazioni per sfruttare le unità matriciali
+- Pipeline delle computazioni</p>
+<h2 id="interpretabilita-e-visualizzazione">Interpretabilità e Visualizzazione</h2>
+<h3 id="visualizzazione-dei-pesi-di-attention">Visualizzazione dei Pesi di Attention</h3>
+<p>I pesi di cross-attention possono essere visualizzati come <strong>heatmap</strong> $N_{src} \times N_{tgt}$:</p>
+<p>[Placeholder per codice di visualizzazione delle attention weights]</p>
+<h3 id="analisi-dei-pattern-di-allineamento">Analisi dei Pattern di Allineamento</h3>
+<p><strong>Analisi Quantitativa</strong>:
+- <strong>Entropia dei pesi</strong>: Misura la diffusione dell&rsquo;attention
+- <strong>Allineamento uno-a-uno</strong>: Percentuale di connessioni dominanti
+- <strong>Coverage</strong>: Quante posizioni sorgenti ricevono attention significativa</p>
+<p><strong>Analisi Qualitativa</strong>:
+- Pattern di allineamento linguisticamente plausibili
+- Gestione di fenomeni complessi (idiomi, riordino)
+- Robustezza a input rumorosi</p>
+<h3 id="probing-studies">Probing Studies</h3>
+<p><strong>Esperimenti di Ablation</strong>:
+- Rimozione di specifiche teste di attention
+- Analisi dell&rsquo;importanza di diverse posizioni
+- Studio della degradazione delle prestazioni</p>
+<p><strong>Intervention Studies</strong>:
+- Modifica manuale dei pesi di attention
+- Controllo dell&rsquo;allineamento forzato
+- Analisi causale delle decisioni del modello</p>
+<h2 id="limitazioni-e-problemi-aperti">Limitazioni e Problemi Aperti</h2>
+<h3 id="problemi-di-allineamento">Problemi di Allineamento</h3>
+<p><strong>Many-to-Many Alignments</strong>: Difficoltà nel gestire corrispondenze complesse.</p>
+<p><strong>Null Alignments</strong>: Quando parole target non hanno corrispondenti sorgenti.</p>
+<p><strong>Spurious Alignments</strong>: Connessioni non linguisticamente motivate.</p>
+<h3 id="complessita-per-sequenze-lunghe">Complessità per Sequenze Lunghe</h3>
+<p><strong>Quadratic Growth</strong>: La complessità cresce quadraticamente con la lunghezza.</p>
+<p><strong>Memory Bottleneck</strong>: Le matrici di attention diventano proibitive.</p>
+<p><strong>Attention Dilution</strong>: Su sequenze lunghe, l&rsquo;attention si &ldquo;diluisce&rdquo;.</p>
+<h3 id="bias-e-fairness">Bias e Fairness</h3>
+<p><strong>Language Bias</strong>: Modelli addestrati su lingue specifiche possono avere bias.</p>
+<p><strong>Cultural Bias</strong>: Allineamenti che riflettono stereotipi culturali.</p>
+<p><strong>Domain Bias</strong>: Performance degradata su domini non visti durante il training.</p>
+<h2 id="metriche-di-valutazione">Metriche di Valutazione</h2>
+<h3 id="metriche-di-allineamento">Metriche di Allineamento</h3>
+<p><strong>Alignment Error Rate (AER)</strong>:
+$$\text{AER} = 1 - \frac{|A_{pred} \cap A_{gold}| + |A_{pred} \cap A_{probable}|}{|A_{pred}| + |A_{gold}|}$$</p>
+<p><strong>Precision/Recall dell&rsquo;Allineamento</strong>:
+- Precision: Frazione di allineamenti predetti che sono corretti
+- Recall: Frazione di allineamenti gold catturati</p>
+<h3 id="metriche-di-task-specific">Metriche di Task-Specific</h3>
+<p><strong>Translation Quality</strong>: BLEU, METEOR, BERTScore per traduzione.</p>
+<p><strong>QA Performance</strong>: Exact Match, F1 per question answering.</p>
+<p><strong>Retrieval Metrics</strong>: MRR, NDCG per task di retrieval.</p>
+<h3 id="metriche-di-interpretabilita">Metriche di Interpretabilità</h3>
+<p><strong>Attention Entropy</strong>: Misura la concentrazione dell&rsquo;attention.</p>
+<p><strong>Alignment Consistency</strong>: Consistenza degli allineamenti attraverso layer diversi.</p>
+<p><strong>Human Agreement</strong>: Accordo tra attention automatica e annotazioni umane.</p>
+<h2 id="implementazione-pratica">Implementazione Pratica</h2>
+<p>[Placeholder per implementazione completa di Cross-Attention con PyTorch]</p>
+<h3 id="considerazioni-di-implementazione">Considerazioni di Implementazione</h3>
+<p><strong>Numerical Stability</strong>: Gestione di overflow/underflow nella softmax.</p>
+<p><strong>Memory Management</strong>: Strategie per ridurre l&rsquo;utilizzo della memoria.</p>
+<p><strong>Gradient Flow</strong>: Assicurare flusso stabile dei gradienti.</p>
+<h3 id="testing-e-debugging">Testing e Debugging</h3>
+<p><strong>Unit Tests</strong>: Test delle singole componenti.</p>
+<p><strong>Integration Tests</strong>: Test dell&rsquo;intera pipeline.</p>
+<p><strong>Attention Visualization</strong>: Debug attraverso visualizzazione.</p>
+<h2 id="conclusioni">Conclusioni</h2>
+<p>La <strong>Cross-Attention</strong> rappresenta un meccanismo fondamentale per collegare informazioni provenienti da sequenze o modalità diverse. La sua capacità di creare allineamenti soft e differenziabili l&rsquo;ha resa indispensabile in una vasta gamma di applicazioni, dalla traduzione automatica ai modelli multimodali.</p>
+<h3 id="contributi-chiave">Contributi Chiave</h3>
+<ol>
+<li><strong>Allineamento Esplicito</strong>: Meccanismo differenziabile per l&rsquo;allineamento tra sequenze</li>
+<li><strong>Flessibilità</strong>: Gestione naturale di sequenze di lunghezza diversa</li>
+<li><strong>Interpretabilità</strong>: Visualizzazione diretta delle corrispondenze apprese</li>
+<li><strong>Efficienza</strong>: Parallelizzazione completa del processo di allineamento</li>
+</ol>
+<h3 id="impatto-sul-deep-learning">Impatto sul Deep Learning</h3>
+<p>La cross-attention ha:
+- Rivoluzionato la traduzione automatica neurale
+- Abilitato lo sviluppo di modelli multimodali sofisticati
+- Fornito le basi per architetture di retrieval-augmented generation
+- Ispirato nuovi metodi per il trasferimento di conoscenza cross-domain</p>
+<h3 id="considerazioni-future">Considerazioni Future</h3>
+<p>Mentre la cross-attention continua a essere un componente centrale di molte architetture, la ricerca futura si concentrerà probabilmente su:
+- Riduzione della complessità computazionale
+- Miglioramento dell&rsquo;interpretabilità e controllo
+- Estensione a modalità e domini sempre più diversi
+- Integrazione con metodi di reasoning simbolico</p>
+<p>La comprensione profonda della cross-attention è essenziale per chiunque lavori con modelli che devono integrare informazioni da fonti multiple, rappresentando una competenza chiave nell&rsquo;era dei modelli multimodali e multi-task.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> deep learning, neural networks, CNN, RNN, transformers, model, data, neural</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/deep-learning/Transformers/Attention/Cross-Attention">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Cross-Attention: Ponte tra Sequenze Diverse',
+          page_location: 'http://localhost:3000/theory/deep-learning/Transformers/Attention/Cross-Attention'
+        });
+      }
+    </script>
+</body>
+</html>

@@ -35,7 +35,7 @@
       "headline": "Untitled",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/unsupervised-learning/Clustering/Valutazione dei Clusterings",
-      "datePublished": "2025-08-30T00:53:20.036Z",
+      "datePublished": "2025-08-30T19:21:57.308Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="introduzione">Introduzione</h2>
 <p>La valutazione di un algoritmo di clustering è una fase cruciale per determinare la qualità delle partizioni generate rispetto ai dati.</p>
@@ -305,12 +316,25 @@ details.code-container .code-wrapper {
 	P(C_i) = \frac{1}{n_i} \max_{j \in [J]} n_{i, j}
 	$$
     Cioè la label che appare più volte nel cluster $C_i$ diviso la dimensione del cluster stesso.</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Ovviamente, la purezza totale del clustering, è data dalla media aritmetica delle purezze dei clusters:
 $$
 	P = \frac{1}{K} \sum_{k=1}^K P(C_k)
 	$$
 C&#39;è comunque un problema di bias, in quanto la purezza cresce all&#39;aumentare del numero di clusters.
 </code></pre></div>
+</div>
+</details>
 
 <ul>
 <li>

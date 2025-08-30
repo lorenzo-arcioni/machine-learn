@@ -30,7 +30,7 @@ Ogni esperto porta una prospettiva diversa, e la loro combinazione fornisce una 
 
 Dal punto di vista matematico, una singola testa di attention opera in un sottospazio specifico dello spazio delle caratteristiche. Le trasformazioni lineari $\mathbf{W}_q$, $\mathbf{W}_k$, e $\mathbf{W}_v$ definiscono questo sottospazio, determinando quali aspetti dell'input vengono enfatizzati.
 
-Con la Multi-Head Attention, ogni testa opera in un sottospazio diverso, potenzialmente catturando:
+Con la Multi-Head Attention, ogni testa opera attraverso le proprie trasformazioni lineari, potenzialmente catturando:
 
 - **Pattern locali**: relazioni tra parole adiacenti
 - **Pattern globali**: relazioni a lungo raggio
@@ -94,24 +94,26 @@ $$\text{MultiHead}(\mathbf{X}) = \mathbf{W}_O \cdot \text{Concat} + \mathbf{b}_O
 
 dove $\mathbf{W}_O \in \mathbb{R}^{d_{model} \times (h \cdot d_v)}$ e $\mathbf{b}_O \in \mathbb{R}^{d_{model}}$ sono i parametri della proiezione finale.
 
+>Ricordiamo che $d_{model}$ rappresenta la dimensione dello spazio degli embedding, mentre $h$ rappresenta il numero di teste.
+
 ## La Scelta delle Dimensioni: Un Compromesso Cruciale
 
 ### Il Principio della Conservazione Computazionale
 
-Nei Transformer standard, si adotta una strategia elegante per mantenere costante il costo computazionale rispetto alla single-head attention:
+Nei Transformer standard, si adotta una strategia elegante per mantenere approssimativamente costante il costo computazionale rispetto alla single-head attention:
 
 $$d_k = d_v = \frac{d_{model}}{h}$$
 
 Questa scelta garantisce che:
 
-1. **Costo computazionale costante**: Il costo di calcolare $h$ teste con dimensione $d_k = d_{model}/h$ è uguale al costo di calcolare una testa con dimensione $d_{model}$
+1. **Costo computazionale simile**: Il costo di calcolare $h$ teste con dimensione $d_k = d_{model}/h$ è comparabile al costo di calcolare una testa con dimensione $d_{model}$
 2. **Conservazione dell'informazione**: La concatenazione ricrea uno spazio di dimensione $h \cdot (d_{model}/h) = d_{model}$
 
 ### Analisi del Compromesso
 
 Questa strategia implica un compromesso fondamentale:
 
-**Guadagno in diversità**: Ogni testa opera in un sottospazio più piccolo ma specializzato, catturando pattern diversi.
+**Guadagno in diversità**: Ogni testa opera attraverso le proprie proiezioni lineari specializzate, catturando pattern diversi.
 
 **Perdita in capacità individuale**: Ogni singola testa ha meno "potenza rappresentativa" rispetto a una testa che opera nell'intero spazio $d_{model}$.
 
@@ -119,11 +121,7 @@ Il successo empirico dei Transformer suggerisce che il guadagno in diversità su
 
 ### Interpretazione Geometrica
 
-Dal punto di vista geometrico, stiamo decomponendo lo spazio delle caratteristiche $\mathbb{R}^{d_{model}}$ in $h$ sottospazi disgiunti di dimensione $d_{model}/h$:
-
-$$\mathbb{R}^{d_{model}} = \mathbb{R}^{d_{model}/h} \oplus \mathbb{R}^{d_{model}/h} \oplus \cdots \oplus \mathbb{R}^{d_{model}/h}$$
-
-Ogni testa "vede" solo una proiezione dell'input nel suo sottospazio, ma la combinazione finale ricostruisce una rappresentazione nell'intero spazio originale.
+Dal punto di vista geometrico, ogni testa proietta l'input attraverso le proprie matrici di peso su sottospazi che possono sovrapporsi parzialmente. La concatenazione finale ricombina queste diverse prospettive in una rappresentazione nell'intero spazio $\mathbb{R}^{d_{model}}$.
 
 ## Diversi Tipi di Attention Patterns
 
@@ -185,11 +183,352 @@ Ogni testa fornisce una "vista" interpretabile su ciò che il modello ha appreso
 
 ### 4. Parallelizzazione
 
-Tutte le teste calcolano l'attention indipendentemente, permettendo:
+Tutte le teste possono calcolare l'attention in parallelo (con l'implementazione appropriata), permettendo:
 
 - Parallelizzazione massima su hardware moderno
 - Scaling efficiente con il numero di teste
 - Ottimizzazione dell'utilizzo della memoria
+
+## Implementazione Multi-Head Self-Attention
+
+### Panoramica dell'Implementazione
+
+La nostra implementazione della `Multi-Head Self-Attention` traduce fedelmente la matematica teorica in codice PyTorch efficiente. Analizziamo ogni componente per comprendere come la teoria si trasforma in pratica ottimizzata.
+
+### Struttura della Classe e Inizializzazione
+
+#### Definizione della Classe e Docstring
+
+```python
+class MultiHeadSelfAttention(nn.Module):
+    """
+    Implementazione efficiente di Multi-Head Self-Attention.
+    
+    FORMALISMO:
+    - Input: X ∈ R^(N × d_model) (convenzione PyTorch)
+    - Per ogni testa i:
+      - Q^(i) = X @ W_q^(i)^T + b_q^(i) ∈ R^(N × d_k)
+      - K^(i) = X @ W_k^(i)^T + b_k^(i) ∈ R^(N × d_k)
+      - V^(i) = X @ W_v^(i)^T + b_v^(i) ∈ R^(N × d_v)
+      - head_i = Attention(Q^(i), K^(i), V^(i)) ∈ R^(N × d_v)
+    - Concat = Concatenate(head_1, ..., head_h) ∈ R^(N × h·d_v)
+    - Output = Concat @ W_O^T + b_O ∈ R^(N × d_model)
+    
+    Standard: d_k = d_v = d_model / h per bilanciamento computazionale
+    """
+```
+
+**Analisi**: La docstring chiarisce la convenzione PyTorch (N × features) e mostra le dimensioni corrette per tutte le trasformazioni.
+
+#### Parametri del Costruttore
+
+```python
+def __init__(self, d_model, num_heads, d_k=None, d_v=None):
+    super().__init__()
+    
+    self.d_model = d_model
+    self.num_heads = num_heads
+```
+
+#### Gestione delle Dimensioni
+
+```python
+# Dimensioni di default per bilanciamento computazionale
+if d_k is None:
+    d_k = d_model // num_heads
+if d_v is None:
+    d_v = d_model // num_heads
+    
+assert d_model % num_heads == 0, "d_model deve essere divisibile per num_heads per dimensioni standard"
+
+self.d_k = d_k
+self.d_v = d_v
+```
+
+**Analisi**: Manteniamo il principio di bilanciamento computazionale con dimensioni $d_k = d_v = d_{model}/h$.
+
+#### Implementazione Efficiente con Proiezioni Unificate
+
+```python
+# Proiezioni unificate per tutte le teste (implementazione efficiente)
+# W_q_all ∈ R^(d_model × h·d_k), W_k_all ∈ R^(d_model × h·d_k), W_v_all ∈ R^(d_model × h·d_v)
+self.W_q_all = nn.Linear(d_model, num_heads * d_k, bias=True)
+self.W_k_all = nn.Linear(d_model, num_heads * d_k, bias=True) 
+self.W_v_all = nn.Linear(d_model, num_heads * d_v, bias=True)
+
+# Proiezione finale: W_O ∈ R^(h·d_v × d_model)
+self.W_O = nn.Linear(num_heads * d_v, d_model, bias=True)
+```
+
+**Analisi**: 
+- **Efficienza**: Una singola trasformazione lineare per tutte le teste invece di $h$ trasformazioni separate
+- **Equivalenza matematica**: Il risultato è identico ma molto più efficiente
+- **Gestione automatica**: PyTorch gestisce automaticamente inizializzazione e bias
+
+#### Inizializzazione dei Pesi
+
+```python
+# Inizializzazione Xavier/Glorot per stabilità numerica
+self._initialize_weights()
+
+def _initialize_weights(self):
+    """Inizializza i pesi per stabilità numerica"""
+    for module in [self.W_q_all, self.W_k_all, self.W_v_all, self.W_O]:
+        nn.init.xavier_uniform_(module.weight)
+        if module.bias is not None:
+            nn.init.zeros_(module.bias)
+```
+
+**Analisi**: L'inizializzazione Xavier è standard per reti profonde e garantisce gradienti ben condizionati.
+
+### Metodo Forward: Implementazione Efficiente
+
+#### Preparazione dell'Input
+
+```python
+def forward(self, x, return_attention=False):
+    """
+    Args:
+        x: Input (batch_size, seq_len, d_model)
+        return_attention: Se restituire i pesi di attention
+        
+    Returns:
+        output: (batch_size, seq_len, d_model)
+        attention_weights: (batch_size, num_heads, seq_len, seq_len) se richiesti
+    """
+    batch_size, seq_len, d_model = x.size()
+```
+
+#### Calcolo Unificato di Q, K, V
+
+```python
+# Calcolo efficiente di Q, K, V per tutte le teste
+# Shape: (batch_size, seq_len, num_heads * d_k/d_v)
+Q_all = self.W_q_all(x)  # (batch_size, seq_len, num_heads * d_k)
+K_all = self.W_k_all(x)  # (batch_size, seq_len, num_heads * d_k)
+V_all = self.W_v_all(x)  # (batch_size, seq_len, num_heads * d_v)
+```
+
+**Analisi**: Una singola moltiplicazione matrice-matrice invece di $h$ moltiplicazioni separate.
+
+#### Reshaping per Teste Multiple
+
+```python
+# Reshape per separare le teste: (batch_size, seq_len, num_heads, d_k/d_v)
+Q = Q_all.view(batch_size, seq_len, self.num_heads, self.d_k)
+K = K_all.view(batch_size, seq_len, self.num_heads, self.d_k)
+V = V_all.view(batch_size, seq_len, self.num_heads, self.d_v)
+
+# Riorganizza per calcolo parallelo: (batch_size, num_heads, seq_len, d_k/d_v)
+Q = Q.transpose(1, 2)  # (batch_size, num_heads, seq_len, d_k)
+K = K.transpose(1, 2)  # (batch_size, num_heads, seq_len, d_k)
+V = V.transpose(1, 2)  # (batch_size, num_heads, seq_len, d_v)
+```
+
+**Analisi**: 
+- **Reshape**: Separa logicamente le teste senza costo computazionale
+- **Transpose**: Porta le teste nella dimensione del batch per parallelizzazione
+
+#### Calcolo Parallelo dell'Attention
+
+```python
+# Calcolo parallelo degli attention scores per tutte le teste
+# S ∈ R^(batch_size × num_heads × seq_len × seq_len)
+attention_scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(self.d_k)
+
+# Applicazione softmax lungo l'ultima dimensione (normalizza per ogni query)
+attention_weights = F.softmax(attention_scores, dim=-1)
+
+# Applicazione dei pesi ai values
+# Output per tutte le teste: (batch_size, num_heads, seq_len, d_v)
+attention_output = torch.matmul(attention_weights, V)
+```
+
+**Analisi**:
+- **Parallelizzazione completa**: Tutte le teste calcolate simultaneamente
+- **Softmax corretto**: `dim=-1` normalizza lungo le keys per ogni query
+- **Efficienza**: Sfrutta al massimo le capacità tensoriali di PyTorch
+
+#### Concatenazione e Proiezione Finale
+
+```python
+# Riorganizza per concatenazione: (batch_size, seq_len, num_heads, d_v)
+attention_output = attention_output.transpose(1, 2)
+
+# Concatenazione delle teste: (batch_size, seq_len, num_heads * d_v)
+concatenated = attention_output.contiguous().view(batch_size, seq_len, self.num_heads * self.d_v)
+
+# Proiezione finale: (batch_size, seq_len, d_model)
+output = self.W_O(concatenated)
+```
+
+**Analisi**:
+- **Transpose + View**: Concatenazione efficiente senza copia dei dati
+- **Contiguous**: Necessario dopo transpose per garantire memoria contigua
+- **Proiezione finale**: Combina le informazioni da tutte le teste
+
+#### Gestione dell'Output
+
+```python
+if return_attention:
+    return output, attention_weights
+else:
+    return output
+```
+
+### Implementazione Completa e Ottimizzata
+
+```python
+import torch
+from torch import nn
+import torch.nn.functional as F
+import math
+
+class MultiHeadSelfAttention(nn.Module):
+    """
+    Implementazione efficiente di Multi-Head Self-Attention.
+    
+    FORMALISMO:
+    - Input: X ∈ R^(N × d_model) (convenzione PyTorch)
+    - Per ogni testa i:
+      - Q^(i) = X @ W_q^(i)^T + b_q^(i) ∈ R^(N × d_k)
+      - K^(i) = X @ W_k^(i)^T + b_k^(i) ∈ R^(N × d_k)
+      - V^(i) = X @ W_v^(i)^T + b_v^(i) ∈ R^(N × d_v)
+      - head_i = Attention(Q^(i), K^(i), V^(i)) ∈ R^(N × d_v)
+    - Concat = Concatenate(head_1, ..., head_h) ∈ R^(N × h·d_v)
+    - Output = Concat @ W_O^T + b_O ∈ R^(N × d_model)
+    
+    Standard: d_k = d_v = d_model / h per bilanciamento computazionale
+    """
+    
+    def __init__(self, d_model, num_heads, d_k=None, d_v=None):
+        super().__init__()
+        
+        self.d_model = d_model
+        self.num_heads = num_heads
+        
+        # Dimensioni di default per bilanciamento computazionale
+        if d_k is None:
+            d_k = d_model // num_heads
+        if d_v is None:
+            d_v = d_model // num_heads
+            
+        assert d_model % num_heads == 0, "d_model deve essere divisibile per num_heads per dimensioni standard"
+        
+        self.d_k = d_k
+        self.d_v = d_v
+        
+        # Proiezioni unificate per tutte le teste (implementazione efficiente)
+        # W_q_all ∈ R^(d_model × h·d_k), W_k_all ∈ R^(d_model × h·d_k), W_v_all ∈ R^(d_model × h·d_v)
+        self.W_q_all = nn.Linear(d_model, num_heads * d_k, bias=True)
+        self.W_k_all = nn.Linear(d_model, num_heads * d_k, bias=True) 
+        self.W_v_all = nn.Linear(d_model, num_heads * d_v, bias=True)
+        
+        # Proiezione finale: W_O ∈ R^(h·d_v × d_model)
+        self.W_O = nn.Linear(num_heads * d_v, d_model, bias=True)
+        
+        # Inizializzazione dei pesi
+        self._initialize_weights()
+    
+    def _initialize_weights(self):
+        """Inizializza i pesi per stabilità numerica"""
+        for module in [self.W_q_all, self.W_k_all, self.W_v_all, self.W_O]:
+            nn.init.xavier_uniform_(module.weight)
+            if module.bias is not None:
+                nn.init.zeros_(module.bias)
+    
+    def forward(self, x, return_attention=False):
+        """
+        Args:
+            x: Input (batch_size, seq_len, d_model)
+            return_attention: Se restituire i pesi di attention
+            
+        Returns:
+            output: (batch_size, seq_len, d_model)
+            attention_weights: (batch_size, num_heads, seq_len, seq_len) se richiesti
+        """
+        batch_size, seq_len, d_model = x.size()
+        
+        # Calcolo efficiente di Q, K, V per tutte le teste
+        # Shape: (batch_size, seq_len, num_heads * d_k/d_v)
+        Q_all = self.W_q_all(x)  # (batch_size, seq_len, num_heads * d_k)
+        K_all = self.W_k_all(x)  # (batch_size, seq_len, num_heads * d_k)
+        V_all = self.W_v_all(x)  # (batch_size, seq_len, num_heads * d_v)
+        
+        # Reshape per separare le teste: (batch_size, seq_len, num_heads, d_k/d_v)
+        Q = Q_all.view(batch_size, seq_len, self.num_heads, self.d_k)
+        K = K_all.view(batch_size, seq_len, self.num_heads, self.d_k)
+        V = V_all.view(batch_size, seq_len, self.num_heads, self.d_v)
+        
+        # Riorganizza per calcolo parallelo: (batch_size, num_heads, seq_len, d_k/d_v)
+        Q = Q.transpose(1, 2)  # (batch_size, num_heads, seq_len, d_k)
+        K = K.transpose(1, 2)  # (batch_size, num_heads, seq_len, d_k)
+        V = V.transpose(1, 2)  # (batch_size, num_heads, seq_len, d_v)
+        
+        # Calcolo parallelo degli attention scores per tutte le teste
+        # S ∈ R^(batch_size × num_heads × seq_len × seq_len)
+        attention_scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(self.d_k)
+        
+        # Applicazione softmax lungo l'ultima dimensione (normalizza per ogni query)
+        attention_weights = F.softmax(attention_scores, dim=-1)
+        
+        # Applicazione dei pesi ai values
+        # Output per tutte le teste: (batch_size, num_heads, seq_len, d_v)
+        attention_output = torch.matmul(attention_weights, V)
+        
+        # Riorganizza per concatenazione: (batch_size, seq_len, num_heads, d_v)
+        attention_output = attention_output.transpose(1, 2)
+        
+        # Concatenazione delle teste: (batch_size, seq_len, num_heads * d_v)
+        concatenated = attention_output.contiguous().view(batch_size, seq_len, self.num_heads * self.d_v)
+        
+        # Proiezione finale: (batch_size, seq_len, d_model)
+        output = self.W_O(concatenated)
+        
+        if return_attention:
+            return output, attention_weights
+        else:
+            return output
+
+
+# Funzione di utilità per testing
+def test_multi_head_attention():
+    """Test della Multi-Head Attention"""
+    # Parametri di test
+    batch_size = 2
+    seq_len = 10
+    d_model = 512
+    num_heads = 8
+    
+    # Crea il modulo
+    mha = MultiHeadSelfAttention(d_model, num_heads)
+    
+    # Input di test
+    x = torch.randn(batch_size, seq_len, d_model)
+    
+    # Test forward pass
+    output = mha(x)
+    print(f"Input shape: {x.shape}")
+    print(f"Output shape: {output.shape}")
+    assert output.shape == x.shape, "Output deve avere la stessa forma dell'input"
+    
+    # Test con attention weights
+    output, attention_weights = mha(x, return_attention=True)
+    print(f"Attention weights shape: {attention_weights.shape}")
+    expected_attn_shape = (batch_size, num_heads, seq_len, seq_len)
+    assert attention_weights.shape == expected_attn_shape, f"Attention weights dovrebbero avere forma {expected_attn_shape}"
+    
+    # Verifica che i pesi sommino a 1 lungo l'ultima dimensione
+    attn_sum = attention_weights.sum(dim=-1)
+    assert torch.allclose(attn_sum, torch.ones_like(attn_sum), atol=1e-6), "I pesi di attention dovrebbero sommare a 1"
+    
+    print("✓ Tutti i test sono passati!")
+
+if __name__ == "__main__":
+    test_multi_head_attention()
+```
+
+Questa implementazione fornisce una base solida per comprendere e sperimentare con la Multi-Head Attention, mantenendo la chiarezza concettuale pur essendo efficiente in pratica.
 
 ## Analisi della Complessità Computazionale
 

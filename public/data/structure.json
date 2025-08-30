@@ -15,6 +15,10 @@
                 "path": "deep-learning/Transformers/Attention/Self-Attention.md"
               },
               {
+                "name": "Cross-Attention",
+                "path": "deep-learning/Transformers/Attention/Cross-Attention.md"
+              },
+              {
                 "name": "Multi-Head Attention",
                 "path": "deep-learning/Transformers/Attention/Multi-Head Attention.md"
               }
@@ -29,6 +33,23 @@
           {
             "name": "Introduzione ai Transformers",
             "path": "deep-learning/Transformers/Introduzione ai Transformers.md"
+          }
+        ]
+      },
+      "Neural Networks": {
+        "subcategories": {},
+        "files": [
+          {
+            "name": "Introduzione alle reti neurali",
+            "path": "deep-learning/Neural Networks/Introduzione alle reti neurali.md"
+          },
+          {
+            "name": "Multi-Layer Perceptron",
+            "path": "deep-learning/Neural Networks/Multi-Layer Perceptron.md"
+          },
+          {
+            "name": "Perceptron",
+            "path": "deep-learning/Neural Networks/Perceptron.md"
           }
         ]
       },

@@ -98,6 +98,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 '''
 
 def setup_directories():
@@ -213,6 +224,82 @@ def fix_image_paths(html_content):
     
     return re.sub(r'(<img[^>]*src="([^"]+)"[^>]*>)', fix_src, html_content)
 
+def extract_code_visibility_flags(content):
+    """Estrae i flag di visibilità dai fence attributes dei blocchi di codice"""
+    flags = []
+    
+    # Pattern per code blocks con spazio: ```python {visible} o ```{visible}
+    fence_pattern = r'```(\w*)\s*\{(visible|hidden)\}\s*\n(.*?)\n```'
+    
+    matches = list(re.finditer(fence_pattern, content, re.DOTALL | re.IGNORECASE))
+    
+    print(f"Debug: Trovati {len(matches)} code blocks con flag")
+    
+    for match in matches:
+        language = match.group(1).strip() if match.group(1) else ''
+        flag_type = match.group(2).lower()
+        code_content = match.group(3)
+        
+        print(f"Debug: Code block - Language: '{language}', Flag: '{flag_type}'")
+        
+        flags.append({
+            'original': match.group(0),
+            'replacement': f'```{language}\n{code_content}\n```',
+            'visible': flag_type == 'visible',
+            'code_content': code_content.strip()
+        })
+    
+    # Sostituisci i code blocks rimuovendo i flag dagli attributi
+    clean_content = content
+    for flag in flags:
+        clean_content = clean_content.replace(flag['original'], flag['replacement'])
+    
+    print(f"Debug: Processati {len(flags)} flag totali")
+    return clean_content, flags
+
+def assign_flags_to_code_blocks(html_content, flags):
+    """Assegna i flag ai blocchi di codice basandosi sul contenuto"""
+    if not flags:
+        return []
+    
+    # Trova tutti i blocchi di codice
+    code_blocks = []
+    for match in re.finditer(r'<div class="codehilite".*?</div>', html_content, re.DOTALL):
+        code_blocks.append({
+            'start': match.start(),
+            'end': match.end(),
+            'content': match.group(0)
+        })
+    
+    print(f"Debug: Trovati {len(code_blocks)} blocchi HTML, {len(flags)} flag da assegnare")
+    
+    # Per ogni flag, trova il blocco di codice corrispondente
+    for i, flag in enumerate(flags):
+        flag_code = flag['code_content'].strip()
+        flag_code_lines = [line.strip() for line in flag_code.split('\n') if line.strip()]
+        
+        print(f"Debug: Cercando flag {i+1} con contenuto: {flag_code_lines[0] if flag_code_lines else 'vuoto'}...")
+        
+        for j, block in enumerate(code_blocks):
+            # Estrai il contenuto testuale del blocco HTML
+            text_content = re.sub(r'<[^>]+>', '', block['content'])
+            text_content_lines = [line.strip() for line in text_content.split('\n') if line.strip()]
+            
+            # Verifica se almeno alcune righe corrispondono
+            matching_lines = 0
+            for flag_line in flag_code_lines[:3]:  # Controlla prime 3 righe
+                for text_line in text_content_lines[:5]:  # Controlla prime 5 righe
+                    if flag_line in text_line or text_line in flag_line:
+                        matching_lines += 1
+                        break
+            
+            if matching_lines > 0 and 'visible' not in block:  # Assegna solo se non già assegnato
+                block['visible'] = flag['visible']
+                print(f"Debug: Assegnato flag '{flag['visible']}' al blocco {j+1}")
+                break
+    
+    return code_blocks
+
 def convert_markdown_to_html(file_path, files_map):
     """Converte un file Markdown in HTML"""
     try:
@@ -225,6 +312,9 @@ def convert_markdown_to_html(file_path, files_map):
         if lines and lines[0].startswith('# '):
             title = lines[0][2:].strip()
             content = '\n'.join(lines[1:])  # Rimuovi la riga del titolo
+        
+        # Estrai i flag di visibilità del codice
+        content, code_flags = extract_code_visibility_flags(content)
         
         # Proteggi la matematica
         protected_content, math_blocks = protect_math_content(content)
@@ -241,20 +331,49 @@ def convert_markdown_to_html(file_path, files_map):
         # Converti in HTML
         html_body = md.convert(protected_content)
         
-        # Aggiungi wrapper per blocchi di codice complessi
+        # Assegna i flag ai blocchi di codice
+        code_blocks_with_flags = assign_flags_to_code_blocks(html_body, code_flags)
+        
+        # Applica i wrapper ai blocchi di codice
         def wrap_code_blocks(match):
             code_block = match.group(0)
-            # Solo per codice con syntax highlighting (ha molti span)
-            if code_block.count('<span') > 3:
-                copy_button = '''<button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>'''
-                
+            
+            # Trova il blocco corrispondente con flag
+            block_info = None
+            for block in code_blocks_with_flags:
+                if block['content'] == code_block:
+                    block_info = block
+                    break
+            
+            # Determina se il blocco dovrebbe essere visibile
+            # DEFAULT: nascosto (come richiesto)
+            is_visible = False
+            
+            if block_info and 'visible' in block_info:
+                is_visible = block_info['visible']
+                print(f"Debug: Trovato blocco con flag visible={is_visible}")
+            else:
+                print("Debug: Blocco senza flag, mantenuto nascosto (default)")
+            
+            copy_button = '''<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>'''
+            
+            if is_visible:
+                # Blocco sempre visibile
+                return f'''<div class="code-visible">
+<div class="code-wrapper">
+{copy_button}
+{code_block}
+</div>
+</div>'''
+            else:
+                # Blocco collassabile (comportamento di default)
                 return f'''<details class="code-container">
 <summary>Code</summary>
 <div class="code-wrapper">
@@ -262,7 +381,6 @@ def convert_markdown_to_html(file_path, files_map):
 {code_block}
 </div>
 </details>'''
-            return code_block
         
         html_with_wrappers = re.sub(
             r'<div class="codehilite".*?</div>', 

@@ -35,7 +35,7 @@
       "headline": "Sparse VSMs (Vector Space Models Sparsi)",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings",
-      "datePublished": "2025-08-30T00:53:20.087Z",
+      "datePublished": "2025-08-30T19:21:57.370Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <p>I <strong>modelli di spazio semantico sparsi</strong> (Sparse VSMs) rappresentano il significato delle parole o dei documenti utilizzando <strong>conteggi espliciti</strong> di occorrenza o co-occorrenza tra termini.<br />
 Queste rappresentazioni sono chiamate &ldquo;sparse&rdquo; perché, in genere, la maggior parte delle celle nella matrice risultante sono <strong>zero</strong>: molte parole non compaiono nella maggior parte dei documenti o dei contesti.</p>
@@ -480,13 +491,13 @@ $$ \text{Julius Caesar} = (5, 32, 0, 0) $$
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
 

@@ -35,7 +35,7 @@
       "headline": "Variabili Casuali: Dal Caos alla Comprensione Quantitativa",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/math-for-ml/Probabilità/Variabili Aleatorie",
-      "datePublished": "2025-08-30T00:53:20.014Z",
+      "datePublished": "2025-08-30T19:21:57.279Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="introduzione-perche-abbiamo-bisogno-delle-variabili-casuali">Introduzione: Perché Abbiamo Bisogno delle Variabili Casuali?</h2>
 <p>Nel mondo reale, siamo costantemente confrontati con fenomeni che sfuggono alla nostra capacità di previsione esatta. Quando lanciamo una moneta, non possiamo predire con certezza se uscirà testa o croce; quando misuriamo la temperatura di una città, il valore cambia continuamente; quando contiamo il numero di clienti che entrano in un negozio in un&rsquo;ora, questo numero varia da giorno a giorno. Questa <strong>incertezza</strong> non è un difetto del nostro sistema di misurazione, ma una caratteristica intrinseca della realtà.</p>
@@ -489,13 +500,13 @@ $$p(x) \triangleq \Pr(X = x)$$
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -631,13 +642,13 @@ $$
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
@@ -704,13 +715,13 @@ $$
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>

@@ -35,7 +35,7 @@
       "headline": "Probabilità nel Machine Learning: Fondamenti Teorici",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/math-for-ml/Probabilità/Introduzione alla Probabilità",
-      "datePublished": "2025-08-30T00:53:20.021Z",
+      "datePublished": "2025-08-30T19:21:57.290Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="introduzione-perche-la-probabilita-e-cruciale-nel-ml">Introduzione: Perché la Probabilità è Cruciale nel ML</h2>
 <p>La probabilità è il linguaggio matematico con cui descriviamo e quantifichiamo l&rsquo;incertezza. Nel machine learning e nella data science, questa incertezza è onnipresente: dai dati rumorosi alle predizioni sui futuri eventi, dalla stima dei parametri di un modello alla valutazione della confidenza nelle nostre previsioni.</p>
@@ -336,13 +347,13 @@ details.code-container .code-wrapper {
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">beta</span>
@@ -457,13 +468,13 @@ details.code-container .code-wrapper {
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.gaussian_process</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
@@ -552,13 +563,13 @@ details.code-container .code-wrapper {
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
@@ -752,13 +763,13 @@ details.code-container .code-wrapper {
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Rectangle</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -918,13 +929,13 @@ details.code-container .code-wrapper {
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>

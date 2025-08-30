@@ -35,7 +35,7 @@
       "headline": "Spelling Correction & Minimum Edit Distance (MED)",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/nlp/Spelling Correction and Minimum Edit Distance",
-      "datePublished": "2025-08-30T00:53:20.063Z",
+      "datePublished": "2025-08-30T19:21:57.336Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="rilevazione-e-correzione-di-errori-ortografici">Rilevazione e Correzione di Errori Ortografici</h2>
 <p>Un tipico problema di Natural Language Processing (NLP) consiste nel rilevare e correggere errori ortografici in testi in linguaggio naturale.</p>
@@ -296,9 +307,22 @@ details.code-container .code-wrapper {
 <h4 id="rilevazione-di-non-parole">Rilevazione di non-parole</h4>
 <p>Identificare parole che non esistono nel dizionario di riferimento.</p>
 <p><strong>Esempio:</strong></p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Input: &quot;graxfe&quot; → Non presente nel dizionario italiano/inglese.
 Azione: Segnalazione automatica o suggerimento di correzione.
 </code></pre></div>
+</div>
+</details>
 
 <p><strong>Metodi:</strong></p>
 <ul>
@@ -308,8 +332,21 @@ Azione: Segnalazione automatica o suggerimento di correzione.
 <h4 id="correzione-isolata-di-parole">Correzione isolata di parole</h4>
 <p>Correggere errori in parole singole senza considerare il contesto circostante.</p>
 <p><strong>Esempio:</strong></p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Input: &quot;acomodation&quot; → Correzione: &quot;accommodation&quot;.
 </code></pre></div>
+</div>
+</details>
 
 <p><strong>Algoritmi:</strong></p>
 <ul>
@@ -319,8 +356,21 @@ Azione: Segnalazione automatica o suggerimento di correzione.
 <h4 id="correzione-dipendente-dal-contesto">Correzione dipendente dal contesto</h4>
 <p>Correggere errori che producono parole valide ma semanticamente errate.</p>
 <p><strong>Esempio:</strong></p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Frase: &quot;I have there apples.&quot; → Correzione: &quot;three&quot;.
 </code></pre></div>
+</div>
+</details>
 
 <p><strong>Tecniche avanzate:</strong></p>
 <ul>
@@ -387,14 +437,40 @@ Azione: Segnalazione automatica o suggerimento di correzione.
 <strong>Riferimento:</strong> [Damerau, 1964]</p>
 <h3 id="biologia-computazionale">Biologia Computazionale</h3>
 <p>Allineamento di due sequenze di nucleotidi:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>AGGCTATCACCTGACCTCCAGGCCGATGCCC
 TAGCTATCACGACCGCGGTCGATTTGCCCGAC
 </code></pre></div>
+</div>
+</details>
 
 <p>Allineamento risultante:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>-AGGCTATCACCTGACCTCCAGGCCGA--TGCCC---
 TAG-CTATCAC--GACCGC--GGTCGATTTGCCCGAC
 </code></pre></div>
+</div>
+</details>
 
 <p>Date due sequenze di nucleotidi, le similarità vengono utilizzate per eseguire l&rsquo;allineamento ottimale.</p>
 <h2 id="minimum-edit-distance-med">Minimum Edit Distance (MED)</h2>
@@ -777,12 +853,25 @@ $$
 </tbody>
 </table>
 <p><strong>Esempio con Costi Ponderati:</strong></p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Parola errata: &quot;acesp&quot;
 Correzione candidata: &quot;access&quot;
   - Inserisci &quot;c&quot;  → Costo: 1
   - Sostituisci &quot;p&quot; con &quot;s&quot;  → Costo: 2
 Totale: 1 + 2 = 3
 </code></pre></div>
+</div>
+</details>
 
 <h2 id="applicazioni-pratiche">Applicazioni Pratiche</h2>
 <h3 id="1-correzione-ortografica-in-motori-di-ricerca">1. Correzione Ortografica in Motori di Ricerca</h3>
@@ -794,13 +883,39 @@ Totale: 1 + 2 = 3
 </ol>
 <h3 id="2-allineamento-di-sequenze-genomiche">2. Allineamento di Sequenze Genomiche</h3>
 <p><strong>Esempio:</strong></p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Sequenza 1: AGGCTATCACCTGACCTCCAGGCCGATGCCC
 Sequenza 2: TAGCTATCACGACCGCGGTCGATTTGCCCGAC
 </code></pre></div>
+</div>
+</details>
 
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>-AGGCTATCACCTGACCTCCAGGCCGA--TGCCC---
 TAG-CTATCAC--GACCGC--GGTCGATTTGCCCGAC
 </code></pre></div>
+</div>
+</details>
 
 <h2 id="limitazioni-e-migliorie">Limitazioni e Migliorie</h2>
 <h3 id="limitazioni-del-med">Limitazioni del MED</h3>

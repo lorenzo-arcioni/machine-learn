@@ -35,7 +35,7 @@
       "headline": "Il Positional Encoding: Una Guida Completa",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/deep-learning/Transformers/Positional Encoding",
-      "datePublished": "2025-08-30T00:53:19.885Z",
+      "datePublished": "2025-08-30T19:21:57.155Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="introduzione-e-motivazione">Introduzione e Motivazione</h2>
 <p>Il meccanismo di <strong>self-attention</strong> tradizionale presenta una proprietà fondamentale che, a prima vista, potrebbe sembrare un vantaggio ma che in realtà costituisce una limitazione critica: è <strong>permutation invariant</strong>.</p>
@@ -401,13 +412,13 @@ $$\omega_j = \frac{1}{10000^{2j/d}}$$</p>
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
@@ -459,13 +470,13 @@ Questo migliora la <strong>stabilità numerica</strong> e previene <strong>overf
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Parametri</span>
 <span class="n">max_position</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># Numero di posizioni da visualizzare</span>
 <span class="n">d_model</span> <span class="o">=</span> <span class="mi">128</span>        <span class="c1"># Dimensione embedding</span>
@@ -487,13 +498,13 @@ Questo migliora la <strong>stabilità numerica</strong> e previene <strong>overf
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Heatmap con palette</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pe</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Cambiato cmap</span>
@@ -516,13 +527,13 @@ Questo migliora la <strong>stabilità numerica</strong> e previene <strong>overf
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Visualizzazione Dimensioni Selezionate</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">dims_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>  <span class="c1"># Dimensioni chiave</span>
@@ -553,13 +564,13 @@ Questo migliora la <strong>stabilità numerica</strong> e previene <strong>overf
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Esempio concreto delle prime posizioni</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prime 5 posizioni (dimensioni 6):&quot;</span><span class="p">)</span>
 <span class="n">pe_small</span> <span class="o">=</span> <span class="n">sinusoidal_positional_encoding</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
@@ -686,8 +697,21 @@ $$\mathbf{x}''_n = \text{Dropout}(\mathbf{x}_n + \mathbf{p}_n)$$
 <h2 id="effetti-sui-transformer">Effetti sui Transformer</h2>
 <h3 id="architettura-completa">Architettura Completa</h3>
 <p>Nel Transformer completo, il positional encoding viene aggiunto all&rsquo;inizio:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Input Embeddings → + Positional Encoding → Multi-Head Attention → ...
 </code></pre></div>
+</div>
+</details>
 
 <p>Questo significa che <strong>tutta l&rsquo;architettura</strong> downstream beneficia dell&rsquo;informazione posizionale.</p>
 <h3 id="multi-head-attention"><a href="/theory/deep-learning/Transformers/Attention/Multi-Head Attention" class="text-blue-600 hover:underline">Multi-Head Attention</a></h3>

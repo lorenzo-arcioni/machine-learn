@@ -35,7 +35,7 @@
       "headline": "Espressioni Regolari (Regex)",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/nlp/Espressioni Regolari/Espressioni Regolari",
-      "datePublished": "2025-08-30T00:53:20.102Z",
+      "datePublished": "2025-08-30T19:21:57.391Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="cosa-sono-le-regex">Cosa sono le Regex?</h2>
 <ul>
@@ -388,8 +399,21 @@ details.code-container .code-wrapper {
 <h2 id="gruppi-di-cattura">Gruppi di cattura</h2>
 <p>Le <strong>parentesi tonde</strong> <code>()</code> nelle espressioni regolari vengono utilizzate per definire <strong>gruppi di cattura</strong>. Questi gruppi possono essere utilizzati per riferirsi ai sottostringhe cercate e per eseguire operazioni di sostituzione.</p>
 <h3 id="esempio">Esempio</h3>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>/(\w+) (\w+)/
 </code></pre></div>
+</div>
+</details>
 
 <p>Questa espressione cerca due parole separati da uno spazio. Se applicata alla stringa &ldquo;Nome Cognome&rdquo;, cattura &ldquo;Nome&rdquo; e &ldquo;Cognome&rdquo;.</p>
 <h2 id="esercizio-guidato-trovare-la-parola-the">Esercizio Guidato: Trovare la Parola &ldquo;the&rdquo;</h2>
@@ -415,8 +439,21 @@ details.code-container .code-wrapper {
 <h3 id="sintassi-di-base">Sintassi di Base</h3>
 <p>Un gruppo di cattura è definito con <code>()</code> e può essere richiamato con <code>\n</code>, dove <code>n</code> è il numero del gruppo nell&rsquo;ordine in cui compare.</p>
 <p><strong>Esempio</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>/(\d+)-(\d+)/
 </code></pre></div>
+</div>
+</details>
 
 <p>Questa regex cattura due numeri separati da un trattino <code>-</code>:
 - <code>\1</code> si riferisce al primo numero.
@@ -425,16 +462,42 @@ details.code-container .code-wrapper {
 <h3 id="applicazione-riorganizzazione-del-testo">Applicazione: Riorganizzazione del Testo</h3>
 <p>I riferimenti ai gruppi catturati vengono utilizzati nelle operazioni di sostituzione.</p>
 <p><strong>Esempio</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>s/(\w+) (\w+)/\2 \1/
 </code></pre></div>
+</div>
+</details>
 
 <p>Questa espressione inverte la posizione di due parole:
 - Input: <code>Nome Cognome</code>
 - Output: <code>Cognome Nome</code></p>
 <h3 id="altri-esempi-di-utilizzo">Altri Esempi di Utilizzo</h3>
 <h4 id="1-estrazione-del-dominio-da-unemail">1. Estrazione del Dominio da un&rsquo;Email</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>/(\w+)@(\w+\.\w+)/
 </code></pre></div>
+</div>
+</details>
 
 <ul>
 <li><code>\1</code> rappresenta il nome utente.</li>
@@ -445,8 +508,21 @@ details.code-container .code-wrapper {
 - <code>email.com</code> come <code>\2</code></p>
 <h4 id="2-riformattazione-della-data">2. Riformattazione della Data</h4>
 <p>Se una data è scritta come <code>2024/03/26</code> e la si vuole convertire in <code>26-03-2024</code>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>s/(\d{4})/(\d{2})/(\d{2})/\3-\2-\1/
 </code></pre></div>
+</div>
+</details>
 
 <ul>
 <li><code>\1</code> è l&rsquo;anno.</li>

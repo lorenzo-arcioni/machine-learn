@@ -77,7 +77,7 @@ Dove:
 
 ### Normalizzazione e Pesi di Attention
 
-La softmax viene applicata **lungo le righe** (dimensione sorgente) per ogni query target:
+La softmax viene applicata **lungo ogni colonna** (normalizzazione sulla dimensione sorgente per ogni query target):
 
 $$a_{m,n} = \frac{\exp(S_{m,n})}{\sum_{\ell=1}^{N_{src}} \exp(S_{\ell,n})}$$
 
@@ -299,8 +299,8 @@ Per sequenze di lunghezza $N_{src}$ e $N_{tgt}$:
 Nel decoder autoregressivo, si applica un mascheramento **causale** alla self-attention per prevenire che il modello "veda il futuro":
 
 $$\text{mask}_{i,j} = \begin{cases}
-0 & \text{se } j > i \\
--\infty & \text{se } j \leq i
+-\infty & \text{se } j > i \\
+0 & \text{se } j \leq i
 \end{cases}$$
 
 **Importante**: Questo mascheramento si applica solo alla **self-attention** nel decoder, NON alla cross-attention, perché:
@@ -413,7 +413,7 @@ I pesi di cross-attention possono essere visualizzati come **heatmap** $N_{src} 
 ### Metriche di Allineamento
 
 **Alignment Error Rate (AER)**:
-$$\text{AER} = 1 - \frac{|A_{pred} \cap A_{gold}| + |A_{pred} \cap A_{gold}|}{|A_{pred}| + |A_{gold}|}$$
+$$\text{AER} = 1 - \frac{|A_{pred} \cap A_{gold}| + |A_{pred} \cap A_{probable}|}{|A_{pred}| + |A_{gold}|}$$
 
 **Precision/Recall dell'Allineamento**:
 - Precision: Frazione di allineamenti predetti che sono corretti

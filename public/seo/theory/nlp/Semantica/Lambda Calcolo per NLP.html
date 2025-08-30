@@ -35,7 +35,7 @@
       "headline": "🧑‍💻 Lambda Calcolo per NLP",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/nlp/Semantica/Lambda Calcolo per NLP",
-      "datePublished": "2025-08-30T00:53:20.069Z",
+      "datePublished": "2025-08-30T19:21:57.345Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -286,6 +286,17 @@ details.code-container:not([open]) summary::after {
     color: #d1d5db; 
 }
 details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
     padding: 0;
     margin: 0;
 }
@@ -602,8 +613,21 @@ $$ \exists x\,[Restaurant(x) \land \exists e\,[Opening(e) \land Opener(e,\text{F
 </ul>
 <h3 id="conclusione">✅ Conclusione</h3>
 <p>Il lambda calcolo è fondamentale per modellare la <strong>composizione del significato</strong>, ma da solo <strong>non basta</strong>. Per interpretare correttamente una frase, dobbiamo prima <strong>capire le parole</strong>, poi possiamo comporre i loro significati.</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="gi">+ Prima la semantica lessicale, poi quella composizionale!</span>
 </code></pre></div>
+</div>
+</details>
             </div>
             
             <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">

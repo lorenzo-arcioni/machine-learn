@@ -35,7 +35,7 @@
       "headline": "Hidden Markov Models in PoS Tagging",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging",
-      "datePublished": "2025-08-30T00:53:20.117Z",
+      "datePublished": "2025-08-30T19:21:57.409Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <p>A partire dagli anni &lsquo;70, il <strong>PoS tagging</strong> ha iniziato a essere affrontato anche con <strong>metodi probabilistici</strong>, cioè <strong>stocastici</strong>.</p>
 <p>L&rsquo;idea alla base è semplice: usare i <strong>modelli di Markov nascosti (HMM)</strong> per selezionare la <strong>sequenza di etichette grammaticale più probabile</strong> data una sequenza di parole.</p>
@@ -477,6 +488,17 @@ $$
 <p>Dove $P(w_1^n \mid t_1^n)$ e $P(t_1^n)$ sono le <strong>verosimiglianze</strong> e <strong>probabilità a priori</strong>.</p>
 <h3 id="esempio-pratico">Esempio pratico</h3>
 <p>Supponiamo di avere il seguente <strong>corpus annotato</strong> (PoS-tagged):</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>the/DT dog/NN barks/VBZ
 the/DT can/NN falls/VBZ
 we/PRP can/MD win/VB
@@ -487,6 +509,8 @@ the/DT can/MD run/VB
 can/MD you/PRP run/VB
 some/DT dogs/NNS bark/VBP
 </code></pre></div>
+</div>
+</details>
 
 <h4 id="1-insieme-dei-tag-e-parole">1. Insieme dei tag e parole</h4>
 <ul>

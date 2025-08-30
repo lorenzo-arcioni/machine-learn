@@ -35,7 +35,7 @@
       "headline": "Il Meccanismo di Self-Attention: Una Guida Completa",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/deep-learning/Transformers/Attention/Self-Attention",
-      "datePublished": "2025-08-30T00:53:19.958Z",
+      "datePublished": "2025-08-30T19:21:57.211Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,9 +289,20 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="introduzione-e-intuizione">Introduzione e Intuizione</h2>
-<p>Il meccanismo di <strong>attention</strong> rappresenta una delle innovazioni più rivoluzionarie nel deep learning moderno. Per comprenderne l&rsquo;importanza, partiamo da un&rsquo;osservazione semplice ma profonda: quando leggiamo una frase complessa, non prestiamo la stessa attenzione a tutte le parole. Alcune sono cruciali per il significato, altre sono accessorie. Il nostro cervello è straordinariamente bravo a identificare dinamicamente dove focalizzare l&rsquo;attenzione.</p>
+<p>Il meccanismo di <strong>self-attention</strong> rappresenta una delle innovazioni più rivoluzionarie nel deep learning moderno. Per comprenderne l&rsquo;importanza, partiamo da un&rsquo;osservazione semplice ma profonda: quando leggiamo una frase complessa, non prestiamo la stessa attenzione a tutte le parole. Alcune sono cruciali per il significato, altre sono accessorie. Il nostro cervello è straordinariamente bravo a identificare dinamicamente dove focalizzare l&rsquo;attenzione.</p>
 <p>Consideriamo questa frase: <em>&ldquo;Il gatto nero del vicino ha mangiato il pesce rosso che nuotava nella boccia.&rdquo;</em> Quando cerchiamo di capire &ldquo;chi ha mangiato cosa&rdquo;, la nostra attenzione si focalizza principalmente su &ldquo;gatto&rdquo;, &ldquo;ha mangiato&rdquo; e &ldquo;pesce&rdquo;, mentre parole come &ldquo;del&rdquo; o &ldquo;che&rdquo; ricevono meno attenzione diretta, pur contribuendo alla comprensione strutturale.</p>
 <p>Questa capacità di <strong>attenzione selettiva</strong> è esattamente quello che l&rsquo;attention mechanism cerca di replicare artificialmente. L&rsquo;idea è permettere a ogni elemento (una parola/un token) di una sequenza di &ldquo;guardare&rdquo; tutti gli altri elementi, decidendo dinamicamente a quali prestare maggiore attenzione per costruire la propria rappresentazione.</p>
 <h2 id="i-problemi-delle-architetture-precedenti">I Problemi delle Architetture Precedenti</h2>
@@ -647,13 +658,13 @@ $$\mathbf{V} = \mathbf{W}_v \mathbf{X} + \mathbf{b}_v \mathbf{1}^T$$</p>
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>

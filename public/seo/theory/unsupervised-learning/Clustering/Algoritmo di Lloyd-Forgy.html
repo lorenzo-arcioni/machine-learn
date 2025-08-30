@@ -35,7 +35,7 @@
       "headline": "Untitled",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy",
-      "datePublished": "2025-08-30T00:53:20.038Z",
+      "datePublished": "2025-08-30T19:21:57.310Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="introduzione">Introduzione</h2>
 <p>Il <strong>metodo di Lloyd-Forgy</strong> è un algoritmo iterativo comunemente utilizzato per risolvere problemi di ottimizzazione iterativa. È particolarmente noto per la sua applicazione in problemi di clustering, come nell&rsquo;algoritmo K-Means, ma può essere adattato a una vasta gamma di scenari in cui è necessario ottimizzare una funzione obiettivo dipendente da due insiemi di variabili.</p>
@@ -337,13 +348,13 @@ Dove:
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Metodo di Lloyd-Forgy</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">lloyd_forgy</span><span class="p">(</span><span class="n">init_X</span><span class="p">,</span> <span class="n">init_Y</span><span class="p">,</span> <span class="n">objective_function</span><span class="p">,</span> <span class="n">optimize_X</span><span class="p">,</span> <span class="n">optimize_Y</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>

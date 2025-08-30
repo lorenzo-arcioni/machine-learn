@@ -2,7 +2,7 @@
 
 ## Introduzione e Intuizione
 
-Il meccanismo di **attention** rappresenta una delle innovazioni più rivoluzionarie nel deep learning moderno. Per comprenderne l'importanza, partiamo da un'osservazione semplice ma profonda: quando leggiamo una frase complessa, non prestiamo la stessa attenzione a tutte le parole. Alcune sono cruciali per il significato, altre sono accessorie. Il nostro cervello è straordinariamente bravo a identificare dinamicamente dove focalizzare l'attenzione.
+Il meccanismo di **self-attention** rappresenta una delle innovazioni più rivoluzionarie nel deep learning moderno. Per comprenderne l'importanza, partiamo da un'osservazione semplice ma profonda: quando leggiamo una frase complessa, non prestiamo la stessa attenzione a tutte le parole. Alcune sono cruciali per il significato, altre sono accessorie. Il nostro cervello è straordinariamente bravo a identificare dinamicamente dove focalizzare l'attenzione.
 
 Consideriamo questa frase: *"Il gatto nero del vicino ha mangiato il pesce rosso che nuotava nella boccia."* Quando cerchiamo di capire "chi ha mangiato cosa", la nostra attenzione si focalizza principalmente su "gatto", "ha mangiato" e "pesce", mentre parole come "del" o "che" ricevono meno attenzione diretta, pur contribuendo alla comprensione strutturale.
 
@@ -367,7 +367,7 @@ L'intero meccanismo di attention si riduce a una singola operazione matriciale:
 
 $$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \mathbf{V} \cdot \text{SoftMax}\left(\frac{\mathbf{K}^T\mathbf{Q}}{\sqrt{d_k}}\right)$$
 
-<img src="../../../../images/attention-computing.png" alt="Self-Attention" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="../../../../../images/attention-computing.png" alt="Self-Attention" style="display: block; margin-left: auto; margin-right: auto;">
 
 <br>
 

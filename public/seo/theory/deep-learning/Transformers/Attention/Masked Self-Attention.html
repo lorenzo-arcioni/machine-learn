@@ -35,7 +35,7 @@
       "headline": "Masked Self-Attention: Controllo del Flusso Informativo",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/deep-learning/Transformers/Attention/Masked Self-Attention",
-      "datePublished": "2025-08-30T00:53:19.953Z",
+      "datePublished": "2025-08-30T19:21:57.207Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="introduzione-e-motivazione">Introduzione e Motivazione</h2>
 <p>La <strong>Masked Self-Attention</strong> è una variante del meccanismo di self-attention in cui si <strong>controlla selettivamente</strong> quali posizioni della sequenza possono prestare attenzione ad altre posizioni. È come mettere dei &ldquo;paraocchi&rdquo; selettivi al meccanismo di attention, impedendo al modello di vedere certe informazioni in momenti specifici.</p>
@@ -310,6 +321,17 @@ $$\text{mask}_{i,j} = \begin{cases}
 -\infty & \text{se } j > i \text{ (mascherato)}
 \end{cases}$$
 <p>Visualmente, per una sequenza di 5 token:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Position:   1  2  3  4  5
     1    [  ✓  ✗  ✗  ✗  ✗ ]
     2    [  ✓  ✓  ✗  ✗  ✗ ]
@@ -317,6 +339,8 @@ $$\text{mask}_{i,j} = \begin{cases}
     4    [  ✓  ✓  ✓  ✓  ✗ ]
     5    [  ✓  ✓  ✓  ✓  ✓ ]
 </code></pre></div>
+</div>
+</details>
 
 <p>Dove ✓ indica posizioni visibili e ✗ posizioni mascherate.</p>
 <h3 id="2-padding-masking">2. Padding Masking</h3>
@@ -372,13 +396,13 @@ a_{N,1} & a_{N,2} & a_{N,3} & \cdots & a_{N,N}
 <summary>Code</summary>
 <div class="code-wrapper">
 <button class="copy-button" onclick="
-                    const code = this.parentElement.querySelector('pre');
-                    if (code) {
-                        navigator.clipboard.writeText(code.innerText);
-                        this.textContent = 'Copied!';
-                        setTimeout(() => this.textContent = 'Copy', 2000);
-                    }
-                ">Copy</button>
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_causal_mask</span><span class="p">(</span><span class="n">seq_len</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Genera una maschera causale (triangolare inferiore)</span>
@@ -469,10 +493,23 @@ a_{N,1} & a_{N,2} & a_{N,3} & \cdots & a_{N,N}
 2. <strong>Cross-Attention</strong>: Con encoder output
 3. <strong>Feed-Forward</strong>: Elaborazione finale</p>
 <p><strong>Processo di Training</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Target: &lt;BOS&gt; Il gatto dorme &lt;EOS&gt;
 Shift:       Il gatto dorme &lt;EOS&gt; &lt;PAD&gt;
 Mask:   Causal + Padding mask
 </code></pre></div>
+</div>
+</details>
 
 <h3 id="4-conversational-ai">4. Conversational AI</h3>
 <p><strong>Contesto</strong>: Modelli di chat che devono generare risposte coerenti</p>

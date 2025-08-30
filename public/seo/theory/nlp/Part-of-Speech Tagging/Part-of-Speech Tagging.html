@@ -35,7 +35,7 @@
       "headline": "Part-of-Speech (PoS) Tagging",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Part-of-Speech Tagging",
-      "datePublished": "2025-08-30T00:53:20.114Z",
+      "datePublished": "2025-08-30T19:21:57.406Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="definizione">Definizione</h2>
 <p>Il <strong>Part-of-Speech (PoS) Tagging</strong>, o <strong>etichettatura delle categorie grammaticali</strong>, è il processo di assegnazione a ciascuna parola di un testo un&rsquo;etichetta grammaticale che indica la sua funzione sintattica, come <strong>sostantivo</strong>, <strong>verbo</strong>, <strong>aggettivo</strong>, <strong>avverbio</strong>, ecc.</p>
@@ -449,6 +460,17 @@ details.code-container .code-wrapper {
 </tbody>
 </table>
 <h4 id="schema-concettuale-dellambiguita-esempio-con-well">🗂️ Schema concettuale dell’ambiguità (esempio con &ldquo;well&rdquo;)</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
 <div class="codehilite"><pre><span></span><code>Input: &quot;How to increase the well&quot;
 
        [ How ]   [ to ]   [ increase ]   [ the ]   [ well ]
@@ -460,6 +482,8 @@ details.code-container .code-wrapper {
                                                    ↳ ADV
                                                    ↳ ADJ
 </code></pre></div>
+</div>
+</details>
 
 <p>🧩 La parola &ldquo;well&rdquo; ha <strong>più possibili etichette</strong> (<code>NOUN</code>, <code>ADV</code>, <code>ADJ</code>), e il sistema di tagging deve scegliere la più adatta <strong>in base al contesto</strong>.</p>
 <p>🔍 <strong>Conclusione</strong>: il contesto è fondamentale per disambiguare correttamente il significato.</p>

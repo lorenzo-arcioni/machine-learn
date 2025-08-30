@@ -35,7 +35,7 @@
       "headline": "Multi-Head Attention: Parallelizzazione e Diversificazione dell'Attenzione",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/deep-learning/Transformers/Attention/Multi-Head Attention",
-      "datePublished": "2025-08-30T00:53:19.961Z",
+      "datePublished": "2025-08-30T19:21:57.219Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -289,6 +289,17 @@ details.code-container .code-wrapper {
     padding: 0;
     margin: 0;
 }
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
 </style>
 <h2 id="introduzione-e-motivazione">Introduzione e Motivazione</h2>
 <p>Il meccanismo di <strong>self-attention</strong> che abbiamo esplorato è potente, ma presenta una limitazione fondamentale: utilizza un singolo &ldquo;tipo&rdquo; di attenzione per catturare tutte le relazioni nella sequenza. È come avere un unico paio di occhi per osservare una scena complessa &ndash; possiamo vedere tutto, ma da una sola prospettiva.</p>
@@ -312,7 +323,7 @@ details.code-container .code-wrapper {
 <p>Ogni esperto porta una prospettiva diversa, e la loro combinazione fornisce una comprensione più ricca del testo. La Multi-Head Attention replica questo principio: ogni &ldquo;testa&rdquo; è come un esperto specializzato che si concentra su aspetti diversi delle relazioni nella sequenza.</p>
 <h3 id="diversificazione-delle-rappresentazioni">Diversificazione delle Rappresentazioni</h3>
 <p>Dal punto di vista matematico, una singola testa di attention opera in un sottospazio specifico dello spazio delle caratteristiche. Le trasformazioni lineari $\mathbf{W}_q$, $\mathbf{W}_k$, e $\mathbf{W}_v$ definiscono questo sottospazio, determinando quali aspetti dell&rsquo;input vengono enfatizzati.</p>
-<p>Con la Multi-Head Attention, ogni testa opera in un sottospazio diverso, potenzialmente catturando:</p>
+<p>Con la Multi-Head Attention, ogni testa opera attraverso le proprie trasformazioni lineari, potenzialmente catturando:</p>
 <ul>
 <li><strong>Pattern locali</strong>: relazioni tra parole adiacenti</li>
 <li><strong>Pattern globali</strong>: relazioni a lungo raggio</li>
@@ -358,24 +369,25 @@ $$\text{Concat} = \begin{bmatrix}
 <p>Infine, una trasformazione lineare finale ricombina le informazioni da tutte le teste:</p>
 $$\text{MultiHead}(\mathbf{X}) = \mathbf{W}_O \cdot \text{Concat} + \mathbf{b}_O \mathbf{1}^T$$
 <p>dove $\mathbf{W}_O \in \mathbb{R}^{d_{model} \times (h \cdot d_v)}$ e $\mathbf{b}_O \in \mathbb{R}^{d_{model}}$ sono i parametri della proiezione finale.</p>
+<blockquote>
+<p>Ricordiamo che $d_{model}$ rappresenta la dimensione dello spazio degli embedding, mentre $h$ rappresenta il numero di teste.</p>
+</blockquote>
 <h2 id="la-scelta-delle-dimensioni-un-compromesso-cruciale">La Scelta delle Dimensioni: Un Compromesso Cruciale</h2>
 <h3 id="il-principio-della-conservazione-computazionale">Il Principio della Conservazione Computazionale</h3>
-<p>Nei Transformer standard, si adotta una strategia elegante per mantenere costante il costo computazionale rispetto alla single-head attention:</p>
+<p>Nei Transformer standard, si adotta una strategia elegante per mantenere approssimativamente costante il costo computazionale rispetto alla single-head attention:</p>
 $$d_k = d_v = \frac{d_{model}}{h}$$
 <p>Questa scelta garantisce che:</p>
 <ol>
-<li><strong>Costo computazionale costante</strong>: Il costo di calcolare $h$ teste con dimensione $d_k = d_{model}/h$ è uguale al costo di calcolare una testa con dimensione $d_{model}$</li>
+<li><strong>Costo computazionale simile</strong>: Il costo di calcolare $h$ teste con dimensione $d_k = d_{model}/h$ è comparabile al costo di calcolare una testa con dimensione $d_{model}$</li>
 <li><strong>Conservazione dell&rsquo;informazione</strong>: La concatenazione ricrea uno spazio di dimensione $h \cdot (d_{model}/h) = d_{model}$</li>
 </ol>
 <h3 id="analisi-del-compromesso">Analisi del Compromesso</h3>
 <p>Questa strategia implica un compromesso fondamentale:</p>
-<p><strong>Guadagno in diversità</strong>: Ogni testa opera in un sottospazio più piccolo ma specializzato, catturando pattern diversi.</p>
+<p><strong>Guadagno in diversità</strong>: Ogni testa opera attraverso le proprie proiezioni lineari specializzate, catturando pattern diversi.</p>
 <p><strong>Perdita in capacità individuale</strong>: Ogni singola testa ha meno &ldquo;potenza rappresentativa&rdquo; rispetto a una testa che opera nell&rsquo;intero spazio $d_{model}$.</p>
 <p>Il successo empirico dei Transformer suggerisce che il guadagno in diversità supera ampiamente la perdita in capacità individuale.</p>
 <h3 id="interpretazione-geometrica">Interpretazione Geometrica</h3>
-<p>Dal punto di vista geometrico, stiamo decomponendo lo spazio delle caratteristiche $\mathbb{R}^{d_{model}}$ in $h$ sottospazi disgiunti di dimensione $d_{model}/h$:</p>
-$$\mathbb{R}^{d_{model}} = \mathbb{R}^{d_{model}/h} \oplus \mathbb{R}^{d_{model}/h} \oplus \cdots \oplus \mathbb{R}^{d_{model}/h}$$
-<p>Ogni testa &ldquo;vede&rdquo; solo una proiezione dell&rsquo;input nel suo sottospazio, ma la combinazione finale ricostruisce una rappresentazione nell&rsquo;intero spazio originale.</p>
+<p>Dal punto di vista geometrico, ogni testa proietta l&rsquo;input attraverso le proprie matrici di peso su sottospazi che possono sovrapporsi parzialmente. La concatenazione finale ricombina queste diverse prospettive in una rappresentazione nell&rsquo;intero spazio $\mathbb{R}^{d_{model}}$.</p>
 <h2 id="diversi-tipi-di-attention-patterns">Diversi Tipi di Attention Patterns</h2>
 <h3 id="pattern-locali-vs-globali">Pattern Locali vs Globali</h3>
 <p>Attraverso l&rsquo;addestramento, diverse teste tendono a specializzarsi naturalmente:</p>
@@ -422,12 +434,471 @@ $$\mathbb{R}^{d_{model}} = \mathbb{R}^{d_{model}/h} \oplus \mathbb{R}^{d_{model}
 <li>La specializzazione delle teste fornisce insight sui meccanismi interni del modello</li>
 </ul>
 <h3 id="4-parallelizzazione">4. Parallelizzazione</h3>
-<p>Tutte le teste calcolano l&rsquo;attention indipendentemente, permettendo:</p>
+<p>Tutte le teste possono calcolare l&rsquo;attention in parallelo (con l&rsquo;implementazione appropriata), permettendo:</p>
 <ul>
 <li>Parallelizzazione massima su hardware moderno</li>
 <li>Scaling efficiente con il numero di teste</li>
 <li>Ottimizzazione dell&rsquo;utilizzo della memoria</li>
 </ul>
+<h2 id="implementazione-multi-head-self-attention">Implementazione Multi-Head Self-Attention</h2>
+<h3 id="panoramica-dellimplementazione">Panoramica dell&rsquo;Implementazione</h3>
+<p>La nostra implementazione della <code>Multi-Head Self-Attention</code> traduce fedelmente la matematica teorica in codice PyTorch efficiente. Analizziamo ogni componente per comprendere come la teoria si trasforma in pratica ottimizzata.</p>
+<h3 id="struttura-della-classe-e-inizializzazione">Struttura della Classe e Inizializzazione</h3>
+<h4 id="definizione-della-classe-e-docstring">Definizione della Classe e Docstring</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MultiHeadSelfAttention</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementazione efficiente di Multi-Head Self-Attention.</span>
+
+<span class="sd">    FORMALISMO:</span>
+<span class="sd">    - Input: X ∈ R^(N × d_model) (convenzione PyTorch)</span>
+<span class="sd">    - Per ogni testa i:</span>
+<span class="sd">      - Q^(i) = X @ W_q^(i)^T + b_q^(i) ∈ R^(N × d_k)</span>
+<span class="sd">      - K^(i) = X @ W_k^(i)^T + b_k^(i) ∈ R^(N × d_k)</span>
+<span class="sd">      - V^(i) = X @ W_v^(i)^T + b_v^(i) ∈ R^(N × d_v)</span>
+<span class="sd">      - head_i = Attention(Q^(i), K^(i), V^(i)) ∈ R^(N × d_v)</span>
+<span class="sd">    - Concat = Concatenate(head_1, ..., head_h) ∈ R^(N × h·d_v)</span>
+<span class="sd">    - Output = Concat @ W_O^T + b_O ∈ R^(N × d_model)</span>
+
+<span class="sd">    Standard: d_k = d_v = d_model / h per bilanciamento computazionale</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Analisi</strong>: La docstring chiarisce la convenzione PyTorch (N × features) e mostra le dimensioni corrette per tutte le trasformazioni.</p>
+<h4 id="parametri-del-costruttore">Parametri del Costruttore</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">d_k</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">d_v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">d_model</span> <span class="o">=</span> <span class="n">d_model</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">=</span> <span class="n">num_heads</span>
+</code></pre></div>
+</div>
+</details>
+
+<h4 id="gestione-delle-dimensioni">Gestione delle Dimensioni</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Dimensioni di default per bilanciamento computazionale</span>
+<span class="k">if</span> <span class="n">d_k</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">d_k</span> <span class="o">=</span> <span class="n">d_model</span> <span class="o">//</span> <span class="n">num_heads</span>
+<span class="k">if</span> <span class="n">d_v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">d_v</span> <span class="o">=</span> <span class="n">d_model</span> <span class="o">//</span> <span class="n">num_heads</span>
+
+<span class="k">assert</span> <span class="n">d_model</span> <span class="o">%</span> <span class="n">num_heads</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;d_model deve essere divisibile per num_heads per dimensioni standard&quot;</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">d_k</span> <span class="o">=</span> <span class="n">d_k</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">d_v</span> <span class="o">=</span> <span class="n">d_v</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Analisi</strong>: Manteniamo il principio di bilanciamento computazionale con dimensioni $d_k = d_v = d_{model}/h$.</p>
+<h4 id="implementazione-efficiente-con-proiezioni-unificate">Implementazione Efficiente con Proiezioni Unificate</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Proiezioni unificate per tutte le teste (implementazione efficiente)</span>
+<span class="c1"># W_q_all ∈ R^(d_model × h·d_k), W_k_all ∈ R^(d_model × h·d_k), W_v_all ∈ R^(d_model × h·d_v)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">W_q_all</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">*</span> <span class="n">d_k</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">W_k_all</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">*</span> <span class="n">d_k</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+<span class="bp">self</span><span class="o">.</span><span class="n">W_v_all</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">*</span> <span class="n">d_v</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Proiezione finale: W_O ∈ R^(h·d_v × d_model)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">W_O</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_heads</span> <span class="o">*</span> <span class="n">d_v</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Analisi</strong>: 
+- <strong>Efficienza</strong>: Una singola trasformazione lineare per tutte le teste invece di $h$ trasformazioni separate
+- <strong>Equivalenza matematica</strong>: Il risultato è identico ma molto più efficiente
+- <strong>Gestione automatica</strong>: PyTorch gestisce automaticamente inizializzazione e bias</p>
+<h4 id="inizializzazione-dei-pesi">Inizializzazione dei Pesi</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Inizializzazione Xavier/Glorot per stabilità numerica</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_initialize_weights</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_initialize_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inizializza i pesi per stabilità numerica&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">W_q_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_k_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_v_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_O</span><span class="p">]:</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">xavier_uniform_</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">zeros_</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Analisi</strong>: L&rsquo;inizializzazione Xavier è standard per reti profonde e garantisce gradienti ben condizionati.</p>
+<h3 id="metodo-forward-implementazione-efficiente">Metodo Forward: Implementazione Efficiente</h3>
+<h4 id="preparazione-dellinput">Preparazione dell&rsquo;Input</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">return_attention</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: Input (batch_size, seq_len, d_model)</span>
+<span class="sd">        return_attention: Se restituire i pesi di attention</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        output: (batch_size, seq_len, d_model)</span>
+<span class="sd">        attention_weights: (batch_size, num_heads, seq_len, seq_len) se richiesti</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">d_model</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<h4 id="calcolo-unificato-di-q-k-v">Calcolo Unificato di Q, K, V</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Calcolo efficiente di Q, K, V per tutte le teste</span>
+<span class="c1"># Shape: (batch_size, seq_len, num_heads * d_k/d_v)</span>
+<span class="n">Q_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_q_all</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># (batch_size, seq_len, num_heads * d_k)</span>
+<span class="n">K_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_k_all</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># (batch_size, seq_len, num_heads * d_k)</span>
+<span class="n">V_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_v_all</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># (batch_size, seq_len, num_heads * d_v)</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Analisi</strong>: Una singola moltiplicazione matrice-matrice invece di $h$ moltiplicazioni separate.</p>
+<h4 id="reshaping-per-teste-multiple">Reshaping per Teste Multiple</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Reshape per separare le teste: (batch_size, seq_len, num_heads, d_k/d_v)</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">Q_all</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_k</span><span class="p">)</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">K_all</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_k</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">V_all</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_v</span><span class="p">)</span>
+
+<span class="c1"># Riorganizza per calcolo parallelo: (batch_size, num_heads, seq_len, d_k/d_v)</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># (batch_size, num_heads, seq_len, d_k)</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># (batch_size, num_heads, seq_len, d_k)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># (batch_size, num_heads, seq_len, d_v)</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Analisi</strong>: 
+- <strong>Reshape</strong>: Separa logicamente le teste senza costo computazionale
+- <strong>Transpose</strong>: Porta le teste nella dimensione del batch per parallelizzazione</p>
+<h4 id="calcolo-parallelo-dellattention">Calcolo Parallelo dell&rsquo;Attention</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Calcolo parallelo degli attention scores per tutte le teste</span>
+<span class="c1"># S ∈ R^(batch_size × num_heads × seq_len × seq_len)</span>
+<span class="n">attention_scores</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_k</span><span class="p">)</span>
+
+<span class="c1"># Applicazione softmax lungo l&#39;ultima dimensione (normalizza per ogni query)</span>
+<span class="n">attention_weights</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Applicazione dei pesi ai values</span>
+<span class="c1"># Output per tutte le teste: (batch_size, num_heads, seq_len, d_v)</span>
+<span class="n">attention_output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">attention_weights</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Analisi</strong>:
+- <strong>Parallelizzazione completa</strong>: Tutte le teste calcolate simultaneamente
+- <strong>Softmax corretto</strong>: <code>dim=-1</code> normalizza lungo le keys per ogni query
+- <strong>Efficienza</strong>: Sfrutta al massimo le capacità tensoriali di PyTorch</p>
+<h4 id="concatenazione-e-proiezione-finale_1">Concatenazione e Proiezione Finale</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Riorganizza per concatenazione: (batch_size, seq_len, num_heads, d_v)</span>
+<span class="n">attention_output</span> <span class="o">=</span> <span class="n">attention_output</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Concatenazione delle teste: (batch_size, seq_len, num_heads * d_v)</span>
+<span class="n">concatenated</span> <span class="o">=</span> <span class="n">attention_output</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_v</span><span class="p">)</span>
+
+<span class="c1"># Proiezione finale: (batch_size, seq_len, d_model)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_O</span><span class="p">(</span><span class="n">concatenated</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Analisi</strong>:
+- <strong>Transpose + View</strong>: Concatenazione efficiente senza copia dei dati
+- <strong>Contiguous</strong>: Necessario dopo transpose per garantire memoria contigua
+- <strong>Proiezione finale</strong>: Combina le informazioni da tutte le teste</p>
+<h4 id="gestione-delloutput">Gestione dell&rsquo;Output</h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">return_attention</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="n">attention_weights</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">output</span>
+</code></pre></div>
+</div>
+</details>
+
+<h3 id="implementazione-completa-e-ottimizzata">Implementazione Completa e Ottimizzata</h3>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MultiHeadSelfAttention</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementazione efficiente di Multi-Head Self-Attention.</span>
+
+<span class="sd">    FORMALISMO:</span>
+<span class="sd">    - Input: X ∈ R^(N × d_model) (convenzione PyTorch)</span>
+<span class="sd">    - Per ogni testa i:</span>
+<span class="sd">      - Q^(i) = X @ W_q^(i)^T + b_q^(i) ∈ R^(N × d_k)</span>
+<span class="sd">      - K^(i) = X @ W_k^(i)^T + b_k^(i) ∈ R^(N × d_k)</span>
+<span class="sd">      - V^(i) = X @ W_v^(i)^T + b_v^(i) ∈ R^(N × d_v)</span>
+<span class="sd">      - head_i = Attention(Q^(i), K^(i), V^(i)) ∈ R^(N × d_v)</span>
+<span class="sd">    - Concat = Concatenate(head_1, ..., head_h) ∈ R^(N × h·d_v)</span>
+<span class="sd">    - Output = Concat @ W_O^T + b_O ∈ R^(N × d_model)</span>
+
+<span class="sd">    Standard: d_k = d_v = d_model / h per bilanciamento computazionale</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">d_k</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">d_v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_model</span> <span class="o">=</span> <span class="n">d_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">=</span> <span class="n">num_heads</span>
+
+        <span class="c1"># Dimensioni di default per bilanciamento computazionale</span>
+        <span class="k">if</span> <span class="n">d_k</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">d_k</span> <span class="o">=</span> <span class="n">d_model</span> <span class="o">//</span> <span class="n">num_heads</span>
+        <span class="k">if</span> <span class="n">d_v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">d_v</span> <span class="o">=</span> <span class="n">d_model</span> <span class="o">//</span> <span class="n">num_heads</span>
+
+        <span class="k">assert</span> <span class="n">d_model</span> <span class="o">%</span> <span class="n">num_heads</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;d_model deve essere divisibile per num_heads per dimensioni standard&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_k</span> <span class="o">=</span> <span class="n">d_k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_v</span> <span class="o">=</span> <span class="n">d_v</span>
+
+        <span class="c1"># Proiezioni unificate per tutte le teste (implementazione efficiente)</span>
+        <span class="c1"># W_q_all ∈ R^(d_model × h·d_k), W_k_all ∈ R^(d_model × h·d_k), W_v_all ∈ R^(d_model × h·d_v)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_q_all</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">*</span> <span class="n">d_k</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_k_all</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">*</span> <span class="n">d_k</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_v_all</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span> <span class="o">*</span> <span class="n">d_v</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Proiezione finale: W_O ∈ R^(h·d_v × d_model)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_O</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">num_heads</span> <span class="o">*</span> <span class="n">d_v</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Inizializzazione dei pesi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_weights</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inizializza i pesi per stabilità numerica&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">W_q_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_k_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_v_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_O</span><span class="p">]:</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">xavier_uniform_</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">module</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">zeros_</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">return_attention</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x: Input (batch_size, seq_len, d_model)</span>
+<span class="sd">            return_attention: Se restituire i pesi di attention</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            output: (batch_size, seq_len, d_model)</span>
+<span class="sd">            attention_weights: (batch_size, num_heads, seq_len, seq_len) se richiesti</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">d_model</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+        <span class="c1"># Calcolo efficiente di Q, K, V per tutte le teste</span>
+        <span class="c1"># Shape: (batch_size, seq_len, num_heads * d_k/d_v)</span>
+        <span class="n">Q_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_q_all</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># (batch_size, seq_len, num_heads * d_k)</span>
+        <span class="n">K_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_k_all</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># (batch_size, seq_len, num_heads * d_k)</span>
+        <span class="n">V_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_v_all</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># (batch_size, seq_len, num_heads * d_v)</span>
+
+        <span class="c1"># Reshape per separare le teste: (batch_size, seq_len, num_heads, d_k/d_v)</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="n">Q_all</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_k</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">K_all</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_k</span><span class="p">)</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">V_all</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_v</span><span class="p">)</span>
+
+        <span class="c1"># Riorganizza per calcolo parallelo: (batch_size, num_heads, seq_len, d_k/d_v)</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># (batch_size, num_heads, seq_len, d_k)</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># (batch_size, num_heads, seq_len, d_k)</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># (batch_size, num_heads, seq_len, d_v)</span>
+
+        <span class="c1"># Calcolo parallelo degli attention scores per tutte le teste</span>
+        <span class="c1"># S ∈ R^(batch_size × num_heads × seq_len × seq_len)</span>
+        <span class="n">attention_scores</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_k</span><span class="p">)</span>
+
+        <span class="c1"># Applicazione softmax lungo l&#39;ultima dimensione (normalizza per ogni query)</span>
+        <span class="n">attention_weights</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">attention_scores</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Applicazione dei pesi ai values</span>
+        <span class="c1"># Output per tutte le teste: (batch_size, num_heads, seq_len, d_v)</span>
+        <span class="n">attention_output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">attention_weights</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+
+        <span class="c1"># Riorganizza per concatenazione: (batch_size, seq_len, num_heads, d_v)</span>
+        <span class="n">attention_output</span> <span class="o">=</span> <span class="n">attention_output</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Concatenazione delle teste: (batch_size, seq_len, num_heads * d_v)</span>
+        <span class="n">concatenated</span> <span class="o">=</span> <span class="n">attention_output</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_v</span><span class="p">)</span>
+
+        <span class="c1"># Proiezione finale: (batch_size, seq_len, d_model)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_O</span><span class="p">(</span><span class="n">concatenated</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">return_attention</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="n">attention_weights</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">output</span>
+
+
+<span class="c1"># Funzione di utilità per testing</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_multi_head_attention</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test della Multi-Head Attention&quot;&quot;&quot;</span>
+    <span class="c1"># Parametri di test</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">seq_len</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">d_model</span> <span class="o">=</span> <span class="mi">512</span>
+    <span class="n">num_heads</span> <span class="o">=</span> <span class="mi">8</span>
+
+    <span class="c1"># Crea il modulo</span>
+    <span class="n">mha</span> <span class="o">=</span> <span class="n">MultiHeadSelfAttention</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">)</span>
+
+    <span class="c1"># Input di test</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span>
+
+    <span class="c1"># Test forward pass</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">mha</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input shape: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output shape: </span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">output</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;Output deve avere la stessa forma dell&#39;input&quot;</span>
+
+    <span class="c1"># Test con attention weights</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">attention_weights</span> <span class="o">=</span> <span class="n">mha</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">return_attention</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attention weights shape: </span><span class="si">{</span><span class="n">attention_weights</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">expected_attn_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">attention_weights</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">expected_attn_shape</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Attention weights dovrebbero avere forma </span><span class="si">{</span><span class="n">expected_attn_shape</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Verifica che i pesi sommino a 1 lungo l&#39;ultima dimensione</span>
+    <span class="n">attn_sum</span> <span class="o">=</span> <span class="n">attention_weights</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">attn_sum</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">attn_sum</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">),</span> <span class="s2">&quot;I pesi di attention dovrebbero sommare a 1&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Tutti i test sono passati!&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">test_multi_head_attention</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p>Questa implementazione fornisce una base solida per comprendere e sperimentare con la Multi-Head Attention, mantenendo la chiarezza concettuale pur essendo efficiente in pratica.</p>
 <h2 id="analisi-della-complessita-computazionale">Analisi della Complessità Computazionale</h2>
 <h3 id="costo-per-singola-testa">Costo per Singola Testa</h3>
 <p>Con le dimensioni standard $d_k = d_v = d_{model}/h$, ogni testa ha complessità:</p>
