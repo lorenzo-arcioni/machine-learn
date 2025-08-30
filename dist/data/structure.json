@@ -2,11 +2,29 @@
   "deep-learning": {
     "subcategories": {
       "Transformers": {
-        "subcategories": {},
+        "subcategories": {
+          "Attention": {
+            "subcategories": {},
+            "files": [
+              {
+                "name": "Masked Self-Attention",
+                "path": "deep-learning/Transformers/Attention/Masked Self-Attention.md"
+              },
+              {
+                "name": "Self-Attention",
+                "path": "deep-learning/Transformers/Attention/Self-Attention.md"
+              },
+              {
+                "name": "Multi-Head Attention",
+                "path": "deep-learning/Transformers/Attention/Multi-Head Attention.md"
+              }
+            ]
+          }
+        },
         "files": [
           {
-            "name": "Attention",
-            "path": "deep-learning/Transformers/Attention.md"
+            "name": "Positional Encoding",
+            "path": "deep-learning/Transformers/Positional Encoding.md"
           },
           {
             "name": "Introduzione ai Transformers",

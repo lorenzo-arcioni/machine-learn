@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Positional Encoding: Una Guida Completa | Deep Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="deep learning, neural networks, CNN, RNN, transformers, model, data, training">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Il Positional Encoding: Una Guida Completa">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/deep-learning/Transformers/Positional Encoding">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Il Positional Encoding: Una Guida Completa">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/deep-learning/Transformers/Positional Encoding">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Il Positional Encoding: Una Guida Completa",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/deep-learning/Transformers/Positional Encoding",
+      "datePublished": "2025-08-30T00:53:19.885Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/deep-learning/Transformers/Positional Encoding" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Il Positional Encoding: Una Guida Completa</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Deep Learning | 
+                    <strong>Updated:</strong> 30/08/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione-e-motivazione">Introduzione e Motivazione</h2>
+<p>Il meccanismo di <strong>self-attention</strong> tradizionale presenta una proprietà fondamentale che, a prima vista, potrebbe sembrare un vantaggio ma che in realtà costituisce una limitazione critica: è <strong>permutation invariant</strong>.</p>
+<p>Consideriamo due frasi apparentemente simili:
+- <em>&ldquo;Il gatto caccia il topo&rdquo;</em>
+- <em>&ldquo;Il topo caccia il gatto&rdquo;</em></p>
+<p>Per un essere umano, queste frasi hanno significati completamente diversi. Il primo descrive un predatore che insegue la sua preda, il secondo una situazione decisamente più insolita. La differenza semantica è interamente dovuta all&rsquo;<strong>ordine</strong> delle parole.</p>
+<p>Tuttavia, se applichiamo il meccanismo di self-attention puro a queste due frasi, otterremmo risultati identici. Questo perché l&rsquo;attention calcola una matrice di similarità dove ogni elemento dipende solo dal contenuto dei vettori, non dalla loro posizione nella sequenza.</p>
+<h3 id="il-problema-della-permutation-invariance">Il Problema della Permutation Invariance</h3>
+<p>Matematicamente, se $\pi$ è una permutazione degli indici $\{1, 2, \ldots, N\}$, e definiamo:
+$$\mathbf{X}' = \begin{bmatrix} \mathbf{x}_{\pi(1)} & \mathbf{x}_{\pi(2)} & \cdots & \mathbf{x}_{\pi(N)} \end{bmatrix}$$</p>
+<p>allora:
+$$\text{Attention}(\mathbf{X}') = \text{Permute}(\text{Attention}(\mathbf{X}), \pi)$$</p>
+<p>In altre parole, l&rsquo;output dell&rsquo;attention su una sequenza permutata è semplicemente la permutazione dell&rsquo;output originale. Questo significa che il modello non può distinguere tra &ldquo;gatto caccia topo&rdquo; e &ldquo;topo caccia gatto&rdquo; basandosi solo sul contenuto semantico delle parole.</p>
+<h3 id="limportanza-dellordine-nel-linguaggio">L&rsquo;Importanza dell&rsquo;Ordine nel Linguaggio</h3>
+<p>L&rsquo;ordine è cruciale in molti aspetti del linguaggio naturale:</p>
+<p><strong>Struttura sintattica</strong>: In &ldquo;La casa rossa è bella&rdquo;, l&rsquo;aggettivo &ldquo;rossa&rdquo; modifica &ldquo;casa&rdquo;, non &ldquo;bella&rdquo;. La posizione determina le relazioni sintattiche.</p>
+<p><strong>Relazioni causali</strong>: In &ldquo;Prima piove, poi esce il sole&rdquo;, l&rsquo;ordine temporale è semanticamente rilevante.</p>
+<p><strong>Ambiguità di scope</strong>: In &ldquo;Il professore ha visto lo studente con il telescopio&rdquo;, l&rsquo;interpretazione cambia se riordiniamo gli elementi.</p>
+<h2 id="la-soluzione-positional-encoding">La Soluzione: Positional Encoding</h2>
+<p>Il <strong>positional encoding</strong> risolve questo problema iniettando informazione posizionale direttamente negli embedding di input, prima che vengano processati dal meccanismo di attention.</p>
+<p>L&rsquo;idea fondamentale è semplice: invece di utilizzare direttamente gli embedding delle parole $\mathbf{x}_n$, utilizziamo una versione &ldquo;arricchita&rdquo;:</p>
+$$\mathbf{x}'_n = \mathbf{x}_n + \mathbf{p}_n$$
+<p>dove $\mathbf{p}_n \in \mathbb{R}^d$ è il <strong>positional encoding</strong> per la posizione $n$.</p>
+<p>Successivamente, applichiamo le trasformazioni lineari per ottenere query, key e value:</p>
+<ul>
+<li><strong>Query</strong>: $\mathbf{q}_n = \mathbf{W}_q \mathbf{x}'_n + \mathbf{b}_q = \mathbf{W}_q (\mathbf{x}_n + \mathbf{p}_n) + \mathbf{b}_q$</li>
+<li><strong>Key</strong>: $\mathbf{k}_m = \mathbf{W}_k \mathbf{x}'_m + \mathbf{b}_k = \mathbf{W}_k (\mathbf{x}_m + \mathbf{p}_m) + \mathbf{b}_k$</li>
+<li><strong>Value</strong>: $\mathbf{v}_m = \mathbf{W}_v \mathbf{x}'_m + \mathbf{b}_v = \mathbf{W}_v (\mathbf{x}_m + \mathbf{p}_m) + \mathbf{b}_v$</li>
+</ul>
+<h3 id="requisiti-per-un-positional-encoding-efficace">Requisiti per un Positional Encoding Efficace</h3>
+<p>Un buon positional encoding deve soddisfare diversi requisiti:</p>
+<ol>
+<li><strong>Unicità</strong>: Posizioni diverse devono avere encoding diversi: $\mathbf{p}_i \neq \mathbf{p}_j$ per $i \neq j$</li>
+<li><strong>Determinismo</strong>: La stessa posizione deve sempre avere lo stesso encoding</li>
+<li><strong>Bounded</strong>: I valori devono rimanere in un range limitato per non dominare l&rsquo;informazione semantica</li>
+<li><strong>Relazione di distanza</strong>: Posizioni vicine dovrebbero avere encoding &ldquo;simili&rdquo; in qualche senso</li>
+<li><strong>Estendibilità</strong>: Deve funzionare per sequenze di lunghezza arbitraria, anche superiore a quelle viste durante il training</li>
+</ol>
+<h3 id="effetto-sui-punteggi-di-attention">Effetto sui Punteggi di Attention</h3>
+<p>I punteggi di attention diventano:
+$$s_{mn} = \frac{1}{\sqrt{d_k}} \mathbf{k}_m^T \mathbf{q}_n = \frac{1}{\sqrt{d_k}} (\mathbf{W}_k (\mathbf{x}_m + \mathbf{p}_m) + \mathbf{b}_k)^T (\mathbf{W}_q (\mathbf{x}_n + \mathbf{p}_n) + \mathbf{b}_q)$$</p>
+<p>Espandendo e trascurando i termini di bias per semplicità:
+$$s_{mn} = \frac{1}{\sqrt{d_k}} \left[ (\mathbf{W}_k \mathbf{x}_m)^T (\mathbf{W}_q \mathbf{x}_n) + (\mathbf{W}_k \mathbf{x}_m)^T (\mathbf{W}_q \mathbf{p}_n) + (\mathbf{W}_k \mathbf{p}_m)^T (\mathbf{W}_q \mathbf{x}_n) + (\mathbf{W}_k \mathbf{p}_m)^T (\mathbf{W}_q \mathbf{p}_n) \right]$$</p>
+<h3 id="interpretazione-dei-quattro-termini">Interpretazione dei Quattro Termini</h3>
+<ol>
+<li>
+<p><strong>Contenuto–Contenuto</strong><br />
+   $$(W_k \mathbf{x}_m)^T (W_q \mathbf{x}_n)$$<br />
+   È il termine originale: confronta il contenuto dei token (embedding) nelle posizioni $m$ e $n$.<br />
+   → Senza positional encoding rimarrebbe solo questo.</p>
+</li>
+<li>
+<p><strong>Contenuto–Posizione</strong><br />
+   $$(W_k \mathbf{x}_m)^T (W_q \mathbf{p}_n)$$<br />
+   Il contenuto in posizione $m$ viene confrontato con <em>la posizione</em> $n$.<br />
+   → Permette di modellare il fatto che un token (embedding) possa “guardare” preferenzialmente a certe posizioni della sequenza, indipendentemente dal contenuto.</p>
+</li>
+<li>
+<p><strong>Posizione–Contenuto</strong><br />
+   $$(W_k \mathbf{p}_m)^T (W_q \mathbf{x}_n)$$<br />
+   La posizione $m$ influenza come valutare il contenuto in $n$.<br />
+   → Esempio: il modello può imparare che i token (embedding) iniziali hanno un ruolo speciale rispetto agli altri.</p>
+</li>
+<li>
+<p><strong>Posizione–Posizione</strong><br />
+   $$(W_k \mathbf{p}_m)^T (W_q \mathbf{p}_n)$$<br />
+   Confronto puramente posizionale tra $m$ e $n$.<br />
+   → Con encoding sinusoidali, diventa una funzione della <strong>distanza relativa</strong> tra le due posizioni.</p>
+</li>
+</ol>
+<h3 id="sintesi">Sintesi</h3>
+<p>Questa espansione mostra che il positional encoding non si limita ad arricchire gli embedding, ma <strong>entra direttamente nei calcoli di attenzione</strong> in quattro modi distinti:</p>
+<ul>
+<li><strong>Contenuto–Contenuto</strong>: relazione semantica fra token (il termine &ldquo;classico&rdquo;).  </li>
+<li><strong>Key–Posizione</strong> e <strong>Posizione–Query</strong>: interazioni miste che legano contenuto e posizione.  </li>
+<li><strong>Posizione–Posizione</strong>: relazioni strutturali fra posizioni, indipendenti dal contenuto.</li>
+</ul>
+<p>👉 In pratica, il modello non solo sa <em>cosa</em> c’è nella sequenza, ma anche <em>dove</em> e <em>in relazione a chi</em>.  </p>
+<h2 id="sinusoidal-positional-encoding-la-soluzione-elegante">Sinusoidal Positional Encoding: La Soluzione Elegante</h2>
+<p>Il <strong>sinusoidal positional encoding</strong>, introdotto nel paper &ldquo;Attention Is All You Need&rdquo;, soddisfa tutti questi requisiti attraverso una formulazione matematicamente molto elegante.</p>
+<h3 id="definizione-matematica">Definizione Matematica</h3>
+<p>Per una posizione $n$ e una dimensione $i$ (dove $i = 0, 1, 2, \ldots, d-1$) dove $d$ rappresenta la dimensione dell&rsquo;embedding, il positional encoding è definito come:</p>
+$$
+\text{PE}(n, i) = \begin{cases}
+\sin\left(\frac{n}{10000^{i/d}}\right) & \text{se } i \text{ è pari} \\[0.3em]
+\cos\left(\frac{n}{10000^{(i-1)/d}}\right) & \text{se } i \text{ è dispari}
+\end{cases}
+$$
+<p>Equivalentemente, possiamo scrivere:
+$$
+\text{PE}(n, 2j) = \sin\left(\frac{n}{10000^{2j/d}}\right)
+$$
+$$
+\text{PE}(n, 2j+1) = \cos\left(\frac{n}{10000^{2j/d}}\right)
+$$</p>
+<p>dove $j = 0, 1, 2, \ldots, \lfloor d/2 \rfloor - 1$.</p>
+<h3 id="interpretazione-delle-frequenze">Interpretazione delle Frequenze</h3>
+<p>Ogni coppia di dimensioni $(2j, 2j+1)$ corrisponde a una <strong>frequenza</strong> specifica:
+$$\omega_j = \frac{1}{10000^{2j/d}}$$</p>
+<p>Le dimensioni con indice basso hanno frequenze alte (oscillazioni rapide), mentre le dimensioni con indice alto hanno frequenze basse (oscillazioni lente).</p>
+<p>Questa struttura crea una sorta di &ldquo;orologio multidimensionale&rdquo; dove:
+- Le dimensioni a <strong>frequenza alta</strong> distinguono posizioni vicine
+- Le dimensioni a <strong>frequenza bassa</strong> catturano pattern a lungo raggio</p>
+<h3 id="esempio-numerico">Esempio Numerico</h3>
+<p>In questo esempio, calcoliamo e visualizziamo il <strong>positional encoding sinusoidale</strong> introdotto nel paper <em>&ldquo;Attention Is All You Need&rdquo;</em>.</p>
+<h4 id="1-funzione-di-calcolo">1. Funzione di Calcolo</h4>
+<p>Definiamo una funzione per calcolare la matrice di positional encoding, che prende in input il numero massimo di posizioni della sequenza e la dimensione dell&rsquo;embedding.</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># ----------------------------</span>
+<span class="c1"># Funzione Positional Encoding</span>
+<span class="c1"># ----------------------------</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sinusoidal_positional_encoding</span><span class="p">(</span><span class="n">max_position</span><span class="p">,</span> <span class="n">d_model</span><span class="p">):</span>
+    <span class="c1"># Genera un array di posizioni da 0 a max_position-1</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">max_position</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>  
+
+    <span class="c1"># Calcola il termine di divisione per le frequenze esponenziali</span>
+    <span class="c1"># Usando exp e log per stabilità numerica invece di 10000^(2i/d)</span>
+    <span class="n">div_term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10000.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">d_model</span><span class="p">))</span>
+
+    <span class="c1"># Inizializza la matrice dei positional encoding a zero</span>
+    <span class="n">pe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">max_position</span><span class="p">,</span> <span class="n">d_model</span><span class="p">))</span>  
+
+    <span class="c1"># Dimensioni pari: sinus</span>
+    <span class="n">pe</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">position</span> <span class="o">*</span> <span class="n">div_term</span><span class="p">)</span>  
+    <span class="c1"># Dimensioni dispari: coseno</span>
+    <span class="n">pe</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">position</span> <span class="o">*</span> <span class="n">div_term</span><span class="p">)</span>  
+
+    <span class="c1"># Ritorna la matrice PE (posizioni x dimensioni embedding)</span>
+    <span class="k">return</span> <span class="n">pe</span>
+</code></pre></div>
+</div>
+</details>
+
+<h4 id="motivazione-delluso-di-log-ed-exp">Motivazione dell&rsquo;Uso di log ed exp</h4>
+<p>Vediamo perché riscriviamo la formula in forma esponenziale:</p>
+$$
+10000^{2i/d} = \exp\left(\frac{2i}{d} \log 10000\right)
+$$
+<p>Quindi la divisione originale:</p>
+$$
+\frac{n}{10000^{2i/d}} = n \cdot \exp\left(- \frac{2i}{d} \log 10000\right)
+$$
+<h5 id="motivo-della-log">Motivo della log:</h5>
+<p>Usando <code>log</code> ed <code>exp</code> evitiamo di calcolare potenze molto grandi o molto piccole direttamente.<br />
+Questo migliora la <strong>stabilità numerica</strong> e previene <strong>overflow</strong> o <strong>underflow</strong>.</p>
+<h5 id="equivalenza">Equivalenza:</h5>
+<p>Matematicamente, <code>position * div_term</code> nel codice equivale a <code>n / 10000^(2i/d)</code> della formula originale.</p>
+<h4 id="2-parametri-di-esempio">2. Parametri di Esempio</h4>
+<p>Per visualizzare i pattern tipici:
+- Numero di posizioni: <code>max_position = 100</code><br />
+- Dimensione dell&rsquo;embedding: <code>d_model = 128</code>  </p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Parametri</span>
+<span class="n">max_position</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># Numero di posizioni da visualizzare</span>
+<span class="n">d_model</span> <span class="o">=</span> <span class="mi">128</span>        <span class="c1"># Dimensione embedding</span>
+
+<span class="c1"># Calcolo PE</span>
+<span class="n">pe</span> <span class="o">=</span> <span class="n">sinusoidal_positional_encoding</span><span class="p">(</span><span class="n">max_position</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</details>
+
+<h3 id="3-heatmap-della-matrice-pe">3. Heatmap della Matrice PE</h3>
+<p>Visualizziamo l&rsquo;intera matrice PE con una <strong>heatmap</strong>:</p>
+<ul>
+<li>Asse verticale → posizioni nella sequenza  </li>
+<li>Asse orizzontale → dimensioni dell&rsquo;embedding  </li>
+<li>Palette colori accattivante per evidenziare le oscillazioni sinusoidali  </li>
+</ul>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Heatmap con palette</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pe</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Cambiato cmap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sinusoidal Positional Encoding Heatmap&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Dimensioni embedding&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Posizione nella sequenza&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/sinusoidal-pe.png" alt="Sinusoidal Positional Encoding Heatmap" style="display: block; margin: 0 auto"></p>
+<h3 id="4-andamento-di-dimensioni-selezionate">4. Andamento di Dimensioni Selezionate</h3>
+<p>Per osservare come cambiano alcune dimensioni chiave attraverso la sequenza:</p>
+<ul>
+<li>Selezioniamo dimensioni rappresentative (es. 0, 3, 7, 15, 31)  </li>
+<li>Plottiamo il loro andamento lungo le posizioni  </li>
+</ul>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Visualizzazione Dimensioni Selezionate</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">dims_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>  <span class="c1"># Dimensioni chiave</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;tab10&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims_to_plot</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dims_to_plot</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pe</span><span class="p">[:,</span> <span class="n">d</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Dim </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sinusoidal Positional Encoding - Dimensioni Selezionate&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Posizione nella sequenza&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Valore PE&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Dimensioni&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/grafico-lineare-dimensioni-selezionate.png" alt="Grafico Lineare Dimensioni Selezionate" style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="5-esempio-concreto">5. Esempio Concreto</h3>
+<p>Per avere un’idea numerica dei valori:</p>
+<ul>
+<li>Consideriamo le prime 5 posizioni con dimensione embedding ridotta (es. 6)  </li>
+<li>Stampiamo i vettori di positional encoding corrispondenti  </li>
+</ul>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                    const code = this.parentElement.querySelector('pre');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText);
+                        this.textContent = 'Copied!';
+                        setTimeout(() => this.textContent = 'Copy', 2000);
+                    }
+                ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Esempio concreto delle prime posizioni</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prime 5 posizioni (dimensioni 6):&quot;</span><span class="p">)</span>
+<span class="n">pe_small</span> <span class="o">=</span> <span class="n">sinusoidal_positional_encoding</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pe_small</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posizione </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="p">[</span><span class="n">OUTPUT</span><span class="p">:]</span>
+<span class="n">Prime</span> <span class="mi">5</span> <span class="n">posizioni</span> <span class="p">(</span><span class="n">dimensioni</span> <span class="mi">6</span><span class="p">):</span>
+<span class="n">Posizione</span> <span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.</span> <span class="mf">1.</span> <span class="mf">0.</span> <span class="mf">1.</span> <span class="mf">0.</span> <span class="mf">1.</span><span class="p">]</span>
+<span class="n">Posizione</span> <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.841</span> <span class="mf">0.54</span>  <span class="mf">0.046</span> <span class="mf">0.999</span> <span class="mf">0.002</span> <span class="mf">1.</span>   <span class="p">]</span>
+<span class="n">Posizione</span> <span class="mi">2</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.909</span> <span class="o">-</span><span class="mf">0.416</span>  <span class="mf">0.093</span>  <span class="mf">0.996</span>  <span class="mf">0.004</span>  <span class="mf">1.</span>   <span class="p">]</span>
+<span class="n">Posizione</span> <span class="mi">3</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.141</span> <span class="o">-</span><span class="mf">0.99</span>   <span class="mf">0.139</span>  <span class="mf">0.99</span>   <span class="mf">0.006</span>  <span class="mf">1.</span>   <span class="p">]</span>
+<span class="n">Posizione</span> <span class="mi">4</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.757</span> <span class="o">-</span><span class="mf">0.654</span>  <span class="mf">0.185</span>  <span class="mf">0.983</span>  <span class="mf">0.009</span>  <span class="mf">1.</span>   <span class="p">]</span>
+</code></pre></div>
+</div>
+</details>
+
+<h3 id="visualizzazione-dei-pattern">Visualizzazione dei Pattern</h3>
+<p>Osservando questi vettori, notiamo pattern interessanti:</p>
+<p><strong>Frequenze diverse</strong>: Le prime due dimensioni (frequenza alta) cambiano rapidamente tra posizioni consecutive, mentre le ultime due (frequenza bassa) cambiano più gradualmente.</p>
+<p><strong>Unicità</strong>: Ogni posizione ha un &ldquo;fingerprint&rdquo; unico dato dalla combinazione delle diverse frequenze.</p>
+<p><strong>Continuità</strong>: Posizioni adiacenti hanno encoding simili ma distinguibili.</p>
+<h2 id="proprieta-matematiche-del-sinusoidal-encoding">Proprietà Matematiche del Sinusoidal Encoding</h2>
+<h3 id="1-proprieta-di-linearita">1. Proprietà di Linearità</h3>
+<p>Una delle proprietà più eleganti del sinusoidal encoding è che permette di calcolare l&rsquo;encoding di una posizione $n + k$ a partire da quello della posizione $n$ attraverso una <strong>trasformazione lineare</strong>.</p>
+<p>Per una singola frequenza $\omega_j$, abbiamo:
+$$
+\begin{bmatrix}
+\sin(\omega_j(n + k)) \\
+\cos(\omega_j(n + k))
+\end{bmatrix}
+=
+\begin{bmatrix}
+\cos(\omega_j k) & \sin(\omega_j k) \\
+-\sin(\omega_j k) & \cos(\omega_j k)
+\end{bmatrix}
+\begin{bmatrix}
+\sin(\omega_j n) \\
+\cos(\omega_j n)
+\end{bmatrix}
+$$</p>
+<p>Questa è una <strong>matrice di rotazione</strong> di angolo $\omega_j k$.</p>
+<h3 id="2-prodotto-scalare-e-distanza">2. Prodotto Scalare e Distanza</h3>
+<p>Il prodotto scalare tra gli encoding di due posizioni ha una forma analitica precisa:
+$$
+\begin{aligned}
+\mathbf{p}_i^T \mathbf{p}_j 
+&= \sum_{m=0}^{d-1} (\mathbf{p}_i)_m \cdot (\mathbf{p}_j)_m \\[2mm]
+&= \sum_{k=0}^{d/2-1} \Big[ (\mathbf{p}_i)_{2k} (\mathbf{p}_j)_{2k} + (\mathbf{p}_i)_{2k+1} (\mathbf{p}_j)_{2k+1} \Big] \\[1mm]
+&= \sum_{k=0}^{d/2-1} \Big[ \sin(\omega_k i) \sin(\omega_k j) + \cos(\omega_k i) \cos(\omega_k j) \Big] \\[1mm]
+&= \sum_{k=0}^{d/2-1} \cos(\omega_k (i-j)) \quad \text{(per l'identità trigonometrica } \cos(a-b) = \cos a \cos b + \sin a \sin b \text{)}
+\end{aligned}
+$$</p>
+<p>Questo significa che la &ldquo;similarità&rdquo; tra due posizioni dipende solo dalla loro <strong>distanza relativa</strong> $|i-j|$, non dalle posizioni assolute.</p>
+<h3 id="3-bounded-values">3. Bounded Values</h3>
+<p>Tutti i valori del positional encoding sono compresi tra $-1$ e $1$:
+$$-1 \leq \text{PE}(n, i) \leq 1 \quad \forall n, i$$</p>
+<p>Questo assicura che il positional encoding non domini l&rsquo;informazione semantica degli embedding.</p>
+<h3 id="4-estendibilita">4. Estendibilità</h3>
+<p>Il sinusoidal encoding può essere calcolato per posizioni arbitrariamente grandi senza bisogno di riaddestramento, poiché le funzioni trigonometriche sono definite per tutti i numeri reali.</p>
+<h2 id="integrazione-con-lattention-mechanism">Integrazione con l&rsquo;Attention Mechanism</h2>
+<h3 id="formulazione-matriciale-completa">Formulazione Matriciale Completa</h3>
+<p>Nel meccanismo di attention con positional encoding, partiamo dagli embedding arricchiti:
+$$\mathbf{X}' = \mathbf{X} + \mathbf{P} \in \mathbb{R}^{d \times N}$$</p>
+<p>dove:
+- $\mathbf{X} = [\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_N] \in \mathbb{R}^{d \times N}$ contiene gli embedding di contenuto
+- $\mathbf{P} = [\mathbf{p}_1, \mathbf{p}_2, \ldots, \mathbf{p}_N] \in \mathbb{R}^{d \times N}$ contiene i positional encoding</p>
+<p>Le matrici di query, key e value diventano:
+$$
+\begin{align}
+\mathbf{Q} &= \mathbf{W}_q \mathbf{X}' + \mathbf{b}_q \mathbf{1}^T = \mathbf{W}_q (\mathbf{X} + \mathbf{P}) + \mathbf{b}_q \mathbf{1}^T \in \mathbb{R}^{d_k \times N} \\
+\mathbf{K} &= \mathbf{W}_k \mathbf{X}' + \mathbf{b}_k \mathbf{1}^T = \mathbf{W}_k (\mathbf{X} + \mathbf{P}) + \mathbf{b}_k \mathbf{1}^T \in \mathbb{R}^{d_k \times N} \\
+\mathbf{V} &= \mathbf{W}_v \mathbf{X}' + \mathbf{b}_v \mathbf{1}^T = \mathbf{W}_v (\mathbf{X} + \mathbf{P}) + \mathbf{b}_v \mathbf{1}^T \in \mathbb{R}^{d_v \times N}
+\end{align}
+$$</p>
+<p>dove $\mathbf{1} \in \mathbb{R}^N$ è un vettore di uni per il broadcasting dei bias.</p>
+<h3 id="calcolo-degli-score-di-attention">Calcolo degli Score di Attention</h3>
+<p>La matrice degli score (prima dell&rsquo;applicazione della softmax) è:
+$$\mathbf{S} = \frac{1}{\sqrt{d_k}} \mathbf{K}^T \mathbf{Q} \in \mathbb{R}^{N \times N}$$</p>
+<p>dove l&rsquo;elemento $(m,n)$ rappresenta lo score tra la key della posizione $m$ e la query della posizione $n$:
+$$s_{mn} = \frac{1}{\sqrt{d_k}} \mathbf{k}_m^T \mathbf{q}_n$$</p>
+<h3 id="applicazione-della-softmax">Applicazione della Softmax</h3>
+<p>I pesi di attention sono ottenuti applicando la softmax per righe:
+$$a_{mn} = \frac{\exp(s_{mn})}{\sum_{j=1}^N \exp(s_{jn})}$$</p>
+<p>assicurando che $\sum_{m=1}^N a_{mn} = 1$ per ogni $n$.</p>
+<h3 id="output-finale">Output Finale</h3>
+<p>L&rsquo;output dell&rsquo;attention mechanism è:
+$$\mathbf{Y} = \mathbf{V} \mathbf{A} \in \mathbb{R}^{d_v \times N}$$</p>
+<p>dove ogni colonna $\mathbf{y}_n$ è una combinazione pesata dei value:
+$$\mathbf{y}_n = \sum_{m=1}^N a_{mn} \mathbf{v}_m$$</p>
+<h2 id="varianti-del-positional-encoding">Varianti del Positional Encoding</h2>
+<h3 id="learned-positional-encoding">Learned Positional Encoding</h3>
+<p>Invece di utilizzare funzioni sinusoidali fisse, alcuni modelli apprendono gli encoding come parametri:</p>
+$$\mathbf{P} = [\mathbf{p}_1, \mathbf{p}_2, \ldots, \mathbf{p}_{N_{\max}}] \in \mathbb{R}^{d \times N_{\max}}$$
+<p>dove ogni $\mathbf{p}_n$ è un parametro appreso durante il training.</p>
+<p><strong>Vantaggi:</strong>
+- Maggiore flessibilità adattiva
+- Possibile ottimizzazione per compiti specifici</p>
+<p><strong>Svantaggi:</strong>
+- Limitati alla lunghezza massima vista in training
+- Maggior numero di parametri
+- Possibile overfitting</p>
+<h3 id="relative-positional-encoding">Relative Positional Encoding</h3>
+<p>Alcuni modelli utilizzano encoding relativi che dipendono dalla distanza tra posizioni piuttosto che dalle posizioni assolute:</p>
+$$\text{PE}_{\text{rel}}(i, j) = f(i - j)$$
+<p>Questo approccio è particolarmente utile per modelli che devono generalizzare a sequenze molto lunghe.</p>
+<h3 id="rotary-position-embedding-rope">Rotary Position Embedding (RoPE)</h3>
+<p>RoPE integra l&rsquo;informazione posizionale direttamente nel prodotto scalare attention attraverso rotazioni nello spazio complesso:</p>
+$$(\mathbf{q}_m^{\text{RoPE}})^T \mathbf{k}_n^{\text{RoPE}} = \mathbf{q}_m^T \mathbf{R}_m^T \mathbf{R}_n \mathbf{k}_n$$
+<p>dove $\mathbf{R}_i$ è una matrice di rotazione dipendente dalla posizione.</p>
+<h2 id="considerazioni-avanzate">Considerazioni Avanzate</h2>
+<h3 id="scaling-del-positional-encoding">Scaling del Positional Encoding</h3>
+<p>In alcuni modelli, il positional encoding viene scalato per controllare la sua influenza relativa rispetto al contenuto semantico:</p>
+$$\mathbf{x}'_n = \mathbf{x}_n + \alpha \cdot \mathbf{p}_n$$
+<p>dove $\alpha$ è un iperparametro che determina l&rsquo;importanza relativa dell&rsquo;informazione posizionale.</p>
+<h3 id="interazione-con-dropout">Interazione con Dropout</h3>
+<p>Il positional encoding viene tipicamente applicato prima del dropout layer:</p>
+$$\mathbf{x}''_n = \text{Dropout}(\mathbf{x}_n + \mathbf{p}_n)$$
+<p>Questo permette al modello di apprendere robustezza rispetto a piccole perturbazioni nell&rsquo;informazione posizionale.</p>
+<h3 id="limitazioni-del-sinusoidal-encoding">Limitazioni del Sinusoidal Encoding</h3>
+<p><strong>Ambiguità per sequenze molto lunghe</strong>: Per sequenze estremamente lunghe, le funzioni sinusoidali possono iniziare a &ldquo;ripetersi&rdquo;, creando ambiguità posizionali.</p>
+<p><strong>Linearità delle relazioni</strong>: Il modello assume che le relazioni posizionali siano catturabili attraverso combinazioni lineari di funzioni trigonometriche.</p>
+<p><strong>Mancanza di adattabilità</strong>: A differenza dei learned embeddings, i pattern sinusoidali sono fissi e non possono adattarsi a pattern posizionali specifici del task.</p>
+<h2 id="effetti-sui-transformer">Effetti sui Transformer</h2>
+<h3 id="architettura-completa">Architettura Completa</h3>
+<p>Nel Transformer completo, il positional encoding viene aggiunto all&rsquo;inizio:</p>
+<div class="codehilite"><pre><span></span><code>Input Embeddings → + Positional Encoding → Multi-Head Attention → ...
+</code></pre></div>
+
+<p>Questo significa che <strong>tutta l&rsquo;architettura</strong> downstream beneficia dell&rsquo;informazione posizionale.</p>
+<h3 id="multi-head-attention"><a href="/theory/deep-learning/Transformers/Attention/Multi-Head Attention" class="text-blue-600 hover:underline">Multi-Head Attention</a></h3>
+<p>Nel multi-head attention, il positional encoding influenza <strong>tutte le teste</strong> simultaneamente:</p>
+$$\text{Head}_h = \text{Attention}(\mathbf{Q}_h, \mathbf{K}_h, \mathbf{V}_h)$$
+<p>dove:
+$$
+\begin{align}
+\mathbf{Q}_h = \mathbf{W}_q^{(h)} (\mathbf{X} + \mathbf{P})\\
+\mathbf{K}_h = \mathbf{W}_k^{(h)} (\mathbf{X} + \mathbf{P})\\
+\mathbf{V}_h = \mathbf{W}_v^{(h)} (\mathbf{X} + \mathbf{P})
+\end{align}
+$$</p>
+<p>Ogni testa può quindi specializzarsi nel catturare diversi tipi di relazioni posizionali.</p>
+<h3 id="layer-profondi">Layer Profondi</h3>
+<p>Un aspetto interessante è che il positional encoding viene aggiunto solo all&rsquo;input del primo layer. I layer successivi ricevono informazione posizionale attraverso le rappresentazioni elaborate dai layer precedenti.</p>
+<p>Questo crea una <strong>gerarchia di informazione posizionale</strong>:
+- <strong>Layer bassi</strong>: Relazioni posizionali esplicite e dirette
+- <strong>Layer alti</strong>: Relazioni posizionali integrate con informazione semantica complessa</p>
+<h2 id="validazione-empirica-e-risultati">Validazione Empirica e Risultati</h2>
+<h3 id="ablation-studies">Ablation Studies</h3>
+<p>Studi di ablazione hanno dimostrato l&rsquo;importanza critica del positional encoding:</p>
+<ul>
+<li>
+<p><strong>Senza positional encoding</strong>: I modelli Transformer perdono drasticamente performance su task che richiedono comprensione dell&rsquo;ordine sequenziale.</p>
+</li>
+<li>
+<p><strong>Con positional encoding</strong>: Miglioramenti significativi in traduzione automatica, language modeling e task di comprensione del linguaggio.</p>
+</li>
+</ul>
+<h3 id="analisi-dei-pattern-appresi">Analisi dei Pattern Appresi</h3>
+<p>Visualizzazioni delle matrici di attention nei Transformer addestrati mostrano che il positional encoding permette l&rsquo;emergere di pattern linguistici complessi:</p>
+<ul>
+<li><strong>Local attention</strong>: Parole adiacenti spesso si prestano attenzione reciproca</li>
+<li><strong>Syntactic attention</strong>: Relazioni sintattiche (soggetto-verbo, sostantivo-aggettivo) vengono catturate</li>
+<li><strong>Long-range dependencies</strong>: Dipendenze a lungo raggio diventano più facilmente learnable</li>
+</ul>
+<h2 id="considerazioni-implementative">Considerazioni Implementative</h2>
+<h3 id="efficienza-computazionale">Efficienza Computazionale</h3>
+<p>Il positional encoding ha un costo computazionale trascurabile:
+- <strong>Sinusoidal</strong>: $O(Nd)$ per il calcolo, $O(d)$ per la memorizzazione (pattern ripetibile)
+- <strong>Learned</strong>: $O(1)$ per l&rsquo;accesso, $O(N_{\max}d)$ per la memorizzazione</p>
+<h3 id="stabilita-numerica">Stabilità Numerica</h3>
+<p>L&rsquo;uso di funzioni trigonometriche garantisce valori bounded, ma richiede attenzione nella scelta della base (10000 nel caso standard) per evitare frequenze troppo alte o troppo basse.</p>
+<h3 id="compatibilita-cross-architecture">Compatibilità Cross-Architecture</h3>
+<p>Il sinusoidal encoding è diventato uno standard de facto, garantendo compatibilità tra diversi modelli e implementazioni.</p>
+<h2 id="direzioni-future">Direzioni Future</h2>
+<h3 id="encoding-adattivo">Encoding Adattivo</h3>
+<p>Ricerche recenti esplorano encoding che si adattano dinamicamente alla lunghezza della sequenza o al contenuto:</p>
+$$\mathbf{p}_n = f(n, \mathbf{x}_1, \ldots, \mathbf{x}_N, \theta)$$
+<h3 id="encoding-multidimensionale">Encoding Multidimensionale</h3>
+<p>Per task che coinvolgono strutture 2D o 3D (immagini, grafi), si sviluppano encoding posizionali multidimensionali:</p>
+$$\text{PE}(x, y, i) = \sin\left(\frac{x \cdot y}{10000^{i/d}}\right)$$
+<h3 id="encoding-gerarchico">Encoding Gerarchico</h3>
+<p>Per catturare strutture gerarchiche (paragrafi, sezioni, documenti), si utilizzano encoding a più livelli:</p>
+$$\mathbf{p}_n = \mathbf{p}_n^{\text{word}} + \mathbf{p}_n^{\text{sentence}} + \mathbf{p}_n^{\text{paragraph}}$$
+<h2 id="conclusioni">Conclusioni</h2>
+<p>Il positional encoding rappresenta una soluzione elegante e matematicamente fondata al problema della permutation invariance nell&rsquo;attention mechanism. Attraverso l&rsquo;iniezione di informazione posizionale negli embedding di input, permette ai Transformer di catturare sia relazioni semantiche che strutturali.</p>
+<p>La scelta del sinusoidal encoding come standard si basa su una combinazione di:
+- <strong>Eleganza matematica</strong>: Proprietà di linearità e periodicità ben definite
+- <strong>Efficienza computazionale</strong>: Calcolo deterministico senza parametri aggiuntivi
+- <strong>Estendibilità</strong>: Funziona per sequenze di lunghezza arbitraria
+- <strong>Interpretabilità</strong>: Pattern di frequenza comprensibili</p>
+<p>Il positional encoding non è semplicemente un &ldquo;trucco tecnico&rdquo;, ma rappresenta un ponte fondamentale tra la potenza computazionale dell&rsquo;attention mechanism e i requisiti strutturali del linguaggio naturale. La sua introduzione ha reso possibile l&rsquo;emergere dei Transformer come architettura dominante nel deep learning moderno.</p>
+<p>Comprendere il positional encoding è quindi essenziale per chiunque voglia padroneggiare i moderni modelli di linguaggio e contribuire al loro sviluppo futuro.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> deep learning, neural networks, CNN, RNN, transformers, model, data, training</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/deep-learning/Transformers/Positional Encoding">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Il Positional Encoding: Una Guida Completa',
+          page_location: 'http://localhost:3000/theory/deep-learning/Transformers/Positional Encoding'
+        });
+      }
+    </script>
+</body>
+</html>

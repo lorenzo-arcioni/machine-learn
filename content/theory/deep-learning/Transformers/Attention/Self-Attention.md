@@ -1,4 +1,4 @@
-# Il Meccanismo di Attention: Una Guida Completa
+# Il Meccanismo di Self-Attention: Una Guida Completa
 
 ## Introduzione e Intuizione
 
@@ -67,7 +67,7 @@ $$
 
 #### Embedding
 
-Per superare questi limiti, si utilizzano i **Dense Word Embeddings**:
+Per superare questi limiti, si utilizzano i [[Dense Word Embeddings]]:
 
 - Ogni parola $w_m$ viene rappresentata da un vettore **denso** $\mathbf{x}_m \in \mathbb{R}^d$, con $d \ll V$.  
 - Gli embedding vengono **appresi** dal modello durante il training, in modo che parole semanticamente simili abbiano rappresentazioni vicine nello spazio degli embeddings:
@@ -103,26 +103,26 @@ Tipicamente $d_v = d$ per permettere le residual connections, ma non è sempre n
 
 #### Self-Attention come combinazione pesata
 
-Il vettore di output corrispondente alla posizione $n$ è una combinazione lineare di tutti i value $\mathbf{v}_1, \dots, \mathbf{v}_N$, pesata dai coefficienti di attenzione $a_{nm}$:
+Il vettore di output corrispondente alla posizione $n$ è una combinazione lineare di tutti i value $\mathbf{v}_1, \dots, \mathbf{v}_N$, pesata dai coefficienti di attenzione $a_{mn}$:
 
 $$
-\mathbf{sa}_n[\mathbf{x}_1, \dots, \mathbf{x}_N] = \mathbf{y}_n = \sum_{m=1}^N a_{nm} \,\mathbf{v}_m
+\mathbf{y}_n = \mathbf{sa}_n[\mathbf{x}_1, \dots, \mathbf{x}_N] = \sum_{m=1}^N a_{mn} \,\mathbf{v}_m
 $$
 
-dove $a_{nm}$ indica **quanto l'output in posizione $n$ presta attenzione all'input in posizione $m$**.
+dove $a_{mn}$ indica **quanto l'output in posizione $n$ presta attenzione all'input in posizione $m$**.
 
 #### Vincoli sui pesi di attenzione
 
-I pesi $a_{nm}$ hanno due proprietà fondamentali:
+I pesi $a_{mn}$ hanno due proprietà fondamentali:
 
 - **Non negatività:**  
-  $a_{nm} \geq 0 \quad \forall n,m$
+  $a_{mn} \geq 0 \quad \forall n,m$
 - **Normalizzazione:**  
-  $\sum_{m=1}^N a_{nm} = 1 \quad \forall n$
+  $\sum_{m=1}^N a_{mn} = 1 \quad \forall n$
 
 Queste condizioni garantiscono che $\mathbf{y}_n$ sia una **combinazione convessa** dei value $\mathbf{v}_m$, rendendo il modello stabile e interpretabile.
 
-<img src="../../../../images/attention-mechanism.png" alt="Self-Attention" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="../../../../../images/attention-mechanism.png" alt="Self-Attention" style="display: block; margin-left: auto; margin-right: auto;">
 
 <br>
 
@@ -133,15 +133,15 @@ Il meccanismo di self-attention prende in input $N$ vettori $\mathbf{x}_1, \ldot
 L'output $n$-esimo $\mathbf{sa}_n[\mathbf{x}_1, \ldots, \mathbf{x}_N]$ (scritto in breve come $\mathbf{sa}_n[\mathbf{x}_\bullet]$)  
 viene quindi calcolato come una **somma pesata** dei $N$ vettori *value*, dove i pesi sono positivi e sommano a uno.  
 
-- **(a)** L'output $\mathbf{sa}_1[\mathbf{x}_\bullet]$ è calcolato come  
+- L'output $\mathbf{sa}_1[\mathbf{x}_\bullet]$ è calcolato come  
   $a_{11} = 0.1$ volte il primo vettore *value* $\mathbf{v}_1$,  
   $a_{12} = 0.3$ volte il secondo vettore *value* $\mathbf{v}_2$,  
   e $a_{13} = 0.6$ volte il terzo vettore *value* $\mathbf{v}_3$.  
 
-- **(b)** L'output $\mathbf{sa}_2[\mathbf{x}_\bullet]$ è calcolato nello stesso modo,  
+- L'output $\mathbf{sa}_2[\mathbf{x}_\bullet]$ è calcolato nello stesso modo,  
   ma con pesi $a_{21} = 0.5$, $a_{22} = 0.2$ e $a_{23} = 0.3$.  
 
-- **(c)** Il calcolo dell'output $\mathbf{sa}_3[\mathbf{x}_\bullet]$ utilizza ancora pesi diversi:  
+- Il calcolo dell'output $\mathbf{sa}_3[\mathbf{x}_\bullet]$ utilizza ancora pesi diversi:  
   $a_{31}$, $a_{32}$, $a_{33}$ con valori specifici per questa posizione.  
 
 In sintesi, ciascun output può essere visto come un **instradamento differente dei $N$ vettori value**.
@@ -149,20 +149,27 @@ In sintesi, ciascun output può essere visto come un **instradamento differente 
 #### Interpretazione
 
 La self-attention può quindi essere vista come un **meccanismo di instradamento (routing)**:  
-ogni output $\mathbf{y}_n$ è costruito mescolando i value $\mathbf{v}_m$ in proporzioni determinate dai pesi $a_{nm}$.  
+ogni output $\mathbf{y}_n$ è costruito mescolando i value $\mathbf{v}_m$ in proporzioni determinate dai pesi $a_{mn}$.
 
-Nelle sezioni successive vedremo come vengono calcolati in pratica questi pesi $a_{nm}$ utilizzando le **query** e le **key**, e come questo porti alla definizione della **dot-product self-attention**.
+La vera innovazione sta nel modo in cui vengono calcolati i pesi $a_{mn}$. Non sono fissi o predeterminati, ma vengono calcolati **dinamicamente** in base al contenuto effettivo della sequenza.
 
-La vera innovazione sta nel modo in cui vengono calcolati i pesi $a_{nm}$. Non sono fissi o predeterminati, ma vengono calcolati **dinamicamente** in base al contenuto effettivo della sequenza.
+Nelle sezioni successive vedremo come vengono calcolati in pratica questi pesi $a_{mn}$ utilizzando le **query** e le **key**, e come questo porti alla definizione della **dot-product self-attention**.
 
 ### Il Concetto di Query
 La **query** $\mathbf{q}_n \in \mathbb{R}^{d_k}$ rappresenta "cosa sta cercando" l'elemento in posizione $n$. È una domanda posta in forma vettoriale. Quando calcoliamo la rappresentazione di "chiave" nel nostro esempio precedente, la query potrebbe essere interpretata come "Sto cercando informazioni che mi aiutino a capire dove mi trovo e cosa mi circonda".
 
 Matematicamente, la query viene ottenuta attraverso una trasformazione lineare dell'input originale:
 $$\mathbf{q}_n = \mathbf{W}_q \mathbf{x}_n + \mathbf{b}_q$$
-dove $\mathbf{W}_q \in \mathbb{R}^{d_k \times d}$ è una matrice di pesi apprendibili e $\mathbf{b}_q \in \mathbb{R}^{d_k}$ è un vettore di bias. La dimensione $d_k$ (dimensione delle query e key) può essere diversa da $d$ (dimensione dell'input).
+dove $\mathbf{W}_q \in \mathbb{R}^{d_k \times d}$ è una matrice di pesi e $\mathbf{b}_q \in \mathbb{R}^{d_k}$ è un vettore di bias, entrambi appresi in fase di addestramento. La dimensione $d_k$ (dimensione delle query e key) può essere diversa da $d$ (dimensione dell'input).
 
-L'effetto della dimensione $d_k$ sull'apprendimento è legato alla **granularità delle relazioni** che il modello riesce a cogliere:
+### Il Concetto di Key
+La **key** $\mathbf{k}_m$ rappresenta "cosa può offrire" l'elemento in posizione $m$. È una sorta di "biglietto da visita" che descrive il tipo di informazione disponibile in quella posizione. Tornando al nostro esempio, la key di "tavola" potrebbe essere interpretata come "Sono un oggetto fisico, posso fornire informazioni su posizione e supporto di altri oggetti".
+
+$$\mathbf{k}_m = \mathbf{W}_k \mathbf{x}_m + \mathbf{b}_k$$
+dove $\mathbf{W}_k \in \mathbb{R}^{d_k \times d}$ e $\mathbf{b}_k \in \mathbb{R}^{d_k}$ sono i parametri per la trasformazione delle key.
+
+L'effetto della dimensione $d_k$ sull'apprendimento è legato alla **granularità delle relazioni (query/key)** che il modello riesce a cogliere:
+
 - **$d_k$ piccolo** → il modello riesce a rappresentare solo poche caratteristiche.  
   Questo porta a un'attenzione più semplice e focalizzata, ma con rischio di perdere dettagli.
 - **$d_k$ grande** → il modello ha accesso a molte più informazioni.  
@@ -176,13 +183,7 @@ d_k = \frac{d}{h}
 $$
 dove:
 - $d$ = dimensione dell'embedding di input
-- $h$ = numero di teste di attenzione.
-
-### Il Concetto di Key
-La **key** $\mathbf{k}_m$ rappresenta "cosa può offrire" l'elemento in posizione $m$. È una sorta di "biglietto da visita" che descrive il tipo di informazione disponibile in quella posizione. Tornando al nostro esempio, la key di "tavola" potrebbe essere interpretata come "Sono un oggetto fisico, posso fornire informazioni su posizione e supporto di altri oggetti".
-
-$$\mathbf{k}_m = \mathbf{W}_k \mathbf{x}_m + \mathbf{b}_k$$
-dove $\mathbf{W}_k \in \mathbb{R}^{d_k \times d}$ e $\mathbf{b}_k \in \mathbb{R}^{d_k}$ sono i parametri per la trasformazione delle key.
+- $h$ = numero di [[Multi-Head Attention|teste di attenzione]].
 
 ### Il Concetto di Value
 Il **value** $\mathbf{v}_m$ rappresenta "il contenuto informativo effettivo" dell'elemento in posizione $m$. Una volta che abbiamo deciso di prestare attenzione a un elemento (attraverso la compatibilità query-key), il value è ciò che effettivamente "prendiamo" da quell'elemento.
@@ -205,7 +206,7 @@ La separazione in query, key e value non è arbitraria ma serve scopi precisi e 
 
 Il cuore dell'**attention mechanism** è il calcolo della compatibilità tra key e query attraverso il **prodotto scalare**:
 
-$$\text{score}(\mathbf{k}_m, \mathbf{q}_n) = \mathbf{k}_m^T \mathbf{q}_n = \sum_{\ell=1}^{d_k} k_{m,\ell} \cdot q_{n,\ell}$$
+$$\text{score}(\mathbf{k}_m, \mathbf{q}_n) = s_{mn} = \mathbf{k}_m^T \mathbf{q}_n = \sum_{\ell=1}^{d_k} k_{m,\ell} \cdot q_{n,\ell}$$
 
 dove $m$ indica la posizione della key (input) e $n$ indica la posizione della query (output).
 
@@ -215,18 +216,67 @@ Se consideriamo vettori normalizzati, il prodotto scalare diventa il **coseno de
 
 ### Il Problema dello Scaling e la Sua Soluzione
 
-Quando le dimensioni dei vettori key e query diventano grandi, i prodotti scalari possono assumere valori molto grandi in magnitudine. Questo crea problemi significativi per la funzione softmax che viene applicata successivamente.
+Per trasformare gli score in probabilità, si applica la funzione **softmax**, che normalizza i punteggi in valori compresi tra 0 e 1 e che sommano a 1. Questo permette di interpretare ogni valore come la proporzione di attenzione da assegnare a ciascun key rispetto alla query considerata.
 
-Per comprendere il problema, consideriamo la funzione softmax applicata ai punteggi per la query in posizione $n$:
+Tuttavia, quando le dimensioni dei vettori key e query diventano grandi, i prodotti scalari possono assumere valori molto grandi in magnitudine. Questo crea problemi significativi per la funzione softmax applicata successivamente.
 
-$$\text{softmax}(\mathbf{s}_n)_m = \frac{e^{s_{mn}}}{\sum_{k=1}^{N} e^{s_{kn}}}$$
+Per comprendere il problema, consideriamo la **matrice dei punteggi**:
 
-dove $\mathbf{s}_n = [s_{1n}, s_{2n}, \ldots, s_{Nn}]^T$ è il vettore dei punteggi per la query $n$.
+$$
+\mathbf{S} =
+\begin{bmatrix}
+| & | & & | \\
+\mathbf{s}_1 & \mathbf{s}_2 & \cdots & \mathbf{s}_N \\
+| & | & & |
+\end{bmatrix}
+\;\text{dove} \quad  
+\mathbf{s}_n =
+\begin{bmatrix}
+s_{1n} \\
+s_{2n} \\
+\vdots \\
+s_{Nn}
+\end{bmatrix}, \quad
+\text{colonna } n \text{ corrisponde ai punteggi della query } n \text{ rispetto a tutti i key}
+$$
 
-Se gli elementi di $\mathbf{s}_n$ sono molto grandi, la funzione esponenziale li amplifica enormemente, causando due problemi:
+dove:
 
-1. **Saturazione**: La softmax si concentra quasi tutto il peso su un singolo elemento, perdendo la capacità di distribuire l'attenzione
-2. **Instabilità numerica**: Valori molto grandi possono causare overflow nell'esponenziale
+- La riga $m$ corrisponde al key/input $m$
+- La colonna $n$ corrisponde alla query/output $n$
+- L’elemento $(m,n)$ è $s_{mn} = \mathbf{k}_m^T \mathbf{q}_n$
+
+Per ottenere i pesi di attenzione, applichiamo la softmax **su ogni colonna $n$**:
+
+$$
+\text{SoftMax}(\mathbf s_n) =  
+\LARGE
+\begin{bmatrix}
+\frac{e^{s_{1n}}}{\sum_{k=1}^{N} e^{s_{kn}}} \\
+\\
+\frac{e^{s_{2n}}}{\sum_{k=1}^{N} e^{s_{kn}}} \\
+\\
+\vdots \\
+\\
+\frac{e^{s_{Nn}}}{\sum_{k=1}^{N} e^{s_{kn}}}
+\\
+\end{bmatrix}
+\normalsize
+=
+\begin{bmatrix}
+a_{1n} \\
+a_{2n} \\
+\vdots \\
+a_{Nn}
+\end{bmatrix}
+$$
+
+In questo modo, la somma dei pesi per ciascuna query $n$ è 1: $\sum_m a_{mn} = 1$.
+
+Se gli elementi di una colonna sono molto grandi, la funzione esponenziale li amplifica enormemente, causando due problemi principali:
+
+1. **Saturazione**: La softmax tende a concentrare quasi tutto il peso su un singolo elemento, perdendo la capacità di distribuire l'attenzione.  
+2. **Instabilità numerica**: Valori molto grandi possono provocare overflow nell’esponenziale.
 
 ### Analisi Teorica dello Scaling Factor
 
@@ -255,6 +305,27 @@ Dividendo per $\sqrt{d_k}$, otteniamo:
 $$\text{Var}\left(\frac{\mathbf{k}^T \mathbf{q}}{\sqrt{d_k}}\right) = \frac{\text{Var}(\mathbf{k}^T \mathbf{q})}{d_k} = \frac{d_k}{d_k} = 1$$
 
 Questo mantiene la varianza dei punteggi costante, indipendentemente dalla dimensionalità, stabilizzando il comportamento della softmax.
+
+#### Vantaggi dello Scaling Factor (Varianza = 1)
+
+Dividere il prodotto scalare per $\sqrt{d_k}$ garantisce che la **varianza dei punteggi** rimanga pari a 1, indipendentemente dalla dimensione dei vettori key e query. Questo accorgimento ha diversi vantaggi fondamentali:
+
+1. **Stabilità numerica della softmax**  
+   - La funzione softmax è sensibile alla magnitudine dei suoi input.  
+   - Senza scaling, aumentando $d_k$ gli score diventano molto grandi, causando:
+     - **Saturazione**: un singolo elemento domina la distribuzione dei pesi.  
+     - **Overflow numerico**: esponenziali troppo grandi producono valori `inf` o `NaN`.  
+   - Varianza = 1 mantiene gli score in un intervallo gestibile, evitando questi problemi.
+
+2. **Coerenza tra layer e dimensioni diverse**  
+   - Nei Transformer, diverse teste di attenzione o layer possono avere dimensioni di embedding differenti.  
+   - Lo scaling normalizza i punteggi, garantendo che la distribuzione dei pesi rimanga simile anche per dimensioni diverse.
+
+3. **Gradiente stabile durante il training**  
+   - Score con varianza controllata evitano gradienti troppo grandi o troppo piccoli durante il backprop.  
+   - Questo facilita la convergenza e riduce il rischio di instabilità nei parametri del modello.
+
+**In sintesi:** dividere per $\sqrt{d_k}$ “normalizza” i punteggi della attention, mantenendo la softmax efficace e il training stabile, indipendentemente dalla dimensionalità dei vettori.
 
 ### La Softmax: Competizione e Normalizzazione
 
@@ -285,6 +356,7 @@ $$\mathbf{V} = \mathbf{W}_v \mathbf{X} + \mathbf{b}_v \mathbf{1}^T \in \mathbb{R
 dove $\mathbf{1} \in \mathbb{R}^{1 \times N}$ è un vettore riga di tutti 1.
 
 In questa formulazione:
+
 - La colonna $n$ di $\mathbf{Q}$ contiene $\mathbf{q}_n$
 - La colonna $m$ di $\mathbf{K}$ contiene $\mathbf{k}_m$
 - La colonna $m$ di $\mathbf{V}$ contiene $\mathbf{v}_m$
@@ -293,7 +365,11 @@ In questa formulazione:
 
 L'intero meccanismo di attention si riduce a una singola operazione matriciale:
 
-$$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \mathbf{V} \cdot \text{softmax}\left(\frac{\mathbf{K}^T\mathbf{Q}}{\sqrt{d_k}}\right)$$
+$$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \mathbf{V} \cdot \text{SoftMax}\left(\frac{\mathbf{K}^T\mathbf{Q}}{\sqrt{d_k}}\right)$$
+
+<img src="../../../../images/attention-computing.png" alt="Self-Attention" style="display: block; margin-left: auto; margin-right: auto;">
+
+<br>
 
 Analizziamo i passaggi:
 
@@ -304,6 +380,49 @@ Analizziamo i passaggi:
 3. **Softmax**: Normalizza ogni colonna della matrice (ogni colonna $n$ corrisponde ai pesi di attenzione $a_{mn}$ per $m = 1, \ldots, N$)
 
 4. **Moltiplicazione per $\mathbf{V}$**: Calcola la combinazione pesata dei value. Il risultato è una matrice $\mathbb{R}^{d_v \times N}$ dove la colonna $n$ contiene $\mathbf{y}_n = \sum_{m=1}^N a_{mn} \mathbf{v}_m$
+
+Quindi la matrice finale $\mathbf{Y} \in \mathbb{R}^{d_v \times N}$ sarà:
+
+$$\mathbf{Y} = \mathbf{V} \cdot \text{SoftMax}\left(\frac{\mathbf{K}^T \mathbf{Q}}{\sqrt{d_k}}\right)
+=
+\mathbf{V} \cdot 
+\begin{bmatrix}
+| & | & & | \\
+\text{SoftMax}(\mathbf{s}_1) & \text{SoftMax}(\mathbf{s}_2) & \cdots & \text{SoftMax}(\mathbf{s}_N) \\
+| & | & & |
+\end{bmatrix}
+$$
+
+Espandendo la moltiplicazione colonna per colonna:
+
+$$
+\mathbf{Y} =
+\mathbf{V} \cdot
+\begin{bmatrix}
+\mathbf{a}_1 & \mathbf{a}_2 & \cdots & \mathbf{a}_N
+\end{bmatrix}
+=
+\begin{bmatrix}
+\sum_{m=1}^{N} a_{m1} \mathbf{v}_m &
+\sum_{m=1}^{N} a_{m2} \mathbf{v}_m &
+\cdots &
+\sum_{m=1}^{N} a_{mN} \mathbf{v}_m
+\end{bmatrix}
+$$
+
+dove ogni colonna $\mathbf{y}_n = \sum_{m=1}^{N} a_{mn} \mathbf{v}_m$ rappresenta l’output della self-attention per la query $n$, ottenuto come combinazione pesata di tutti i value $\mathbf{v}_m$ usando i pesi di attenzione $a_{mn}$.
+
+In altre parole, la moltiplicazione matriciale effettua simultaneamente tutte le somme pesate per ogni query, restituendo la matrice finale:
+
+$$
+\mathbf{Y} =
+\begin{bmatrix}
+| & | & & | \\
+\mathbf{y}_1 & \mathbf{y}_2 & \cdots & \mathbf{y}_N \\
+| & | & & |
+\end{bmatrix}
+\in \mathbb{R}^{d_v \times N}
+$$
 
 ## Self-Attention: Il Dialogo Interno della Sequenza
 
@@ -344,17 +463,18 @@ from torch import nn
 import torch.nn.functional as F
 import math
 
-class BasicSelfAttention(nn.Module):
+class SelfAttention(nn.Module):
     """
-    Implementazione di Self-Attention che segue esattamente il formalismo matematico:
+    Implementazione base diSelf-Attention coerente con il formalismo matematico descritto nella spiegazione.
     
-    Formalismo:
-    - X ∈ R^(d × N): matrice input con features sulle righe, sequenze sulle colonne
-    - Q = W_q @ X + b_q @ 1^T ∈ R^(d_k × N)
-    - K = W_k @ X + b_k @ 1^T ∈ R^(d_k × N)  
+    FORMALISMO:
+    - X ∈ R^(d × N): matrice input (features × sequence_length)
+    - Q = W_q @ X + b_q @ 1^T ∈ R^(d_k × N) 
+    - K = W_k @ X + b_k @ 1^T ∈ R^(d_k × N)
     - V = W_v @ X + b_v @ 1^T ∈ R^(d_v × N)
-    - Scores = K^T @ Q / √d_k ∈ R^(N × N), dove scores[m,n] = k_m^T @ q_n
-    - Attention = V @ softmax_col(Scores) ∈ R^(d_v × N)
+    - S = K^T @ Q / √d_k ∈ R^(N × N)
+    - A = SoftMax_col(S) ∈ R^(N × N)
+    - Y = V @ A ∈ R^(d_v × N)
     """
     
     def __init__(self, d_model, d_k=None, d_v=None):
@@ -370,71 +490,53 @@ class BasicSelfAttention(nn.Module):
         self.d_k = d_k
         self.d_v = d_v
         
-        # Matrici di trasformazione come definite nel formalismo
-        # W_q ∈ R^(d_k × d_model)
+        # Matrici di peso secondo il formalismo
         self.W_q = nn.Parameter(torch.randn(d_k, d_model) / math.sqrt(d_model))
-        # W_k ∈ R^(d_k × d_model)  
         self.W_k = nn.Parameter(torch.randn(d_k, d_model) / math.sqrt(d_model))
-        # W_v ∈ R^(d_v × d_model)
         self.W_v = nn.Parameter(torch.randn(d_v, d_model) / math.sqrt(d_model))
         
         # Vettori di bias
-        # b_q ∈ R^(d_k × 1)
         self.b_q = nn.Parameter(torch.zeros(d_k, 1))
-        # b_k ∈ R^(d_k × 1)
-        self.b_k = nn.Parameter(torch.zeros(d_k, 1))  
-        # b_v ∈ R^(d_v × 1)
+        self.b_k = nn.Parameter(torch.zeros(d_k, 1))
         self.b_v = nn.Parameter(torch.zeros(d_v, 1))
         
-    def forward(self, x, return_attention=True):
+    def forward(self, x, return_attention=False):
         """
-        Forward pass seguendo il formalismo matematico.
-        
         Args:
-            x: Input tensor di shape (batch_size, seq_len, d_model)
+            x: Input (batch_size, seq_len, d_model)
             return_attention: Se ritornare i pesi di attention
             
         Returns:
-            output: Tensor di shape (batch_size, seq_len, d_v)
-            attention_weights: Tensor di shape (batch_size, seq_len, seq_len) se return_attention=True
+            output: (batch_size, seq_len, d_v)
+            attention_weights: (batch_size, seq_len, seq_len) se return_attention=True
         """
         batch_size, seq_len, d_model = x.size()
         
-        # PASSO 1: Riorganizza input secondo il formalismo
-        # x: (batch_size, seq_len, d_model) → X: (batch_size, d_model, seq_len)
-        X = x.transpose(-2, -1)  
+        # Converti a formalismo matematico: X ∈ R^(d_model × seq_len)
+        X = x.transpose(-2, -1)
         
-        # PASSO 2: Calcola Q, K, V seguendo esattamente il formalismo
-        # Q = W_q @ X + b_q @ 1^T
-        ones = torch.ones(1, seq_len, device=x.device, dtype=x.dtype)  # 1^T ∈ R^(1 × N)
+        # Vettore 1^T ∈ R^(1 × seq_len)
+        ones_T = torch.ones(1, seq_len, device=x.device, dtype=x.dtype)
         
-        Q = torch.matmul(self.W_q.unsqueeze(0), X) + torch.matmul(self.b_q.unsqueeze(0), ones.unsqueeze(0))
-        K = torch.matmul(self.W_k.unsqueeze(0), X) + torch.matmul(self.b_k.unsqueeze(0), ones.unsqueeze(0))
-        V = torch.matmul(self.W_v.unsqueeze(0), X) + torch.matmul(self.b_v.unsqueeze(0), ones.unsqueeze(0))
+        # Calcola Q, K, V secondo il formalismo
+        Q = torch.matmul(self.W_q.unsqueeze(0), X) + self.b_q.unsqueeze(0) @ ones_T.unsqueeze(0)
+        K = torch.matmul(self.W_k.unsqueeze(0), X) + self.b_k.unsqueeze(0) @ ones_T.unsqueeze(0)
+        V = torch.matmul(self.W_v.unsqueeze(0), X) + self.b_v.unsqueeze(0) @ ones_T.unsqueeze(0)
         
-        # PASSO 3: Calcola scores = K^T @ Q / √d_k
-        # K^T: (batch_size, seq_len, d_k)
-        # Q: (batch_size, d_k, seq_len)
-        # Risultato: (batch_size, seq_len, seq_len) dove [m,n] = k_m^T @ q_n
-        scores = torch.matmul(K.transpose(-2, -1), Q) / math.sqrt(self.d_k)
+        # Calcola scores: S = K^T @ Q / √d_k
+        S = torch.matmul(K.transpose(-2, -1), Q) / math.sqrt(self.d_k)
         
-        # PASSO 4: Applica softmax per colonne
-        # softmax_col normalizza lungo la dimensione delle key (dim=-2)
-        # Così ∑_m a_{mn} = 1 per ogni query n
-        attention_weights = F.softmax(scores, dim=-2)
+        # Applica softmax per colonne (normalizza lungo le righe)
+        A = F.softmax(S, dim=-2)
         
-        # PASSO 5: Calcola output = V @ attention_weights
-        # V: (batch_size, d_v, seq_len)
-        # attention_weights: (batch_size, seq_len, seq_len)
-        # Risultato: (batch_size, d_v, seq_len)
-        output = torch.matmul(V, attention_weights)
+        # Calcola output: Y = V @ A
+        Y = torch.matmul(V, A)
         
-        # PASSO 6: Riporta alla convenzione standard PyTorch
-        # (batch_size, d_v, seq_len) → (batch_size, seq_len, d_v)
-        output = output.transpose(-2, -1)
+        # Converti back a convenzione PyTorch
+        output = Y.transpose(-2, -1)
         
         if return_attention:
-            return output, attention_weights
+            return output, A
         else:
             return output
 ```
@@ -481,7 +583,7 @@ L'output è quindi il valore atteso dei value sotto questa distribuzione. Questo
 
 Il meccanismo di attention ha alcune proprietà di invarianza interessanti:
 
-**Permutation equivariance**: Se permuti gli input, gli output vengono permutati allo stesso modo (senza positional encoding).
+**Permutation invariance**: Se permuti gli input, gli output vengono permutati allo stesso modo (senza positional encoding).
 
 **Scale invariance**: Moltiplicare tutti gli input per una costante non cambia i pesi di attention (grazie alla normalizzazione softmax).
 
