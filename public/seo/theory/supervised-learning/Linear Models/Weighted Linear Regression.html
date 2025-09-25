@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regressione Ponderata (Weighted Regression) | Supervised Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="supervised learning, labeled data, classification, regression, model, data, training, learning">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Regressione Ponderata (Weighted Regression)">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/supervised-learning/Linear Models/Weighted Linear Regression">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Regressione Ponderata (Weighted Regression)">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/supervised-learning/Linear Models/Weighted Linear Regression">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Regressione Ponderata (Weighted Regression)",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/supervised-learning/Linear Models/Weighted Linear Regression",
+      "datePublished": "2025-09-25T14:48:27.962Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/supervised-learning/Linear Models/Weighted Linear Regression" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Regressione Ponderata (Weighted Regression)</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Supervised Learning | 
+                    <strong>Updated:</strong> 25/09/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>Regressione Ponderata</strong> (Weighted Regression) è un&rsquo;estensione della <a href="/theory/supervised-learning/Linear Models/Regressione Lineare" class="text-blue-600 hover:underline">Regressione Lineare</a> che permette di assegnare <strong>pesi differenti</strong> alle osservazioni durante il processo di stima dei parametri. A differenza della regressione lineare ordinaria dove tutte le osservazioni contribuiscono ugualmente alla funzione di costo, la regressione ponderata riflette l&rsquo;<strong>importanza relativa</strong> o l&rsquo;<strong>affidabilità</strong> di ciascun punto dati.</p>
+<h2 id="1-motivazione-e-contesto"><strong>1. Motivazione e Contesto</strong></h2>
+<h3 id="11-problemi-della-regressione-lineare-ordinaria"><strong>1.1. Problemi della Regressione Lineare Ordinaria</strong></h3>
+<p>Nella regressione lineare classica, l&rsquo;assunzione di <strong>omoschedasticità</strong> (varianza costante degli errori) e <strong>uguale affidabilità</strong> di tutte le osservazioni non sempre riflette la realtà. Situazioni comuni dove queste assunzioni sono violate includono:</p>
+<ol>
+<li><strong>Eteroschedasticità</strong>: La varianza dell&rsquo;errore varia tra le osservazioni</li>
+<li><strong>Affidabilità variabile</strong>: Alcune misurazioni sono intrinsecamente più precise di altre</li>
+<li><strong>Dimensione del campione variabile</strong>: Osservazioni rappresentano gruppi di dimensioni diverse</li>
+<li><strong>Outliers noti</strong>: Alcuni punti sono chiaramente anomali ma non eliminabili</li>
+<li><strong>Precisione strumentale</strong>: Diversi strumenti di misura hanno accuratezze differenti</li>
+</ol>
+<h3 id="12-filosofia-della-ponderazione"><strong>1.2. Filosofia della Ponderazione</strong></h3>
+<p>La regressione ponderata risolve questi problemi assegnando un <strong>peso</strong> $w_i$ a ciascuna osservazione $i$:</p>
+<ul>
+<li><strong>Peso alto</strong> ($w_i$ grande): Osservazione più affidabile/importante → maggiore influenza sulla stima</li>
+<li><strong>Peso basso</strong> ($w_i$ piccolo): Osservazione meno affidabile → minore influenza sulla stima  </li>
+<li><strong>Peso zero</strong> ($w_i = 0$): Osservazione ignorata completamente</li>
+</ul>
+<h2 id="2-formulazione-matematica"><strong>2. Formulazione Matematica</strong></h2>
+<h3 id="21-problema-di-ottimizzazione"><strong>2.1. Problema di Ottimizzazione</strong></h3>
+<p>Dato un dataset $\mathcal{D} = \{(\mathbf{x}_i, y_i, w_i)\}_{i=1}^n$ dove $w_i > 0$ sono i pesi, il problema di ottimizzazione diventa:</p>
+$$
+\min_{\mathbf{w}} \sum_{i=1}^{n} w_i \left( y_i - \mathbf{x}_i^T \boldsymbol{\theta} \right)^2
+$$
+<p>Dove:
+- $\boldsymbol{\theta} \in \mathbb{R}^{d+1}$ è il vettore dei parametri (incluso il bias)
+- $\mathbf{x}_i \in \mathbb{R}^{d+1}$ è il vettore delle features (con 1 aggiunto per il bias)
+- $w_i > 0$ è il peso dell&rsquo;osservazione $i$
+- $y_i$ è la variabile target</p>
+<h3 id="22-interpretazione-probabilistica"><strong>2.2. Interpretazione Probabilistica</strong></h3>
+<p>La regressione ponderata equivale alla <strong>Maximum Likelihood Estimation</strong> quando gli errori seguono distribuzioni normali con <strong>varianze eterogenee</strong>:</p>
+$$
+\epsilon_i \sim \mathcal{N}(0, \sigma_i^2)
+$$
+<p>Il peso ottimale è inversamente proporzionale alla varianza:
+$$
+w_i = \frac{1}{\sigma_i^2}
+$$</p>
+<p>Questo significa che osservazioni con <strong>varianza più bassa</strong> (più precise) ricevono <strong>peso maggiore</strong>.</p>
+<h3 id="23-formulazione-matriciale"><strong>2.3. Formulazione Matriciale</strong></h3>
+<p>In notazione matriciale, il problema diventa:</p>
+$$
+\min_{\boldsymbol{\theta}} (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})^T \mathbf{W} (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})
+$$
+<p>Dove:
+- $\mathbf{X} \in \mathbb{R}^{n \times (d+1)}$ è la matrice di design
+- $\mathbf{y} \in \mathbb{R}^{n \times 1}$ è il vettore target<br />
+- $\mathbf{W} \in \mathbb{R}^{n \times n}$ è la matrice diagonale dei pesi:</p>
+$$
+\mathbf{W} = \begin{bmatrix}
+w_1 & 0 & \cdots & 0 \\
+0 & w_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & w_n
+\end{bmatrix}
+$$
+<h2 id="3-soluzione-analitica-weighted-least-squares-wls"><strong>3. Soluzione Analitica: Weighted Least Squares (WLS)</strong></h2>
+<h3 id="31-derivazione-della-soluzione"><strong>3.1. Derivazione della Soluzione</strong></h3>
+<p>La funzione di costo pesata è:
+$$
+J(\boldsymbol{\theta}) = (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})^T \mathbf{W} (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})
+$$</p>
+<p>Espandendo:
+$$
+J(\boldsymbol{\theta}) = \mathbf{y}^T \mathbf{W} \mathbf{y} - 2\mathbf{y}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta} + \boldsymbol{\theta}^T \mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta}
+$$</p>
+<h3 id="32-calcolo-del-gradiente"><strong>3.2. Calcolo del Gradiente</strong></h3>
+$$
+\frac{\partial J}{\partial \boldsymbol{\theta}} = -2\mathbf{X}^T \mathbf{W} \mathbf{y} + 2\mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta}
+$$
+<h3 id="33-soluzione-ottimale"><strong>3.3. Soluzione Ottimale</strong></h3>
+<p>Ponendo il gradiente uguale a zero:
+$$
+\mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta} = \mathbf{X}^T \mathbf{W} \mathbf{y}
+$$</p>
+<p>La soluzione in forma chiusa è:
+$$
+\boldsymbol{\theta}^* = (\mathbf{X}^T \mathbf{W} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W} \mathbf{y}
+$$</p>
+<h3 id="34-confronto-con-ols"><strong>3.4. Confronto con OLS</strong></h3>
+<p>La formula è identica a quella della <a href="/theory/supervised-learning/Linear Models/Regressione Lineare" class="text-blue-600 hover:underline">Regressione Lineare</a>, ma con l&rsquo;aggiunta della matrice dei pesi $\mathbf{W}$:</p>
+<table>
+<thead>
+<tr>
+<th>Metodo</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OLS</strong></td>
+<td>$\boldsymbol{\theta}^* = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}$</td>
+</tr>
+<tr>
+<td><strong>WLS</strong></td>
+<td>$\boldsymbol{\theta}^* = (\mathbf{X}^T \mathbf{W} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W} \mathbf{y}$</td>
+</tr>
+</tbody>
+</table>
+<p>Quando $\mathbf{W} = \mathbf{I}$ (tutti i pesi uguali a 1), WLS si riduce a OLS.</p>
+<h2 id="4-proprieta-statistiche"><strong>4. Proprietà Statistiche</strong></h2>
+<h3 id="41-stimatore-blue"><strong>4.1. Stimatore BLUE</strong></h3>
+<p>Sotto le assunzioni di Gauss-Markov modificate per la regressione ponderata, WLS produce lo stimatore <strong>Best Linear Unbiased Estimator (BLUE)</strong>:</p>
+<ol>
+<li><strong>Linearità</strong>: $\boldsymbol{\theta}^*$ è una combinazione lineare di $\mathbf{y}$</li>
+<li><strong>Non distorsione</strong>: $\mathbb{E}[\boldsymbol{\theta}^*] = \boldsymbol{\theta}_{\text{vero}}$  </li>
+<li><strong>Minima varianza</strong>: Tra tutti gli stimatori lineari non distorti</li>
+</ol>
+<h3 id="42-matrice-di-varianza-covarianza"><strong>4.2. Matrice di Varianza-Covarianza</strong></h3>
+<p>La matrice di varianza-covarianza dello stimatore WLS è:
+$$
+\text{Var}(\boldsymbol{\theta}^*) = \sigma^2 (\mathbf{X}^T \mathbf{W} \mathbf{X})^{-1}
+$$</p>
+<p>Gli errori standard dei coefficienti sono:
+$$
+SE(\theta_j) = \sigma \sqrt{[(\mathbf{X}^T \mathbf{W} \mathbf{X})^{-1}]_{jj}}
+$$</p>
+<h3 id="43-stima-della-varianza-residua"><strong>4.3. Stima della Varianza Residua</strong></h3>
+$$
+\hat{\sigma}^2 = \frac{\sum_{i=1}^n w_i (y_i - \hat{y}_i)^2}{n - p - 1}
+$$
+<p>dove $p$ è il numero di predittori (escluso il bias).</p>
+<h2 id="5-scelta-dei-pesi"><strong>5. Scelta dei Pesi</strong></h2>
+<h3 id="51-pesi-basati-sulla-varianza"><strong>5.1. Pesi Basati sulla Varianza</strong></h3>
+<p>Quando la varianza dell&rsquo;errore è nota o stimabile:
+$$
+w_i = \frac{1}{\sigma_i^2}
+$$</p>
+<p><strong>Esempi:</strong>
+- Misurazioni con precisione nota
+- Dati aggregati con numerosità diverse per gruppo
+- Strumenti con accuratezza calibrata</p>
+<h3 id="52-pesi-basati-sulla-dimensione-del-campione"><strong>5.2. Pesi Basati sulla Dimensione del Campione</strong></h3>
+<p>Per dati aggregati rappresentanti gruppi di dimensioni $n_i$:
+$$
+w_i = n_i
+$$</p>
+<p>Questo assume che la varianza dell&rsquo;errore sia inversamente proporzionale alla dimensione del gruppo.</p>
+<h3 id="53-pesi-per-gestire-outliers"><strong>5.3. Pesi per Gestire Outliers</strong></h3>
+<h4 id="531-pesi-di-huber"><strong>5.3.1. Pesi di Huber</strong></h4>
+$$
+w_i = \begin{cases}
+1 & \text{se } |r_i| \leq k \\
+\frac{k}{|r_i|} & \text{se } |r_i| > k
+\end{cases}
+$$
+<p>dove $r_i$ è il residuo standardizzato e $k$ è una soglia (tipicamente $k = 1.345$).</p>
+<h4 id="532-pesi-di-tukey-bisquare"><strong>5.3.2. Pesi di Tukey (Bisquare)</strong></h4>
+$$
+w_i = \begin{cases}
+\left(1 - \left(\frac{r_i}{k}\right)^2\right)^2 & \text{se } |r_i| \leq k \\
+0 & \text{se } |r_i| > k
+\end{cases}
+$$
+<h3 id="54-pesi-adattivi-weighted-iteratively-reweighted-least-squares-irls"><strong>5.4. Pesi Adattivi: Weighted Iteratively Reweighted Least Squares (IRLS)</strong></h3>
+<p>Un approccio iterativo per stimare automaticamente i pesi:</p>
+<ol>
+<li><strong>Inizializzazione</strong>: Eseguire OLS per ottenere $\hat{\boldsymbol{\theta}}^{(0)}$</li>
+<li><strong>Per $t = 1, 2, \ldots$ fino a convergenza:</strong></li>
+<li>Calcolare residui: $r_i^{(t-1)} = y_i - \mathbf{x}_i^T \hat{\boldsymbol{\theta}}^{(t-1)}$</li>
+<li>Aggiornare pesi: $w_i^{(t)} = f(r_i^{(t-1)})$ usando una funzione peso robusta</li>
+<li>Ricalcolare: $\hat{\boldsymbol{\theta}}^{(t)} = (\mathbf{X}^T \mathbf{W}^{(t)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(t)} \mathbf{y}$</li>
+</ol>
+<h2 id="6-implementazione-pratica"><strong>6. Implementazione Pratica</strong></h2>
+<h3 id="61-implementazione-base"><strong>6.1. Implementazione Base</strong></h3>
+<div class="code-visible">
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">weighted_least_squares</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Weighted Least Squares implementation</span>
+<span class="sd">    Args:</span>
+<span class="sd">        X: design matrix (n, d+1) with bias column</span>
+<span class="sd">        y: target vector (n, 1)</span>
+<span class="sd">        weights: weight vector (n,)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        theta: parameter estimates</span>
+<span class="sd">        sigma2: residual variance estimate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># Ensure correct dimensions</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">weights</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Create weight matrix</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+
+    <span class="c1"># WLS solution: θ = (X^T W X)^(-1) X^T W y</span>
+    <span class="n">XTW</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W</span>
+    <span class="n">XTWX</span> <span class="o">=</span> <span class="n">XTW</span> <span class="o">@</span> <span class="n">X</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">XTWX</span><span class="p">)</span> <span class="o">@</span> <span class="n">XTW</span> <span class="o">@</span> <span class="n">y</span>
+
+    <span class="c1"># Residuals and variance estimate</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">theta</span>
+    <span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="n">weighted_residuals</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">*</span> <span class="n">residuals</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">sigma2</span> <span class="o">=</span> <span class="n">weighted_residuals</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span>
+
+    <span class="c1"># Covariance matrix</span>
+    <span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">sigma2</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">XTWX</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">theta</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">,</span> <span class="n">cov_matrix</span>
+</code></pre></div>
+</div>
+</div>
+
+<h3 id="62-implementazione-irls-per-robustezza"><strong>6.2. Implementazione IRLS per Robustezza</strong></h3>
+<div class="code-visible">
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">irls_robust_regression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">1.345</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Iteratively Reweighted Least Squares with Huber weights</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># Initialize with OLS</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+
+    <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="c1"># Calculate residuals</span>
+        <span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">X</span> <span class="o">@</span> <span class="n">theta</span>
+
+        <span class="c1"># Calculate robust scale (MAD-based)</span>
+        <span class="n">mad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">residuals</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">residuals</span><span class="p">)))</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="mf">1.4826</span> <span class="o">*</span> <span class="n">mad</span>  <span class="c1"># Convert MAD to standard deviation estimate</span>
+
+        <span class="c1"># Standardized residuals</span>
+        <span class="n">std_residuals</span> <span class="o">=</span> <span class="n">residuals</span> <span class="o">/</span> <span class="n">scale</span>
+
+        <span class="c1"># Huber weights</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">std_residuals</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">std_residuals</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">c</span>
+        <span class="n">weights</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">std_residuals</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span>
+
+        <span class="c1"># WLS step</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+        <span class="n">XTW</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W</span>
+        <span class="n">XTWX</span> <span class="o">=</span> <span class="n">XTW</span> <span class="o">@</span> <span class="n">X</span>
+        <span class="n">theta_new</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">XTWX</span><span class="p">)</span> <span class="o">@</span> <span class="n">XTW</span> <span class="o">@</span> <span class="n">y</span>
+
+        <span class="c1"># Check convergence</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">theta_new</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">theta_new</span>
+
+    <span class="k">return</span> <span class="n">theta</span><span class="p">,</span> <span class="n">weights</span>
+</code></pre></div>
+</div>
+</div>
+
+<h2 id="7-diagnostica-e-valutazione"><strong>7. Diagnostica e Valutazione</strong></h2>
+<h3 id="71-metriche-ponderate"><strong>7.1. Metriche Ponderate</strong></h3>
+<p>Le metriche di performance devono essere adattate per riflettere la ponderazione:</p>
+<h4 id="mean-weighted-squared-error-mwse"><strong>Mean Weighted Squared Error (MWSE)</strong></h4>
+$$
+MWSE = \frac{\sum_{i=1}^n w_i (y_i - \hat{y}_i)^2}{\sum_{i=1}^n w_i}
+$$
+<h4 id="weighted-r-squared"><strong>Weighted R-squared</strong></h4>
+$$
+R_w^2 = 1 - \frac{\sum_{i=1}^n w_i (y_i - \hat{y}_i)^2}{\sum_{i=1}^n w_i (y_i - \bar{y}_w)^2}
+$$
+<p>dove $\bar{y}_w = \frac{\sum_{i=1}^n w_i y_i}{\sum_{i=1}^n w_i}$ è la media ponderata.</p>
+<h3 id="72-analisi-dei-residui-ponderati"><strong>7.2. Analisi dei Residui Ponderati</strong></h3>
+<p>I residui standardizzati ponderati sono:
+$$
+r_{i,\text{std}} = \frac{r_i}{\hat{\sigma} \sqrt{1 - h_{ii}}} \sqrt{w_i}
+$$</p>
+<p>dove $h_{ii}$ è l&rsquo;elemento diagonale della hat matrix: $\mathbf{H} = \mathbf{X}(\mathbf{X}^T \mathbf{W} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}$.</p>
+<h3 id="73-test-di-significativita"><strong>7.3. Test di Significatività</strong></h3>
+<p>I test statistici (test t per i coefficienti, test F globale) rimangono validi usando gli errori standard corretti dalla matrice di varianza-covarianza ponderata.</p>
+<h2 id="8-confronto-con-metodi-correlati"><strong>8. Confronto con Metodi Correlati</strong></h2>
+<h3 id="81-regressione-ponderata-vs-regressione-lineare"><strong>8.1. Regressione Ponderata vs <a href="/theory/supervised-learning/Linear Models/Regressione Lineare" class="text-blue-600 hover:underline">Regressione Lineare</a></strong></h3>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>OLS</th>
+<th>WLS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Assunzioni sui pesi</strong></td>
+<td>Tutti uguali ($w_i = 1$)</td>
+<td>Possono variare</td>
+</tr>
+<tr>
+<td><strong>Trattamento eteroschedasticità</strong></td>
+<td>Inadeguato</td>
+<td>Appropriato</td>
+</tr>
+<tr>
+<td><strong>Robustezza agli outliers</strong></td>
+<td>Bassa</td>
+<td>Configurabile</td>
+</tr>
+<tr>
+<td><strong>Complessità implementativa</strong></td>
+<td>Bassa</td>
+<td>Moderata</td>
+</tr>
+<tr>
+<td><strong>Efficienza computazionale</strong></td>
+<td>Alta</td>
+<td>Leggermente inferiore</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-regressione-ponderata-vs-locally-weighted-linear-regression"><strong>8.2. Regressione Ponderata vs <a href="/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression" class="text-blue-600 hover:underline">Locally Weighted Linear Regression</a></strong></h3>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Weighted Regression</th>
+<th>LWLR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Natura dei pesi</strong></td>
+<td>Fissi per dataset</td>
+<td>Adattivi per ogni query</td>
+</tr>
+<tr>
+<td><strong>Numero di modelli</strong></td>
+<td>Uno globale</td>
+<td>Uno per ogni predizione</td>
+</tr>
+<tr>
+<td><strong>Capacità non-lineare</strong></td>
+<td>Nessuna</td>
+<td>Elevata</td>
+</tr>
+<tr>
+<td><strong>Costo computazionale</strong></td>
+<td>$O(d^3)$ una volta</td>
+<td>$O(d^3)$ per query</td>
+</tr>
+<tr>
+<td><strong>Interpretabilità</strong></td>
+<td>Alta</td>
+<td>Moderata</td>
+</tr>
+<tr>
+<td><strong>Memoria richiesta</strong></td>
+<td>Bassa</td>
+<td>Alta (tutto il training set)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="83-posizionamento-nel-continuum"><strong>8.3. Posizionamento nel Continuum</strong></h3>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code>OLS → Weighted Regression → LWLR → Kernel Regression
+ ↑           ↑                ↑            ↑
+Rigido    Pesi fissi    Pesi adattivi  Completamente
+                                       non-parametrico
+</code></pre></div>
+</div>
+</details>
+
+<p>La regressione ponderata occupa una posizione intermedia, mantenendo la semplicità parametrica della regressione lineare mentre introducendo flessibilità nella gestione dell&rsquo;affidabilità dei dati.</p>
+<h2 id="9-applicazioni-pratiche"><strong>9. Applicazioni Pratiche</strong></h2>
+<h3 id="91-econometria"><strong>9.1. Econometria</strong></h3>
+<ul>
+<li><strong>Studi panel</strong>: Pesi basati sulla precisione delle stime per paese/anno</li>
+<li><strong>Sondaggi</strong>: Pesi per correggere bias di campionamento</li>
+<li><strong>Dati aggregati</strong>: Pesi proporzionali alla popolazione rappresentata</li>
+</ul>
+<h3 id="92-ingegneria"><strong>9.2. Ingegneria</strong></h3>
+<ul>
+<li><strong>Calibrazione strumenti</strong>: Pesi basati sulla precisione di misura</li>
+<li><strong>Controllo qualità</strong>: Pesi per riflettere l&rsquo;importanza di specifiche caratteristiche</li>
+<li><strong>Modellazione fisica</strong>: Pesi per dati da esperimenti con condizioni diverse</li>
+</ul>
+<h3 id="93-medicina-e-biologia"><strong>9.3. Medicina e Biologia</strong></h3>
+<ul>
+<li><strong>Meta-analisi</strong>: Pesi basati sulla dimensione degli studi</li>
+<li><strong>Dati clinici</strong>: Pesi per pazienti con follow-up di durata diversa  </li>
+<li><strong>Farmacocinetrica</strong>: Pesi per concentrazioni misurate a tempi diversi</li>
+</ul>
+<h3 id="94-machine-learning"><strong>9.4. Machine Learning</strong></h3>
+<ul>
+<li><strong>Class imbalancing</strong>: Pesi inversamente proporzionali alla frequenza delle classi</li>
+<li><strong>Active learning</strong>: Pesi maggiori per campioni informativi</li>
+<li><strong>Transfer learning</strong>: Pesi per bilanciare domini sorgente e target</li>
+</ul>
+<h2 id="10-limitazioni-e-considerazioni"><strong>10. Limitazioni e Considerazioni</strong></h2>
+<h3 id="101-scelta-dei-pesi"><strong>10.1. Scelta dei Pesi</strong></h3>
+<p>La performance della regressione ponderata dipende criticamente dalla scelta appropriata dei pesi:</p>
+<ul>
+<li><strong>Pesi ottimali</strong>: Richiedono conoscenza della vera varianza degli errori</li>
+<li><strong>Pesi errati</strong>: Possono peggiorare le prestazioni rispetto a OLS</li>
+<li><strong>Soggettività</strong>: Spesso la scelta dei pesi contiene elementi arbitrari</li>
+</ul>
+<h3 id="102-problemi-numerici"><strong>10.2. Problemi Numerici</strong></h3>
+<ul>
+<li><strong>Condizionamento</strong>: $\mathbf{X}^T \mathbf{W} \mathbf{X}$ può essere mal condizionata se alcuni pesi sono molto grandi</li>
+<li><strong>Stabilità</strong>: Pesi vicini a zero possono causare instabilità numerica</li>
+<li><strong>Scalabilità</strong>: La costruzione della matrice $\mathbf{W}$ può essere costosa per $n$ grande</li>
+</ul>
+<h3 id="103-interpretazione"><strong>10.3. Interpretazione</strong></h3>
+<ul>
+<li>I coefficienti WLS non sono direttamente confrontabili con quelli OLS</li>
+<li>L&rsquo;interpretazione deve considerare l&rsquo;effetto della ponderazione</li>
+<li>Le metriche di performance standard (R², MSE) richiedono adattamento</li>
+</ul>
+<h2 id="11-estensioni-e-varianti"><strong>11. Estensioni e Varianti</strong></h2>
+<h3 id="111-weighted-ridge-regression"><strong>11.1. Weighted Ridge Regression</strong></h3>
+<p>Combinazione di ponderazione e regolarizzazione L2:
+$$
+\min_{\boldsymbol{\theta}} \sum_{i=1}^n w_i (y_i - \mathbf{x}_i^T \boldsymbol{\theta})^2 + \lambda \|\boldsymbol{\theta}\|_2^2
+$$</p>
+<p>Soluzione:
+$$
+\boldsymbol{\theta}^* = (\mathbf{X}^T \mathbf{W} \mathbf{X} + \lambda \mathbf{I})^{-1} \mathbf{X}^T \mathbf{W} \mathbf{y}
+$$</p>
+<h3 id="112-weighted-elastic-net"><strong>11.2. Weighted Elastic Net</strong></h3>
+<p>Estende elastic net con ponderazione:
+$$
+\min_{\boldsymbol{\theta}} \sum_{i=1}^n w_i (y_i - \mathbf{x}_i^T \boldsymbol{\theta})^2 + \lambda_1 \|\boldsymbol{\theta}\|_1 + \lambda_2 \|\boldsymbol{\theta}\|_2^2
+$$</p>
+<h3 id="113-generalized-least-squares-gls"><strong>11.3. Generalized Least Squares (GLS)</strong></h3>
+<p>Estensione a matrici di covarianza complete (non necessariamente diagonali):
+$$
+\boldsymbol{\theta}^* = (\mathbf{X}^T \boldsymbol{\Omega}^{-1} \mathbf{X})^{-1} \mathbf{X}^T \boldsymbol{\Omega}^{-1} \mathbf{y}
+$$</p>
+<p>dove $\boldsymbol{\Omega}$ è la matrice di covarianza completa degli errori.</p>
+<h2 id="12-conclusioni"><strong>12. Conclusioni</strong></h2>
+<p>La regressione ponderata rappresenta un&rsquo;estensione naturale e potente della <a href="/theory/supervised-learning/Linear Models/Regressione Lineare" class="text-blue-600 hover:underline">Regressione Lineare</a> che mantiene la semplicità concettuale e computazionale del modello lineare incorporando flessibilità nella gestione dell&rsquo;affidabilità e importanza dei dati.</p>
+<h3 id="121-punti-di-forza"><strong>12.1. Punti di Forza</strong></h3>
+<ul>
+<li><strong>Semplicità</strong>: Modifica minimale della regressione lineare standard</li>
+<li><strong>Flessibilità</strong>: Adatta a molteplici scenari pratici</li>
+<li><strong>Fondamento teorico</strong>: Stimatore BLUE sotto assunzioni appropriate</li>
+<li><strong>Implementazione</strong>: Richiede modifiche minime agli algoritmi esistenti</li>
+</ul>
+<h3 id="122-quando-utilizzarla"><strong>12.2. Quando Utilizzarla</strong></h3>
+<p>La regressione ponderata è particolarmente indicata quando:
+- Le osservazioni hanno affidabilità/precisione nota e variabile
+- Si vuole gestire l&rsquo;eteroschedasticità senza perdere la semplicità lineare
+- È necessario un controllo esplicito sull&rsquo;influenza di specifiche osservazioni<br />
+- Il dataset contiene outliers identificabili ma non eliminabili</p>
+<h3 id="123-posizionamento-nel-panorama-ml"><strong>12.3. Posizionamento nel Panorama ML</strong></h3>
+<p>Collocandosi tra la rigidità della regressione lineare ordinaria e la flessibilità della <a href="/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression" class="text-blue-600 hover:underline">Locally Weighted Linear Regression</a>, la regressione ponderata offre un equilibrio ottimale per molte applicazioni pratiche dove è necessario mantenere interpretabilità e semplicità computazionale pur adattandosi alle caratteristiche variabili dei dati.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> supervised learning, labeled data, classification, regression, model, data, training, learning</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/supervised-learning/Linear Models/Weighted Linear Regression">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Regressione Ponderata (Weighted Regression)',
+          page_location: 'http://localhost:3000/theory/supervised-learning/Linear Models/Weighted Linear Regression'
+        });
+      }
+    </script>
+</body>
+</html>

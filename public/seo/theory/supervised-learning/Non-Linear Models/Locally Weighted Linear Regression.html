@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Weighted Linear Regression (LWLR) | Supervised Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="supervised learning, labeled data, classification, regression, model, data, training, learning">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Local Weighted Linear Regression (LWLR)">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Local Weighted Linear Regression (LWLR)">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Local Weighted Linear Regression (LWLR)",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression",
+      "datePublished": "2025-09-25T14:48:27.983Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Local Weighted Linear Regression (LWLR)</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Supervised Learning | 
+                    <strong>Updated:</strong> 25/09/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>Local Weighted Linear Regression</strong> (LWLR), nota anche come <strong>Locally Weighted Regression</strong> o <strong>LOESS</strong> (Locally Estimated Scatterplot Smoothing), è un&rsquo;estensione non parametrica della regressione lineare che adatta un modello lineare localmente per ogni punto di query. A differenza della regressione lineare classica che trova un unico modello globale, LWLR costruisce un modello diverso per ogni previsione, dando più peso ai punti di training vicini al punto di query.</p>
+<h2 id="1-motivazione-e-intuizione"><strong>1. Motivazione e Intuizione</strong></h2>
+<p>Nella regressione lineare tradizionale, tutti i punti del training set contribuiscono ugualmente alla determinazione dei parametri del modello. Tuttavia, in molte applicazioni reali, la relazione tra variabili può variare localmente. LWLR risolve questo problema:</p>
+<ul>
+<li><strong>Adattandosi localmente</strong> alla struttura dei dati</li>
+<li><strong>Pesando maggiormente</strong> i punti vicini al punto di query</li>
+<li><strong>Riducendo l&rsquo;influenza</strong> dei punti lontani</li>
+<li><strong>Catturando pattern non lineari</strong> attraverso approssimazioni lineari locali</li>
+</ul>
+<h3 id="11-esempio-intuitivo"><strong>1.1. Esempio Intuitivo</strong></h3>
+<p>Consideriamo una relazione non lineare tra temperatura e vendite di gelato. Un modello lineare globale potrebbe non catturare bene le variazioni stagionali, mentre LWLR può adattarsi localmente: in estate darà più peso ai dati estivi vicini, in inverno ai dati invernali, catturando così meglio la variabilità locale.</p>
+<h2 id="2-formulazione-matematica"><strong>2. Formulazione Matematica</strong></h2>
+<h3 id="21-caso-univariato-forma-vettoriale"><strong>2.1. Caso Univariato (Forma Vettoriale)</strong></h3>
+<p>Consideriamo un dataset di training $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^m$ dove $x_i \in \mathbb{R}$ e $y_i \in \mathbb{R}$.</p>
+<p>Per un punto di query $x_q$, LWLR risolve il seguente problema di ottimizzazione pesato:</p>
+$$
+\min_{\theta_0, \theta_1} \sum_{i=1}^{m} w_i(x_q) \left( y_i - \theta_0 - \theta_1 x_i \right)^2
+$$
+<p>Dove:
+- $\theta_0$ è l&rsquo;intercetta (bias) del modello locale
+- $\theta_1$ è il coefficiente angolare del modello locale
+- $w_i(x_q)$ è il peso assegnato al punto $i$-esimo in funzione della sua distanza da $x_q$</p>
+<h3 id="22-funzione-peso-kernel"><strong>2.2. Funzione Peso (Kernel)</strong></h3>
+<p>Il peso $w_i(x_q)$ è tipicamente definito usando un kernel gaussiano:</p>
+$$
+w_i(x_q) = \exp\left(-\frac{(x_i - x_q)^2}{2\tau^2}\right)
+$$
+<p>Dove:
+- $\tau > 0$ è il <strong>bandwidth parameter</strong> che controlla la &ldquo;larghezza&rdquo; della finestra locale
+- $\tau$ piccolo → finestra stretta → modello più &ldquo;wiggly&rdquo; (alta varianza, basso bias)
+- $\tau$ grande → finestra larga → modello più smooth (bassa varianza, alto bias)</p>
+<h3 id="23-formulazione-matriciale-generale"><strong>2.3. Formulazione Matriciale Generale</strong></h3>
+<p>Per il caso multivariato con dataset $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^m$ dove $\mathbf{x}_i \in \mathbb{R}^d$ e $y_i \in \mathbb{R}$.</p>
+<h4 id="notazione-matriciale"><strong>Notazione Matriciale</strong></h4>
+<ul>
+<li>
+<p>$\mathbf{X} \in \mathbb{R}^{m \times (d+1)}$ è la matrice di design con bias:
+  $$
+  \mathbf{X} = \begin{bmatrix}
+  1 & x_{1,1} & x_{1,2} & \cdots & x_{1,d} \\
+  1 & x_{2,1} & x_{2,2} & \cdots & x_{2,d} \\
+  \vdots & \vdots & \vdots & \ddots & \vdots \\
+  1 & x_{m,1} & x_{m,2} & \cdots & x_{m,d}
+  \end{bmatrix}
+  $$</p>
+</li>
+<li>
+<p>$\mathbf{y} \in \mathbb{R}^{m \times 1}$ è il vettore delle variabili target:
+  $$
+  \mathbf{y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_m \end{bmatrix}
+  $$</p>
+</li>
+<li>
+<p>$\boldsymbol{\theta} \in \mathbb{R}^{(d+1) \times 1}$ è il vettore dei parametri locali:
+  $$
+  \boldsymbol{\theta} = \begin{bmatrix} \theta_0 \\ \theta_1 \\ \vdots \\ \theta_d \end{bmatrix}
+  $$</p>
+</li>
+<li>
+<p>$\mathbf{W}(\mathbf{x}_q) \in \mathbb{R}^{m \times m}$ è la matrice diagonale dei pesi:
+  $$
+  \mathbf{W}(\mathbf{x}_q) = \begin{bmatrix}
+  w_1(\mathbf{x}_q) & 0 & \cdots & 0 \\
+  0 & w_2(\mathbf{x}_q) & \cdots & 0 \\
+  \vdots & \vdots & \ddots & \vdots \\
+  0 & 0 & \cdots & w_m(\mathbf{x}_q)
+  \end{bmatrix}
+  $$</p>
+</li>
+</ul>
+<h4 id="funzione-peso-multivariata"><strong>Funzione Peso Multivariata</strong></h4>
+$$
+w_i(\mathbf{x}_q) = \exp\left(-\frac{\|\mathbf{x}_i - \mathbf{x}_q\|_2^2}{2\tau^2}\right)
+$$
+<h4 id="problema-di-ottimizzazione"><strong>Problema di Ottimizzazione</strong></h4>
+$$
+\min_{\boldsymbol{\theta}} \sum_{i=1}^{m} w_i(\mathbf{x}_q) \left( y_i - \mathbf{x}_i^T \boldsymbol{\theta} \right)^2
+$$
+<p>In forma matriciale:
+$$
+\min_{\boldsymbol{\theta}} (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})^T \mathbf{W}(\mathbf{x}_q) (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})
+$$</p>
+<h2 id="3-soluzione-analitica-weighted-least-squares"><strong>3. Soluzione Analitica (Weighted Least Squares)</strong></h2>
+<h3 id="31-derivazione-della-soluzione-ottimale"><strong>3.1. Derivazione della Soluzione Ottimale</strong></h3>
+<p>La funzione obiettivo da minimizzare è:
+$$
+J(\boldsymbol{\theta}) = (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})^T \mathbf{W}(\mathbf{x}_q) (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})
+$$</p>
+<p>Espandendo:
+$$
+J(\boldsymbol{\theta}) = \mathbf{y}^T \mathbf{W} \mathbf{y} - 2\mathbf{y}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta} + \boldsymbol{\theta}^T \mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta}
+$$</p>
+<h3 id="32-calcolo-del-gradiente"><strong>3.2. Calcolo del Gradiente</strong></h3>
+<p>Il gradiente rispetto a $\boldsymbol{\theta}$ è:
+$$
+\frac{\partial J}{\partial \boldsymbol{\theta}} = -2\mathbf{X}^T \mathbf{W} \mathbf{y} + 2\mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta}
+$$</p>
+<p><strong>Derivazione dettagliata:</strong>
+- $\frac{\partial}{\partial \boldsymbol{\theta}}(\mathbf{y}^T \mathbf{W} \mathbf{y}) = \mathbf{0}$ (non dipende da $\boldsymbol{\theta}$)
+- $\frac{\partial}{\partial \boldsymbol{\theta}}(-2\mathbf{y}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta}) = -2\mathbf{X}^T \mathbf{W} \mathbf{y}$
+- $\frac{\partial}{\partial \boldsymbol{\theta}}(\boldsymbol{\theta}^T \mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta}) = 2\mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta}$</p>
+<h3 id="33-soluzione-ottimale"><strong>3.3. Soluzione Ottimale</strong></h3>
+<p>Ponendo il gradiente uguale a zero:
+$$
+-2\mathbf{X}^T \mathbf{W} \mathbf{y} + 2\mathbf{X}^T \mathbf{W} \mathbf{X} \boldsymbol{\theta} = \mathbf{0}
+$$</p>
+<p>Risolvendo per $\boldsymbol{\theta}$:
+$$
+\boldsymbol{\theta}^*(\mathbf{x}_q) = (\mathbf{X}^T \mathbf{W}(\mathbf{x}_q) \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}(\mathbf{x}_q) \mathbf{y}
+$$</p>
+<h3 id="34-predizione"><strong>3.4. Predizione</strong></h3>
+<p>La predizione per il punto di query $\mathbf{x}_q$ è:
+$$
+\hat{y}_q = \mathbf{x}_q^T \boldsymbol{\theta}^*(\mathbf{x}_q)
+$$</p>
+<p>Sostituendo la soluzione ottimale:
+$$
+\hat{y}_q = \mathbf{x}_q^T (\mathbf{X}^T \mathbf{W}(\mathbf{x}_q) \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}(\mathbf{x}_q) \mathbf{y}
+$$</p>
+<h3 id="35-implementazione-in-forma-chiusa"><strong>3.5. Implementazione in Forma Chiusa</strong></h3>
+<p>L&rsquo;implementazione della soluzione analitica richiede alcuni passaggi fondamentali:</p>
+<h4 id="algoritmo"><strong>Algoritmo:</strong></h4>
+<ol>
+<li><strong>Preparazione dei dati:</strong></li>
+<li>Assicurarsi che $\mathbf{y}$ sia un vettore colonna $(m \times 1)$</li>
+<li>Aggiungere colonna di 1&rsquo;s a $\mathbf{X}$ per il bias: $\mathbf{X}_{\text{aug}} \in \mathbb{R}^{m \times (d+1)}$</li>
+<li>
+<p>Estendere il punto query: $\mathbf{x}_{q,\text{aug}} \in \mathbb{R}^{1 \times (d+1)}$</p>
+</li>
+<li>
+<p><strong>Calcolo dei pesi:</strong></p>
+</li>
+<li>Calcolare le distanze: $\text{diff}_i = \mathbf{x}_i - \mathbf{x}_q$ per $i = 1,\ldots,m$</li>
+<li>Calcolare i pesi: $w_i = \exp\left(-\frac{\|\text{diff}_i\|^2}{2\tau^2}\right)$</li>
+<li>
+<p>Costruire la matrice diagonale: $\mathbf{W} = \text{diag}(w_1, w_2, \ldots, w_m)$</p>
+</li>
+<li>
+<p><strong>Risoluzione del sistema:</strong></p>
+</li>
+<li>Calcolare $\mathbf{X}^T \mathbf{W}$</li>
+<li>Calcolare $\mathbf{X}^T \mathbf{W} \mathbf{X}$</li>
+<li>
+<p>Risolvere: $\boldsymbol{\theta}^* = (\mathbf{X}^T \mathbf{W} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W} \mathbf{y}$</p>
+</li>
+<li>
+<p><strong>Predizione:</strong></p>
+</li>
+<li>$\hat{y}_q = \mathbf{x}_{q,\text{aug}}^T \boldsymbol{\theta}^*$</li>
+</ol>
+<h4 id="implementazione"><strong>Implementazione:</strong></h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lwlr_CF</span><span class="p">(</span><span class="n">x_q</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Locally Weighted Linear Regression in forma chiusa</span>
+<span class="sd">    Args:</span>
+<span class="sd">        x_q: punto query (1, d)</span>
+<span class="sd">        X: training data (m, d)  </span>
+<span class="sd">        y: training labels (m,) o (m, 1)</span>
+<span class="sd">        t: bandwidth parameter</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        y_pred: predizione per x_q</span>
+<span class="sd">        theta_weights: coefficienti delle features  </span>
+<span class="sd">        theta_bias: intercetta</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># Assicuriamoci che y sia un vettore colonna</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (m, 1)</span>
+
+    <span class="c1"># Aggiungi colonna di 1 per il bias</span>
+    <span class="n">X_aug</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (m, d+1)</span>
+    <span class="n">x_q_aug</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_q</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (1, d+1)</span>
+
+    <span class="c1"># Calcolo dei pesi</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">x_q</span>  <span class="c1"># (m, d)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># (m,)</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>  <span class="c1"># (m, m)</span>
+
+    <span class="c1"># Soluzione in forma chiusa: θ = (X^T W X)^(-1) X^T W y</span>
+    <span class="n">XTW</span> <span class="o">=</span> <span class="n">X_aug</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W</span>  <span class="c1"># (d+1, m)</span>
+    <span class="n">XTWX</span> <span class="o">=</span> <span class="n">XTW</span> <span class="o">@</span> <span class="n">X_aug</span>  <span class="c1"># (d+1, d+1)</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">XTWX</span><span class="p">)</span> <span class="o">@</span> <span class="n">XTW</span> <span class="o">@</span> <span class="n">y</span>  <span class="c1"># (d+1, 1)</span>
+
+    <span class="c1"># Predizione</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_q_aug</span> <span class="o">@</span> <span class="n">theta</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">theta</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">theta</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<h4 id="considerazioni-numeriche"><strong>Considerazioni Numeriche:</strong></h4>
+<ol>
+<li><strong>Stabilità dell&rsquo;inversione:</strong> La matrice $\mathbf{X}^T \mathbf{W} \mathbf{X}$ può essere mal condizionata se:</li>
+<li>I punti sono quasi collineari nell&rsquo;intorno locale</li>
+<li>Alcuni pesi sono molto piccoli (vicini a zero)</li>
+<li>
+<p>Il bandwidth $\tau$ è troppo piccolo</p>
+</li>
+<li>
+<p><strong>Alternative numericamente stabili:</strong></p>
+</li>
+<li>Usare la <strong>decomposizione SVD</strong>: $\boldsymbol{\theta}^* = \mathbf{V} \boldsymbol{\Sigma}^{-1} \mathbf{U}^T \mathbf{W} \mathbf{y}$</li>
+<li>Usare <strong>pseudo-inversa di Moore-Penrose</strong>: $\boldsymbol{\theta}^* = (\mathbf{X}^T \mathbf{W} \mathbf{X})^{\dagger} \mathbf{X}^T \mathbf{W} \mathbf{y}$</li>
+<li>Aggiungere <strong>regolarizzazione Ridge</strong>: $(\mathbf{X}^T \mathbf{W} \mathbf{X} + \lambda \mathbf{I})^{-1}$</li>
+</ol>
+<h3 id="36-vantaggi-e-svantaggi-della-forma-chiusa"><strong>3.6. Vantaggi e Svantaggi della Forma Chiusa</strong></h3>
+<h4 id="vantaggi"><strong>Vantaggi:</strong></h4>
+<ul>
+<li><strong>Convergenza garantita</strong> in una sola iterazione</li>
+<li><strong>Soluzione esatta</strong> (modulo errori numerici)</li>
+<li><strong>Deterministica</strong> - risultati riproducibili</li>
+<li><strong>Veloce</strong> per piccoli dataset</li>
+</ul>
+<h4 id="svantaggi"><strong>Svantaggi:</strong></h4>
+<ul>
+<li><strong>Complessità computazionale</strong> $O(d^3)$ per l&rsquo;inversione della matrice</li>
+<li><strong>Instabilità numerica</strong> quando $\mathbf{X}^T \mathbf{W} \mathbf{X}$ è mal condizionata</li>
+<li><strong>Memoria</strong> richiesta per memorizzare la matrice dei pesi</li>
+<li><strong>Non scalabile</strong> per dataset molto grandi</li>
+</ul>
+<h2 id="4-implementazioni-con-gradient-descent"><strong>4. Implementazioni con Gradient Descent</strong></h2>
+<p>Quando la soluzione analitica è computazionalmente proibitiva o numericamente instabile, si può utilizzare il gradient descent per ottimizzare i parametri.</p>
+<h3 id="41-stochastic-gradient-descent-sgd"><strong>4.1. Stochastic Gradient Descent (SGD)</strong></h3>
+<p>Nel SGD, i parametri vengono aggiornati per ogni singolo punto di training.</p>
+<h4 id="algoritmo-sgd-per-lwlr"><strong>Algoritmo SGD per LWLR:</strong></h4>
+<ol>
+<li><strong>Inizializzazione:</strong> $\boldsymbol{\theta}^{(0)} = \mathbf{0}, b^{(0)} = 0$</li>
+<li><strong>Per ogni epoca $t = 1, \ldots, T$:</strong></li>
+<li><strong>Per ogni campione $i = 1, \ldots, m$:</strong><ul>
+<li>Calcola peso: $w_i = \exp\left(-\frac{\|\mathbf{x}_i - \mathbf{x}_q\|^2}{2\tau^2}\right)$</li>
+<li>Calcola predizione: $\hat{y}_i = \mathbf{x}_i^T \boldsymbol{\theta} + b$</li>
+<li>Calcola errore: $e_i = y_i - \hat{y}_i$</li>
+<li>Calcola loss pesata: $L_i = \frac{1}{2} w_i e_i^2$</li>
+<li><strong>Aggiorna parametri:</strong><ul>
+<li>$\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \alpha \cdot w_i \cdot e_i \cdot \mathbf{x}_i$</li>
+<li>$b \leftarrow b + \alpha \cdot w_i \cdot e_i$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="derivazione-dei-gradienti-sgd"><strong>Derivazione dei Gradienti SGD:</strong></h4>
+<p>Per un singolo campione $i$, la loss pesata è:
+$$
+L_i = \frac{1}{2} w_i (y_i - \mathbf{x}_i^T \boldsymbol{\theta} - b)^2
+$$</p>
+<p>I gradienti sono:
+$$
+\frac{\partial L_i}{\partial \boldsymbol{\theta}} = -w_i (y_i - \mathbf{x}_i^T \boldsymbol{\theta} - b) \mathbf{x}_i = -w_i e_i \mathbf{x}_i
+$$</p>
+$$
+\frac{\partial L_i}{\partial b} = -w_i (y_i - \mathbf{x}_i^T \boldsymbol{\theta} - b) = -w_i e_i
+$$
+<p>Gli aggiornamenti dei parametri sono quindi:
+$$
+\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \alpha \frac{\partial L_i}{\partial \boldsymbol{\theta}} = \boldsymbol{\theta} + \alpha w_i e_i \mathbf{x}_i
+$$</p>
+$$
+b \leftarrow b - \alpha \frac{\partial L_i}{\partial b} = b + \alpha w_i e_i
+$$
+<h4 id="implementazione-sgd"><strong>Implementazione SGD:</strong></h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lwlr_SGD</span><span class="p">(</span><span class="n">x_q</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Locally Weighted Linear Regression usando SGD</span>
+<span class="sd">    Args:</span>
+<span class="sd">        x_q: punto query (1, d)</span>
+<span class="sd">        X: training data (m, d)</span>
+<span class="sd">        y: training labels (m, 1)</span>
+<span class="sd">        t: bandwidth parameter</span>
+<span class="sd">        lr: learning rate</span>
+<span class="sd">        epochs: numero di epochs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Assicuriamoci che y sia della forma corretta</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+            <span class="n">xi</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Mantieni dimensione (1, d)</span>
+            <span class="n">yi</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Mantieni dimensione (1, 1)</span>
+
+            <span class="c1"># Calcolo del peso</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">xi</span> <span class="o">-</span> <span class="n">x_q</span>  <span class="c1"># (1, d)</span>
+            <span class="n">wi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">diff</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+            <span class="c1"># Predizione</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">xi</span> <span class="o">@</span> <span class="n">theta</span> <span class="o">+</span> <span class="n">bias</span>  <span class="c1"># (1, 1)</span>
+
+            <span class="c1"># Loss pesata</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">wi</span> <span class="o">*</span> <span class="p">(</span><span class="n">yi</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="n">total_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+            <span class="c1"># Backward pass</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+
+            <span class="c1"># Update parameters</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">theta</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span>
+                <span class="k">if</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">bias</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span>
+
+            <span class="c1"># Zero gradients</span>
+            <span class="k">if</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">theta</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">bias</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+
+    <span class="c1"># Predizione finale</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_q</span> <span class="o">@</span> <span class="n">theta</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">theta</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">bias</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<h3 id="42-batch-gradient-descent-bgd"><strong>4.2. Batch Gradient Descent (BGD)</strong></h3>
+<p>Nel BGD, i parametri vengono aggiornati utilizzando tutti i punti di training simultaneamente.</p>
+<h4 id="algoritmo-bgd-per-lwlr"><strong>Algoritmo BGD per LWLR:</strong></h4>
+<ol>
+<li><strong>Inizializzazione:</strong> $\boldsymbol{\theta}^{(0)} = \mathbf{0}, b^{(0)} = 0$</li>
+<li><strong>Per ogni epoca $t = 1, \ldots, T$:</strong></li>
+<li>Calcola tutti i pesi: $w_i = \exp\left(-\frac{\|\mathbf{x}_i - \mathbf{x}_q\|^2}{2\tau^2}\right), \forall i$</li>
+<li>Calcola tutte le predizioni: $\hat{\mathbf{y}} = \mathbf{X}\boldsymbol{\theta} + b\mathbf{1}$</li>
+<li>Calcola errori: $\mathbf{e} = \mathbf{y} - \hat{\mathbf{y}}$</li>
+<li>Calcola loss pesata: $L = \frac{1}{2m} \sum_{i=1}^m w_i e_i^2$</li>
+<li><strong>Aggiorna parametri:</strong><ul>
+<li>$\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \frac{\alpha}{m} \sum_{i=1}^m w_i e_i \mathbf{x}_i$</li>
+<li>$b \leftarrow b + \frac{\alpha}{m} \sum_{i=1}^m w_i e_i$</li>
+</ul>
+</li>
+</ol>
+<h4 id="derivazione-dei-gradienti-bgd"><strong>Derivazione dei Gradienti BGD:</strong></h4>
+<p>La loss totale pesata è:
+$$
+L = \frac{1}{2m} \sum_{i=1}^m w_i (y_i - \mathbf{x}_i^T \boldsymbol{\theta} - b)^2
+$$</p>
+<p>I gradienti sono:
+$$
+\frac{\partial L}{\partial \boldsymbol{\theta}} = -\frac{1}{m} \sum_{i=1}^m w_i (y_i - \mathbf{x}_i^T \boldsymbol{\theta} - b) \mathbf{x}_i = -\frac{1}{m} \sum_{i=1}^m w_i e_i \mathbf{x}_i
+$$</p>
+$$
+\frac{\partial L}{\partial b} = -\frac{1}{m} \sum_{i=1}^m w_i (y_i - \mathbf{x}_i^T \boldsymbol{\theta} - b) = -\frac{1}{m} \sum_{i=1}^m w_i e_i
+$$
+<p>In forma matriciale:
+$$
+\frac{\partial L}{\partial \boldsymbol{\theta}} = -\frac{1}{m} \mathbf{X}^T \mathbf{W} \mathbf{e}
+$$</p>
+$$
+\frac{\partial L}{\partial b} = -\frac{1}{m} \mathbf{1}^T \mathbf{W} \mathbf{e}
+$$
+<p>Dove $\mathbf{W} = \text{diag}(w_1, w_2, \ldots, w_m)$ e $\mathbf{e} = \mathbf{y} - \mathbf{X}\boldsymbol{\theta} - b\mathbf{1}$.</p>
+<h4 id="implementazione-bgd"><strong>Implementazione BGD:</strong></h4>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lwlr_BGD</span><span class="p">(</span><span class="n">x_q</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Locally Weighted Linear Regression con Batch Gradient Descent</span>
+<span class="sd">    Args:</span>
+<span class="sd">        x_q: punto query (1, d)</span>
+<span class="sd">        X: training data (m, d)</span>
+<span class="sd">        y: training labels (m,) o (m, 1)</span>
+<span class="sd">        t: bandwidth parameter</span>
+<span class="sd">        lr: learning rate</span>
+<span class="sd">        epochs: numero di epoche</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Assicuriamoci che y sia colonna</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (m,1)</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="c1"># Differenze rispetto al punto query</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">x_q</span>  <span class="c1"># (m,d)</span>
+        <span class="n">wi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">diff</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># (m,)</span>
+
+        <span class="c1"># Predizioni su tutti i dati</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">theta</span> <span class="o">+</span> <span class="n">bias</span>  <span class="c1"># (m,1)</span>
+
+        <span class="c1"># Loss pesata globale</span>
+        <span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span>  <span class="c1"># (m,1)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">wi</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="c1"># Backward</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+
+        <span class="c1"># Aggiornamento parametri</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">theta</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span>
+            <span class="k">if</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">bias</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span>
+
+        <span class="c1"># Azzera gradienti</span>
+        <span class="k">if</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">theta</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">bias</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+
+    <span class="c1"># Predizione finale sul punto query</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">y_pred_q</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_q</span> <span class="o">@</span> <span class="n">theta</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">y_pred_q</span><span class="p">,</span> <span class="n">theta</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">bias</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<h2 id="5-proprieta-e-caratteristiche-di-lwlr"><strong>5. Proprietà e Caratteristiche di LWLR</strong></h2>
+<h3 id="51-vantaggi"><strong>5.1. Vantaggi</strong></h3>
+<ol>
+<li><strong>Non parametrico</strong>: Non assume una forma specifica per la funzione target</li>
+<li><strong>Flessibilità locale</strong>: Si adatta alle caratteristiche locali dei dati</li>
+<li><strong>Robustezza</strong>: Meno sensibile agli outliers globali</li>
+<li><strong>Interpretabilità</strong>: Ogni previsione ha un modello lineare locale interpretabile</li>
+</ol>
+<h3 id="52-svantaggi"><strong>5.2. Svantaggi</strong></h3>
+<ol>
+<li><strong>Computazione costosa</strong>: Richiede riaddestramento per ogni query</li>
+<li><strong>Maledizione della dimensionalità</strong>: Performance degrada in alta dimensionalità</li>
+<li><strong>Scelta del bandwidth</strong>: Richiede tuning del parametro $\tau$</li>
+<li><strong>Memoria</strong>: Deve memorizzare tutto il training set</li>
+</ol>
+<h3 id="53-bias-variance-tradeoff"><strong>5.3. Bias-Variance Tradeoff</strong></h3>
+<p>Il parametro $\tau$ (bandwidth) controlla il tradeoff bias-varianza:</p>
+<ul>
+<li><strong>$\tau$ piccolo</strong> (finestra stretta):</li>
+<li><strong>Alto bias</strong>: Il modello potrebbe non catturare il pattern locale</li>
+<li><strong>Bassa varianza</strong>: Più sensibile ai cambiamenti nei dati</li>
+<li>
+<p><strong>Overfitting</strong>: Modello molto &ldquo;wiggly&rdquo;</p>
+</li>
+<li>
+<p><strong>$\tau$ grande</strong> (finestra larga):</p>
+</li>
+<li><strong>Basso bias</strong>: Si avvicina alla regressione lineare globale</li>
+<li><strong>Alta varianza</strong>: Più stabile rispetto ai cambiamenti nei dati</li>
+<li><strong>Underfitting</strong>: Modello troppo smooth</li>
+</ul>
+<h3 id="54-scelta-ottimale-del-bandwidth"><strong>5.4. Scelta Ottimale del Bandwidth</strong></h3>
+<p>La scelta di $\tau$ può essere effettuata attraverso:</p>
+<ol>
+<li><strong>Cross-validation</strong>: Minimizzare l&rsquo;errore di validazione</li>
+<li><strong>Leave-one-out CV</strong>: Particolarmente efficiente per LWLR</li>
+<li><strong>Regola del pollice</strong>: $\tau \approx \frac{\text{range dei dati}}{5}$</li>
+<li><strong>Grid search</strong>: Testare diversi valori e scegliere il migliore</li>
+</ol>
+<h2 id="6-estensioni-e-varianti"><strong>6. Estensioni e Varianti</strong></h2>
+<h3 id="61-kernel-alternativi"><strong>6.1. Kernel Alternativi</strong></h3>
+<p>Oltre al kernel gaussiano, si possono utilizzare:</p>
+<ol>
+<li>
+<p><strong>Tricube Kernel</strong>:
+   $$
+   w(u) = \begin{cases}
+   (1 - |u|^3)^3 & \text{se } |u| \leq 1 \\
+   0 & \text{altrimenti}
+   \end{cases}
+   $$</p>
+</li>
+<li>
+<p><strong>Epanechnikov Kernel</strong>:
+   $$
+   w(u) = \begin{cases}
+   \frac{3}{4}(1 - u^2) & \text{se } |u| \leq 1 \\
+   0 & \text{altrimenti}
+   \end{cases}
+   $$</p>
+</li>
+</ol>
+<h3 id="62-bandwidth-adattivo"><strong>6.2. Bandwidth Adattivo</strong></h3>
+<p>Il bandwidth può variare localmente:
+$$
+\tau_i = \tau_0 \cdot k\text{-th nearest neighbor distance}
+$$</p>
+<h3 id="63-lwlr-con-regolarizzazione"><strong>6.3. LWLR con Regolarizzazione</strong></h3>
+<p>Si può aggiungere regolarizzazione Ridge:
+$$
+\min_{\boldsymbol{\theta}} (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})^T \mathbf{W}(\mathbf{x}_q) (\mathbf{y} - \mathbf{X}\boldsymbol{\theta}) + \lambda \|\boldsymbol{\theta}\|_2^2
+$$</p>
+<p>La soluzione diventa:
+$
+\boldsymbol{\theta}^* = (\mathbf{X}^T \mathbf{W} \mathbf{X} + \lambda \mathbf{I})^{-1} \mathbf{X}^T \mathbf{W} \mathbf{y}
+$</p>
+<h2 id="7-confronto-dei-metodi"><strong>7. Confronto dei Metodi</strong></h2>
+<h3 id="71-confronto-sgd-vs-bgd-vs-forma-chiusa"><strong>7.1. Confronto SGD vs BGD vs Forma Chiusa</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Forma Chiusa</th>
+<th>SGD</th>
+<th>BGD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Convergenza</strong></td>
+<td>Istantanea</td>
+<td>Stocastica</td>
+<td>Deterministica</td>
+</tr>
+<tr>
+<td><strong>Velocità per epoca</strong></td>
+<td>N/A</td>
+<td>Più veloce</td>
+<td>Più lenta</td>
+</tr>
+<tr>
+<td><strong>Memoria</strong></td>
+<td>Alta ($O(m^2)$ per $\mathbf{W}$)</td>
+<td>Minore</td>
+<td>Intermedia</td>
+</tr>
+<tr>
+<td><strong>Parallelizzazione</strong></td>
+<td>Limitata</td>
+<td>Difficile</td>
+<td>Facile</td>
+</tr>
+<tr>
+<td><strong>Stabilità numerica</strong></td>
+<td>Dipende da cond($\mathbf{X}^T\mathbf{W}\mathbf{X}$)</td>
+<td>Robusta</td>
+<td>Intermedia</td>
+</tr>
+<tr>
+<td><strong>Controllo ottimizzazione</strong></td>
+<td>Nessuno</td>
+<td>Massimo</td>
+<td>Intermedio</td>
+</tr>
+<tr>
+<td><strong>Riproducibilità</strong></td>
+<td>Perfetta</td>
+<td>Richiede seed</td>
+<td>Perfetta</td>
+</tr>
+<tr>
+<td><strong>Scalabilità</strong></td>
+<td>$O(d^3)$</td>
+<td>$O(mde)$</td>
+<td>$O(mde)$</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-quando-usare-ogni-metodo"><strong>7.2. Quando Usare Ogni Metodo</strong></h3>
+<p><strong>Forma Chiusa:</strong>
+- Dataset piccolo-medio (&lt; 1000 punti)
+- Matrice ben condizionata
+- Serve la soluzione esatta
+- Riproducibilità è critica</p>
+<p><strong>SGD:</strong>
+- Dataset grande
+- Problemi di condizionamento numerico
+- Serve controllo fine dell&rsquo;ottimizzazione
+- Memoria limitata</p>
+<p><strong>BGD:</strong>
+- Compromesso tra forma chiusa e SGD
+- Convergenza stabile prioritaria
+- Dataset di medie dimensioni</p>
+<h2 id="8-esempio-comparativo-pratico"><strong>8. Esempio Comparativo Pratico</strong></h2>
+<p>Per illustrare le differenze tra le varie implementazioni di LWLR e confrontarle con la regressione lineare classica, consideriamo un esempio con dati sintetici che presentano pattern non lineari.</p>
+<h3 id="81-dataset-sintetico"><strong>8.1. Dataset Sintetico</strong></h3>
+<p>Generiamo un dataset con una relazione non lineare:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">data_points</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">data_points</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (50, 1)</span>
+
+<span class="c1"># Trend lineare + componente sinusoidale</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="mf">3.5</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1.5</span>
+<span class="n">amplitude</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="n">frequency</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">+</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">frequency</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>  <span class="c1"># Pattern non lineare</span>
+</code></pre></div>
+</div>
+</details>
+
+<h3 id="82-confronto-dei-metodi"><strong>8.2. Confronto dei Metodi</strong></h3>
+<p>Confrontiamo quattro approcci:</p>
+<ol>
+<li><strong>Regressione Lineare Classica (forma chiusa)</strong>: Trova un&rsquo;unica retta per tutti i dati</li>
+<li><strong>Regressione Lineare Classica (SGD)</strong>: Stessa retta ma ottenuta iterativamente</li>
+<li><strong>LWLR (forma chiusa)</strong>: Adattamento locale ottimale</li>
+<li><strong>LWLR (SGD)</strong>: Adattamento locale iterativo</li>
+</ol>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Dataset di test</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_true_test</span> <span class="o">=</span> <span class="mf">3.5</span> <span class="o">*</span> <span class="n">X_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1.5</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">y_true_test</span> <span class="o">+</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">frequency</span> <span class="o">*</span> <span class="n">X_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+
+<span class="c1"># Predizioni LWLR (forma chiusa)</span>
+<span class="n">y_preds_lwlr_cf</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x_q</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">:</span>
+    <span class="n">y_pred</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lwlr_CF</span><span class="p">(</span><span class="n">x_q</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">y_preds_lwlr_cf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+
+<span class="c1"># Predizioni LWLR (SGD) </span>
+<span class="n">y_preds_lwlr_sgd</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x_q</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">:</span>
+    <span class="n">y_pred</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lwlr_SGD</span><span class="p">(</span><span class="n">x_q</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+    <span class="n">y_preds_lwlr_sgd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</details>
+
+<h3 id="83-visualizzazione-dei-risultati"><strong>8.3. Visualizzazione dei Risultati</strong></h3>
+<p>Un tipico confronto mostra che:</p>
+<ul>
+<li><strong>Regressione Lineare</strong>: Produce una singola retta che rappresenta il trend medio globale, ma non cattura la variabilità locale</li>
+<li><strong>LWLR (CF)</strong>: Si adatta perfettamente ai pattern locali, seguendo la curvatura dei dati</li>
+<li><strong>LWLR (SGD)</strong>: Produce risultati molto simili alla forma chiusa, ma con leggere variazioni dovute alla natura stocastica dell&rsquo;ottimizzazione</li>
+</ul>
+<h3 id="84-analisi-dellerrore"><strong>8.4. Analisi dell&rsquo;Errore</strong></h3>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Calcolo MSE per ciascun metodo</span>
+<span class="n">mse_linear</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y_pred_linear</span> <span class="o">-</span> <span class="n">y_test</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">mse_lwlr_cf</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_preds_lwlr_cf</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_test</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> 
+<span class="n">mse_lwlr_sgd</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_preds_lwlr_sgd</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_test</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE Linear Regression: </span><span class="si">{</span><span class="n">mse_linear</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE LWLR (Closed Form): </span><span class="si">{</span><span class="n">mse_lwlr_cf</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE LWLR (SGD): </span><span class="si">{</span><span class="n">mse_lwlr_sgd</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Risultati tipici:</strong>
+- <strong>Linear Regression</strong>: MSE più alto, non cattura la non linearità
+- <strong>LWLR (CF)</strong>: MSE più basso, adattamento ottimale
+- <strong>LWLR (SGD)</strong>: MSE simile alla forma chiusa, dipende da learning rate ed epoche</p>
+<h3 id="85-effetto-del-bandwidth"><strong>8.5. Effetto del Bandwidth</strong></h3>
+<p>Il parametro $\tau$ ha un impatto significativo sulle prestazioni:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Test con diversi valori di bandwidth</span>
+<span class="n">bandwidths</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]</span>
+<span class="n">mse_values</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">tau</span> <span class="ow">in</span> <span class="n">bandwidths</span><span class="p">:</span>
+    <span class="n">y_preds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x_q</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">:</span>
+        <span class="n">y_pred</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lwlr_CF</span><span class="p">(</span><span class="n">x_q</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>
+        <span class="n">y_preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_preds</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_test</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">mse_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+<span class="c1"># Il bandwidth ottimale minimizza l&#39;MSE sul test set</span>
+<span class="n">optimal_tau</span> <span class="o">=</span> <span class="n">bandwidths</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">mse_values</span><span class="p">))]</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Osservazioni:</strong>
+- <strong>$\tau$ troppo piccolo</strong> ($< 0.5$): Overfitting, modello troppo &ldquo;nervoso&rdquo;
+- <strong>$\tau$ troppo grande</strong> ($> 2.0$): Underfitting, si avvicina alla regressione lineare
+- <strong>$\tau$ ottimale</strong> ($\approx 0.5-1.0$): Bilancia bias e varianza</p>
+<h3 id="86-considerazioni-pratiche"><strong>8.6. Considerazioni Pratiche</strong></h3>
+<ol>
+<li><strong>Tempo di calcolo</strong>: La forma chiusa è più veloce per singole predizioni, ma SGD può essere parallelizzato</li>
+<li><strong>Stabilità numerica</strong>: SGD è più robusto quando la matrice è mal condizionata  </li>
+<li><strong>Controllo fine</strong>: SGD permette di monitorare la convergenza e implementare early stopping</li>
+<li><strong>Riproducibilità</strong>: La forma chiusa è deterministica, SGD richiede seed fissato</li>
+</ol>
+<h2 id="9-complessita-computazionale"><strong>9. Complessità Computazionale</strong></h2>
+<h3 id="91-analisi-della-complessita"><strong>9.1. Analisi della Complessità</strong></h3>
+<p><strong>Soluzione Analitica (Forma Chiusa):</strong>
+- <strong>Calcolo pesi</strong>: $O(md)$ 
+- <strong>Costruzione matrice $\mathbf{W}$</strong>: $O(m^2)$
+- <strong>Prodotti matriciali</strong>: $O(md^2 + d^3)$
+- <strong>Inversione matrice</strong>: $O(d^3)$
+- <strong>Complessità totale per query</strong>: $O(m^2 + md^2 + d^3)$
+- <strong>Spazio</strong>: $O(m^2 + md)$</p>
+<p><strong>SGD:</strong>
+- <strong>Complessità per epoca</strong>: $O(md)$
+- <strong>Complessità totale</strong>: $O(mdE)$ dove $E$ è il numero di epoche
+- <strong>Spazio</strong>: $O(md)$</p>
+<p><strong>BGD:</strong>
+- <strong>Complessità per epoca</strong>: $O(md)$ 
+- <strong>Complessità totale</strong>: $O(mdE)$ dove $E$ è il numero di epoche
+- <strong>Spazio</strong>: $O(md)$</p>
+<h3 id="92-scalabilita"><strong>9.2. Scalabilità</strong></h3>
+<ul>
+<li><strong>Forma chiusa</strong>: Non scala bene per $m$ o $d$ grandi</li>
+<li><strong>SGD/BGD</strong>: Scalano linearmente con $m$ e $d$</li>
+</ul>
+<h2 id="10-applicazioni-pratiche"><strong>10. Applicazioni Pratiche</strong></h2>
+<p>LWLR è particolarmente utile in:</p>
+<ol>
+<li><strong>Time series forecasting</strong>: Pattern temporali che cambiano localmente</li>
+<li><strong>Robotics</strong>: Controllo adattivo e apprendimento di traiettorie</li>
+<li><strong>Computer vision</strong>: Interpolazione di immagini, tracking</li>
+<li><strong>Bioinformatica</strong>: Analisi di dati genomici con pattern locali</li>
+<li><strong>Economia</strong>: Modelli che si adattano a regimi economici diversi</li>
+<li><strong>Meteorologia</strong>: Previsioni che si adattano alle condizioni locali</li>
+</ol>
+<h2 id="11-limitazioni-e-considerazioni"><strong>11. Limitazioni e Considerazioni</strong></h2>
+<h3 id="111-maledizione-della-dimensionalita"><strong>11.1. Maledizione della Dimensionalità</strong></h3>
+<p>In alta dimensionalità ($d > 10-20$):
+- I punti diventano equidistanti
+- Tutti i pesi tendono a essere simili
+- Il concetto di &ldquo;località&rdquo; perde significato
+- Performance si degrada rapidamente</p>
+<h3 id="112-problemi-numerici"><strong>11.2. Problemi Numerici</strong></h3>
+<ol>
+<li><strong>Matrice singolare</strong>: Quando $\mathbf{X}^T\mathbf{W}\mathbf{X}$ non è invertibile</li>
+<li><strong>Condizionamento numerico</strong>: Alto numero di condizione causa instabilità</li>
+<li><strong>Underflow</strong>: Pesi estremamente piccoli possono causare problemi</li>
+</ol>
+<h3 id="113-soluzioni"><strong>11.3. Soluzioni</strong></h3>
+<ul>
+<li><strong>Regolarizzazione</strong>: Aggiungere $\lambda \mathbf{I}$ alla matrice</li>
+<li><strong>SVD</strong>: Usare decomposizione SVD invece dell&rsquo;inversione diretta</li>
+<li><strong>Thresholding</strong>: Impostare soglia minima per i pesi</li>
+</ul>
+<h2 id="12-conclusioni"><strong>12. Conclusioni</strong></h2>
+<p>LWLR rappresenta un potente compromesso tra la semplicità della regressione lineare e la flessibilità dei metodi non parametrici. La sua capacità di adattarsi localmente ai dati lo rende particolarmente adatto per problemi dove la relazione target varia spazialmente o temporalmente.</p>
+<h3 id="121-linee-guida-per-la-scelta-del-metodo"><strong>12.1. Linee Guida per la Scelta del Metodo</strong></h3>
+<p><strong>Usa la forma chiusa quando:</strong>
+- Dataset piccolo-medio (&lt; 1000 punti)
+- Dimensionalità bassa ($d < 20$)
+- Matrice ben condizionata
+- Serve la soluzione esatta
+- Riproducibilità è critica</p>
+<p><strong>Usa SGD quando:</strong>
+- Dataset grande ($m > 10000$)
+- Problemi di condizionamento numerico
+- Memoria limitata
+- Serve controllo fine dell&rsquo;ottimizzazione
+- Possibilità di parallelizzazione</p>
+<p><strong>Usa BGD quando:</strong>
+- Serve compromesso tra forma chiusa e SGD
+- Convergenza stabile è prioritaria
+- Dataset di medie dimensioni
+- Si vuole evitare il rumore del SGD</p>
+<h3 id="122-considerazioni-finali"><strong>12.2. Considerazioni Finali</strong></h3>
+<p>Le tre implementazioni offrono diversi vantaggi:
+- <strong>Forma chiusa</strong>: Soluzione esatta e veloce per problemi piccoli
+- <strong>SGD</strong>: Scalabilità e robustezza numerica
+- <strong>BGD</strong>: Stabilità e controllo della convergenza</p>
+<p>La scelta dipende dalle caratteristiche del problema: dimensionalità dei dati, dimensione del dataset, requisiti di accuratezza e risorse computazionali disponibili.</p>
+<p>LWLR rimane uno strumento fondamentale nell&rsquo;arsenal del machine learning, particolarmente efficace quando i pattern nei dati variano localmente e si necessita di un approccio che bilanci interpretabilità e flessibilità.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> supervised learning, labeled data, classification, regression, model, data, training, learning</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Local Weighted Linear Regression (LWLR)',
+          page_location: 'http://localhost:3000/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression'
+        });
+      }
+    </script>
+</body>
+</html>

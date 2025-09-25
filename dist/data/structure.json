@@ -40,6 +40,10 @@
         "subcategories": {},
         "files": [
           {
+            "name": "Batch Normalization",
+            "path": "deep-learning/Neural Networks/Batch Normalization.md"
+          },
+          {
             "name": "Introduzione alle reti neurali",
             "path": "deep-learning/Neural Networks/Introduzione alle reti neurali.md"
           },
@@ -50,6 +54,19 @@
           {
             "name": "Perceptron",
             "path": "deep-learning/Neural Networks/Perceptron.md"
+          },
+          {
+            "name": "Layer Normalization",
+            "path": "deep-learning/Neural Networks/Layer Normalization.md"
+          }
+        ]
+      },
+      "Multimodal Models": {
+        "subcategories": {},
+        "files": [
+          {
+            "name": "CLAP",
+            "path": "deep-learning/Multimodal Models/CLAP.md"
           }
         ]
       },
@@ -128,6 +145,10 @@
                 "path": "math-for-ml/Calcolo/Calcolo Matriciale/Traccia.md"
               },
               {
+                "name": "Differenziazione Automatica",
+                "path": "math-for-ml/Calcolo/Calcolo Matriciale/Differenziazione Automatica.md"
+              },
+              {
                 "name": "Tipi di Matrici",
                 "path": "math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici.md"
               },
@@ -162,6 +183,10 @@
           {
             "name": "Sottoderivata e Sottogradiente",
             "path": "math-for-ml/Calcolo/Sottoderivata e Sottogradiente.md"
+          },
+          {
+            "name": "Chain Rule",
+            "path": "math-for-ml/Calcolo/Chain Rule.md"
           }
         ]
       },
@@ -374,6 +399,10 @@
             "path": "supervised-learning/Linear Models/Regressione Logistica.md"
           },
           {
+            "name": "Weighted Linear Regression",
+            "path": "supervised-learning/Linear Models/Weighted Linear Regression.md"
+          },
+          {
             "name": "Regressione Lineare",
             "path": "supervised-learning/Linear Models/Regressione Lineare.md"
           },
@@ -397,6 +426,10 @@
           {
             "name": "Non-Linear Models",
             "path": "supervised-learning/Non-Linear Models/Non-Linear Models.md"
+          },
+          {
+            "name": "Locally Weighted Linear Regression",
+            "path": "supervised-learning/Non-Linear Models/Locally Weighted Linear Regression.md"
           }
         ]
       }

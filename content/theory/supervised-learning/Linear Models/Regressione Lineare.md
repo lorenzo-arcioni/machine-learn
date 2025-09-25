@@ -674,17 +674,35 @@ La regressione ponderata è una variante della regressione lineare in cui ogni o
 Nella regressione ponderata, l'obiettivo è minimizzare la somma degli errori quadratici ponderati:
 
 $$
-\min_{\mathbf{v}} \sum_{i=1}^{N} v_i \left( y_i - \mathbf{w}^T \mathbf{x}_i \right)^2
+\min_{\mathbf{w}} \sum_{i=1}^{N} v_i \left( y_i - \mathbf{w}^T \mathbf{x}_i \right)^2
 $$
 
 Dove:
+- $v_i$ è il peso associato all'osservazione $i$ (tipicamente costante per tutto il dataset)
+- $\mathbf{w}$ è il vettore dei coefficienti
 
-- $v_i$ è il peso associato all'osservazione $i$.
-- $\mathbf{w}$ è il vettore dei coefficienti.
+La soluzione in forma chiusa è:
+$$
+\mathbf{w}^* = (\mathbf{X}^T \mathbf{V} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{V} \mathbf{y}
+$$
 
-#### 6.5.2. Esempio di Regressione Ponderata
+dove $\mathbf{V} = \text{diag}(v_1, v_2, \ldots, v_N)$ è la matrice diagonale dei pesi.
 
-Supponiamo di avere un dataset in cui alcune osservazioni sono più affidabili di altre. Possiamo assegnare pesi maggiori a queste osservazioni per migliorare la stima del modello.
+#### 6.5.2. Estensione Locale: LWLR
+
+Un'importante estensione della regressione ponderata è la [[Locally Weighted Linear Regression]] (LWLR), dove i pesi non sono fissi ma **cambiano dinamicamente** per ogni punto di query in base alla distanza:
+
+$$
+w_i(\mathbf{x}_q) = \exp\left(-\frac{\|\mathbf{x}_i - \mathbf{x}_q\|^2}{2\tau^2}\right)
+$$
+
+A differenza della regressione ponderata classica che usa pesi globali fissi, LWLR costruisce un modello lineare locale per ogni previsione, rendendo il metodo non-parametrico e capace di catturare relazioni non lineari.
+
+La differenza fondamentale è:
+- **Weighted Regression**: Un singolo modello globale con pesi fissi
+- **LWLR**: Infiniti modelli locali con pesi adattivi per ogni query
+
+Per una trattazione completa di LWLR, incluse le tre implementazioni (forma chiusa, SGD, BGD) e tutti i dettagli matematici, si veda [[Locally Weighted Linear Regression]].
 
 ### 6.6. Conclusione
 

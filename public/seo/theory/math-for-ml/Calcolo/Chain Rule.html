@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chain Rule - Regola della Catena nel Calcolo Differenziale | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, data">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Chain Rule - Regola della Catena nel Calcolo Differenziale">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Calcolo/Chain Rule">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chain Rule - Regola della Catena nel Calcolo Differenziale">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Calcolo/Chain Rule">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Chain Rule - Regola della Catena nel Calcolo Differenziale",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Calcolo/Chain Rule",
+      "datePublished": "2025-09-25T14:48:27.819Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Calcolo/Chain Rule" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Chain Rule - Regola della Catena nel Calcolo Differenziale</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 25/09/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="definizione-formale">Definizione Formale</h2>
+<p>La <strong>regola della catena</strong> (chain rule) è uno degli strumenti fondamentali del calcolo differenziale che ci permette di calcolare la derivata di funzioni composite.</p>
+<p><strong>Teorema (Chain Rule)</strong>: Se $y = f(g(x))$ dove $f$ e $g$ sono funzioni differenziabili, allora:</p>
+$$\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}$$
+<p>dove $u = g(x)$.</p>
+<p>In notazione di Leibniz:
+$$\frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x)$$</p>
+<h2 id="intuizione-geometrica">Intuizione Geometrica</h2>
+<p>La chain rule può essere intesa come il prodotto di &ldquo;velocità di cambiamento&rdquo; lungo una catena di trasformazioni:</p>
+<ul>
+<li>$\frac{du}{dx}$: quanto velocemente cambia $u$ rispetto a $x$</li>
+<li>$\frac{dy}{du}$: quanto velocemente cambia $y$ rispetto a $u$</li>
+<li>$\frac{dy}{dx}$: quanto velocemente cambia $y$ rispetto a $x$</li>
+</ul>
+<p>È come calcolare la velocità finale in una catena di ingranaggi: se il primo ingranaggio ruota a velocità $v_1$ e il rapporto di trasmissione è $r$, la velocità finale sarà $v_1 \cdot r$.</p>
+<h2 id="dimostrazione">Dimostrazione</h2>
+<p><strong>Dimostrazione usando il limite</strong>:</p>
+<p>Partiamo dalla definizione di derivata:
+$$\frac{dy}{dx} = \lim_{\Delta x \to 0} \frac{f(g(x + \Delta x)) - f(g(x))}{\Delta x}$$</p>
+<p>Introduciamo $\Delta u = g(x + \Delta x) - g(x)$:</p>
+$$\frac{dy}{dx} = \lim_{\Delta x \to 0} \frac{f(g(x) + \Delta u) - f(g(x))}{\Delta x}$$
+<p>Moltiplichiamo e dividiamo per $\Delta u$ (assumendo $\Delta u \neq 0$):</p>
+$$\frac{dy}{dx} = \lim_{\Delta x \to 0} \frac{f(g(x) + \Delta u) - f(g(x))}{\Delta u} \cdot \frac{\Delta u}{\Delta x}$$
+<p>Poiché $g$ è continua (essendo differenziabile), $\Delta u \to 0$ quando $\Delta x \to 0$:</p>
+$$\frac{dy}{dx} = \lim_{\Delta u \to 0} \frac{f(g(x) + \Delta u) - f(g(x))}{\Delta u} \cdot \lim_{\Delta x \to 0} \frac{\Delta u}{\Delta x}$$
+$$= f'(g(x)) \cdot g'(x)$$
+<h2 id="esempi-fondamentali">Esempi Fondamentali</h2>
+<h3 id="esempio-1-funzione-polinomiale-composta">Esempio 1: Funzione Polinomiale Composta</h3>
+<p>Calcolare $\frac{d}{dx}[(3x^2 + 1)^5]$</p>
+<p><strong>Soluzione</strong>:
+- Funzione esterna: $f(u) = u^5 \Rightarrow f'(u) = 5u^4$
+- Funzione interna: $g(x) = 3x^2 + 1 \Rightarrow g'(x) = 6x$</p>
+$$\frac{d}{dx}[(3x^2 + 1)^5] = 5(3x^2 + 1)^4 \cdot 6x = 30x(3x^2 + 1)^4$$
+<h3 id="esempio-2-funzione-trigonometrica-composta">Esempio 2: Funzione Trigonometrica Composta</h3>
+<p>Calcolare $\frac{d}{dx}[\sin(x^3 + 2x)]$</p>
+<p><strong>Soluzione</strong>:
+- Funzione esterna: $f(u) = \sin(u) \Rightarrow f'(u) = \cos(u)$
+- Funzione interna: $g(x) = x^3 + 2x \Rightarrow g'(x) = 3x^2 + 2$</p>
+$$\frac{d}{dx}[\sin(x^3 + 2x)] = \cos(x^3 + 2x) \cdot (3x^2 + 2)$$
+<h3 id="esempio-3-funzione-esponenziale-composta">Esempio 3: Funzione Esponenziale Composta</h3>
+<p>Calcolare $\frac{d}{dx}[e^{x^2 \cos(x)}]$</p>
+<p><strong>Soluzione</strong>:
+- Funzione esterna: $f(u) = e^u \Rightarrow f'(u) = e^u$
+- Funzione interna: $g(x) = x^2 \cos(x)$</p>
+<p>Prima calcoliamo $g'(x)$ usando la regola del prodotto:
+$$g'(x) = 2x \cos(x) + x^2(-\sin(x)) = 2x\cos(x) - x^2\sin(x)$$</p>
+<p>Quindi:
+$$\frac{d}{dx}[e^{x^2 \cos(x)}] = e^{x^2 \cos(x)} \cdot (2x\cos(x) - x^2\sin(x))$$</p>
+<h2 id="chain-rule-generalizzata">Chain Rule Generalizzata</h2>
+<p>Per composizioni di più funzioni $y = f(g(h(x)))$:</p>
+$$\frac{dy}{dx} = \frac{dy}{dv} \cdot \frac{dv}{du} \cdot \frac{du}{dx}$$
+<p>dove $u = h(x)$ e $v = g(u)$.</p>
+<p><strong>Esempio</strong>: $y = \sin^3(e^{2x})$</p>
+<p>Scomposizione:
+- $w = 2x \Rightarrow w' = 2$
+- $u = e^w \Rightarrow u' = e^w = e^{2x}$
+- $v = \sin(u) \Rightarrow v' = \cos(u) = \cos(e^{2x})$
+- $y = v^3 \Rightarrow y' = 3v^2 = 3\sin^2(e^{2x})$</p>
+$$\frac{dy}{dx} = 3\sin^2(e^{2x}) \cdot \cos(e^{2x}) \cdot e^{2x} \cdot 2 = 6e^{2x}\sin^2(e^{2x})\cos(e^{2x})$$
+<h2 id="visualizzazione-grafica">Visualizzazione Grafica</h2>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Funzione composta: f(g(x)) = sin(x²)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># funzione interna</span>
+<span class="n">f_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>  <span class="c1"># funzione composta</span>
+
+<span class="c1"># Derivate</span>
+<span class="n">g_prime</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>  <span class="c1"># g&#39;(x) = 2x</span>
+<span class="n">f_prime_at_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>  <span class="c1"># f&#39;(g(x)) = cos(x²)</span>
+<span class="n">chain_rule_result</span> <span class="o">=</span> <span class="n">f_prime_at_g</span> <span class="o">*</span> <span class="n">g_prime</span>  <span class="c1"># f&#39;(g(x)) * g&#39;(x)</span>
+
+<span class="c1"># Setup figure</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span> <span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>
+
+<span class="c1"># 1) Funzione interna g(x)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;g(x) = x²&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Funzione Interna: g(x) = x²&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;g(x)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># 2) Funzione composta f(g(x))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f_g</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;f(g(x)) = sin(x²)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Funzione Composta: f(g(x)) = sin(x²)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(g(x))&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># 3) Derivate componenti</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">g_prime</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;g&#39;(x) = 2x&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f_prime_at_g</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;f&#39;(g(x)) = cos(x²)&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Derivate Componenti&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Derivata&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># 4) Chain rule risultato</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">chain_rule_result</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;d/dx[sin(x²)] = 2x·cos(x²)&quot;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Risultato Chain Rule&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;d/dx f(g(x))&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;chain_rule_visualization.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/chain_rule_visualization.png" alt="Visualizzazione Chain Rule" style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h2 id="applicazioni-avanzate">Applicazioni Avanzate</h2>
+<h3 id="1-derivazione-implicita">1. Derivazione Implicita</h3>
+<p>Per equazioni come $x^2 + y^2 = 25$, dove $y = y(x)$:</p>
+$$\frac{d}{dx}[x^2 + y^2] = \frac{d}{dx}[25]$$
+$$2x + 2y\frac{dy}{dx} = 0$$
+$$\frac{dy}{dx} = -\frac{x}{y}$$
+<h3 id="2-derivazione-logaritmica">2. Derivazione Logaritmica</h3>
+<p>Per funzioni del tipo $y = f(x)^{g(x)}$:</p>
+$$\ln(y) = g(x) \ln(f(x))$$
+<p>Derivando entrambi i lati:
+$$\frac{1}{y}\frac{dy}{dx} = g'(x)\ln(f(x)) + g(x)\frac{f'(x)}{f(x)}$$</p>
+$$\frac{dy}{dx} = f(x)^{g(x)}\left[g'(x)\ln(f(x)) + g(x)\frac{f'(x)}{f(x)}\right]$$
+<p><strong>Esempio</strong>: $y = x^{\sin(x)}$</p>
+$$\frac{dy}{dx} = x^{\sin(x)}\left[\cos(x)\ln(x) + \sin(x)\frac{1}{x}\right]$$
+<h3 id="3-chain-rule-nelle-derivate-parziali">3. Chain Rule nelle Derivate Parziali</h3>
+<p>Per funzioni di più variabili $z = f(x(t), y(t))$:</p>
+$$\frac{dz}{dt} = \frac{\partial f}{\partial x}\frac{dx}{dt} + \frac{\partial f}{\partial y}\frac{dy}{dt}$$
+<h2 id="errori-comuni">Errori Comuni</h2>
+<h3 id="errore-1-dimenticare-la-derivata-interna">❌ Errore 1: Dimenticare la derivata interna</h3>
+$$\frac{d}{dx}[\sin(x^2)] = \cos(x^2) \text{ (SBAGLIATO)}$$
+$$\frac{d}{dx}[\sin(x^2)] = \cos(x^2) \cdot 2x \text{ (CORRETTO)}$$
+<h3 id="errore-2-applicare-la-chain-rule-quando-non-serve">❌ Errore 2: Applicare la chain rule quando non serve</h3>
+$$\frac{d}{dx}[\sin(x) + x^2] = \cos(x) \cdot 1 + 2x \cdot 1 \text{ (SBAGLIATO)}$$
+$$\frac{d}{dx}[\sin(x) + x^2] = \cos(x) + 2x \text{ (CORRETTO)}$$
+<h3 id="errore-3-ordine-sbagliato-nella-moltiplicazione">❌ Errore 3: Ordine sbagliato nella moltiplicazione</h3>
+<p>Per $f(g(x))$, l&rsquo;ordine corretto è $f'(g(x)) \cdot g'(x)$, non $g'(x) \cdot f'(g(x))$ (anche se matematicamente equivalente, concettualmente l&rsquo;ordine ha significato).</p>
+<h2 id="esercizi-di-verifica">Esercizi di Verifica</h2>
+<h3 id="esercizio-1">Esercizio 1</h3>
+<p>Calcolare $\frac{d}{dx}[\sqrt{1 + \tan(x)}]$</p>
+<p><strong>Soluzione</strong>:
+- $f(u) = \sqrt{u} = u^{1/2} \Rightarrow f'(u) = \frac{1}{2}u^{-1/2} = \frac{1}{2\sqrt{u}}$
+- $g(x) = 1 + \tan(x) \Rightarrow g'(x) = \sec^2(x)$</p>
+$$\frac{d}{dx}[\sqrt{1 + \tan(x)}] = \frac{1}{2\sqrt{1 + \tan(x)}} \cdot \sec^2(x) = \frac{\sec^2(x)}{2\sqrt{1 + \tan(x)}}$$
+<h3 id="esercizio-2">Esercizio 2</h3>
+<p>Calcolare $\frac{d}{dx}[\ln(\cos(3x^2))]$</p>
+<p><strong>Soluzione</strong>:
+Composizione di tre funzioni:
+- $h(x) = 3x^2 \Rightarrow h'(x) = 6x$
+- $g(u) = \cos(u) \Rightarrow g'(u) = -\sin(u)$
+- $f(v) = \ln(v) \Rightarrow f'(v) = \frac{1}{v}$</p>
+$$\frac{d}{dx}[\ln(\cos(3x^2))] = \frac{1}{\cos(3x^2)} \cdot (-\sin(3x^2)) \cdot 6x = -\frac{6x\sin(3x^2)}{\cos(3x^2)} = -6x\tan(3x^2)$$
+<h2 id="connessioni-e-approfondimenti">Connessioni e Approfondimenti</h2>
+<h3 id="relazione-con-la-regola-del-prodotto">Relazione con la Regola del Prodotto</h3>
+<p>La chain rule può essere vista come generalizzazione della regola del prodotto per &ldquo;prodotti infinitesimali&rdquo;:</p>
+$$df = f'(g(x)) \cdot dg = f'(g(x)) \cdot g'(x) \cdot dx$$
+<h3 id="chain-rule-multivariata-e-gradiente">Chain Rule Multivariata e Gradiente</h3>
+<p>La chain rule si estende naturalmente alle funzioni di più variabili, dove diventa uno strumento ancora più potente. Questa generalizzazione non è solo una curiosità matematica, ma rivela la struttura profonda del calcolo differenziale.</p>
+<h4 id="teorema-chain-rule-multivariata">Teorema (Chain Rule Multivariata)</h4>
+<p>Se $z = f(x_1, x_2, \ldots, x_n)$ e ciascuna $x_i = x_i(t)$ è una funzione differenziabile di $t$, allora:</p>
+<p>$\frac{dz}{dt} = \frac{\partial f}{\partial x_1}\frac{dx_1}{dt} + \frac{\partial f}{\partial x_2}\frac{dx_2}{dt} + \cdots + \frac{\partial f}{\partial x_n}\frac{dx_n}{dt}$</p>
+<p><strong>In notazione vettoriale</strong>:
+$\frac{dz}{dt} = \nabla f \cdot \frac{d\mathbf{x}}{dt}$</p>
+<p>dove $\nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n}\right)$ è il <strong>gradiente</strong> di $f$.</p>
+<h4 id="perche-funziona-intuizione-geometrica">Perché Funziona: Intuizione Geometrica</h4>
+<p>Il gradiente $\nabla f$ rappresenta la direzione di massima crescita di $f$ e la sua intensità. Quando ci muoviamo lungo una curva $\mathbf{x}(t)$ nello spazio, il tasso di variazione di $f$ dipende da:</p>
+<ol>
+<li><strong>Quanto velocemente stiamo cambiando posizione</strong>: $\frac{d\mathbf{x}}{dt}$</li>
+<li><strong>Quanto è &ldquo;ripida&rdquo; la funzione nella direzione del movimento</strong>: $\nabla f$</li>
+</ol>
+<p>Il prodotto scalare $\nabla f \cdot \frac{d\mathbf{x}}{dt}$ cattura esattamente questa interazione.</p>
+<h4 id="dimostrazione-rigorosa">Dimostrazione Rigorosa</h4>
+<p>Partiamo dalla definizione di derivata:
+$\frac{dz}{dt} = \lim_{\Delta t \to 0} \frac{f(\mathbf{x}(t + \Delta t)) - f(\mathbf{x}(t))}{\Delta t}$</p>
+<p>Usando il teorema del valor medio multivariato e la linearità dell&rsquo;approssimazione di primo ordine:</p>
+<p>$f(\mathbf{x} + \Delta \mathbf{x}) - f(\mathbf{x}) = \nabla f(\mathbf{x} + \theta\Delta \mathbf{x}) \cdot \Delta \mathbf{x}$</p>
+<p>per qualche $\theta \in [0,1]$.</p>
+<p>Sostituendo $\Delta \mathbf{x} = \mathbf{x}(t + \Delta t) - \mathbf{x}(t)$:</p>
+<p>$\frac{dz}{dt} = \lim_{\Delta t \to 0} \frac{\nabla f(\mathbf{x} + \theta\Delta \mathbf{x}) \cdot \Delta \mathbf{x}}{\Delta t}$</p>
+<p>Per continuità del gradiente:
+$= \nabla f(\mathbf{x}(t)) \cdot \lim_{\Delta t \to 0} \frac{\Delta \mathbf{x}}{\Delta t} = \nabla f \cdot \frac{d\mathbf{x}}{dt}$</p>
+<h4 id="esempio-fondamentale-temperatura-su-una-superficie">Esempio Fondamentale: Temperatura su una Superficie</h4>
+<p>Supponiamo che la temperatura in un punto $(x,y)$ sia data da:
+$T(x,y) = 100e^{-(x^2+y^2)/2}$</p>
+<p>Una particella si muove lungo il percorso $\mathbf{r}(t) = (t, t^2)$. Quanto velocemente cambia la temperatura percepita dalla particella?</p>
+<p><strong>Soluzione</strong>:
+1. Calcoliamo il gradiente:
+   $\nabla T = \left(-100xe^{-(x^2+y^2)/2}, -100ye^{-(x^2+y^2)/2}\right)$</p>
+<ol>
+<li>
+<p>La velocità della particella:
+   $\frac{d\mathbf{r}}{dt} = (1, 2t)$</p>
+</li>
+<li>
+<p>Applicando la chain rule:
+   $\frac{dT}{dt} = \nabla T \cdot \frac{d\mathbf{r}}{dt} = -100xe^{-(x^2+y^2)/2} \cdot 1 + (-100ye^{-(x^2+y^2)/2}) \cdot 2t$</p>
+</li>
+</ol>
+<p>Sostituendo $x = t, y = t^2$:
+   $\frac{dT}{dt} = -100te^{-(t^2+t^4)/2}(1 + 2t^3)$</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
+
+<span class="c1"># Funzione temperatura T(x,y)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">T</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Gradiente di T</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grad_T</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">common_factor</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">dTdx</span> <span class="o">=</span> <span class="n">common_factor</span> <span class="o">*</span> <span class="n">x</span>
+    <span class="n">dTdy</span> <span class="o">=</span> <span class="n">common_factor</span> <span class="o">*</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dTdx</span><span class="p">,</span> <span class="n">dTdy</span><span class="p">])</span>
+
+<span class="c1"># Percorso della particella r(t) = (t, t^2)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">x_path</span> <span class="o">=</span> <span class="n">t</span>
+<span class="n">y_path</span> <span class="o">=</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># Velocità della particella dr/dt = (1, 2t)</span>
+<span class="n">dx_dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x_path</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">dy_dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y_path</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># Valori di temperatura lungo il percorso</span>
+<span class="n">T_path</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">x_path</span><span class="p">,</span> <span class="n">y_path</span><span class="p">)</span>
+
+<span class="c1"># Chain rule: dT/dt = ∇T · dr/dt</span>
+<span class="n">dT_dt</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">grad_T</span><span class="p">(</span><span class="n">x_path</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_path</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">velocity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dx_dt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dy_dt</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+    <span class="n">dT_dt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">velocity</span><span class="p">))</span>
+
+<span class="c1"># Setup figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>
+
+<span class="c1"># 1) Superficie 3D + percorso</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">x_surf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y_surf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_surf</span><span class="p">,</span> <span class="n">y_surf</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_path</span><span class="p">,</span> <span class="n">y_path</span><span class="p">,</span> <span class="n">T_path</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Percorso particella&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Temperatura T(x,y) e Percorso della Particella&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;T(x,y)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># 2) Percorso nel piano xy + campo gradiente</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">x_field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">y_field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">X_field</span><span class="p">,</span> <span class="n">Y_field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_field</span><span class="p">,</span> <span class="n">y_field</span><span class="p">)</span>
+<span class="n">grad_vectors</span> <span class="o">=</span> <span class="n">grad_T</span><span class="p">(</span><span class="n">X_field</span><span class="p">,</span> <span class="n">Y_field</span><span class="p">)</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">grad_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">grad_vectors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X_field</span><span class="p">,</span> <span class="n">Y_field</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_path</span><span class="p">,</span> <span class="n">y_path</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Percorso particella&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Campo del Gradiente ∇T e Percorso&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+
+<span class="c1"># 3) Chain rule: dT/dt lungo il percorso</span>
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dT_dt</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;dT/dt = ∇T · dr/dt&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Rate of Change della Temperatura lungo il Percorso&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;dT/dt&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;temperature_chain_rule.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/temperature_chain_rule.png" style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>Questo insieme di grafici illustra visivamente l&rsquo;applicazione della <strong>chain rule multidimensionale</strong> per la funzione della temperatura<br />
+$$
+T(x,y) = 100 e^{-(x^2+y^2)/2}
+$$<br />
+lungo il percorso della particella $\mathbf{r}(t) = (t, t^2)$.</p>
+<p><strong>Primo grafico (3D)</strong>: mostra come varia la temperatura nello spazio in funzione delle coordinate $x$ e $y$; l&rsquo;asse verticale (z) rappresenta i valori di temperatura, mentre la linea rossa indica il percorso seguito dalla particella attraverso i punti $(x(t), y(t))$, visualizzando come la temperatura cambia lungo il suo movimento.</p>
+<p>Permette di vedere come la particella si muove su una superficie che varia in altezza (temperatura).</p>
+<p><strong>Secondo grafico (piano xy)</strong>: mostra il percorso della particella sul piano xy insieme al campo vettoriale del gradiente $\nabla T(x,y)$.<br />
+Le frecce indicano la direzione di massima crescita della temperatura in ciascun punto.<br />
+Questo aiuta a comprendere come la particella percepisce la variazione della temperatura rispetto alla direzione del movimento.</p>
+<p><strong>Terzo grafico (dT/dt)</strong>: rappresenta la derivata della temperatura percepita dalla particella lungo il percorso, calcolata tramite la chain rule:<br />
+$$
+\frac{dT}{dt} = \nabla T \cdot \frac{d\mathbf{r}}{dt}
+$$<br />
+Mostra quanto velocemente la temperatura cambia nel tempo lungo il movimento della particella.<br />
+Picchi positivi indicano aumenti di temperatura, valori negativi indicano diminuzioni.<br />
+Questo aiuta a comprendere come la temperatura cambia durante il movimento della particella.</p>
+<h4 id="generalizzazione-chain-rule-per-funzioni-di-piu-variabili-indipendenti">Generalizzazione: Chain Rule per Funzioni di Più Variabili Indipendenti</h4>
+<p>Se $z = f(x, y)$ dove $x = x(s, t)$ e $y = y(s, t)$, allora:</p>
+<p>$\frac{\partial z}{\partial s} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial s} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial s}$</p>
+<p>$\frac{\partial z}{\partial t} = \frac{\partial f}{\partial x}\frac{\partial x}{\partial t} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial t}$</p>
+<p><strong>In forma matriciale</strong>:
+$\begin{pmatrix} \frac{\partial z}{\partial s} \\ \frac{\partial z}{\partial t} \end{pmatrix} = \begin{pmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \end{pmatrix} \begin{pmatrix} \frac{\partial x}{\partial s} & \frac{\partial x}{\partial t} \\ \frac{\partial y}{\partial s} & \frac{\partial y}{\partial t} \end{pmatrix}$</p>
+<p>Questo è il prodotto tra il <strong>gradiente</strong> di $f$ e la <strong>matrice Jacobiana</strong> della trasformazione $(s,t) \mapsto (x,y)$.</p>
+<h4 id="perche-la-struttura-e-universale">Perché la Struttura è Universale</h4>
+<p>La ragione profonda per cui la chain rule funziona tanto nel caso univariato quanto multivariato risiede nella <strong>linearità dell&rsquo;approssimazione differenziale</strong>:</p>
+<ol>
+<li><strong>Caso univariato</strong>: $df \approx f'(x) dx$</li>
+<li><strong>Caso multivariato</strong>: $df \approx \nabla f \cdot d\mathbf{x}$</li>
+</ol>
+<p>In entrambi i casi, stiamo approssimando localmente una funzione non lineare con la sua <strong>migliore approssimazione lineare</strong>. La chain rule emerge naturalmente dalla composizione di queste approssimazioni lineari.</p>
+<h4 id="applicazione-cambi-di-coordinate">Applicazione: Cambi di Coordinate</h4>
+<p>Un&rsquo;applicazione cruciale è nei <strong>sistemi di coordinate</strong>. Ad esempio, passando da coordinate cartesiane $(x,y)$ a polari $(r,\theta)$:</p>
+<ul>
+<li>$x = r\cos\theta, \quad y = r\sin\theta$</li>
+<li>$\frac{\partial x}{\partial r} = \cos\theta, \quad \frac{\partial x}{\partial \theta} = -r\sin\theta$</li>
+<li>$\frac{\partial y}{\partial r} = \sin\theta, \quad \frac{\partial y}{\partial \theta} = r\cos\theta$</li>
+</ul>
+<p>Per una funzione $f(x,y) = f(r\cos\theta, r\sin\theta)$:</p>
+<p>$\frac{\partial f}{\partial r} = \frac{\partial f}{\partial x}\cos\theta + \frac{\partial f}{\partial y}\sin\theta$</p>
+<p>$\frac{\partial f}{\partial \theta} = \frac{\partial f}{\partial x}(-r\sin\theta) + \frac{\partial f}{\partial y}(r\cos\theta)$</p>
+<h4 id="chain-rule-nel-calcolo-vettoriale">Chain Rule nel Calcolo Vettoriale</h4>
+<p>Per curve parametriche $\mathbf{r}(t) = (x(t), y(t), z(t))$:</p>
+<p>$\frac{d}{dt}[f(\mathbf{r}(t))] = \nabla f \cdot \mathbf{r}'(t)$</p>
+<h3 id="chain-rule-nelle-equazioni-differenziali">Chain Rule nelle Equazioni Differenziali</h3>
+<p>Fondamentale per le sostituzioni nelle EDO. Ad esempio, per risolvere $\frac{dy}{dx} = f(\frac{y}{x})$, si usa la sostituzione $v = \frac{y}{x}$.</p>
+<h2 id="note-storiche">Note Storiche</h2>
+<p>La chain rule fu sviluppata formalmente da <strong>Gottfried Leibniz</strong> nel XVII secolo come parte del calcolo differenziale. La notazione $\frac{dy}{dx}$ di Leibniz rende la chain rule particolarmente intuitiva, suggerendo visivamente la &ldquo;cancellazione&rdquo; dei differenziali.</p>
+<p><strong>Isaac Newton</strong> sviluppò contemporaneamente concetti equivalenti usando la sua notazione a punti, ma la formulazione di Leibniz si rivelò più chiara per la chain rule.</p>
+<hr />
+<h2 id="tags">Tags</h2>
+<h1 id="calcolo-derivate-chain-rule-funzioni-composite-matematica-analisi">calcolo #derivate #chain-rule #funzioni-composite #matematica #analisi</h1>
+<h2 id="collegamenti">Collegamenti</h2>
+<ul>
+<li><span class="text-gray-600">Regola del Prodotto</span></li>
+<li><span class="text-gray-600">Regola del Quoziente</span></li>
+<li><span class="text-gray-600">Derivazione Implicita</span></li>
+<li><span class="text-gray-600">Derivate Parziali</span></li>
+<li><span class="text-gray-600">Ottimizzazione</span></li>
+</ul>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, data</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Calcolo/Chain Rule">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Chain Rule - Regola della Catena nel Calcolo Differenziale',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Calcolo/Chain Rule'
+        });
+      }
+    </script>
+</body>
+</html>

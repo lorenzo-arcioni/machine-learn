@@ -35,7 +35,7 @@
       "headline": "Regressione Lineare",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Lineare",
-      "datePublished": "2025-08-30T19:21:57.323Z",
+      "datePublished": "2025-09-25T14:48:27.967Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -133,7 +133,7 @@
                 <h1>Regressione Lineare</h1>
                 <div class="meta">
                     <strong>Topic:</strong> Supervised Learning | 
-                    <strong>Updated:</strong> 30/08/2025
+                    <strong>Updated:</strong> 25/09/2025
                 </div>
             </header>
             
@@ -641,7 +641,7 @@ $$
 RMSE = \sqrt{MSE}
 $$
 <hr />
-<h3 id="52-coefficiente-di-determinazione-math_inline_186"><strong>5.2. Coefficiente di Determinazione ($R^2$)</strong></h3>
+<h3 id="52-coefficiente-di-determinazione-math_inline_188"><strong>5.2. Coefficiente di Determinazione ($R^2$)</strong></h3>
 <p>Il coefficiente di determinazione $R^2$ misura <strong>la proporzione della varianza della variabile dipendente spiegata dal modello</strong>:  </p>
 $$
 R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
@@ -823,15 +823,26 @@ $$
 <h4 id="651-formulazione-del-modello">6.5.1. Formulazione del Modello</h4>
 <p>Nella regressione ponderata, l&rsquo;obiettivo è minimizzare la somma degli errori quadratici ponderati:</p>
 $$
-\min_{\mathbf{v}} \sum_{i=1}^{N} v_i \left( y_i - \mathbf{w}^T \mathbf{x}_i \right)^2
+\min_{\mathbf{w}} \sum_{i=1}^{N} v_i \left( y_i - \mathbf{w}^T \mathbf{x}_i \right)^2
 $$
-<p>Dove:</p>
-<ul>
-<li>$v_i$ è il peso associato all&rsquo;osservazione $i$.</li>
-<li>$\mathbf{w}$ è il vettore dei coefficienti.</li>
-</ul>
-<h4 id="652-esempio-di-regressione-ponderata">6.5.2. Esempio di Regressione Ponderata</h4>
-<p>Supponiamo di avere un dataset in cui alcune osservazioni sono più affidabili di altre. Possiamo assegnare pesi maggiori a queste osservazioni per migliorare la stima del modello.</p>
+<p>Dove:
+- $v_i$ è il peso associato all&rsquo;osservazione $i$ (tipicamente costante per tutto il dataset)
+- $\mathbf{w}$ è il vettore dei coefficienti</p>
+<p>La soluzione in forma chiusa è:
+$$
+\mathbf{w}^* = (\mathbf{X}^T \mathbf{V} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{V} \mathbf{y}
+$$</p>
+<p>dove $\mathbf{V} = \text{diag}(v_1, v_2, \ldots, v_N)$ è la matrice diagonale dei pesi.</p>
+<h4 id="652-estensione-locale-lwlr">6.5.2. Estensione Locale: LWLR</h4>
+<p>Un&rsquo;importante estensione della regressione ponderata è la <a href="/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression" class="text-blue-600 hover:underline">Locally Weighted Linear Regression</a> (LWLR), dove i pesi non sono fissi ma <strong>cambiano dinamicamente</strong> per ogni punto di query in base alla distanza:</p>
+$$
+w_i(\mathbf{x}_q) = \exp\left(-\frac{\|\mathbf{x}_i - \mathbf{x}_q\|^2}{2\tau^2}\right)
+$$
+<p>A differenza della regressione ponderata classica che usa pesi globali fissi, LWLR costruisce un modello lineare locale per ogni previsione, rendendo il metodo non-parametrico e capace di catturare relazioni non lineari.</p>
+<p>La differenza fondamentale è:
+- <strong>Weighted Regression</strong>: Un singolo modello globale con pesi fissi
+- <strong>LWLR</strong>: Infiniti modelli locali con pesi adattivi per ogni query</p>
+<p>Per una trattazione completa di LWLR, incluse le tre implementazioni (forma chiusa, SGD, BGD) e tutti i dettagli matematici, si veda <a href="/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression" class="text-blue-600 hover:underline">Locally Weighted Linear Regression</a>.</p>
 <h3 id="66-conclusione">6.6. Conclusione</h3>
 <p>Le estensioni del modello di regressione lineare permettono di catturare relazioni più complesse tra le variabili indipendenti e la variabile dipendente. La scelta del modello dipende dalla natura dei dati e dalla relazione attesa. È importante bilanciare la flessibilità del modello con il rischio di overfitting, utilizzando tecniche come la cross-validation e la regolarizzazione.</p>
 <h2 id="7-conclusioni"><strong>7. Conclusioni</strong></h2>

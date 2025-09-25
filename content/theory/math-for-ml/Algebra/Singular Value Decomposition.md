@@ -64,7 +64,7 @@ $$
 $$
 dove $V^{-1}$ è la matrice del cambiamento di base, che mappa da $\{\mathbf{e}_1, \cdots, \mathbf{e}_n\}$ a $\{\mathbf{v}_1, \cdots, \mathbf{v}_n\}$.
 
-### 2. **Applichiamo la scalatura**
+### 2. **Applichiamo lo scaling**
 
 Ora moltiplichiamo ogni componente $z_i$ per $\sigma_i$, cioè applichiamo la matrice diagonale dei valori singolari:
 

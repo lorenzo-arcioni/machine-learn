@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Normalization | Deep Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="deep learning, neural networks, CNN, RNN, transformers, model, data, neural">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Batch Normalization">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/deep-learning/Neural Networks/Batch Normalization">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Batch Normalization">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/deep-learning/Neural Networks/Batch Normalization">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Batch Normalization",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/deep-learning/Neural Networks/Batch Normalization",
+      "datePublished": "2025-09-25T14:48:27.754Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/deep-learning/Neural Networks/Batch Normalization" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Batch Normalization</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Deep Learning | 
+                    <strong>Updated:</strong> 25/09/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione">Introduzione</h2>
+<p>La <strong>Batch Normalization</strong> è una tecnica di normalizzazione introdotta da Sergey Ioffe e Christian Szegedy nel 2015 che ha rivoluzionato l&rsquo;addestramento delle reti neurali profonde. Questa tecnica affronta il problema del <strong>Internal Covariate Shift</strong>, stabilizzando la distribuzione degli input ad ogni layer durante l&rsquo;addestramento e permettendo l&rsquo;uso di learning rate più elevati, una convergenza più rapida e una maggiore robustezza nell&rsquo;inizializzazione dei pesi.</p>
+<h2 id="il-problema-del-covariate-shift">Il Problema del Covariate Shift</h2>
+<h3 id="definizione-formale-del-covariate-shift">Definizione Formale del Covariate Shift</h3>
+<p>Il <strong>Covariate Shift</strong> si verifica quando la distribuzione degli input cambia tra il training e il test set. Qui, ogni singolo input è rappresentato come un <strong>vettore di feature</strong> </p>
+$$
+X =
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_d
+\end{bmatrix}
+\in \mathbb{R}^d
+$$
+<p>dove $d$ è il numero di feature per ciascun campione. Allo stesso modo, la variabile target associata a quell&rsquo;input può essere rappresentata come <strong>vettore colonna</strong>:</p>
+$$
+Y =
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_c
+\end{bmatrix}
+\in \mathbb{R}^c
+$$
+<p>dove $c$ rappresenta il numero di componenti del target (ad esempio il numero di classi in una codifica one-hot).</p>
+<p>Formalmente, si parla di covariate shift quando la <strong>distribuzione marginale dei vettori di input</strong> differisce tra training e test set:</p>
+$$
+P_{train}(X) \neq P_{test}(X)
+$$
+<p>Questo significa che i singoli vettori di input osservati durante l&rsquo;addestramento provengono da una distribuzione diversa rispetto a quelli osservati in fase di test. Non stiamo confrontando matrici di dataset interi, ma la distribuzione dei <strong>singoli vettori di input</strong>.</p>
+<p>Nonostante ciò, la relazione condizionale tra input e output rimane invariata:</p>
+$$
+P_{train}(Y|X) = P_{test}(Y|X)
+$$
+<p>In altre parole, il modo in cui i vettori target $Y$ dipendono dai vettori di input $X$ non cambia tra training e test. Questo implica che la “regola” che il modello deve apprendere resta valida, ma il modello potrebbe comunque avere difficoltà a generalizzare se i vettori di input osservati durante il test sono distribuiti in maniera diversa rispetto a quelli visti in addestramento.</p>
+<p><strong>Esempio concreto:</strong></p>
+<p>Immaginiamo di classificare il rischio di malattia in base a due variabili: età e pressione sanguigna.</p>
+<ul>
+<li>Nel <strong>training set</strong>, molte persone hanno età tra 20 e 40 anni.  </li>
+<li>Nel <strong>test set</strong>, molte persone hanno età tra 40 e 60 anni.  </li>
+</ul>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">,</span> <span class="n">font_scale</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">palette</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;blue&quot;</span><span class="p">:</span> <span class="s2">&quot;#406c80&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;orange&quot;</span><span class="p">:</span> <span class="s2">&quot;#cf8532&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Dati train</span>
+<span class="n">train_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">train_bp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">train_risk</span> <span class="o">=</span> <span class="p">(</span><span class="n">train_age</span> <span class="o">+</span> <span class="n">train_bp</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">200</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">100</span>
+
+<span class="c1"># Dati test</span>
+<span class="n">test_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">test_bp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">125</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">test_risk</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_age</span> <span class="o">+</span> <span class="n">test_bp</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">200</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">100</span>
+
+<span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Age&#39;</span><span class="p">:</span> <span class="n">train_age</span><span class="p">,</span> <span class="s1">&#39;BP&#39;</span><span class="p">:</span> <span class="n">train_bp</span><span class="p">,</span> <span class="s1">&#39;Risk&#39;</span><span class="p">:</span> <span class="n">train_risk</span><span class="p">,</span> <span class="s1">&#39;Set&#39;</span><span class="p">:</span><span class="s1">&#39;Train&#39;</span><span class="p">})</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Age&#39;</span><span class="p">:</span> <span class="n">test_age</span><span class="p">,</span> <span class="s1">&#39;BP&#39;</span><span class="p">:</span> <span class="n">test_bp</span><span class="p">,</span> <span class="s1">&#39;Risk&#39;</span><span class="p">:</span> <span class="n">test_risk</span><span class="p">,</span> <span class="s1">&#39;Set&#39;</span><span class="p">:</span><span class="s1">&#39;Test&#39;</span><span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="s2">&quot;blue&quot;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="s2">&quot;orange&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribuzione Età&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Età&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Densità&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;BP&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="s2">&quot;blue&quot;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;BP&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="s2">&quot;orange&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribuzione Pressione Sanguigna&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Pressione Sanguigna&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Densità&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Salvo il grafico su file</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;covariate_shift_distributions.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mostro il grafico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</details>
+
+<p><img src="/images/posts/covariate_shift_distributions.png" alt="Distribuzione Età e Pressione Sanguigna" style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p><br></p>
+<p>In questo caso:</p>
+$$
+P_{train}(X) \neq P_{test}(X)
+$$
+<p>Tuttavia, se la probabilità di avere la malattia dato età e pressione è la stessa nei due set, cioè:</p>
+$$
+P(Y = \text{malattia} \mid X = (\text{età, pressione})) \text{ è identica in train e test,}
+$$
+<p>allora:</p>
+$$
+P_{train}(Y|X) = P_{test}(Y|X)
+$$
+<p>Il modello ha imparato la “regola” corretta, anche se i dati osservati nel test set sono distribuiti in modo diverso rispetto a quelli del training set.</p>
+<h3 id="internal-covariate-shift">Internal Covariate Shift</h3>
+<p>L&rsquo;<strong>Internal Covariate Shift</strong> è un fenomeno analogo che si verifica all&rsquo;interno della rete neurale. Durante l&rsquo;addestramento, i parametri di ogni layer cambiano, causando una variazione continua nella distribuzione degli input ai layer successivi.</p>
+<p>Consideriamo un layer $l$ con input $x^{(l)}$ e parametri $\theta^{(l)}$. L&rsquo;output del layer è:</p>
+$$z^{(l)} = f^{(l)}(x^{(l)}; \theta^{(l)})$$
+<p>Durante l&rsquo;addestramento, quando i parametri $\theta^{(l-1)}$ del layer precedente vengono aggiornati, la distribuzione di $x^{(l)}$ cambia, anche se i parametri $\theta^{(l)}$ rimangono fissi temporaneamente.</p>
+<h4 id="conseguenze">Conseguenze</h4>
+<p>Questo fenomeno causa diversi problemi:</p>
+<ol>
+<li>
+<p><strong>Vanishing/Exploding Gradients</strong>: Se gli input ad un layer hanno varianza molto piccola o molto grande, i gradienti possono diventare troppo piccoli o troppo grandi.</p>
+<p>Consideriamo un singolo layer feedforward lineare con input $x \in \mathbb{R}^d$, pesi $W \in \mathbb{R}^{d \times n}$, bias $b \in \mathbb{R}^n$ e output:</p>
+$$
+    z = W^\top x + b
+    $$
+<p>Supponiamo di applicare una funzione di perdita $\mathcal{L}(z)$. Il gradiente rispetto ai pesi è:</p>
+$$
+    \frac{\partial \mathcal{L}}{\partial W} = x \cdot \left(\frac{\partial \mathcal{L}}{\partial z}\right)^\top
+    $$
+<p>Quello che ci interessa è la norma attesa del gradiente. Se assumiamo che $x$ e $\frac{\partial \mathcal{L}}{\partial z}$ siano <strong>indipendenti</strong> e con <strong>media zero</strong>, allora:</p>
+$$
+    \mathbb{E}\Big[\frac{\partial \mathcal{L}}{\partial W}\Big] = \mathbb{E}[x] \cdot \mathbb{E}\Big[\frac{\partial \mathcal{L}}{\partial z}\Big]^\top = 0
+    $$
+<p>La media dice solo dove &ldquo;centra&rdquo; i gradienti, ma non quanto fluttuano da campione a campione. In media, quindi, il gradiente non ha bias. Ciò che conta per la stabilità è invece la <strong>varianza</strong>, che dice quanto fluttuano i gradienti da campione a campione.</p>
+<p>La varianza del gradiente di ciascun peso è:</p>
+$$
+    \mathrm{Var}\Big[\frac{\partial \mathcal{L}}{\partial W}\Big] = \mathbb{E}\Big[\Big(\frac{\partial \mathcal{L}}{\partial W}\Big)^2\Big] - \Big(\mathbb{E}\Big[\frac{\partial \mathcal{L}}{\partial W}\Big]\Big)^2
+    $$
+<p>Poiché l’aspettativa $\mathbb{E}\Big[\frac{\partial \mathcal{L}}{\partial W}\Big]$ è zero:</p>
+$$
+    \mathrm{Var}\Big[\frac{\partial \mathcal{L}}{\partial W}\Big] = \mathbb{E}[x^2] \cdot \mathbb{E}\Big[\Big(\frac{\partial \mathcal{L}}{\partial z}\Big)^2\Big] = \mathrm{Var}[x] \cdot \mathrm{Var}\Big[\frac{\partial \mathcal{L}}{\partial z}\Big]
+    $$
+<p>Quindi</p>
+<ul>
+<li>Se $\mathrm{Var}[x] \gg 1$, alcuni gradienti $g$ diventano molto grandi.  </li>
+<li>Con gradient descent: $W \gets W - \eta g$  </li>
+<li>
+<p>Piccoli $\eta$ possono mitigare, ma gradienti troppo grandi causano <strong>exploding gradients</strong> (i pesi saltano troppo in un solo passo). </p>
+</li>
+<li>
+<p>Se $\mathrm{Var}[x] \ll 1$, i gradienti diventano molto piccoli → <strong>vanishing gradients</strong>, aggiornamenti dei pesi quasi nulli.</p>
+</li>
+</ul>
+<p>La stabilità dei gradienti quindi dipende direttamente dalla varianza degli input. Controllare o normalizzare la varianza degli input è essenziale per evitare gradienti esplosivi o nulli.  </p>
+</li>
+<li>
+<p><strong>Saturazione delle funzioni di attivazione</strong>: Funzioni come la sigmoide o la tanh possono saturare se gli input sono troppo grandi in valore assoluto.</p>
+<p>Consideriamo una funzione di attivazione sigmoide:</p>
+$$
+    \sigma(z) = \frac{1}{1 + e^{-z}}, \quad \sigma'(z) = \sigma(z)(1-\sigma(z))
+    $$
+<p>Se l’input $z$ ha distribuzione con media $\mu_z$ e varianza $\sigma_z^2$ molto grande:</p>
+<ul>
+<li>Per $|z| \gg 1$, $\sigma(z) \approx 0$ o $1$  </li>
+<li>Quindi:<br />
+$$
+    \sigma'(z) = \sigma(z)(1-\sigma(z)) \approx 0
+    $$</li>
+</ul>
+$$
+    \lim_{|z| \to \infty} \sigma'(z) = 0
+    $$
+<p>La derivata della sigmoide tende a zero quando la varianza degli input è troppo grande, causando saturazione e vanishing gradient.</p>
+</li>
+<li>
+<p><strong>Instabilità nell&rsquo;addestramento</strong>: La continua variazione delle distribuzioni rende difficile l&rsquo;ottimizzazione.</p>
+<p>Sia un layer $l$ con output:</p>
+$$
+    z^{(l)} = f^{(l)}(x^{(l)}; \theta^{(l)})
+    $$
+<p>e un layer successivo $l+1$ con input:</p>
+$$
+    x^{(l+1)} = z^{(l)}
+    $$
+<p>Supponiamo che la distribuzione di $x^{(l+1)}$ abbia media $\mu^{(l+1)}$ e varianza $\sigma^{2(l+1)}$. Durante l’addestramento, quando aggiorniamo $\theta^{(l)}$:</p>
+$$
+    x_{\text{new}}^{(l+1)} = f^{(l)}(x^{(l)}; \theta_{\text{new}}^{(l)})
+    $$
+<p>La media e la varianza cambiano continuamente:</p>
+$$
+    \mu_{\text{new}}^{(l+1)} \neq \mu^{(l+1)}, \quad
+    \sigma_{\text{new}}^{2(l+1)} \neq \sigma^{2(l+1)}
+    $$
+<p>Di conseguenza, il layer $l+1$ deve adattarsi a input distribuiti in modo diverso ad ogni passo.</p>
+<p>Formalmente, il gradiente rispetto a $\theta^{(l+1)}$ dipende da $x^{(l+1)}$:</p>
+$$
+    \frac{\partial \mathcal{L}}{\partial \theta^{(l+1)}} = 
+    \frac{\partial \mathcal{L}}{\partial z^{(l+1)}} 
+    \frac{\partial z^{(l+1)}}{\partial \theta^{(l+1)}}
+    $$
+<p>Se la distribuzione di $x^{(l+1)}$ cambia ad ogni passo, la distribuzione del gradiente cambia anch’essa, rendendo l’ottimizzazione instabile.</p>
+<p>L’aspettativa e la varianza del gradiente dipendono dalla distribuzione degli input del layer successivo. Una distribuzione instabile causa gradienti instabili, quindi l’addestramento è meno stabile.</p>
+</li>
+</ol>
+<h2 id="formulazione-matematica-della-batch-normalization">Formulazione Matematica della Batch Normalization</h2>
+<h3 id="algoritmo-base">Algoritmo Base</h3>
+<p>Sia $B = \{x_1, x_2, \ldots, x_m\}$ un mini-batch di $m$ esempi. Per ogni feature $i$, la batch normalization esegue i seguenti passi:</p>
+<h4 id="1-calcolo-della-media-del-batch">1. Calcolo della Media del Batch</h4>
+$$\mu_B^{(i)} = \frac{1}{m} \sum_{j=1}^{m} x_j^{(i)}$$
+<p>dove $x_j^{(i)}$ è l&rsquo;$i$-esima feature del $j$-esimo esempio nel batch.</p>
+<h4 id="2-calcolo-della-varianza-del-batch">2. Calcolo della Varianza del Batch</h4>
+$$\sigma_B^{2(i)} = \frac{1}{m} \sum_{j=1}^{m} (x_j^{(i)} - \mu_B^{(i)})^2$$
+<h4 id="3-normalizzazione">3. Normalizzazione</h4>
+$$\hat{x}_j^{(i)} = \frac{x_j^{(i)} - \mu_B^{(i)}}{\sqrt{\sigma_B^{2(i)} + \epsilon}}$$
+<p>dove $\epsilon$ è una piccola costante (tipicamente $10^{-8}$) aggiunta per stabilità numerica per evitare divisioni per zero.</p>
+<h4 id="4-scaling-e-shifting">4. Scaling e Shifting</h4>
+$$y_j^{(i)} = \gamma^{(i)} \hat{x}_j^{(i)} + \beta^{(i)}$$
+<p>dove $\gamma^{(i)}$ e $\beta^{(i)}$ sono parametri appresi durante l&rsquo;addestramento.</p>
+<h3 id="notazione-vettoriale-e-matriciale">Notazione Vettoriale e Matriciale</h3>
+<p>Per un batch di input </p>
+$$
+X = 
+\begin{bmatrix}
+\mathbf{x}_1^\top \\
+\mathbf{x}_2^\top \\
+\vdots \\
+\mathbf{x}_m^\top
+\end{bmatrix} 
+\in \mathbb{R}^{m \times d},
+$$
+<p>dove $m$ è la dimensione del batch e $d$ il numero di feature, la <strong>Batch Normalization</strong> normalizza ciascuna feature separatamente.</p>
+<ol>
+<li><strong>Media del batch per ogni feature</strong>:</li>
+</ol>
+$$
+\boldsymbol{\mu}_B = \frac{1}{m} \sum_{i=1}^{m} \mathbf{x}_i \in \mathbb{R}^d
+$$
+che in notazione matriciale diventa:
+$$
+\boldsymbol{\mu}_B = \frac{1}{m} \mathbf{1}_m^\top X \in \mathbb{R}^{1 \times d},
+$$
+<ol>
+<li><strong>Varianza del batch per ogni feature</strong>:</li>
+</ol>
+$$
+\boldsymbol{\sigma}_B^2 = \frac{1}{m} \sum_{i=1}^{m} (\mathbf{x}_i - \boldsymbol{\mu}_B) \odot (\mathbf{x}_i - \boldsymbol{\mu}_B) \in \mathbb{R}^d
+$$
+che in notazione matriciale diventa:
+$$
+\boldsymbol{\sigma}_B^2 = \frac{1}{m} \sum_{i=1}^{m} (\mathbf{x}_i - \boldsymbol{\mu}_B) \odot (\mathbf{x}_i - \boldsymbol{\mu}_B) \in \mathbb{R}^{1 \times d}
+$$
+<ol>
+<li><strong>Normalizzazione batch (per feature)</strong>:</li>
+</ol>
+$$
+\hat{\mathbf{x}}_i = \frac{\mathbf{x}_i - \boldsymbol{\mu}_B}{\sqrt{\boldsymbol{\sigma}_B^2 + \epsilon}} \in \mathbb{R}^d
+$$
+che in notazione matriciale diventa:
+$$
+\hat{X} = (X - \mathbf{1}_m \boldsymbol{\mu}_B) \underbrace{\oslash}_\text{Divisione element-wise} \sqrt{\mathbf{1}_m \boldsymbol{\sigma}_B^2 + \epsilon} \in \mathbb{R}^{m \times d}
+$$
+<ol>
+<li><strong>Scaling e shifting con parametri apprendibili</strong>:</li>
+</ol>
+$$
+\mathbf{y}_i = \boldsymbol{\gamma} \odot \hat{\mathbf{x}}_i + \boldsymbol{\beta} \in \mathbb{R}^d
+$$
+$$
+Y = \hat{X} \odot \boldsymbol{\gamma} + \boldsymbol{\beta} \in \mathbb{R}^{m \times d}
+$$
+<p>dove $\odot$ indica il prodotto elemento per elemento, e $\boldsymbol{\gamma}$ e $\boldsymbol{\beta}$ sono vettori di dimensione $d$ che consentono al modello di riadattare scala e media di ogni feature.</p>
+<h2 id="rete-neurale-semplice-con-e-senza-batch-normalization">Rete Neurale Semplice: Con e Senza Batch Normalization</h2>
+<p>Sia un input $\mathbf{x} \in \mathbb{R}^d$ e un hidden layer con $h$ unità, funzione di attivazione $\phi(\cdot)$ e output finale $\hat{\mathbf{y}} \in \mathbb{R}^c$.</p>
+<h3 id="1-senza-batch-normalization">1. Senza Batch Normalization</h3>
+$$
+\begin{aligned}
+\mathbf{z}^{(1)} &= W^{(1)\top} \mathbf{x} + \mathbf{b}^{(1)} \in \mathbb{R}^h \\
+\mathbf{a}^{(1)} &= \phi\big(\mathbf{z}^{(1)}\big) \in \mathbb{R}^h \\
+\mathbf{z}^{(2)} &= W^{(2)\top} \mathbf{a}^{(1)} + \mathbf{b}^{(2)} \in \mathbb{R}^c \\
+\hat{\mathbf{y}} &= \psi(\mathbf{z}^{(2)}) \in \mathbb{R}^c
+\end{aligned}
+$$
+<ul>
+<li>$W^{(1)} \in \mathbb{R}^{d \times h}, W^{(2)} \in \mathbb{R}^{h \times c}$  </li>
+<li>$\phi$ = funzione di attivazione (ReLU, sigmoide, ecc.)  </li>
+<li>$\psi$ = funzione di output (softmax, identità, ecc.)</li>
+</ul>
+<h3 id="2-con-batch-normalization">2. Con Batch Normalization</h3>
+<p>Aggiungiamo BN <strong>prima dell’attivazione</strong> nel hidden layer:</p>
+$$
+\begin{aligned}
+\mathbf{z}^{(1)} &= W^{(1)\top} \mathbf{x} + \mathbf{b}^{(1)} \in \mathbb{R}^h \\
+\hat{\mathbf{z}}^{(1)} &= \frac{\mathbf{z}^{(1)} - \boldsymbol{\mu}_B}{\sqrt{\boldsymbol{\sigma}_B^2 + \epsilon}} \\
+\mathbf{y}^{(1)} &= \boldsymbol{\gamma} \odot \hat{\mathbf{z}}^{(1)} + \boldsymbol{\beta} \\
+\mathbf{a}^{(1)} &= \phi\big(\mathbf{y}^{(1)}\big) \in \mathbb{R}^h \\
+\mathbf{z}^{(2)} &= W^{(2)\top} \mathbf{a}^{(1)} + \mathbf{b}^{(2)} \in \mathbb{R}^c \\
+\hat{\mathbf{y}} &= \psi(\mathbf{z}^{(2)}) \in \mathbb{R}^c
+\end{aligned}
+$$
+<p><img src="/images/tikz/407828ea15ae1302b02047e7638249ea.svg" style="display: block; width: 100%; height: auto; max-height: 600px;" class="tikz-svg" /></p>
+<ul>
+<li>$\boldsymbol{\mu}_B, \boldsymbol{\sigma}_B^2 \in \mathbb{R}^h$ = media e varianza sul batch  </li>
+<li>$\boldsymbol{\gamma}, \boldsymbol{\beta} \in \mathbb{R}^h$ = parametri apprendibili di scaling e shifting  </li>
+<li>La BN stabilizza la distribuzione dei valori prima dell’attivazione, riducendo <strong>Internal Covariate Shift</strong></li>
+</ul>
+<h3 id="differenze-chiave">Differenze chiave</h3>
+<table>
+<thead>
+<tr>
+<th>Versione</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Senza BN</td>
+<td>$\mathbf{a}^{(1)} = \phi(W^\top \mathbf{x} + b)$ → distribuzione dei valori cambia ad ogni aggiornamento dei pesi</td>
+</tr>
+<tr>
+<td>Con BN</td>
+<td>$\mathbf{a}^{(1)} = \phi(\boldsymbol{\gamma} \odot \hat{\mathbf{z}} + \boldsymbol{\beta})$ → distribuzione più stabile, gradienti più controllati</td>
+</tr>
+</tbody>
+</table>
+<h2 id="proprieta-teoriche">Proprietà Teoriche</h2>
+<h3 id="invarianza-per-trasformazioni-affini">Invarianza per Trasformazioni Affini</h3>
+<p>La batch normalization è invariante rispetto a trasformazioni affini scalari, nel senso che:
+$\text{BN}(ax + b) = \pm \text{BN}(x)$</p>
+<p>dove il segno dipende dal segno di $a$.</p>
+<p><strong>Interpretazione:</strong> L&rsquo;output normalizzato è lo stesso (a meno del segno) indipendentemente da come gli input vengono scalati o traslati.</p>
+<h4 id="dimostrazione-dellinvarianza">Dimostrazione dell&rsquo;Invarianza</h4>
+<p>Consideriamo un batch $\{x_1, x_2, \ldots, x_m\}$ e la sua trasformazione affine:
+$$x'_i = ax_i + b \quad \forall i = 1, \ldots, m$$</p>
+<p><strong>Passo 1: Calcolo della media trasformata</strong>
+$$\mu' = \frac{1}{m}\sum_{i=1}^{m} x'_i = \frac{1}{m}\sum_{i=1}^{m} (ax_i + b) = a\frac{1}{m}\sum_{i=1}^{m} x_i + b = a\mu + b$$</p>
+<p><strong>Passo 2: Calcolo della varianza trasformata</strong>
+$$\sigma'^2 = \frac{1}{m}\sum_{i=1}^{m} (x'_i - \mu')^2$$</p>
+<p>Sostituendo:
+$$\sigma'^2 = \frac{1}{m}\sum_{i=1}^{m} (ax_i + b - a\mu - b)^2 = \frac{1}{m}\sum_{i=1}^{m} a^2(x_i - \mu)^2 = a^2\sigma^2$$</p>
+<p><strong>Passo 3: Normalizzazione dei dati trasformati</strong>
+$$\hat{x}'_i = \frac{x'_i - \mu'}{\sqrt{\sigma'^2 + \epsilon}}$$</p>
+<p>Sostituendo le espressioni trovate:
+$$\hat{x}'_i = \frac{ax_i + b - (a\mu + b)}{\sqrt{a^2\sigma^2 + \epsilon}} = \frac{a(x_i - \mu)}{\sqrt{a^2\sigma^2 + \epsilon}}$$</p>
+<p><strong>Caso $a > 0$:</strong>
+$$\hat{x}'_i = \frac{a(x_i - \mu)}{|a|\sqrt{\sigma^2 + \epsilon/a^2}} = \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon/a^2}}$$</p>
+<p><strong>Caso limite:</strong> Quando $|a| \gg \sqrt{\epsilon}$, allora $\epsilon/a^2 \to 0$:
+$$\hat{x}'_i \to \frac{x_i - \mu}{\sqrt{\sigma^2}} = \hat{x}_i$$</p>
+<p><strong>Caso $a < 0$:</strong>
+$$\hat{x}'_i = \frac{a(x_i - \mu)}{|a|\sqrt{\sigma^2 + \epsilon/a^2}} = -\frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon/a^2}} = -\hat{x}_i$$</p>
+<h4 id="conseguenze-pratiche">Conseguenze Pratiche</h4>
+<ol>
+<li><strong>Robustezza rispetto al preprocessing:</strong> La rete è insensibile a normalizzazioni diverse dei dati</li>
+<li><strong>Invarianza rispetto ai pesi:</strong> Scaling dei pesi di un layer non influenza l&rsquo;output normalizzato</li>
+<li><strong>Accelerazione del training:</strong> Riduce la dipendenza dall&rsquo;inizializzazione dei parametri</li>
+</ol>
+<hr />
+<h4 id="caso-vettoriale">Caso vettoriale</h4>
+<h5 id="setup-e-notazione">Setup e Notazione</h5>
+<p>Batch: $\{\mathbf{x}_1, \ldots, \mathbf{x}_m\}$ con $\mathbf{x}_i \in \mathbb{R}^d$, trasformazione $\mathbf{x}'_i = \mathbf{A}\mathbf{x}_i + \mathbf{b}$, $\mathbf{A} = \text{diag}(a_1, \ldots, a_d)$</p>
+$$\boldsymbol{\mu} = \frac{1}{m}\sum_{i=1}^{m} \mathbf{x}_i, \quad \boldsymbol{\sigma}^2 = \frac{1}{m}\sum_{i=1}^{m} (\mathbf{x}_i - \boldsymbol{\mu}) \odot (\mathbf{x}_i - \boldsymbol{\mu}), \quad \hat{\mathbf{x}}_i = \frac{\mathbf{x}_i - \boldsymbol{\mu}}{\sqrt{\boldsymbol{\sigma}^2 + \epsilon \mathbf{1}}}$$
+<h5 id="trasformazione">Trasformazione</h5>
+<p><strong>Media trasformata:</strong>
+$$\boldsymbol{\mu}' = \frac{1}{m}\sum_{i=1}^{m} (\mathbf{A}\mathbf{x}_i + \mathbf{b}) = \mathbf{A}\boldsymbol{\mu} + \mathbf{b}$$</p>
+<p><strong>Varianza trasformata:</strong>
+$$\boldsymbol{\sigma}'^2 = \frac{1}{m}\sum_{i=1}^{m} (\mathbf{A}\mathbf{x}_i + \mathbf{b} - \mathbf{A}\boldsymbol{\mu} - \mathbf{b}) \odot (\mathbf{A}\mathbf{x}_i + \mathbf{b} - \mathbf{A}\boldsymbol{\mu} - \mathbf{b})$$
+$$= \frac{1}{m}\sum_{i=1}^{m} (\mathbf{A}(\mathbf{x}_i - \boldsymbol{\mu})) \odot (\mathbf{A}(\mathbf{x}_i - \boldsymbol{\mu})) = (\mathbf{A} \odot \mathbf{A}) \odot \boldsymbol{\sigma}^2 = \mathbf{A}^2 \boldsymbol{\sigma}^2$$</p>
+<p><strong>Normalizzazione trasformata:</strong>
+$$\hat{\mathbf{x}}'_i = \frac{\mathbf{A}\mathbf{x}_i + \mathbf{b} - \mathbf{A}\boldsymbol{\mu} - \mathbf{b}}{\sqrt{\mathbf{A}^2 \boldsymbol{\sigma}^2 + \epsilon \mathbf{1}}} = \frac{\mathbf{A}(\mathbf{x}_i - \boldsymbol{\mu})}{\sqrt{\mathbf{A}^2 \boldsymbol{\sigma}^2 + \epsilon \mathbf{1}}}$$</p>
+$$= \frac{\mathbf{A}(\mathbf{x}_i - \boldsymbol{\mu})}{\sqrt{\mathbf{A}^2(\boldsymbol{\sigma}^2 + \epsilon \mathbf{A}^{-2})}} = \frac{\mathbf{A}(\mathbf{x}_i - \boldsymbol{\mu})}{|\mathbf{A}|\sqrt{\boldsymbol{\sigma}^2 + \epsilon \mathbf{A}^{-2}}}$$
+$$= \text{sign}(\mathbf{A}) \odot \frac{\mathbf{x}_i - \boldsymbol{\mu}}{\sqrt{\boldsymbol{\sigma}^2 + \epsilon \mathbf{A}^{-2}}}$$
+<h4 id="risultato">Risultato</h4>
+<p>Per $|\mathbf{A}| \gg \sqrt{\epsilon} \mathbf{1}$: $\epsilon \mathbf{A}^{-2} \to \mathbf{0}$</p>
+$$\boxed{\text{BN}(\mathbf{A}\mathbf{x} + \mathbf{b}) = \text{sign}(\mathbf{A}) \odot \text{BN}(\mathbf{x})}$$
+<p>dove $\text{sign}(\mathbf{A}) = \text{diag}(\text{sign}(a_1), \ldots, \text{sign}(a_d))$</p>
+<hr />
+<h3 id="effetto-sulla-distribuzione-dei-gradienti">Effetto sulla Distribuzione dei Gradienti</h3>
+<p>La <strong>Batch Normalization (BN)</strong> non agisce solo sulla distribuzione degli attivazioni forward, ma ha anche un impatto fondamentale sulla <strong>propagazione dei gradienti</strong> durante il backpropagation. Analizziamo nel dettaglio.</p>
+<h4 id="1-derivata-rispetto-allinput-normalizzato">1. Derivata rispetto all’input normalizzato</h4>
+<p>Dato un input $x_i$ che viene normalizzato in:</p>
+$$
+\hat{x}_i = \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon}}
+$$
+<p>e successivamente scalato e traslato tramite i parametri appresi $\gamma, \beta$:</p>
+$$
+y_i = \gamma \hat{x}_i + \beta
+$$
+<p>la derivata della loss $L$ rispetto all’input normalizzato $\hat{x}_i$ è:</p>
+$$
+\frac{\partial L}{\partial \hat{x}_i} = \frac{\partial L}{\partial y_i} \cdot \frac{\partial y_i}{\partial \hat{x}_i} = \frac{\partial L}{\partial y_i} \cdot \gamma
+$$
+<p>👉 Questo significa che il gradiente verso $\hat{x}_i$ viene semplicemente <strong>scalato da $\gamma$</strong>, mantenendo un controllo esplicito sulla sua ampiezza.</p>
+<h4 id="2-derivata-rispetto-allinput-originale">2. Derivata rispetto all’input originale</h4>
+<p>Il passo cruciale è calcolare la derivata rispetto all’input non normalizzato $x_i$. La formula completa è:</p>
+<p>Partiamo da
+$$
+\hat{x}_j=\frac{x_j-\mu}{\sqrt{\sigma^2+\epsilon}},\qquad 
+\mu=\frac{1}{m}\sum_{k=1}^m x_k,\qquad
+\sigma^2=\frac{1}{m}\sum_{k=1}^m (x_k-\mu)^2.
+$$</p>
+<p>Vogliamo calcolare
+$$
+\frac{\partial L}{\partial x_i}=\sum_{j=1}^m\frac{\partial L}{\partial \hat{x}_j}\frac{\partial \hat{x}_j}{\partial x_i}.
+$$</p>
+<p>Calcoliamo $\dfrac{\partial \hat{x}_j}{\partial x_i}$. Definiamo $s=\sqrt{\sigma^2+\epsilon}$. Allora
+$$
+\hat{x}_j=(x_j-\mu)s^{-1}.
+$$
+Per la regola della catena:
+$$
+\frac{\partial \hat{x}_j}{\partial x_i}
+= s^{-1}\frac{\partial (x_j-\mu)}{\partial x_i} + (x_j-\mu)\frac{\partial (s^{-1})}{\partial \sigma^2}\frac{\partial \sigma^2}{\partial x_i}.
+$$</p>
+<p>Calcoliamo i termini necessari.</p>
+<ol>
+<li>
+<p>$\displaystyle\frac{\partial (x_j-\mu)}{\partial x_i}=\delta_{ij}-\frac{\partial\mu}{\partial x_i}=\delta_{ij}-\frac{1}{m}.$</p>
+</li>
+<li>
+<p>$\displaystyle\frac{\partial (s^{-1})}{\partial \sigma^2} = \frac{d}{d\sigma^2}(\sigma^2+\epsilon)^{-1/2} = -\tfrac{1}{2}(\sigma^2+\epsilon)^{-3/2} = -\tfrac{1}{2}s^{-3}.$</p>
+</li>
+<li>
+<p>Usando $\sigma^2=\tfrac{1}{m}\sum_k x_k^2-\mu^2$ (o derivando direttamente), si ottiene
+$$
+\frac{\partial \sigma^2}{\partial x_i}=\frac{2}{m}(x_i-\mu).
+$$</p>
+</li>
+</ol>
+<p>Inserendo (2) e (3):
+$$
+\frac{\partial (s^{-1})}{\partial \sigma^2}\frac{\partial \sigma^2}{\partial x_i}
+= -\tfrac{1}{2}s^{-3}\cdot \frac{2}{m}(x_i-\mu) = -\frac{1}{m}s^{-3}(x_i-\mu).
+$$</p>
+<p>Quindi
+$$
+\frac{\partial \hat{x}_j}{\partial x_i}
+= s^{-1}\!\left(\delta_{ij}-\frac{1}{m}\right) + (x_j-\mu)\left(-\frac{1}{m}s^{-3}(x_i-\mu)\right).
+$$</p>
+<p>Raccogliendo $s^{-1}$:
+$$
+\frac{\partial \hat{x}_j}{\partial x_i}
+= \frac{1}{s}\left(\delta_{ij}-\frac{1}{m}\right) - \frac{1}{m}\frac{(x_j-\mu)(x_i-\mu)}{s^{3}}
+= \frac{1}{s}\left(\delta_{ij}-\frac{1}{m} - \frac{(x_j-\mu)(x_i-\mu)}{m(\sigma^2+\epsilon)}\right).
+$$</p>
+<p>Usando $\hat{x}_k=\dfrac{x_k-\mu}{s}$ si riscrive l&rsquo;ultimo termine:
+$$
+\frac{(x_j-\mu)(x_i-\mu)}{s^{2}}=\hat{x}_j\hat{x}_i
+$$
+quindi
+$$
+\frac{\partial \hat{x}_j}{\partial x_i}
+= \frac{1}{s}\left(\delta_{ij}-\frac{1}{m} - \frac{\hat{x}_j\hat{x}_i}{m}\right).
+$$</p>
+<p>Ora calcoliamo $\dfrac{\partial L}{\partial x_i}$:
+$$
+\frac{\partial L}{\partial x_i}
+= \sum_{j=1}^m \frac{\partial L}{\partial \hat{x}_j}\frac{\partial \hat{x}_j}{\partial x_i}
+= \sum_{j=1}^m \frac{\partial L}{\partial \hat{x}_j}\cdot \frac{1}{s}\left(\delta_{ij}-\frac{1}{m} - \frac{\hat{x}_j\hat{x}_i}{m}\right).
+$$</p>
+<p>Svolgendo la somma:
+$$
+\frac{\partial L}{\partial x_i}
+= \frac{1}{s}\left(\frac{\partial L}{\partial \hat{x}_i} - \frac{1}{m}\sum_{j=1}^m\frac{\partial L}{\partial \hat{x}_j} - \frac{\hat{x}_i}{m}\sum_{j=1}^m\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j\right).
+$$</p>
+<p>Sostituendo $s=\sqrt{\sigma^2+\epsilon}$ otteniamo la formula finale:
+$$
+\boxed{\displaystyle
+\frac{\partial L}{\partial x_i} = 
+\frac{1}{\sqrt{\sigma^2 + \epsilon}}
+\left[ 
+\frac{\partial L}{\partial \hat{x}_i} 
+- \frac{1}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j} 
+- \frac{\hat{x}_i}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j 
+\right].}
+$$</p>
+<p>dove $m$ è la dimensione del batch.</p>
+<p>Analizziamone i termini:</p>
+<ol>
+<li>
+<p><strong>Termine diretto</strong>:<br />
+   $$
+   \frac{\partial L}{\partial \hat{x}_i}
+   $$
+   contribuisce con il gradiente locale di ogni esempio.</p>
+</li>
+<li>
+<p><strong>Termine di ricentraggio</strong>:<br />
+   $$
+   - \frac{1}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}
+   $$
+   questo assicura che la somma dei gradienti sul batch sia <strong>zero</strong>, mantenendo i gradienti ricentrati come lo erano gli input.</p>
+</li>
+<li>
+<p><strong>Termine di decorrelazione</strong>:<br />
+   $$
+   - \frac{\hat{x}_i}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j
+   $$
+   qui il gradiente viene corretto in base alla correlazione con l’input normalizzato $\hat{x}_j$.<br />
+   👉 Questo riduce la <strong>correlazione tra gradienti diversi nel batch</strong>, migliorando la stabilità dell’ottimizzazione.</p>
+</li>
+</ol>
+<p>Infine, il tutto è riscalato dal fattore:</p>
+$$
+\frac{1}{\sqrt{\sigma^2 + \epsilon}}
+$$
+<p>che garantisce che i gradienti abbiano <strong>varianza controllata</strong>, impedendo esplosioni o scomparse del gradiente.</p>
+<h4 id="3-interpretazione-complessiva">3. Interpretazione complessiva</h4>
+<ul>
+<li>La BN <strong>ricentra i gradienti</strong> → niente drift verso direzioni comuni del batch.  </li>
+<li>La BN <strong>riscalda i gradienti</strong> → controlla la scala, riducendo vanishing/exploding gradients.  </li>
+<li>La BN <strong>riduce la correlazione</strong> → ogni esempio nel batch contribuisce in maniera più indipendente.  </li>
+</ul>
+<p>👉 In sintesi, la Batch Normalization agisce come una <strong>regolarizzazione implicita</strong> anche nel backward pass, rendendo la superficie di ottimizzazione più liscia e favorendo una convergenza più stabile e veloce.</p>
+<h2 id="backpropagation-attraverso-la-batch-normalization">Backpropagation attraverso la Batch Normalization</h2>
+<h3 id="derivate-parziali">Derivate Parziali</h3>
+<p>Per implementare correttamente la batch normalization, è necessario calcolare le derivate parziali per tutti i parametri coinvolti.</p>
+<h4 id="derivata-rispetto-a-math_inline_191-e-math_inline_192">Derivata rispetto a $\gamma$ e $\beta$</h4>
+$$\frac{\partial L}{\partial \gamma} = \sum_{i=1}^{m} \frac{\partial L}{\partial y_i} \hat{x}_i$$
+$$\frac{\partial L}{\partial \beta} = \sum_{i=1}^{m} \frac{\partial L}{\partial y_i}$$
+<h4 id="derivata-rispetto-allinput-normalizzato">Derivata rispetto all&rsquo;input normalizzato</h4>
+$$\frac{\partial L}{\partial \hat{x}_i} = \frac{\partial L}{\partial y_i} \gamma$$
+<h4 id="derivata-rispetto-alla-varianza">Derivata rispetto alla varianza</h4>
+$$
+\begin{align*}
+\frac{\partial L}{\partial \sigma_B^2} 
+&= \sum_{i=1}^m \frac{\partial L}{\partial \hat{x}_i}\cdot \frac{\partial \hat{x}_i}{\partial \sigma_B^2} \\[0.75em]
+&= \sum_{i=1}^m \frac{\partial L}{\partial \hat{x}_i} (x_i - \mu_B)\cdot \frac{\partial}{\partial \sigma_B^2}(\sigma_B^2 + \epsilon)^{-1/2} \\[0.75em]
+&= \sum_{i=1}^m \frac{\partial L}{\partial \hat{x}_i} (x_i - \mu_B)\left(-\tfrac{1}{2}\right)(\sigma_B^2 + \epsilon)^{-3/2} \\[0.75em]
+&= \sum_{i=1}^m \frac{\partial L}{\partial \hat{x}_i} (x_i - \mu_B)\,\frac{-1}{2}(\sigma_B^2 + \epsilon)^{-3/2}
+\end{align*}
+$$
+<h4 id="derivata-rispetto-alla-media">Derivata rispetto alla media</h4>
+$$
+\begin{align*}
+\frac{\partial L}{\partial \mu_B} 
+&= \sum_{i=1}^{m} \frac{\partial L}{\partial \hat{x}_i} \cdot \frac{\partial \hat{x}_i}{\partial \mu_B} 
+    + \frac{\partial L}{\partial \sigma_B^2} \cdot \frac{\partial \sigma_B^2}{\partial \mu_B} \\[0.75em]
+&= \sum_{i=1}^{m} \frac{\partial L}{\partial \hat{x}_i} \cdot \left(-\frac{1}{\sqrt{\sigma_B^2 + \epsilon}}\right) 
+    + \frac{\partial L}{\partial \sigma_B^2} \cdot \left(\frac{-2}{m}\sum_{i=1}^m (x_i - \mu_B)\right) \\[0.75em]
+&= \sum_{i=1}^{m} \frac{\partial L}{\partial \hat{x}_i}\,\frac{-1}{\sqrt{\sigma_B^2 + \epsilon}} 
+    + \frac{\partial L}{\partial \sigma_B^2}\,\frac{-2}{m}\sum_{i=1}^m (x_i - \mu_B)
+\end{align*}
+$$
+<h4 id="derivata-rispetto-allinput-originale">Derivata rispetto all&rsquo;input originale</h4>
+$$
+\begin{align*}
+\frac{\partial L}{\partial x_i} 
+&= \frac{1}{\sqrt{\sigma_B^2 + \epsilon}}
+\left[
+    \frac{\partial L}{\partial \hat{x}_i} 
+    - \frac{1}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j} 
+    - \frac{\hat{x}_i}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j
+\right] \\[0.75em]
+&= \frac{1}{\sqrt{\sigma_B^2 + \epsilon}} \frac{\partial L}{\partial \hat{x}_i} 
+   - \frac{1}{m\sqrt{\sigma_B^2 + \epsilon}} \sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j} 
+   - \frac{\hat{x}_i}{m\sqrt{\sigma_B^2 + \epsilon}} \sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j \\[0.75em]
+&= \frac{1}{\sqrt{\sigma_B^2 + \epsilon}} \frac{\partial L}{\partial \hat{x}_i} 
+   + \left(-\frac{1}{\sqrt{\sigma_B^2 + \epsilon}}\right)\frac{1}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j} 
+   + \left(-\tfrac{1}{2}(\sigma_B^2 + \epsilon)^{-\tfrac{3}{2}}\right)\frac{2\hat{x}_i}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j \\[0.75em]
+&= \frac{1}{\sqrt{\sigma_B^2 + \epsilon}} \frac{\partial L}{\partial \hat{x}_i} 
+   + \frac{1}{m}\frac{\partial L}{\partial \mu_B} 
+   + \frac{2(x_i - \mu_B)}{m}\frac{\partial L}{\partial \sigma_B^2}.
+\end{align*}
+$$
+<h2 id="batch-normalization-durante-linferenza">Batch Normalization durante l&rsquo;Inferenza</h2>
+<p>Durante la fase di test o inferenza, non abbiamo accesso a un batch di esempi, quindi non possiamo calcolare statistiche del batch. Invece, utilizziamo le <strong>statistiche della popolazione</strong> stimate durante l&rsquo;addestramento.</p>
+<h3 id="calcolo-delle-statistiche-di-popolazione">Calcolo delle Statistiche di Popolazione</h3>
+<p>Durante l&rsquo;addestramento, manteniamo una media mobile delle statistiche del batch:</p>
+$$\mu_{pop} = \alpha \mu_{pop} + (1-\alpha) \mu_B$$
+$$\sigma_{pop}^2 = \alpha \sigma_{pop}^2 + (1-\alpha) \sigma_B^2$$
+<p>dove $\alpha$ è tipicamente 0.9 o 0.99.</p>
+<h3 id="normalizzazione-durante-linferenza">Normalizzazione durante l&rsquo;Inferenza</h3>
+$$\hat{x} = \frac{x - \mu_{pop}}{\sqrt{\sigma_{pop}^2 + \epsilon}}$$
+$$y = \gamma \hat{x} + \beta$$
+<h3 id="perche-e-importante">Perché è importante</h3>
+<p>Usare le statistiche di popolazione durante l&rsquo;inferenza è cruciale perché:
+- <strong>Stabilizza le attivazioni</strong>: evita che la normalizzazione dipenda da un batch di test troppo piccolo o non rappresentativo.<br />
+- <strong>Garantisce coerenza</strong>: i dati vengono trasformati nello stesso modo indipendentemente dalla dimensione del batch o dal singolo esempio.<br />
+- <strong>Preserva le prestazioni</strong>: senza questo accorgimento, la rete si troverebbe a elaborare input con distribuzioni diverse rispetto a quelle viste in addestramento, causando un forte degrado della qualità delle predizioni.  </p>
+<h2 id="effetti-della-batch-normalization">Effetti della Batch Normalization</h2>
+<h3 id="stabilizzazione-del-training">Stabilizzazione del Training</h3>
+<p>La batch normalization riduce la sensibilità all&rsquo;inizializzazione dei pesi. Matematicamente, questo può essere compreso osservando che la normalizzazione limita la magnitudine degli input a ogni layer, indipendentemente dall&rsquo;inizializzazione precedente.</p>
+<h3 id="regolarizzazione-implicita">Regolarizzazione Implicita</h3>
+<p>La batch normalization ha un effetto regolarizzante implicito. Questo avviene perché:</p>
+<ol>
+<li>
+<p><strong>Rumore del Batch</strong>: Le statistiche calcolate su mini-batch introducono rumore stocastico che agisce come regolarizzazione.</p>
+</li>
+<li>
+<p><strong>Normalizzazione</strong>: La normalizzazione riduce l&rsquo;overfitting forzando la rete a essere meno dipendente da valori specifici degli input.</p>
+</li>
+</ol>
+<h3 id="learning-rates-piu-elevati">Learning Rates più Elevati</h3>
+<p>La batch normalization permette l&rsquo;uso di learning rate più elevati attraverso un meccanismo molto efficace: il <strong>ricentramento automatico dei gradienti</strong>.</p>
+<h4 id="ricentramento-automatico-dei-gradienti">Ricentramento Automatico dei Gradienti</h4>
+<p>Dalla formula del gradiente della batch normalization:</p>
+$$\frac{\partial L}{\partial x_i} = \frac{1}{\sqrt{\sigma^2 + \epsilon}}\left[\frac{\partial L}{\partial \hat{x}_i} - \frac{1}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j} - \frac{\hat{x}_i}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j\right]$$
+<p><strong>Teorema (Ricentramento)</strong>: La somma dei gradienti su un batch è sempre zero:</p>
+$$\boxed{\sum_{i=1}^m \frac{\partial L}{\partial x_i} = 0}$$
+<p><strong>Dimostrazione</strong>: 
+$$\begin{align*}
+\sum_{i=1}^m \frac{\partial L}{\partial x_i} &= \frac{1}{\sqrt{\sigma^2 + \epsilon}} \sum_{i=1}^m \left[\frac{\partial L}{\partial \hat{x}_i} - \frac{1}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j} - \frac{\hat{x}_i}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j\right]\\
+&= \frac{1}{\sqrt{\sigma^2 + \epsilon}} \left[\sum_{i=1}^m\frac{\partial L}{\partial \hat{x}_i} - \sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j} - \frac{1}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j \sum_{i=1}^m\hat{x}_i\right]
+\end{align*}$$</p>
+<p>Poiché per costruzione della batch normalization: $\frac{1}{m}\sum_{i=1}^m\hat{x}_i = 0 \implies \sum_{i=1}^m\hat{x}_i = 0$, otteniamo:</p>
+$$\sum_{i=1}^m \frac{\partial L}{\partial x_i} = \frac{1}{\sqrt{\sigma^2 + \epsilon}} \left[\sum_{i=1}^m\frac{\partial L}{\partial \hat{x}_i} - \sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\right] = 0$$
+<h4 id="proprieta-di-stabilita">Proprietà di Stabilità</h4>
+<p><strong>Teorema (Decorrelazione)</strong>: Il termine correttivo $-\frac{\hat{x}_i}{m}\sum_{j=1}^{m}\frac{\partial L}{\partial \hat{x}_j}\hat{x}_j$ rimuove automaticamente la componente del gradiente correlata con l&rsquo;input normalizzato.</p>
+<p><strong>Conseguenza per l&rsquo;Ottimizzazione</strong>: Questo ricentramento garantisce che i gradienti non abbiano un bias sistematico in una direzione specifica, riducendo le oscillazioni durante l&rsquo;ottimizzazione e permettendo l&rsquo;uso di learning rate più elevati senza instabilità.</p>
+<h4 id="implicazioni-pratiche">Implicazioni Pratiche</h4>
+<p>Il ricentramento automatico fornisce una garanzia algebrica che:</p>
+<ol>
+<li><strong>Elimina bias direzionali</strong>: $\sum_{i=1}^m \frac{\partial L}{\partial x_i} = 0$ sempre</li>
+<li><strong>Riduce correlazioni</strong>: I gradienti sono decorrelati rispetto agli input normalizzati</li>
+<li><strong>Stabilizza l&rsquo;aggiornamento</strong>: Le oscillazioni sono naturalmente attenuate</li>
+</ol>
+<p>Questa proprietà matematica rigorosa è l&rsquo;unico meccanismo con dimostrazione completa che spiega perché la batch normalization permette learning rate più elevati in modo affidabile e prevedibile.</p>
+<h2 id="varianti-della-batch-normalization">Varianti della Batch Normalization</h2>
+<h3 id="layer-normalization"><a href="/theory/deep-learning/Neural Networks/Layer Normalization" class="text-blue-600 hover:underline">Layer Normalization</a></h3>
+<p>Invece di normalizzare across il batch, la layer normalization normalizza across le features:</p>
+$$\mu_i = \frac{1}{H} \sum_{j=1}^{H} x_{i,j}$$
+$$\sigma_i^2 = \frac{1}{H} \sum_{j=1}^{H} (x_{i,j} - \mu_i)^2$$
+<p>dove $H$ è il numero di features per ogni esempio.</p>
+<h3 id="instance-normalization"><span class="text-gray-600">Instance Normalization</span></h3>
+<p>Normalizza ogni feature map indipendentemente:</p>
+$$\mu_{i,j} = \frac{1}{HW} \sum_{h=1}^{H} \sum_{w=1}^{W} x_{i,j,h,w}$$
+<h3 id="group-normalization"><span class="text-gray-600">Group Normalization</span></h3>
+<p>Divide le features in gruppi e normalizza all&rsquo;interno di ogni gruppo:</p>
+$$\mu_{i,g} = \frac{1}{C_g HW} \sum_{c \in \mathcal{G}_g} \sum_{h=1}^{H} \sum_{w=1}^{W} x_{i,c,h,w}$$
+<p>dove $\mathcal{G}_g$ è il set di canali nel gruppo $g$.</p>
+<h2 id="analisi-della-complessita-computazionale">Analisi della Complessità Computazionale</h2>
+<h3 id="complessita-temporale">Complessità Temporale</h3>
+<p>Per un layer con $d$ features e batch size $m$:</p>
+<ul>
+<li><strong>Forward pass</strong>: $O(md)$ per calcolare media, varianza, e normalizzazione</li>
+<li><strong>Backward pass</strong>: $O(md)$ per calcolare tutti i gradienti</li>
+</ul>
+<h3 id="complessita-spaziale">Complessità Spaziale</h3>
+<ul>
+<li><strong>Memoria aggiuntiva</strong>: $O(d)$ per memorizzare $\gamma$, $\beta$, statistiche di popolazione</li>
+<li><strong>Memoria temporanea</strong>: $O(md)$ per memorizzare input normalizzati durante il forward pass</li>
+</ul>
+<h2 id="limitazioni-teoriche">Limitazioni Teoriche</h2>
+<h3 id="dipendenza-dalla-dimensione-del-batch">Dipendenza dalla Dimensione del Batch</h3>
+<p>La batch normalization è sensibile alla dimensione del batch. Per batch molto piccoli, le statistiche del batch diventano rumorose e possono degradare le performance. Questo è particolarmente problematico quando:</p>
+$$\text{Var}[\mu_B] = \frac{\sigma^2}{m}$$
+<p>dove la varianza della media del batch è inversamente proporzionale alla dimensione del batch.</p>
+<h3 id="discrepanza-train-test">Discrepanza Train-Test</h3>
+<p>Esiste una discrepanza fondamentale tra il comportamento durante training (usando statistiche del batch) e test (usando statistiche di popolazione). Questa discrepanza può causare:</p>
+<ol>
+<li><strong>Shift di distribuzione</strong> tra training e test</li>
+<li><strong>Performance degradation</strong> se le statistiche di popolazione non sono ben stimate</li>
+</ol>
+<h2 id="connessioni-con-teoria-dellottimizzazione">Connessioni con Teoria dell&rsquo;Ottimizzazione</h2>
+<h3 id="landscape-dellottimizzazione">Landscape dell&rsquo;Ottimizzazione</h3>
+<p>La batch normalization modifica il landscape di ottimizzazione rendendo la loss function più smooth. Questo può essere compreso attraverso l&rsquo;analisi delle derivate seconde (matrice Hessiana).</p>
+<p>Per una loss function $L(W)$, la batch normalization tende a ridurre il condition number della Hessiana:</p>
+$$\kappa(H) = \frac{\lambda_{\max}(H)}{\lambda_{\min}(H)}$$
+<p>dove $\lambda_{\max}$ e $\lambda_{\min}$ sono il massimo e minimo autovalore della Hessiana.</p>
+<h3 id="invarianza-dei-gradienti">Invarianza dei Gradienti</h3>
+<p>Una proprietà importante è che la batch normalization introduce un tipo di invarianza dei gradienti. Se riscaliamo i pesi di un layer per una costante $\alpha$:</p>
+$$W' = \alpha W$$
+<p>l&rsquo;output dopo batch normalization rimane invariato (up to the learned parameters $\gamma$ and $\beta$), rendendo l&rsquo;ottimizzazione più stabile.</p>
+<h2 id="applicazioni-pratiche-e-considerazioni">Applicazioni Pratiche e Considerazioni</h2>
+<h3 id="placement-nella-rete">Placement nella Rete</h3>
+<p>La posizione della batch normalization è critica:</p>
+<ol>
+<li><strong>Prima dell&rsquo;attivazione</strong>: $BN(Wx + b) \rightarrow \text{activation}$</li>
+<li><strong>Dopo l&rsquo;attivazione</strong>: $BN(\text{activation}(Wx + b))$</li>
+</ol>
+<p>La scelta influenza le proprietà della normalizzazione e le performance del modello.</p>
+<h3 id="interazione-con-dropout">Interazione con Dropout</h3>
+<p>La batch normalization e il dropout possono interagire in modi complessi. È generalmente raccomandato applicare dropout dopo la batch normalization per evitare conflitti nella normalizzazione delle statistiche.</p>
+<h2 id="conclusioni">Conclusioni</h2>
+<p>La batch normalization rappresenta un breakthrough teorico e pratico nel deep learning. La sua efficacia deriva da una combinazione di:</p>
+<ol>
+<li><strong>Stabilizzazione delle distribuzioni interne</strong></li>
+<li><strong>Effetto regolarizzante implicito</strong>  </li>
+<li><strong>Miglioramento del conditioning del problema di ottimizzazione</strong></li>
+<li><strong>Robustezza nell&rsquo;inizializzazione</strong></li>
+</ol>
+<p>Dal punto di vista matematico, la batch normalization trasforma il problema di ottimizzazione in uno più trattabile, permettendo l&rsquo;addestramento efficiente di reti molto profonde. La sua formulazione elegante e le proprietà teoriche ben definite la rendono uno strumento fondamentale nell&rsquo;arsenale del deep learning moderno.</p>
+<p>La comprensione profonda della matematica sottostante è essenziale per utilizzare efficacemente questa tecnica e per sviluppare ulteriori miglioramenti nelle architetture neurali future.</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> deep learning, neural networks, CNN, RNN, transformers, model, data, neural</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/deep-learning/Neural Networks/Batch Normalization">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Batch Normalization',
+          page_location: 'http://localhost:3000/theory/deep-learning/Neural Networks/Batch Normalization'
+        });
+      }
+    </script>
+</body>
+</html>
