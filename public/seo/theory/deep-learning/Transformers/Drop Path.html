@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drop Path (Stochastic Depth) | Deep Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="deep learning, neural networks, CNN, RNN, transformers, model, data, neural">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Drop Path (Stochastic Depth)">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/deep-learning/Transformers/Drop Path">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Drop Path (Stochastic Depth)">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/deep-learning/Transformers/Drop Path">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Drop Path (Stochastic Depth)",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/deep-learning/Transformers/Drop Path",
+      "datePublished": "2025-11-24T18:40:44.574Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/deep-learning/Transformers/Drop Path" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Drop Path (Stochastic Depth)</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Deep Learning | 
+                    <strong>Updated:</strong> 24/11/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="introduzione">Introduzione</h2>
+<p><strong>Drop Path</strong>, noto anche come <strong>Stochastic Depth</strong>, è una tecnica di regolarizzazione utilizzata nelle reti neurali profonde, particolarmente efficace nei modelli basati su architetture residuali come ResNet, Vision Transformer (ViT) e Swin Transformer.</p>
+<p>A differenza del classico <strong>Dropout</strong> che disattiva casualmente singoli neuroni durante il training, Drop Path disattiva interi <strong>percorsi residuali</strong> (residual paths) o <strong>layer interi</strong>, rendendo la rete più robusta e migliorando la generalizzazione.</p>
+<h2 id="motivazione">Motivazione</h2>
+<h3 id="il-problema-delle-reti-profonde">Il Problema delle Reti Profonde</h3>
+<p>Nelle architetture molto profonde con connessioni residuali, ogni layer contribuisce incrementalmente alla trasformazione dell&rsquo;input. Tuttavia, durante il training si possono verificare alcuni problemi:</p>
+<ol>
+<li><strong>Co-adaptation</strong>: I layer possono diventare eccessivamente dipendenti l&rsquo;uno dall&rsquo;altro</li>
+<li><strong>Redundancy</strong>: Alcuni layer potrebbero imparare trasformazioni ridondanti</li>
+<li><strong>Overfitting</strong>: La capacità totale della rete può portare a memorizzazione invece che generalizzazione</li>
+<li><strong>Gradient flow</strong>: In reti molto profonde, alcuni layer potrebbero ricevere gradienti molto piccoli</li>
+</ol>
+<h3 id="la-soluzione-stochastic-depth">La Soluzione: Stochastic Depth</h3>
+<p>Drop Path affronta questi problemi rendendo la rete <strong>stocasticamente più shallow</strong> durante il training, forzando ogni layer a imparare rappresentazioni utili anche quando alcuni layer precedenti o successivi sono assenti.</p>
+<h2 id="formulazione-matematica">Formulazione Matematica</h2>
+<h3 id="architettura-residuale-base">Architettura Residuale Base</h3>
+<p>Consideriamo un blocco residuale standard:</p>
+$$
+\mathbf{x}_{l+1} = \mathbf{x}_l + \mathcal{F}(\mathbf{x}_l, \mathbf{W}_l)
+$$
+<p>dove:
+- $\mathbf{x}_l$ è l&rsquo;input al layer $l$
+- $\mathcal{F}(\cdot)$ è una trasformazione (es. convoluzione, attention, MLP)
+- $\mathbf{W}_l$ sono i parametri apprendibili del layer $l$
+- $\mathbf{x}_{l+1}$ è l&rsquo;output che viene passato al layer successivo</p>
+<h3 id="drop-path-applicato">Drop Path Applicato</h3>
+<p>Con Drop Path, la formula diventa:</p>
+$$
+\mathbf{x}_{l+1} = \mathbf{x}_l + \mathbf{b}_l \cdot \mathcal{F}(\mathbf{x}_l, \mathbf{W}_l)
+$$
+<p>dove $\mathbf{b}_l$ è una <strong>variabile di Bernoulli</strong>:</p>
+$$
+\mathbf{b}_l \sim \text{Bernoulli}(p_l)
+$$
+<p>con:
+- $p_l$: probabilità di <strong>mantenere</strong> (keep probability) il path al layer $l$
+- $1 - p_l$: probabilità di <strong>droppare</strong> il path (drop probability)</p>
+<p><strong>Comportamento:</strong>
+- Se $\mathbf{b}_l = 1$: il path è attivo, la trasformazione viene applicata
+- Se $\mathbf{b}_l = 0$: il path è droppato, passa solo l&rsquo;identità $\mathbf{x}_l$</p>
+<h3 id="scaling-during-training">Scaling During Training</h3>
+<p>Durante il training, per mantenere l&rsquo;aspettativa del valore costante, spesso si applica uno <strong>scaling factor</strong>:</p>
+$$
+\mathbf{x}_{l+1} = \mathbf{x}_l + \frac{\mathbf{b}_l}{p_l} \cdot \mathcal{F}(\mathbf{x}_l, \mathbf{W}_l)
+$$
+<p>Questo garantisce che:</p>
+$$
+\mathbb{E}[\mathbf{x}_{l+1}] = \mathbf{x}_l + \mathbb{E}\left[\frac{\mathbf{b}_l}{p_l}\right] \cdot \mathcal{F}(\mathbf{x}_l, \mathbf{W}_l) = \mathbf{x}_l + \mathcal{F}(\mathbf{x}_l, \mathbf{W}_l)
+$$
+<p>poiché:</p>
+$$
+\mathbb{E}\left[\frac{\mathbf{b}_l}{p_l}\right] = \frac{1}{p_l} \cdot p_l = 1
+$$
+<h3 id="inference-test-time">Inference (Test Time)</h3>
+<p>Durante l&rsquo;inferenza, <strong>non si applica drop path</strong>. La rete usa tutti i layer deterministicamente:</p>
+$$
+\mathbf{x}_{l+1} = \mathbf{x}_l + \mathcal{F}(\mathbf{x}_l, \mathbf{W}_l)
+$$
+<p>Lo scaling applicato durante il training assicura che i valori attesi siano consistenti tra training e inference.</p>
+<h2 id="linear-decay-schedule">Linear Decay Schedule</h2>
+<p>Una strategia comune è variare la drop probability in funzione della profondità del layer, usando un <strong>linear decay schedule</strong>:</p>
+$$
+p_l = 1 - \frac{l}{L} \cdot \text{drop_rate}
+$$
+<p>dove:
+- $l \in \{0, 1, \ldots, L-1\}$ è l&rsquo;indice del layer
+- $L$ è il numero totale di layer
+- $\text{drop_rate} \in [0, 1]$ è il tasso massimo di drop (per l&rsquo;ultimo layer)</p>
+<p><strong>Intuizione:</strong>
+- <strong>Layer iniziali</strong> (vicini all&rsquo;input): drop probability bassa → quasi sempre attivi
+- <strong>Layer finali</strong> (vicini all&rsquo;output): drop probability alta → più frequentemente droppati</p>
+<p>Questo riflette l&rsquo;idea che i layer iniziali estraggono feature fondamentali, mentre i layer finali affinano rappresentazioni più specifiche.</p>
+<h3 id="esempio-numerico">Esempio Numerico</h3>
+<p>Supponiamo:
+- $L = 12$ layer totali
+- $\text{drop_rate} = 0.3$</p>
+<p>Le probabilità di drop per ciascun layer saranno:</p>
+<table>
+<thead>
+<tr>
+<th>Layer $l$</th>
+<th>Drop Probability $1 - p_l$</th>
+<th>Keep Probability $p_l$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>$0.0 \cdot 0.3 = 0.000$</td>
+<td>$1.000$</td>
+</tr>
+<tr>
+<td>1</td>
+<td>$\frac{1}{12} \cdot 0.3 = 0.025$</td>
+<td>$0.975$</td>
+</tr>
+<tr>
+<td>2</td>
+<td>$\frac{2}{12} \cdot 0.3 = 0.050$</td>
+<td>$0.950$</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td>11</td>
+<td>$\frac{11}{12} \cdot 0.3 = 0.275$</td>
+<td>$0.725$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="implementazione-in-pytorch">Implementazione in PyTorch</h2>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DropPath</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Drop Path (Stochastic Depth) per blocchi residuali.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        drop_prob (float): Probabilità di droppare il path (0.0 = no drop)</span>
+<span class="sd">        scale_by_keep (bool): Se True, scala per 1/keep_prob durante training</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drop_prob</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale_by_keep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drop_prob</span> <span class="o">=</span> <span class="n">drop_prob</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_by_keep</span> <span class="o">=</span> <span class="n">scale_by_keep</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># Durante inference o se drop_prob = 0, ritorna input invariato</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_prob</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="c1"># Calcola keep probability</span>
+        <span class="n">keep_prob</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_prob</span>
+
+        <span class="c1"># Crea maschera di Bernoulli con shape broadcast-compatibile</span>
+        <span class="c1"># Shape: (batch_size, 1, 1, ..., 1) per broadcasting</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">random_tensor</span> <span class="o">=</span> <span class="n">keep_prob</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">random_tensor</span><span class="o">.</span><span class="n">floor_</span><span class="p">()</span>  <span class="c1"># Bernoulli: 0 o 1</span>
+
+        <span class="c1"># Applica drop path con scaling</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_by_keep</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">keep_prob</span><span class="p">)</span> <span class="o">*</span> <span class="n">random_tensor</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">random_tensor</span>
+
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;drop_prob=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">drop_prob</span><span class="si">}</span><span class="s1">&#39;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">drop_path</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">drop_prob</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scale_by_keep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Versione funzionale di Drop Path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">drop_prob</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">training</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="n">keep_prob</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">drop_prob</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">random_tensor</span> <span class="o">=</span> <span class="n">keep_prob</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">random_tensor</span><span class="o">.</span><span class="n">floor_</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">scale_by_keep</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">keep_prob</span><span class="p">)</span> <span class="o">*</span> <span class="n">random_tensor</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">random_tensor</span>
+
+    <span class="k">return</span> <span class="n">output</span>
+
+
+<span class="c1"># Esempio di utilizzo in un blocco residuale</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResidualBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">drop_path_prob</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drop_path</span> <span class="o">=</span> <span class="n">DropPath</span><span class="p">(</span><span class="n">drop_path_prob</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># Connessione residuale con drop path</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+
+<span class="c1"># Costruzione di una rete con linear decay schedule</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeepNetwork</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">drop_path_rate</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Linear decay: crescente dalla prima all&#39;ultima layer</span>
+        <span class="n">dpr</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">drop_path_rate</span><span class="p">,</span> <span class="n">depth</span><span class="p">)]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span>
+            <span class="n">ResidualBlock</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">drop_path_prob</span><span class="o">=</span><span class="n">dpr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">block</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+</code></pre></div>
+</div>
+</details>
+
+<h2 id="differenze-con-dropout-classico">Differenze con Dropout Classico</h2>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Dropout</th>
+<th>Drop Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Granularità</strong></td>
+<td>Singoli neuroni/canali</td>
+<td>Interi layer/blocchi</td>
+</tr>
+<tr>
+<td><strong>Applicazione</strong></td>
+<td>All&rsquo;interno di un layer</td>
+<td>Sulla residual connection</td>
+</tr>
+<tr>
+<td><strong>Posizione</strong></td>
+<td>Dopo attivazioni</td>
+<td>Sul path residuale</td>
+</tr>
+<tr>
+<td><strong>Effetto sulla profondità</strong></td>
+<td>Nessuno</td>
+<td>Riduce la profondità effettiva</td>
+</tr>
+<tr>
+<td><strong>Uso tipico</strong></td>
+<td>MLP, FC layers</td>
+<td>Architetture residuali profonde</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vantaggi-di-drop-path">Vantaggi di Drop Path</h2>
+<ol>
+<li><strong>Regolarizzazione efficace</strong>: Riduce l&rsquo;overfitting in reti molto profonde</li>
+<li><strong>Training più veloce</strong>: La rete si allena più velocemente poiché in media è meno profonda</li>
+<li><strong>Ensemble implicito</strong>: Durante il training si allenano esponenzialmente molte sotto-reti</li>
+<li><strong>Migliore generalizzazione</strong>: Forza ogni layer a contribuire in modo significativo</li>
+<li><strong>Riduzione della co-adaptation</strong>: I layer non possono dipendere rigidamente l&rsquo;uno dall&rsquo;altro</li>
+</ol>
+<h2 id="analisi-teorica">Analisi Teorica</h2>
+<h3 id="numero-di-reti-possibili">Numero di Reti Possibili</h3>
+<p>Con $L$ layer e drop path, il numero di configurazioni possibili durante il training è:</p>
+$$
+2^L
+$$
+<p>Ad esempio, con $L = 24$ layer (come in ViT-Base), otteniamo $2^{24} \approx 16.7$ milioni di sotto-reti diverse!</p>
+<h3 id="profondita-attesa">Profondità Attesa</h3>
+<p>La profondità attesa della rete durante il training è:</p>
+$$
+\mathbb{E}[\text{depth}] = \sum_{l=1}^{L} p_l
+$$
+<p>Con linear decay schedule:</p>
+$$
+\mathbb{E}[\text{depth}] = \sum_{l=1}^{L} \left(1 - \frac{l-1}{L-1} \cdot \text{drop_rate}\right) = L \cdot \left(1 - \frac{\text{drop_rate}}{2}\right)
+$$
+<p><strong>Esempio</strong>: Con $L = 24$ e $\text{drop_rate} = 0.3$:</p>
+$$
+\mathbb{E}[\text{depth}] = 24 \cdot (1 - 0.15) = 20.4 \text{ layer}
+$$
+<p>In media, la rete si comporta come se avesse circa 20-21 layer invece di 24.</p>
+<h2 id="applicazioni-pratiche">Applicazioni Pratiche</h2>
+<h3 id="vision-transformer-vit">Vision Transformer (ViT)</h3>
+<p>Nei Vision Transformer, Drop Path viene applicato dopo il blocco di attention e dopo l&rsquo;MLP:</p>
+$$
+\begin{align}
+\mathbf{x}' &= \mathbf{x} + \text{DropPath}(\text{Attention}(\text{LN}(\mathbf{x}))) \\
+\mathbf{x}'' &= \mathbf{x}' + \text{DropPath}(\text{MLP}(\text{LN}(\mathbf{x}')))
+\end{align}
+$$
+<h3 id="swin-transformer">Swin Transformer</h3>
+<p>Nel Swin Transformer, Drop Path viene applicato dopo ogni sotto-blocco:</p>
+$$
+\begin{align}
+\mathbf{x}_{l,1} &= \mathbf{x}_l + \text{DropPath}(\text{W-MSA}(\text{LN}(\mathbf{x}_l))) \\
+\mathbf{x}_{l,2} &= \mathbf{x}_{l,1} + \text{DropPath}(\text{MLP}(\text{LN}(\mathbf{x}_{l,1}))) \\
+\mathbf{x}_{l+1,1} &= \mathbf{x}_{l,2} + \text{DropPath}(\text{SW-MSA}(\text{LN}(\mathbf{x}_{l,2}))) \\
+\mathbf{x}_{l+1} &= \mathbf{x}_{l+1,1} + \text{DropPath}(\text{MLP}(\text{LN}(\mathbf{x}_{l+1,1})))
+\end{align}
+$$
+<h3 id="convnext-e-architetture-cnn">ConvNeXt e Architetture CNN</h3>
+<p>Drop Path è altrettanto efficace nelle CNN moderne:</p>
+$$
+\mathbf{x}_{l+1} = \mathbf{x}_l + \text{DropPath}(\text{Conv}(\text{x}_l))
+$$
+<h2 id="iperparametri-e-tuning">Iperparametri e Tuning</h2>
+<h3 id="scelta-del-drop-rate">Scelta del Drop Rate</h3>
+<p>Valori tipici per <code>drop_path_rate</code>:
+- <strong>Piccoli modelli</strong> (&lt; 12 layer): $0.1 - 0.2$
+- <strong>Modelli medi</strong> (12-24 layer): $0.2 - 0.3$
+- <strong>Modelli grandi</strong> (&gt; 24 layer): $0.3 - 0.5$</p>
+<h3 id="strategie-alternative">Strategie Alternative</h3>
+<p>Oltre al linear decay, esistono altre strategie:</p>
+<p><strong>1. Uniform Drop Rate:</strong>
+$$
+p_l = 1 - \text{drop_rate} \quad \forall l
+$$</p>
+<p><strong>2. Quadratic Decay:</strong>
+$$
+p_l = 1 - \left(\frac{l}{L}\right)^2 \cdot \text{drop_rate}
+$$</p>
+<p><strong>3. Exponential Decay:</strong>
+$$
+p_l = 1 - \left(1 - e^{-\lambda l}\right) \cdot \text{drop_rate}
+$$</p>
+<h2 id="risultati-empirici">Risultati Empirici</h2>
+<p>Studi hanno dimostrato che Drop Path:
+- <strong>Migliora l&rsquo;accuratezza</strong> del 1-2% su ImageNet per modelli profondi
+- <strong>Riduce l&rsquo;overfitting</strong> significativamente con dataset piccoli
+- <strong>Accelera la convergenza</strong> del 10-20% in termini di epoche necessarie
+- <strong>Scala bene</strong> con la profondità del modello</p>
+<h2 id="conclusioni">Conclusioni</h2>
+<p>Drop Path è una tecnica di regolarizzazione fondamentale per architetture residuali profonde moderne. La sua capacità di:
+- Allenare ensemble impliciti di sotto-reti
+- Ridurre la profondità effettiva durante il training
+- Forzare ogni layer a contribuire significativamente</p>
+<p>&hellip;la rende uno strumento essenziale nel toolkit del deep learning moderno, specialmente per Vision Transformer e architetture CNN profonde.</p>
+<h2 id="riferimenti">Riferimenti</h2>
+<ol>
+<li><strong>Huang et al. (2016)</strong>: &ldquo;Deep Networks with Stochastic Depth&rdquo; - Paper originale</li>
+<li><strong>Dosovitskiy et al. (2021)</strong>: &ldquo;An Image is Worth 16x16 Words&rdquo; - ViT paper</li>
+<li><strong>Liu et al. (2021)</strong>: &ldquo;Swin Transformer&rdquo; - Uso in Swin</li>
+<li><strong>Touvron et al. (2021)</strong>: &ldquo;Training data-efficient image transformers&rdquo; - DeiT paper</li>
+</ol>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> deep learning, neural networks, CNN, RNN, transformers, model, data, neural</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/deep-learning/Transformers/Drop Path">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Drop Path (Stochastic Depth)',
+          page_location: 'http://localhost:3000/theory/deep-learning/Transformers/Drop Path'
+        });
+      }
+    </script>
+</body>
+</html>

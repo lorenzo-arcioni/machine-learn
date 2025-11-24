@@ -1,0 +1,1157 @@
+[{
+  "_id": {
+    "$oid": "680e20ce8fea73578a9aff84"
+  },
+  "course_id": {
+    "$oid": "680e20ce8fea73578a9aff84"
+  },
+  "title": "Programmazione in Python - Base",
+  "description": "Corso completo di introduzione alla programmazione con Python",
+  "full_description": "Questo corso è progettato per guidarvi passo dopo passo nell'apprendimento dei concetti fondamentali della programmazione, tramite l'utilizzo di Python: il linguaggio di programmazione più popolare e potente del mondo.\n\nChe siate alle prime armi o vogliate consolidare le basi, qui troverete un mix perfetto di teoria e pratica, arricchito da esempi concreti e progetti stimolanti.\n\nDurante il corso esplorerai i concetti fondamentali della programmazione: variabili, tipi di dati, strutture di controllo, funzioni, programmazione orientata agli oggetti, gestione file e molto altro.\n\nAl termine del corso sarai in grado di:\n- Scrivere programmi Python efficienti e leggibili\n- Risolvere problemi complessi con il pensiero computazionale\n- Utilizzare le librerie standard di Python\n- Gestire progetti software dall'idea al deployment\n- Applicare algoritmi di ricerca e ordinamento\n- Creare applicazioni pratiche e portfolio progetti",
+  "instructor": "Lorenzo Arcioni",
+  "instructor_bio": "Programmatore e formatore con oltre 8 anni di esperienza nell'insegnamento della programmazione. Ha formato più di 5000 studenti tra scuole superiori, università e aziende. Specializzato in didattica Python e pensiero computazionale, crea corsi accessibili a tutti mantenendo alti standard di qualità.",
+  "instructor_image": "https://raw.githubusercontent.com/lorenzo-arcioni/programmazione-python-base/refs/heads/main/images/selfie.jpeg",
+  "duration": "13 settimane",
+  "level": "Base",
+  "category": "Programmazione",
+  "price": "€199",
+  "image_url": "https://4kwallpapers.com/images/wallpapers/python-dark-3840x2160-16018.png",
+  "learning_objectives": [
+    {
+      "objective": "Padroneggiare i fondamenti della programmazione",
+      "description": "Variabili, tipi di dati, operatori, strutture di controllo (if, while, for)"
+    },
+    {
+      "objective": "Utilizzare strutture dati avanzate",
+      "description": "Liste, tuple, set, dizionari e le loro operazioni"
+    },
+    {
+      "objective": "Scrivere funzioni riutilizzabili",
+      "description": "Parametri, scope, lambda functions e best practices"
+    },
+    {
+      "objective": "Applicare la programmazione orientata agli oggetti",
+      "description": "Classi, oggetti, ereditarietà, polimorfismo e design pattern"
+    },
+    {
+      "objective": "Gestire file e formati dati",
+      "description": "Lettura/scrittura file, CSV, JSON, gestione eccezioni"
+    },
+    {
+      "objective": "Implementare algoritmi classici",
+      "description": "Ricorsione, ordinamento, ricerca, backtracking"
+    },
+    {
+      "objective": "Utilizzare librerie standard avanzate",
+      "description": "math, datetime, os, sys, argparse"
+    },
+    {
+      "objective": "Sviluppare progetti pratici completi",
+      "description": "Dalla progettazione al deployment con documentazione e test"
+    }
+  ],
+  "prerequisites": [
+    {
+      "title": "Nessuna esperienza di programmazione richiesta",
+      "description": "Il corso parte da zero e spiega ogni concetto in modo chiaro e graduale",
+      "is_required": false
+    },
+    {
+      "title": "Computer con accesso a internet",
+      "description": "Per seguire le lezioni e fare pratica con Google Colab",
+      "is_required": true
+    },
+    {
+      "title": "Matematica di base",
+      "description": "Operazioni aritmetiche di base, utile ma non indispensabile",
+      "is_required": false
+    },
+    {
+      "title": "Voglia di imparare e praticare",
+      "description": "La programmazione si impara facendo: dedica tempo agli esercizi",
+      "is_required": true
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "title": "Introduzione",
+      "description": "Concetti fondamentali dell'informatica, ambiente di sviluppo e primo programma",
+      "estimated_hours": "4-5 ore",
+      "lessons": [
+        {
+          "id": 1,
+          "title": "Obiettivi del capitolo",
+          "description": "Panoramica degli argomenti che verranno trattati nel capitolo",
+          "duration": "10 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo1_Introduzione/0_Obiettivi_del_capitolo/0_Obiettivi.ipynb",
+          "materials": ["0_Obiettivi.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 2,
+          "title": "Concetti di base",
+          "description": "Introduzione ai concetti fondamentali della programmazione",
+          "duration": "30 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo1_Introduzione/1_Concetti_di_base.ipynb",
+          "materials": ["1_Concetti_di_base.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 3,
+          "title": "Anatomia del computer",
+          "description": "Come funziona un computer: hardware, software e architettura",
+          "duration": "35 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo1_Introduzione/2_Anatomia_del_computer.ipynb",
+          "materials": ["2_Anatomia_del_computer.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 4,
+          "title": "Pensiero computazionale",
+          "description": "Approccio alla risoluzione di problemi con il pensiero computazionale",
+          "duration": "40 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo1_Introduzione/3_Pensiero_computazionale.ipynb",
+          "materials": ["3_Pensiero_computazionale.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 5,
+          "title": "Linguaggio Python",
+          "description": "Storia, caratteristiche e filosofia del linguaggio Python",
+          "duration": "25 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo1_Introduzione/4_Linguaggio_Python.ipynb",
+          "materials": ["4_Linguaggio_Python.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 6,
+          "title": "Google Colab",
+          "description": "Introduzione all'ambiente Google Colab per programmare online",
+          "duration": "30 min",
+          "video_url": "#",
+          "materials": ["5_Google_Colab.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 7,
+          "title": "Ambiente di programmazione",
+          "description": "Setup completo dell'ambiente di sviluppo locale",
+          "duration": "35 min",
+          "video_url": "#",
+          "materials": ["6_Ambiente_di_programmazione.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 8,
+          "title": "Primo programma",
+          "description": "Scriviamo il nostro primo programma Python: Hello World e oltre",
+          "duration": "30 min",
+          "video_url": "#",
+          "materials": ["7_Primo_programma.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 9,
+          "title": "Errori comuni",
+          "description": "Gli errori più frequenti dei principianti e come evitarli",
+          "duration": "25 min",
+          "video_url": "#",
+          "materials": ["8_Errori_comuni.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 10,
+          "title": "Debugging Base",
+          "description": "Tecniche base per trovare e correggere errori nel codice",
+          "duration": "30 min",
+          "video_url": "#",
+          "materials": ["9_Debugging_Base.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 11,
+          "title": "Virtual Environment",
+          "description": "Gestione degli ambienti virtuali Python",
+          "duration": "25 min",
+          "video_url": "#",
+          "materials": ["10_Virtual_Environment.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 12,
+          "title": "Esercizi",
+          "description": "Esercizi pratici per consolidare i concetti appresi",
+          "duration": "60 min",
+          "video_url": "#",
+          "materials": ["11_Esercizi.ipynb"],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Numeri e Stringhe",
+      "description": "Variabili, operazioni aritmetiche, stringhe e best practices",
+      "estimated_hours": "5-6 ore",
+      "lessons": [
+        {
+          "id": 13,
+          "title": "Obiettivi del capitolo",
+          "description": "Cosa impareremo su numeri e stringhe",
+          "duration": "10 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo2_Numeri_e_Stringhe/0_Obiettivi.ipynb",
+          "materials": ["0_Obiettivi.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 14,
+          "title": "Variabili",
+          "description": "Dichiarazione, assegnazione e utilizzo delle variabili",
+          "duration": "40 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo2_Numeri_e_Stringhe/1_Variabili.ipynb",
+          "materials": ["1_Variabili.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 15,
+          "title": "Aritmetica",
+          "description": "Operazioni aritmetiche, operatori matematici e precedenza",
+          "duration": "45 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo2_Numeri_e_Stringhe/2_Aritmetica.ipynb",
+          "materials": ["2_Aritmetica.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 16,
+          "title": "Stringhe",
+          "description": "Manipolazione di stringhe, metodi e formattazione",
+          "duration": "50 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo2_Numeri_e_Stringhe/3_Stringhe.ipynb",
+          "materials": ["3_Stringhe.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 17,
+          "title": "Grafica Intro",
+          "description": "Introduzione alla grafica con Python",
+          "duration": "40 min",
+          "video_url": "#",
+          "materials": ["4_Grafica_intro.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 18,
+          "title": "Best Practices",
+          "description": "Convenzioni di codice e best practices per codice pulito",
+          "duration": "30 min",
+          "video_url": "#",
+          "materials": ["6_Best_practices.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 19,
+          "title": "Esercizi",
+          "description": "Esercizi pratici su numeri e stringhe",
+          "duration": "70 min",
+          "video_url": "#",
+          "materials": ["7_Esercizi.ipynb"],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Tipi di Dato Avanzati",
+      "description": "Liste, tuple, set, dizionari e altri tipi di dato complessi",
+      "estimated_hours": "6-7 ore",
+      "lessons": [
+        {
+          "id": 20,
+          "title": "Obiettivi del capitolo",
+          "description": "Panoramica delle strutture dati avanzate",
+          "duration": "10 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo3_Tipi_di_Dato_Avanzati/0_Obiettivi.ipynb",
+          "materials": ["0_Obiettivi.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 21,
+          "title": "Liste",
+          "description": "Creazione, accesso e manipolazione di liste",
+          "duration": "55 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo3_Tipi_di_Dato_Avanzati/1_Liste.ipynb",
+          "materials": ["1_Liste.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 22,
+          "title": "Tuple",
+          "description": "Tuple come sequenze immutabili",
+          "duration": "40 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo3_Tipi_di_Dato_Avanzati/2_Tuple.ipynb",
+          "materials": ["2_Tuple.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 23,
+          "title": "Set",
+          "description": "Insiemi e operazioni insiemistiche",
+          "duration": "45 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo3_Tipi_di_Dato_Avanzati/3_Set.ipynb",
+          "materials": ["3_Set.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 24,
+          "title": "Dizionari",
+          "description": "Mappature chiave-valore e utilizzo dei dizionari",
+          "duration": "50 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo3_Tipi_di_Dato_Avanzati/4_Dizionari.ipynb",
+          "materials": ["4_Dizionari.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 25,
+          "title": "Metodi e funzioni utili su collezioni",
+          "description": "Funzioni built-in per lavorare con collezioni",
+          "duration": "45 min",
+          "video_url": "#",
+          "materials": ["5_Metodi_e_funz_utili_su_collezioni.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 26,
+          "title": "Range, bytes, bytearray, memoryview",
+          "description": "Tipi speciali per gestione memoria e sequenze",
+          "duration": "40 min",
+          "video_url": "#",
+          "materials": ["6_Range_bytes_bytearray_memoryview.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 27,
+          "title": "Applicazioni pratiche",
+          "description": "Esempi reali di utilizzo delle strutture dati",
+          "duration": "50 min",
+          "video_url": "#",
+          "materials": ["7_Applicazioni_pratiche.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 28,
+          "title": "Best practices",
+          "description": "Best practices per l'uso efficiente delle collezioni",
+          "duration": "30 min",
+          "video_url": "#",
+          "materials": ["8_Best_practices.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 29,
+          "title": "Esercizi",
+          "description": "Esercizi pratici sulle strutture dati",
+          "duration": "80 min",
+          "video_url": "#",
+          "materials": ["9_Esercizi.ipynb"],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Decisioni e Cicli",
+      "description": "Strutture di controllo: if, while, for e cicli annidati",
+      "estimated_hours": "6-7 ore",
+      "lessons": [
+        {
+          "id": 30,
+          "title": "Obiettivi del capitolo",
+          "description": "Introduzione alle strutture di controllo",
+          "duration": "10 min",
+          "video_url": "#",
+          "materials": ["0_Obiettivi.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 31,
+          "title": "If statement",
+          "description": "Condizioni e controllo del flusso con if-elif-else",
+          "duration": "50 min",
+          "video_url": "#",
+          "materials": ["1_If_statement.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 32,
+          "title": "Ciclo while",
+          "description": "Ripetizioni condizionali con while",
+          "duration": "45 min",
+          "video_url": "#",
+          "materials": ["2_Ciclo_while.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 33,
+          "title": "Ciclo for",
+          "description": "Iterazioni su sequenze con for",
+          "duration": "50 min",
+          "video_url": "#",
+          "materials": ["3_Ciclo_for.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 34,
+          "title": "Operatori logici e booleani",
+          "description": "Logica booleana e operatori and, or, not",
+          "duration": "40 min",
+          "video_url": "#",
+          "materials": ["4_Operatori_logici_booleani.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 35,
+          "title": "Cicli annidati",
+          "description": "Cicli dentro cicli e applicazioni pratiche",
+          "duration": "45 min",
+          "video_url": "#",
+          "materials": ["5_Cicli_annidati.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 36,
+          "title": "Gestione stringhe con cicli",
+          "description": "Iterare su stringhe e manipolazione caratteri",
+          "duration": "40 min",
+          "video_url": "#",
+          "materials": ["6_Gestione_stringhe_con_cicli.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 37,
+          "title": "Simulazioni casuali",
+          "description": "Uso del modulo random per simulazioni",
+          "duration": "45 min",
+          "video_url": "#",
+          "materials": ["7_Simulazioni_casuali.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 38,
+          "title": "Tecniche di conteggio",
+          "description": "Contatori, accumulatori e pattern comuni",
+          "duration": "40 min",
+          "video_url": "#",
+          "materials": ["8_Tecniche_di_conteggio.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 39,
+          "title": "Best practices",
+          "description": "Best practices per cicli e condizioni",
+          "duration": "30 min",
+          "video_url": "#",
+          "materials": ["9_Best_practices.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 40,
+          "title": "Esercizi",
+          "description": "Esercizi pratici su decisioni e cicli",
+          "duration": "80 min",
+          "video_url": "#",
+          "materials": ["10_Esercizi.ipynb"],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Funzioni",
+      "description": "Definizione, parametri, scope e funzioni avanzate",
+      "estimated_hours": "5-6 ore",
+      "lessons": [
+        {
+          "id": 41,
+          "title": "Obiettivi del capitolo",
+          "description": "Cosa impareremo sulle funzioni",
+          "duration": "10 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/0_Obiettivi_del_capitolo/0_Obiettivi.ipynb",
+          "materials": ["0_Obiettivi.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 42,
+          "title": "Funzioni come scatole nere",
+          "description": "Concetto di funzione e astrazione",
+          "duration": "35 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/1_Scatole_nere/1_Funzioni_scatole_nere.ipynb",
+          "materials": ["1_Funzioni_scatole_nere.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 43,
+          "title": "Realizzazione e collaudo di funzioni",
+          "description": "Come scrivere e testare funzioni efficaci",
+          "duration": "45 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/2_Realizzazione/2_Realizzazione_e_collaudo.ipynb",
+          "materials": ["2_Realizzazione_e_collaudo.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 44,
+          "title": "Passaggio di parametri",
+          "description": "Parametri posizionali, keyword e default",
+          "duration": "40 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/3_Passaggio_parametri/3_Passaggio_parametri.ipynb",
+          "materials": ["3_Passaggio_parametri.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 45,
+          "title": "Valori restituiti",
+          "description": "Return statement e restituzione di multipli valori",
+          "duration": "35 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/4_Valori_restituiti/4_Valori_restituiti.ipynb",
+          "materials": ["4_Valori_restituiti.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 46,
+          "title": "Funzioni che non restituiscono un valore",
+          "description": "Funzioni void e side effects",
+          "duration": "30 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/5_Senza_return/5_Funzioni_senza_return.ipynb",
+          "materials": ["5_Funzioni_senza_return.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 47,
+          "title": "Funzioni riutilizzabili",
+          "description": "Design di funzioni generiche e riutilizzabili",
+          "duration": "40 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/6_Riutilizzo_funzioni/6_Funzioni_riutilizzabili.ipynb",
+          "materials": ["6_Funzioni_riutilizzabili.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 48,
+          "title": "Miglioramenti successivi",
+          "description": "Refactoring e ottimizzazione di funzioni",
+          "duration": "35 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/7_Miglioramenti_successivi/7_Miglioramenti_successivi.ipynb",
+          "materials": ["7_Miglioramenti_successivi.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 49,
+          "title": "Ambito di visibilità delle variabili",
+          "description": "Scope locale, globale e nonlocal",
+          "duration": "40 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/8_Scope/8_Scope_variabili.ipynb",
+          "materials": ["8_Scope_variabili.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 50,
+          "title": "Funzioni anonime (Lambda)",
+          "description": "Lambda expressions e utilizzo pratico",
+          "duration": "35 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/10_Lambda/9_Lambda_funzioni_anonime.ipynb",
+          "materials": ["9_Lambda_funzioni_anonime.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 51,
+          "title": "Riepilogo del capitolo",
+          "description": "Sintesi dei concetti principali sulle funzioni",
+          "duration": "20 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/11_Riepilogo/10_Riepilogo.ipynb",
+          "materials": ["10_Riepilogo.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 52,
+          "title": "Esercizi",
+          "description": "Esercizi pratici sulle funzioni",
+          "duration": "70 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/12_Esercizi/11_Esercizi.ipynb",
+          "materials": ["11_Esercizi.ipynb"],
+          "is_free": false
+        },
+        {
+          "id": 53,
+          "title": "Auto-valutazione",
+          "description": "Test di autovalutazione del capitolo",
+          "duration": "30 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo5_Funzioni/13_Auto_valutazione/12_Auto_valutazione.ipynb",
+          "materials": ["12_Auto_valutazione.ipynb"],
+          "is_free": false
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Gestione Eccezioni",
+      "description": "Try/except/finally, eccezioni personalizzate e debugging",
+      "estimated_hours": "3-4 ore",
+      "lessons": [
+        {
+          "id": 54,
+          "title": "Obiettivi del capitolo",
+          "description": "Introduzione alla gestione degli errori",
+          "duration": "10 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo7_Eccezioni/0_Obiettivi/0_Obiettivi.ipynb",
+          "materials": ["0_Obiettivi.ipynb"],
+          "is_free": true
+        },
+        {
+          "id": 55,
+          "title": "Nozioni base sulle eccezioni",
+          "description": "Try-except-finally e gestione errori",
+          "duration": "50 min",
+          "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo7_Eccezioni/1_Nozioni_base/1_Nozioni_base_eccezioni.ipynb",
+          "materials": ["1_Nozioni_base_eccezioni.ipynb"],
+          "is_free": false
+    },
+    {
+      "id": 56,
+      "title": "Applicazione: gestione errori complessa",
+      "description": "Eccezioni personalizzate e casi d'uso reali",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo7_Eccezioni/2_Applicazione/2_Applicazione.ipynb",
+      "materials": ["2_Applicazione.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 57,
+      "title": "Riepilogo del capitolo",
+      "description": "Sintesi sulla gestione delle eccezioni",
+      "duration": "20 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo7_Eccezioni/3_Riepilogo/3_Riepilogo.ipynb",
+      "materials": ["3_Riepilogo.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 58,
+      "title": "Esercizi",
+      "description": "Esercizi pratici sulla gestione eccezioni",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo7_Eccezioni/4_Esercizi/4_Esercizi.ipynb",
+      "materials": ["4_Esercizi.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 59,
+      "title": "Auto-valutazione",
+      "description": "Test di autovalutazione",
+      "duration": "25 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo7_Eccezioni/5_Auto_valutazione/5_Auto_valutazione.ipynb",
+      "materials": ["5_Auto_valutazione.ipynb"],
+      "is_free": false
+    }
+  ]
+},
+{
+  "id": 7,
+  "title": "File e Formati Dati",
+  "description": "Lettura/scrittura file, CSV, JSON e context manager",
+  "estimated_hours": "5-6 ore",
+  "lessons": [
+    {
+      "id": 60,
+      "title": "Obiettivi del capitolo",
+      "description": "Panoramica sulla gestione file",
+      "duration": "10 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/0_Obiettivi/0_Obiettivi.ipynb",
+      "materials": ["0_Obiettivi.ipynb"],
+      "is_free": true
+    },
+    {
+      "id": 61,
+      "title": "Operazioni base su file di testo",
+      "description": "Apertura, lettura, scrittura e chiusura file",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/1_Operazioni_file/1_Operazioni_file.ipynb",
+      "materials": ["1_Operazioni_file.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 62,
+      "title": "Context Manager e with statement",
+      "description": "Gestione sicura delle risorse con context manager",
+      "duration": "35 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/2_Context_manager/2_Context_manager.ipynb",
+      "materials": ["2_Context_manager.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 63,
+      "title": "Gestione file CSV",
+      "description": "Lettura e scrittura di file CSV con il modulo csv",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/3_CSV/3_CSV.ipynb",
+      "materials": ["3_CSV.ipynb", "sample_data.csv"],
+      "is_free": false
+    },
+    {
+      "id": 64,
+      "title": "Lavorare con JSON",
+      "description": "Serializzazione e deserializzazione JSON",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/4_JSON/4_JSON.ipynb",
+      "materials": ["4_JSON.ipynb", "sample_data.json"],
+      "is_free": false
+    },
+    {
+      "id": 65,
+      "title": "File binari e serializzazione",
+      "description": "Gestione file binari e modulo pickle",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/5_File_binari/5_File_binari.ipynb",
+      "materials": ["5_File_binari.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 66,
+      "title": "Argomenti da riga di comando",
+      "description": "Parsing degli argomenti con sys.argv e argparse",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/6_Argomenti_riga_comando/6_Argomenti_riga_comando.ipynb",
+      "materials": ["6_Argomenti_riga_comando.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 67,
+      "title": "Applicazione: convertitore di formati",
+      "description": "Progetto pratico: convertire tra CSV e JSON",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/7_Applicazione/7_Applicazione.ipynb",
+      "materials": ["7_Applicazione.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 68,
+      "title": "Riepilogo del capitolo",
+      "description": "Sintesi sulla gestione file e formati",
+      "duration": "20 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/8_Riepilogo/8_Riepilogo.ipynb",
+      "materials": ["8_Riepilogo.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 69,
+      "title": "Esercizi",
+      "description": "Esercizi pratici su file e formati dati",
+      "duration": "60 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/9_Esercizi/9_Esercizi.ipynb",
+      "materials": ["9_Esercizi.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 70,
+      "title": "Auto-valutazione",
+      "description": "Test di autovalutazione",
+      "duration": "30 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo8_File/10_Auto_valutazione/10_Auto_valutazione.ipynb",
+      "materials": ["10_Auto_valutazione.ipynb"],
+      "is_free": false
+    }
+  ]
+},
+{
+  "id": 8,
+  "title": "Oggetti e Classi",
+  "description": "Programmazione orientata agli oggetti: classi, oggetti, ereditarietà",
+  "estimated_hours": "7-8 ore",
+  "lessons": [
+    {
+      "id": 71,
+      "title": "Obiettivi del capitolo",
+      "description": "Introduzione alla programmazione orientata agli oggetti",
+      "duration": "10 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/0_Obiettivi/0_Obiettivi.ipynb",
+      "materials": ["0_Obiettivi.ipynb"],
+      "is_free": true
+    },
+    {
+      "id": 72,
+      "title": "Programmazione orientata agli oggetti",
+      "description": "Concetti fondamentali della OOP",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/1_POO/1_POO_Introduzione.ipynb",
+      "materials": ["1_POO_Introduzione.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 73,
+      "title": "Creazione di classi e oggetti",
+      "description": "Definire classi, attributi e metodi",
+      "duration": "55 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/2_Classi/2_Classi_Oggetti.ipynb",
+      "materials": ["2_Classi_Oggetti.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 74,
+      "title": "Ereditarietà e polimorfismo",
+      "description": "Relazioni tra classi e riuso del codice",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/3_OOP_Avanzato/3_Ereditarieta_Polimorfismo.ipynb",
+      "materials": ["3_Ereditarieta_Polimorfismo.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 75,
+      "title": "Incapsulamento e proprietà",
+      "description": "Protezione dei dati e property decorator",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/4_Incapsulamento/4_Incapsulamento.ipynb",
+      "materials": ["4_Incapsulamento.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 76,
+      "title": "Classi astratte e interfacce",
+      "description": "ABC e definizione di interfacce",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/5_Classi_Astratte/5_Classi_Astratte.ipynb",
+      "materials": ["5_Classi_Astratte.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 77,
+      "title": "Metodi statici e di classe",
+      "description": "Differenze tra metodi di istanza, statici e di classe",
+      "duration": "35 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/6_Metodi_Statici/6_Metodi_Statici.ipynb",
+      "materials": ["6_Metodi_Statici.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 78,
+      "title": "Decoratori e magic methods",
+      "description": "Metodi speciali e personalizzazione comportamento",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/7_Decoratori/7_Decoratori_Magic.ipynb",
+      "materials": ["7_Decoratori_Magic.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 79,
+      "title": "Gestione delle eccezioni in OOP",
+      "description": "Eccezioni personalizzate e gestione errori",
+      "duration": "35 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/8_Errori/8_Errori_OOP.ipynb",
+      "materials": ["8_Errori_OOP.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 80,
+      "title": "Design pattern (Singleton, Factory)",
+      "description": "Pattern di progettazione comuni",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/10_Design_Pattern/10_Design_Pattern.ipynb",
+      "materials": ["10_Design_Pattern.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 81,
+      "title": "Serializzazione di oggetti",
+      "description": "Salvare e caricare oggetti con pickle e JSON",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/10_Serializzazione/10_Serializzazione.ipynb",
+      "materials": ["10_Serializzazione.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 82,
+      "title": "Metaclassi e reflection",
+      "description": "Concetti avanzati di meta-programmazione",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/11_Metaclassi/11_Metaclassi.ipynb",
+      "materials": ["11_Metaclassi.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 83,
+      "title": "Riepilogo del capitolo",
+      "description": "Sintesi della programmazione orientata agli oggetti",
+      "duration": "25 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/12_Riepilogo/0_Riepilogo.ipynb",
+      "materials": ["0_Riepilogo.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 84,
+      "title": "Esercizi di ripasso",
+      "description": "Domande teoriche sulla OOP",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/13_Esercizi/0_Esercizi_ripasso.ipynb",
+      "materials": ["0_Esercizi_ripasso.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 85,
+      "title": "Esercizi di programmazione",
+      "description": "Progetti pratici con classi e oggetti",
+      "duration": "80 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/13_Esercizi/1_Esercizi_programmazione.ipynb",
+      "materials": ["1_Esercizi_programmazione.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 86,
+      "title": "Soluzioni commentate",
+      "description": "Soluzioni dettagliate degli esercizi",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo10_Oggetti_Classi/14_Auto_valutazione/2_Soluzioni_commentate.ipynb",
+      "materials": ["2_Soluzioni_commentate.ipynb"],
+      "is_free": false
+    }
+  ]
+},
+{
+  "id": 9,
+  "title": "Ereditarietà",
+  "description": "Approfondimento su ereditarietà, polimorfismo e design pattern",
+  "estimated_hours": "5-6 ore",
+  "lessons": [
+    {
+      "id": 87,
+      "title": "Obiettivi del capitolo",
+      "description": "Focus avanzato sull'ereditarietà",
+      "duration": "10 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/0_Obiettivi/0_Obiettivi.ipynb",
+      "materials": ["0_Obiettivi.ipynb"],
+      "is_free": true
+    },
+    {
+      "id": 88,
+      "title": "Gerarchie di ereditarietà",
+      "description": "Progettare gerarchie di classi efficaci",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/1_Gerarchie/1_Gerarchie.ipynb",
+      "materials": ["1_Gerarchie.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 89,
+      "title": "Creazione di sottoclassi",
+      "description": "Estendere classi esistenti",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/2_Sottoclassi/2_Sottoclassi.ipynb",
+      "materials": ["2_Sottoclassi.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 90,
+      "title": "Costruttori e super()",
+      "description": "Gestione dei costruttori nelle gerarchie",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/3_Costruttori/3_Costruttori_Super.ipynb",
+      "materials": ["3_Costruttori_Super.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 91,
+      "title": "Sovrascrittura di metodi",
+      "description": "Override e specializzazione comportamenti",
+      "duration": "35 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/4_Override/4_Override.ipynb",
+      "materials": ["4_Override.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 92,
+      "title": "Polimorfismo dinamico",
+      "description": "Duck typing e polimorfismo in Python",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/5_Polimorfismo/5_Polimorfismo.ipynb",
+      "materials": ["5_Polimorfismo.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 93,
+      "title": "Ereditarietà multipla e Mixin",
+      "description": "Gestione ereditarietà multipla e pattern Mixin",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/6_Multipla/6_Ereditarieta_Multipla.ipynb",
+      "materials": ["6_Ereditarieta_Multipla.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 94,
+      "title": "Classi astratte e interfacce",
+      "description": "Definire contratti con ABC",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/7_Astratte/7_Classi_Astratte.ipynb",
+      "materials": ["7_Classi_Astratte.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 95,
+      "title": "Design pattern: Template Method",
+      "description": "Pattern Template Method per algoritmi parametrici",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/8_Pattern/8_Template_Method.ipynb",
+      "materials": ["8_Template_Method.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 96,
+      "title": "Applicazione: gerarchia di forme geometriche",
+      "description": "Progetto pratico con ereditarietà",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/9_Forme/9_Forme_Geometriche.ipynb",
+      "materials": ["9_Forme_Geometriche.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 97,
+      "title": "Riepilogo del capitolo",
+      "description": "Sintesi sull'ereditarietà",
+      "duration": "20 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/11_Riepilogo/0_Riepilogo.ipynb",
+      "materials": ["0_Riepilogo.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 98,
+      "title": "Esercizi di ripasso",
+      "description": "Domande teoriche sull'ereditarietà",
+      "duration": "35 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/11_Esercizi/0_Esercizi_ripasso.ipynb",
+      "materials": ["0_Esercizi_ripasso.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 99,
+      "title": "Esercizi di programmazione",
+      "description": "Progetti pratici con ereditarietà",
+      "duration": "70 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/11_Esercizi/1_Esercizi_programmazione.ipynb",
+      "materials": ["1_Esercizi_programmazione.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 100,
+      "title": "Soluzioni commentate",
+      "description": "Soluzioni dettagliate degli esercizi",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo11_Ereditarieta/12_Auto_valutazione/2_Soluzioni_commentate.ipynb",
+      "materials": ["2_Soluzioni_commentate.ipynb"],
+      "is_free": false
+    }
+  ]
+},
+{
+  "id": 10,
+  "title": "Ricorsione",
+  "description": "Ricorsione, backtracking, memoizzazione e divide et impera",
+  "estimated_hours": "5-6 ore",
+  "lessons": [
+    {
+      "id": 101,
+      "title": "Obiettivi del capitolo",
+      "description": "Introduzione alla ricorsione",
+      "duration": "10 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/0_Obiettivi/0_Obiettivi.ipynb",
+      "materials": ["0_Obiettivi.ipynb"],
+      "is_free": true
+    },
+    {
+      "id": 102,
+      "title": "Numeri triangolari ricorsivi",
+      "description": "Primo esempio di funzione ricorsiva",
+      "duration": "35 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/1_Numeri_Triangolari/1_Numeri_Triangolari.ipynb",
+      "materials": ["1_Numeri_Triangolari.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 103,
+      "title": "Pensare ricorsivamente",
+      "description": "Come affrontare problemi in modo ricorsivo",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/2_Problem_Solving/2_Problem_Solving.ipynb",
+      "materials": ["2_Problem_Solving.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 104,
+      "title": "Funzioni ausiliarie ricorsive",
+      "description": "Helper functions e ricorsione a coda",
+      "duration": "35 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/3_Funzioni_Ausiliarie/3_Funzioni_Ausiliarie.ipynb",
+      "materials": ["3_Funzioni_Ausiliarie.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 105,
+      "title": "Efficienza e limiti della ricorsione",
+      "description": "Complessità e stack overflow",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/4_Efficienza/4_Efficienza.ipynb",
+      "materials": ["4_Efficienza.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 106,
+      "title": "Generazione di permutazioni",
+      "description": "Permutazioni ricorsive e combinazioni",
+      "duration": "45 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/5_Permutazioni/5_Permutazioni.ipynb",
+      "materials": ["5_Permutazioni.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 107,
+      "title": "Algoritmi di backtracking",
+      "description": "Risoluzione problemi con backtracking",
+      "duration": "50 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/6_Backtracking/6_Backtracking.ipynb",
+      "materials": ["6_Backtracking.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 108,
+      "title": "Ricorsione mutua",
+      "description": "Funzioni che si chiamano reciprocamente",
+      "duration": "35 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/7_Ricorsione_Mutua/7_Ricorsione_Mutua.ipynb",
+      "materials": ["7_Ricorsione_Mutua.ipynb"],
+      "is_free": false
+    },
+    {
+      "id": 109,
+      "title": "Memoizzazione e ottimizzazione",
+      "description": "Caching per ottimizzare funzioni ricorsive",
+      "duration": "40 min",
+      "video_url": "https://colab.research.google.com/github/lorenzo-arcioni/programmazione-python-base/blob/main/Capitolo12_Ricorsione/8_Memoizzazione/8_Memoizzazione.ipynb",
+      "materials": ["8_Memoizzazione.ipynb"],
+      "is_free": false
+    }
+      ]
+    }
+  ],
+  "certification": true,
+  "certificate_description": "Al completamento del corso riceverai un certificato digitale che attesta la tua competenza nei fondamenti del Machine Learning. Il certificato include il programma dettagliato e le ore di studio completate.",
+  "target_audience": [
+    "Sviluppatori Python che vogliono entrare nel mondo del ML",
+    "Data Analyst che vogliono aggiungere competenze di Machine Learning",
+    "Studenti universitari di informatica, matematica o ingegneria",
+    "Professionisti che vogliono applicare il ML nel loro settore",
+    "Chiunque sia curioso di capire come funziona l'intelligenza artificiale"
+  ],
+  "tools_required": [
+    "Computer con almeno 8GB di RAM",
+    "Python 3.8 o superiore",
+    "Anaconda Distribution",
+    "Jupyter Notebook o JupyterLab",
+    "Account GitHub (opzionale ma consigliato)"
+  ],
+  "created_at": "2024-01-15T10:00:00Z",
+  "updated_at": "2024-01-20T15:30:00Z",
+  "is_published": true
+}]

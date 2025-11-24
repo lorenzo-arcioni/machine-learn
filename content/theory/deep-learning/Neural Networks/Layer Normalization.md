@@ -127,6 +127,33 @@ $$\boxed{\text{LN}(\mathbf{A}\mathbf{x} + \mathbf{b}) = \text{sign}(\mathbf{A}) 
 
 dove $\text{sign}(\mathbf{A}) = \text{diag}(\text{sign}(a_1), \ldots, \text{sign}(a_H))$.
 
+### LayerNorm come Trasformazione Affine Condizionata
+
+Come discusso nella sezione precedente sull’invarianza per trasformazioni affini, la Layer Normalization non solo centra e normalizza il vettore di input rispetto alla sua media e deviazione standard, ma applica anche parametri di scaling e shift $(\gamma, \beta)$ trainabili:
+
+$$
+y_i = \gamma_i \hat{x}_i + \beta_i, \quad \hat{x}_i = \frac{x_i - \mu}{\sigma}.
+$$
+
+In forma matriciale, per un vettore $\mathbf{x} \in \mathbb{R}^H$:
+
+$$
+\mathbf{y} = \text{diag}(\gamma) \frac{(\mathbf{I} - \frac{1}{H} \mathbf{1}\mathbf{1}^\top)\mathbf{x}}{\sigma} + \beta
+$$
+
+Questa operazione può essere vista come una **trasformazione affine condizionata**:
+
+$$
+\mathbf{y} = A(\mathbf{x}) \mathbf{x} + \mathbf{b}, \quad
+A(\mathbf{x}) = \frac{\text{diag}(\gamma) (\mathbf{I} - \frac{1}{H} \mathbf{1}\mathbf{1}^\top)}{\sigma}, \quad
+\mathbf{b} = \beta
+$$
+
+- L’operatore $A(\mathbf{x})$ dipende dai valori del vettore $\mathbf{x}$ attraverso $\sigma$, quindi non è una matrice fissa, ma l’operazione complessiva è equivalente a **centering + scaling + shifting**, ossia una trasformazione affine.
+- L’introduzione dei parametri $\gamma$ e $\beta$ permette al layer di apprendere uno **shift e uno scaling ottimale**, mantenendo la stabilità numerica e la normalizzazione dei dati.
+
+In questo senso, possiamo collegare direttamente il concetto di invarianza affine alla rappresentazione della LayerNorm come **affine transformation trainabile**, generalizzando il risultato scalare visto nella sezione precedente al caso vettoriale.
+
 ## Analisi dei Gradienti
 
 ### Derivata rispetto all'input

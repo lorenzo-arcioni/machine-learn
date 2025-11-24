@@ -35,7 +35,7 @@
       "headline": "Layer Normalization",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/deep-learning/Neural Networks/Layer Normalization",
-      "datePublished": "2025-09-25T14:48:27.766Z",
+      "datePublished": "2025-11-24T18:40:44.636Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -133,7 +133,7 @@
                 <h1>Layer Normalization</h1>
                 <div class="meta">
                     <strong>Topic:</strong> Deep Learning | 
-                    <strong>Updated:</strong> 25/09/2025
+                    <strong>Updated:</strong> 24/11/2025
                 </div>
             </header>
             
@@ -382,6 +382,26 @@ $$\boxed{\text{LN}(ax + b) = \text{sign}(a) \cdot \text{LN}(x)}$$
 <p>Per trasformazioni diagonali $\mathbf{x}' = \mathbf{A}\mathbf{x} + \mathbf{b}$ con $\mathbf{A} = \text{diag}(a_1, \ldots, a_H)$:</p>
 $$\boxed{\text{LN}(\mathbf{A}\mathbf{x} + \mathbf{b}) = \text{sign}(\mathbf{A}) \odot \text{LN}(\mathbf{x})}$$
 <p>dove $\text{sign}(\mathbf{A}) = \text{diag}(\text{sign}(a_1), \ldots, \text{sign}(a_H))$.</p>
+<h3 id="layernorm-come-trasformazione-affine-condizionata">LayerNorm come Trasformazione Affine Condizionata</h3>
+<p>Come discusso nella sezione precedente sull’invarianza per trasformazioni affini, la Layer Normalization non solo centra e normalizza il vettore di input rispetto alla sua media e deviazione standard, ma applica anche parametri di scaling e shift $(\gamma, \beta)$ trainabili:</p>
+$$
+y_i = \gamma_i \hat{x}_i + \beta_i, \quad \hat{x}_i = \frac{x_i - \mu}{\sigma}.
+$$
+<p>In forma matriciale, per un vettore $\mathbf{x} \in \mathbb{R}^H$:</p>
+$$
+\mathbf{y} = \text{diag}(\gamma) \frac{(\mathbf{I} - \frac{1}{H} \mathbf{1}\mathbf{1}^\top)\mathbf{x}}{\sigma} + \beta
+$$
+<p>Questa operazione può essere vista come una <strong>trasformazione affine condizionata</strong>:</p>
+$$
+\mathbf{y} = A(\mathbf{x}) \mathbf{x} + \mathbf{b}, \quad
+A(\mathbf{x}) = \frac{\text{diag}(\gamma) (\mathbf{I} - \frac{1}{H} \mathbf{1}\mathbf{1}^\top)}{\sigma}, \quad
+\mathbf{b} = \beta
+$$
+<ul>
+<li>L’operatore $A(\mathbf{x})$ dipende dai valori del vettore $\mathbf{x}$ attraverso $\sigma$, quindi non è una matrice fissa, ma l’operazione complessiva è equivalente a <strong>centering + scaling + shifting</strong>, ossia una trasformazione affine.</li>
+<li>L’introduzione dei parametri $\gamma$ e $\beta$ permette al layer di apprendere uno <strong>shift e uno scaling ottimale</strong>, mantenendo la stabilità numerica e la normalizzazione dei dati.</li>
+</ul>
+<p>In questo senso, possiamo collegare direttamente il concetto di invarianza affine alla rappresentazione della LayerNorm come <strong>affine transformation trainabile</strong>, generalizzando il risultato scalare visto nella sezione precedente al caso vettoriale.</p>
 <h2 id="analisi-dei-gradienti">Analisi dei Gradienti</h2>
 <h3 id="derivata-rispetto-allinput">Derivata rispetto all&rsquo;input</h3>
 <p>Per calcolare la derivata $\frac{\partial L}{\partial x_i}$, seguiamo un approccio simile alla Batch Normalization ma con una differenza fondamentale: in Layer Normalization tutti gli $x_j$ dello stesso esempio contribuiscono alla normalizzazione di $x_i$.</p>
@@ -391,7 +411,7 @@ $$\hat{x}_j = \frac{x_j - \mu}{\sqrt{\sigma^2 + \epsilon}}$$</p>
 $$\mu = \frac{1}{H}\sum_{k=1}^H x_k, \quad \sigma^2 = \frac{1}{H}\sum_{k=1}^H (x_k - \mu)^2$$</p>
 <p>Vogliamo calcolare:
 $$\frac{\partial L}{\partial x_i} = \sum_{j=1}^H \frac{\partial L}{\partial \hat{x}_j} \frac{\partial \hat{x}_j}{\partial x_i}$$</p>
-<h4 id="calcolo-di-math_inline_59">Calcolo di $\frac{\partial \hat{x}_j}{\partial x_i}$</h4>
+<h4 id="calcolo-di-math_inline_69">Calcolo di $\frac{\partial \hat{x}_j}{\partial x_i}$</h4>
 <p>Seguendo un procedimento analogo alla Batch Normalization, definiamo $s = \sqrt{\sigma^2 + \epsilon}$:</p>
 $$\frac{\partial \hat{x}_j}{\partial x_i} = \frac{1}{s}\left(\delta_{ij} - \frac{1}{H} - \frac{\hat{x}_j\hat{x}_i}{H}\right)$$
 <h4 id="gradiente-finale">Gradiente finale</h4>

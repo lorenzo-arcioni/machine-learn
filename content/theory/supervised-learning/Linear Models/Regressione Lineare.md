@@ -1,21 +1,40 @@
 # Regressione Lineare
 
-La **Regressione Lineare** è un modello statistico utilizzato per descrivere la relazione tra una variabile dipendente (target) e una o più variabili indipendenti (predittori). Assume una relazione lineare tra le variabili e minimizza l'errore quadratico medio.
+La **Regressione Lineare** è un modello statistico utilizzato per descrivere la relazione tra una variabile dipendente (target) e una o più variabili indipendenti (predittori). Assume una relazione lineare tra le variabili e minimizza l'errore quadratico medio. Quindi la regressione lineare studia la dipendenza in media tra fenomeni, cercando una funzione che esprima tale dipendenza in modo lineare.
 
 ## **1. Formulazione Generale**
 Assumiamo di avere un dataset $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^n$, dove $x_i \in \mathbb R$ sono le variabili indipendenti e $y_i \in \mathbb R$ la variabile dipendente.
 Un modello di regressione lineare ha la forma:
 
 $$
-y_i = f(\mathbf{x}_i) + \epsilon_i = \mathbf{x}_i^T \mathbf{w} + \epsilon_i = (1)w_0 + x_iw_1 + \epsilon_i
+y_i = f(\mathbf{x}_i) + \epsilon_i = \mathbf{x}_i^T \mathbf{w} + \epsilon_i = 1 \cdot w_0 + x_iw_1 + \epsilon_i
 $$
 
 Dove:
+
 - $y_i \in \mathbb R$ è la variabile target,
 - $\mathbf{x}_i = \begin{bmatrix} 1 \\ x_i \end{bmatrix}$, dove gli $x_i$ sono le variabili indipendenti (features),
 - $\mathbf{w} = \begin{bmatrix} w_0 \\ w_1 \end{bmatrix} \in \mathbb R^2$ sono i coefficienti del modello (parametri da stimare),
+  - $w_0$ è l'intercetta, che rappresenta il valore previsto di $y$ quando $x = 0$,
+  - $w_1$ rappresenta la pendenza, che rappresenta quanto $y$ cresce per ogni unita di aumento di $x$.
 - $1$ è il cosi detto bias,
 - $\epsilon_i$ è l'errore (rumore) che segue una [[Distribuzione Normale|distribuzione normale]] $\mathcal{N}(0, \sigma^2)$.
+
+---
+
+### Approfondimento sul rumore
+
+Il termine $\epsilon_i$ incapsula **tutte** le fonti di variabilità non spiegate dal modello: rumore di misura, fattori non osservati, approssimazioni del modello, ecc. L'ipotesi sulla distribuzione di $\epsilon_i$ è quindi l'ipotesi fondamentale che determina sia la funzione di verosimiglianza sia le proprietà inferenziali.
+
+Se il rumore osservato è il risultato della **somma di molti piccoli contributi indipendenti** (errori di misura multipli, micro‑fluttuazioni, componenti di variabili non modellate), il **Teorema del Limite Centrale** (CLT) dice che la somma (appropriatamente normalizzata) tende in distribuzione a una normale.
+
+Quindi, dal punto di vista modellistico, **assumere $\epsilon_i$ normale è spesso una buona approssimazione naturale**. Per la dimostrazione formale e le condizioni precise (Lindeberg, Lindeberg–Feller, indipendenza, varianze finite, ecc.) vedi la nota **[[Teorema del Limite Centrale]]**.
+
+**Nota sui limiti del CLT:** il CLT richiede (in qualche forma) che i contributi abbiano varianza finita e che non ci siano dipendenze troppo forti; in presenza di code pesanti con varianza infinita (es. alcune leggi di potenza) o di forti dipendenze, il risultato può non essere la normale ma una legge stabile diversa (es. Lévy stable).
+
+Un'altra giustificazione elegante è il **[[Principio di Massima Entropia]]**: tra tutte le distribuzioni con media e varianza fissate, quella che massimizza l'entropia è la normale. Pertanto la normale è la scelta “meno informativa” coerente con conoscere solo media e varianza del rumore.
+
+---
 
 Quindi possiamo riscrivere il modello in forma matriciale come:
 
@@ -24,6 +43,7 @@ $$
 $$
 
 Dove:
+
 - $\mathbf{y}$è il vettore delle variabili dipendenti $n \times 1$,
 - $\mathbf{X} = \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ \vdots & \vdots \\ 1 & x_n \end{bmatrix}$è la matrice delle variabili indipendenti $n \times 2$,
 - $\mathbf{w}$è il vettore dei parametri $2 \times 1$,
@@ -42,6 +62,7 @@ $$
 $$
 
 Dove:
+
 - $\mathbf{y}$è il vettore delle variabili dipendenti $n \times 1$,
 $$
 \mathbf{X} = \begin{bmatrix}
@@ -210,6 +231,7 @@ Seguiamo ora questi passaggi:
    \min_{W} \|Y -XW\|^2_F
    $$
    Dove:
+
    - $Y$ è la matrice delle osservazioni $n \times p$
    - $X$ è la matrice dei regressori $n \times (m+1)$
    - $W$è la matrice dei coefficienti $(m+1) \times p$, e $w_i = \begin{bmatrix} w_{0,i} \\ w_{1,i} \\ \vdots \\ w_{m,i} \end{bmatrix}$ con $i \in [p]$
@@ -716,5 +738,6 @@ Le estensioni del modello di regressione lineare permettono di catturare relazio
 - Può essere estesa con **regolarizzazione** e **modelli polinomiali** per migliorare le prestazioni
 
 **Risorse aggiuntive:**
+
 - *The Elements of Statistical Learning* - Hastie, Tibshirani, Friedman.
 - *Introduction to Statistical Learning* - James, Witten, Hastie, Tibshirani.

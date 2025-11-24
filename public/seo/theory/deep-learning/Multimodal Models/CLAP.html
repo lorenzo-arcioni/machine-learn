@@ -35,7 +35,7 @@
       "headline": "CLAP Model: Contrastive Language-Audio Pre-training",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/deep-learning/Multimodal Models/CLAP",
-      "datePublished": "2025-09-25T14:48:27.777Z",
+      "datePublished": "2025-11-24T18:40:44.644Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -133,7 +133,7 @@
                 <h1>CLAP Model: Contrastive Language-Audio Pre-training</h1>
                 <div class="meta">
                     <strong>Topic:</strong> Deep Learning | 
-                    <strong>Updated:</strong> 25/09/2025
+                    <strong>Updated:</strong> 24/11/2025
                 </div>
             </header>
             
@@ -358,11 +358,11 @@ $$
 <p>dove:<br />
 - $w[n]$ è la finestra di analisi (ad esempio Hann),<br />
 - $N = 1024$ è la dimensione della finestra FFT,<br />
-- $H$ è l’hop size tra finestre,<br />
-- $L_{samples}$ è la lunghezza della waveform.  </p>
+- $H$ è l’hop size tra finestre,
+- $k$ è l’indice di frequenza.</p>
 <p>Le dimensioni del tensore risultante sono:</p>
 $$
-X_{STFT} \in \mathbb{C}^{B \times 1 \times T_{frames} \times F_{bins}}
+\mathbf{X_{STFT}} \in \mathbb{C}^{B \times 1 \times T_{frames} \times F_{bins}}
 $$
 <p>con $T_{frames} = \lfloor L_{samples}/H \rfloor = 469$ e $F_{bins} = 513$. La STFT fornisce una <strong>rappresentazione tempo-frequenza</strong>, essenziale per catturare le caratteristiche acustiche dei segnali audio.</p>
 <h5 id="step-3-power-spectrogram">Step 3: Power Spectrogram</h5>
@@ -406,7 +406,7 @@ $$
 $$
 <p>quindi</p>
 $$
-M_{norm}[b, 1, t, f] = \gamma_f \frac{M[b, 1, t, f] - \mu_f}{\sqrt{\sigma_f^2 + \epsilon}} + \beta_f
+\mathbf{M}_{norm}[b, 1, t, f] = \gamma_f \frac{M[b, 1, t, f] - \mu_f}{\sqrt{\sigma_f^2 + \epsilon}} + \beta_f
 $$
 <p>dove $\mu_f$ e $\sigma_f^2$ sono media e varianza calcolate sul batch per la frequenza $f$, e $\gamma_f, \beta_f$ sono parametri apprendibili.  </p>
 <p>Quindi ricapitolando:
@@ -444,18 +444,19 @@ x_6 &\in \mathbb{R}^{B \times 2048 \times 14 \times 2} \quad (\text{ConvBlock6})
 \end{aligned}
 $$
 <p>Questa gerarchia permette al modello di catturare pattern audio a diverse scale temporali e frequenziali, dai dettagli locali alle caratteristiche globali.</p>
-<p><strong>Temporal Pooling</strong><br />
+<p>Quindi ora si ha: $x_6$ di dimensioni ${B \times 2048 \times 14 \times 2}$ che per semplicità indicheremo con $B, C, T, F$.</p>
+<p><strong>Frequency Pooling (chiamato anche Temporal Pooling nel codice)</strong><br />
 Per aggregare l’informazione lungo la dimensione delle frequenze, si calcola la media sul bin di frequenza:</p>
 $$
-x_{temp}[b, c, t] = \frac{1}{2} \sum_{f=1}^{2} x_6[b, c, t, f] \in \mathbb{R}^{B \times 2048 \times 14}
+x_{temp}[b, c, t] = \frac{1}{F} \sum_{f=1}^{F} x_6[b, c, t, f] = \frac{1}{2} \sum_{f=1}^{2} x_6[b, c, t, f] \in \mathbb{R}^{B \times 2048 \times 14}
 $$
 <p>Così otteniamo una rappresentazione temporale compressa ma ricca di caratteristiche.</p>
 <p><strong>Global Pooling</strong><br />
 Per ottenere un embedding fisso indipendente dalla lunghezza temporale, si applica sia max pooling che average pooling lungo la dimensione temporale, combinando i risultati:</p>
 $$
 \begin{aligned}
-x_{max}[b, c] &= \max_{t=1}^{14} x_{temp}[b, c, t] \\
-x_{avg}[b, c] &= \frac{1}{14} \sum_{t=1}^{14} x_{temp}[b, c, t] \\
+x_{max}[b, c] &= \max_{t=1}^{T} x_{temp}[b, c, t] = \max_{t=1}^{14} x_{temp}[b, c, t]\\
+x_{avg}[b, c] &= \frac{1}{T} \sum_{t=1}^{T} x_{temp}[b, c, t] = \frac{1}{14} \sum_{t=1}^{14} x_{temp}[b, c, t] \\
 x_{global}[b, c] &= x_{max}[b, c] + x_{avg}[b, c] \in \mathbb{R}^{B \times 2048}
 \end{aligned}
 $$
@@ -463,7 +464,7 @@ $$
 <p><strong>Final Audio Embedding</strong><br />
 Infine, si applica un layer fully connected con ReLU per ottenere l’embedding finale:</p>
 $$
-\phi_{audio}^{PANN}(x_{raw}) = \text{ReLU}(W_{fc1} \, x_{global} + b_{fc1}) \in \mathbb{R}^{B \times 2048}
+\phi_{audio}^{PANN}(x_{raw}) = \text{ReLU}(\text{Linear}(x_{global})) = \text{ReLU}(W_{fc1} \, x_{global} + b_{fc1}) \in \mathbb{R}^{B \times 2048}
 $$
 <p>Qui:<br />
 - <strong>fc1</strong> indica un <em>fully connected layer</em> (o <em>dense layer</em>) che proietta l’output del pooling globale in uno spazio di embedding.<br />

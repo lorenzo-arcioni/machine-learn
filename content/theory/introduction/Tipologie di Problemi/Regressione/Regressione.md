@@ -3,7 +3,7 @@
 ## Introduzione  
 
 La **regressione** è uno dei problemi fondamentali nel machine learning e nel deep learning.  
-L'obiettivo è apprendere una funzione che mappi un insieme di **caratteristiche** ($\mathbf{x} \in \mathbb{R}^n$) su un valore **numerico continuo** ($y \in \mathbb{R}$).  
+L'obiettivo è apprendere una funzione che mappi un insieme di **caratteristiche** ($\mathbf{x} \in \mathbb{R}^n$) su un valore **numerico continuo** ($y \in \mathbb{R}$). Da non confondere con la [[Correlazione]] che studia quanto una variabile dipendente e una variabile indipendente sono correlate, mentre la regressione studia come le variabili sono correlate.
 
 Esempi tipici di problemi di regressione includono:  
 

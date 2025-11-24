@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correlazione | Mathematics for Machine Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="mathematics, machine learning, linear algebra, calculus, statistics, model, data, learning">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Correlazione">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/math-for-ml/Statistica/Correlazione">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Correlazione">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/math-for-ml/Statistica/Correlazione">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Correlazione",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/math-for-ml/Statistica/Correlazione",
+      "datePublished": "2025-11-24T18:40:44.725Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/math-for-ml/Statistica/Correlazione" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>Correlazione</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Mathematics for Machine Learning | 
+                    <strong>Updated:</strong> 24/11/2025
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<p>La <strong>Correlazione</strong> è una misura statistica che quantifica la forza e la direzione della relazione lineare tra due variabili. È uno strumento fondamentale nell&rsquo;analisi dei dati per comprendere come le variabili si comportano congiuntamente e per identificare potenziali relazioni predittive.</p>
+<h2 id="1-definizione-e-concetti-fondamentali"><strong>1. Definizione e Concetti Fondamentali</strong></h2>
+<p>La correlazione misura il grado in cui due variabili tendono a variare insieme. È importante distinguere tra:</p>
+<ul>
+<li><strong>Correlazione</strong>: Misura l&rsquo;associazione tra variabili, ma non implica causalità.</li>
+<li><strong>Causalità</strong>: Indica che una variabile influenza direttamente l&rsquo;altra.</li>
+</ul>
+<blockquote>
+<p><strong>Nota importante</strong>: &ldquo;Correlazione non implica causalità&rdquo; - due variabili possono essere correlate senza che una causi l&rsquo;altra, ad esempio a causa di una terza variabile confondente.</p>
+</blockquote>
+<h3 id="11-covarianza"><strong>1.1. Covarianza</strong></h3>
+<p>Prima di definire la correlazione, introduciamo la <strong>covarianza</strong>, che misura come due variabili variano congiuntamente rispetto alle loro medie.</p>
+<p>Per due variabili aleatorie $X$ e $Y$, la covarianza è definita come:</p>
+$$
+\text{Cov}(X, Y) = \mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])]
+$$
+<p>Per un campione di $n$ osservazioni $\{(x_i, y_i)\}_{i=1}^n$, la covarianza campionaria è:</p>
+$$
+\text{Cov}(X, Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
+$$
+<p>Dove:
+- $\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$ è la media campionaria di $X$
+- $\bar{y} = \frac{1}{n}\sum_{i=1}^{n} y_i$ è la media campionaria di $Y$</p>
+<p><strong>Interpretazione:</strong>
+- Se $\text{Cov}(X, Y) > 0$: le variabili tendono a crescere insieme (relazione positiva)
+- Se $\text{Cov}(X, Y) < 0$: quando una cresce, l&rsquo;altra tende a decrescere (relazione negativa)
+- Se $\text{Cov}(X, Y) = 0$: le variabili non hanno una relazione lineare</p>
+<p><strong>Limite della covarianza:</strong> Il valore della covarianza dipende dalle unità di misura delle variabili, rendendo difficile interpretarne la forza della relazione.</p>
+<h2 id="2-coefficiente-di-correlazione-di-pearson"><strong>2. Coefficiente di Correlazione di Pearson</strong></h2>
+<p>Il <strong>Coefficiente di Correlazione di Pearson</strong> (o correlazione lineare) risolve il problema della dipendenza dalle unità di misura normalizzando la covarianza.</p>
+<h3 id="21-definizione"><strong>2.1. Definizione</strong></h3>
+<p>Per due variabili aleatorie $X$ e $Y$, il coefficiente di correlazione di Pearson è:</p>
+$$
+\rho_{X,Y} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y}
+$$
+<p>Dove:
+- $\sigma_X = \sqrt{\mathbb{V}[X]}$ è la deviazione standard di $X$
+- $\sigma_Y = \sqrt{\mathbb{V}[Y]}$ è la deviazione standard di $Y$</p>
+<p>Per un campione, il coefficiente di correlazione campionario è:</p>
+$$
+r_{X,Y} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}
+$$
+<h3 id="22-proprieta"><strong>2.2. Proprietà</strong></h3>
+<ol>
+<li><strong>Valori limitati</strong>: $-1 \leq r_{X,Y} \leq 1$</li>
+<li><strong>Simmetria</strong>: $r_{X,Y} = r_{Y,X}$</li>
+<li><strong>Invarianza per trasformazioni lineari</strong>: Se $Y' = aY + b$ con $a > 0$, allora $r_{X,Y'} = r_{X,Y}$</li>
+<li><strong>Indipendenza</strong>: Se $X$ e $Y$ sono indipendenti, allora $r_{X,Y} = 0$ (ma non viceversa)</li>
+</ol>
+<h3 id="23-interpretazione"><strong>2.3. Interpretazione</strong></h3>
+<ul>
+<li>$r = 1$: <strong>correlazione positiva perfetta</strong> (relazione lineare crescente)</li>
+<li>$r = -1$: <strong>correlazione negativa perfetta</strong> (relazione lineare decrescente)</li>
+<li>$r = 0$: <strong>assenza di correlazione lineare</strong> (non implica assenza di relazione non lineare)</li>
+<li>$|r| \in [0.7, 1]$: correlazione forte</li>
+<li>$|r| \in [0.4, 0.7]$: correlazione moderata</li>
+<li>$|r| \in [0, 0.4]$: correlazione debole</li>
+</ul>
+<h3 id="24-dimostrazione-math_inline_56"><strong>2.4. Dimostrazione: $-1 \leq r \leq 1$</strong></h3>
+<p><strong>Teorema:</strong> Per ogni coppia di variabili $X$ e $Y$, vale $-1 \leq r_{X,Y} \leq 1$.</p>
+<p><strong>Dimostrazione:</strong></p>
+<p>Consideriamo le variabili standardizzate:</p>
+$$
+Z_X = \frac{X - \mathbb{E}[X]}{\sigma_X}, \quad Z_Y = \frac{Y - \mathbb{E}[Y]}{\sigma_Y}
+$$
+<p>Allora $\mathbb{E}[Z_X] = \mathbb{E}[Z_Y] = 0$ e $\mathbb{V}[Z_X] = \mathbb{V}[Z_Y] = 1$.</p>
+<p>Per ogni $t \in \mathbb{R}$, consideriamo la variabile aleatoria $W = Z_X + tZ_Y$. Poiché la varianza è sempre non negativa:</p>
+$$
+\mathbb{V}[W] = \mathbb{V}[Z_X + tZ_Y] \geq 0
+$$
+<p>Sviluppando:</p>
+$$
+\mathbb{V}[Z_X + tZ_Y] = \mathbb{V}[Z_X] + t^2\mathbb{V}[Z_Y] + 2t\text{Cov}(Z_X, Z_Y)
+$$
+$$
+= 1 + t^2 + 2t\rho_{X,Y} \geq 0
+$$
+<p>Questa è una disuguaglianza valida per ogni $t \in \mathbb{R}$. Il discriminante della parabola deve essere non positivo:</p>
+$$
+\Delta = 4\rho_{X,Y}^2 - 4 \leq 0
+$$
+$$
+\rho_{X,Y}^2 \leq 1
+$$
+<p>Quindi $-1 \leq \rho_{X,Y} \leq 1$. $\square$</p>
+<h2 id="3-forme-alternative-e-matriciali"><strong>3. Forme Alternative e Matriciali</strong></h2>
+<h3 id="31-forma-matriciale"><strong>3.1. Forma Matriciale</strong></h3>
+<p>Data una matrice di dati $\mathbf{X} \in \mathbb{R}^{n \times p}$ con $n$ osservazioni e $p$ variabili, la <strong>matrice di correlazione</strong> $\mathbf{R} \in \mathbb{R}^{p \times p}$ ha elementi:</p>
+$$
+R_{ij} = r_{X_i, X_j}
+$$
+<p>Dove $X_i$ e $X_j$ sono le colonne $i$-esima e $j$-esima di $\mathbf{X}$.</p>
+<p>La matrice di correlazione può essere calcolata come:</p>
+$$
+\mathbf{R} = \mathbf{D}^{-1/2} \mathbf{S} \mathbf{D}^{-1/2}
+$$
+<p>Dove:
+- $\mathbf{S}$ è la matrice di covarianza
+- $\mathbf{D} = \text{diag}(S_{11}, S_{22}, \ldots, S_{pp})$ è la matrice diagonale delle varianze</p>
+<h3 id="32-formula-computazionale"><strong>3.2. Formula Computazionale</strong></h3>
+<p>Una forma alternativa utile per il calcolo è:</p>
+$$
+r_{X,Y} = \frac{n\sum x_i y_i - \sum x_i \sum y_i}{\sqrt{n\sum x_i^2 - (\sum x_i)^2} \sqrt{n\sum y_i^2 - (\sum y_i)^2}}
+$$
+<p>Questa formula evita il calcolo esplicito delle medie ed è più efficiente computazionalmente.</p>
+<h2 id="4-correlazione-di-rango"><strong>4. Correlazione di Rango</strong></h2>
+<p>Quando i dati non seguono una distribuzione normale o contengono outlier, è preferibile utilizzare misure di correlazione non parametriche basate sui ranghi.</p>
+<h3 id="41-correlazione-di-spearman"><strong>4.1. Correlazione di Spearman</strong></h3>
+<p>Il <strong>coefficiente di correlazione di Spearman</strong> $\rho_s$ è il coefficiente di Pearson applicato ai ranghi delle osservazioni:</p>
+$$
+\rho_s = r_{\text{rank}(X), \text{rank}(Y)}
+$$
+<p>Se non ci sono ranghi ripetuti, esiste una formula semplificata:</p>
+$$
+\rho_s = 1 - \frac{6\sum_{i=1}^{n} d_i^2}{n(n^2-1)}
+$$
+<p>Dove $d_i$ è la differenza tra i ranghi di $x_i$ e $y_i$.</p>
+<p><strong>Caratteristiche:</strong>
+- Misura la correlazione monotona (non necessariamente lineare)
+- Robusto agli outlier
+- Appropriato per dati ordinali</p>
+<h3 id="42-correlazione-di-kendall"><strong>4.2. Correlazione di Kendall</strong></h3>
+<p>Il <strong>coefficiente tau di Kendall</strong> ($\tau$) misura la concordanza tra le coppie di osservazioni:</p>
+$$
+\tau = \frac{n_c - n_d}{\frac{1}{2}n(n-1)}
+$$
+<p>Dove:
+- $n_c$ è il numero di coppie concordanti
+- $n_d$ è il numero di coppie discordanti</p>
+<p>Una coppia $(x_i, y_i)$ e $(x_j, y_j)$ è:
+- <strong>Concordante</strong> se $(x_i - x_j)(y_i - y_j) > 0$
+- <strong>Discordante</strong> se $(x_i - x_j)(y_i - y_j) < 0$</p>
+<h2 id="5-test-di-significativita"><strong>5. Test di Significatività</strong></h2>
+<h3 id="51-test-per-la-correlazione-di-pearson"><strong>5.1. Test per la Correlazione di Pearson</strong></h3>
+<p>Per testare l&rsquo;ipotesi nulla $H_0: \rho = 0$ contro $H_1: \rho \neq 0$, si utilizza la statistica:</p>
+$$
+t = r\sqrt{\frac{n-2}{1-r^2}}
+$$
+<p>Che segue una distribuzione $t$ di Student con $n-2$ gradi di libertà.</p>
+<p><strong>Procedura:</strong>
+1. Calcolare la statistica $t$
+2. Confrontare con il valore critico $t_{\alpha/2, n-2}$
+3. Se $|t| > t_{\alpha/2, n-2}$, rifiutare $H_0$</p>
+<h3 id="52-intervallo-di-confidenza"><strong>5.2. Intervallo di Confidenza</strong></h3>
+<p>Per costruire un intervallo di confidenza per $\rho$, si utilizza la <strong>trasformazione di Fisher</strong>:</p>
+$$
+z = \frac{1}{2}\ln\left(\frac{1+r}{1-r}\right) = \text{arctanh}(r)
+$$
+<p>La statistica $z$ è approssimativamente normale con:</p>
+$$
+z \sim \mathcal{N}\left(\frac{1}{2}\ln\left(\frac{1+\rho}{1-\rho}\right), \frac{1}{n-3}\right)
+$$
+<p>L&rsquo;intervallo di confidenza al $(1-\alpha)\%$ per $\rho$ è:</p>
+$$
+\left[\tanh\left(z - z_{\alpha/2}\sqrt{\frac{1}{n-3}}\right), \tanh\left(z + z_{\alpha/2}\sqrt{\frac{1}{n-3}}\right)\right]
+$$
+<h2 id="6-correlazione-parziale"><strong>6. Correlazione Parziale</strong></h2>
+<p>La <strong>correlazione parziale</strong> misura la correlazione tra due variabili $X$ e $Y$ controllando l&rsquo;effetto di una o più variabili addizionali $Z$.</p>
+<h3 id="61-definizione"><strong>6.1. Definizione</strong></h3>
+<p>La correlazione parziale tra $X$ e $Y$ dato $Z$ è:</p>
+$$
+r_{XY \cdot Z} = \frac{r_{XY} - r_{XZ}r_{YZ}}{\sqrt{1-r_{XZ}^2}\sqrt{1-r_{YZ}^2}}
+$$
+<p><strong>Interpretazione:</strong>
+- Misura la correlazione &ldquo;pura&rdquo; tra $X$ e $Y$ rimuovendo l&rsquo;effetto lineare di $Z$
+- Utile per identificare correlazioni spurie dovute a variabili confondenti</p>
+<h3 id="62-esempio"><strong>6.2. Esempio</strong></h3>
+<p>Consideriamo:
+- $X$: consumo di gelato
+- $Y$: numero di annegamenti
+- $Z$: temperatura</p>
+<p>Potremmo osservare una forte correlazione tra $X$ e $Y$ ($r_{XY} > 0$), ma questa potrebbe essere spurie causata da $Z$. La correlazione parziale $r_{XY \cdot Z}$ potrebbe essere vicina a zero, indicando che la temperatura è la vera causa comune.</p>
+<h2 id="7-correlazione-e-regressione"><strong>7. Correlazione e Regressione</strong></h2>
+<p>Esiste una stretta relazione tra correlazione e regressione lineare semplice.</p>
+<h3 id="71-relazione-con-il-coefficiente-di-determinazione"><strong>7.1. Relazione con il Coefficiente di Determinazione</strong></h3>
+<p>Nella regressione lineare semplice $y = w_0 + w_1 x + \epsilon$, il coefficiente di determinazione $R^2$ è uguale al quadrato del coefficiente di correlazione:</p>
+$$
+R^2 = r_{X,Y}^2
+$$
+<p><strong>Dimostrazione:</strong></p>
+<p>Il coefficiente di determinazione è definito come:</p>
+$$
+R^2 = 1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}
+$$
+<p>Nella regressione semplice, può essere dimostrato che:</p>
+$$
+R^2 = \frac{[\sum(x_i - \bar{x})(y_i - \bar{y})]^2}{\sum(x_i - \bar{x})^2 \sum(y_i - \bar{y})^2} = r_{X,Y}^2
+$$
+<p>Questo segue direttamente dalla definizione di $r_{X,Y}$. $\square$</p>
+<h3 id="72-relazione-con-il-coefficiente-angolare"><strong>7.2. Relazione con il Coefficiente Angolare</strong></h3>
+<p>Il coefficiente angolare della regressione lineare può essere espresso in termini di correlazione:</p>
+$$
+w_1 = r_{X,Y} \frac{\sigma_Y}{\sigma_X}
+$$
+<p>Questo mostra che:
+- Il segno di $w_1$ è determinato dal segno di $r_{X,Y}$
+- La pendenza dipende sia dalla correlazione che dal rapporto delle deviazioni standard</p>
+<h2 id="8-limitazioni-e-precauzioni"><strong>8. Limitazioni e Precauzioni</strong></h2>
+<h3 id="81-correlazione-misura-solo-relazioni-lineari"><strong>8.1. Correlazione misura solo relazioni lineari</strong></h3>
+<p>Il coefficiente di Pearson cattura solo relazioni lineari. Relazioni non lineari (quadratiche, esponenziali, ecc.) possono avere $r \approx 0$ anche se esiste una forte dipendenza.</p>
+<p><strong>Esempio:</strong> Per la relazione $y = x^2$ con $x \in [-1, 1]$, si ha $r_{X,Y} = 0$ ma esiste una dipendenza funzionale perfetta.</p>
+<h3 id="82-outlier-e-valori-influenti"><strong>8.2. Outlier e Valori Influenti</strong></h3>
+<p>La correlazione di Pearson è sensibile agli outlier, che possono:
+- Aumentare artificialmente la correlazione
+- Mascherare correlazioni reali
+- Invertire il segno della correlazione</p>
+<p><strong>Soluzione:</strong> Utilizzare correlazioni di rango (Spearman, Kendall) o identificare e trattare gli outlier.</p>
+<h3 id="83-correlazione-spuria"><strong>8.3. Correlazione Spuria</strong></h3>
+<p>Due variabili possono essere correlate senza alcuna relazione causale diretta, a causa di:
+- <strong>Variabile confondente</strong>: Una terza variabile influenza entrambe
+- <strong>Causalità inversa</strong>: La direzione causale è opposta a quella ipotizzata
+- <strong>Coincidenza</strong>: Correlazione puramente casuale</p>
+<h3 id="84-dimensione-del-campione"><strong>8.4. Dimensione del Campione</strong></h3>
+<p>Con campioni piccoli:
+- La correlazione può essere significativa anche se debole
+- La stima è meno affidabile
+- È necessario verificare la significatività statistica</p>
+<h2 id="9-applicazioni-pratiche"><strong>9. Applicazioni Pratiche</strong></h2>
+<h3 id="91-analisi-esplorativa-dei-dati"><strong>9.1. Analisi Esplorativa dei Dati</strong></h3>
+<ul>
+<li>Identificazione di variabili correlate prima della modellazione</li>
+<li>Costruzione di matrici di correlazione per dataset multivariati</li>
+<li>Visualizzazione tramite heatmap o scatter plot</li>
+</ul>
+<h3 id="92-feature-selection"><strong>9.2. Feature Selection</strong></h3>
+<ul>
+<li>Rimozione di variabili altamente correlate (multicollinearità)</li>
+<li>Selezione delle feature più correlate con la variabile target</li>
+<li>Identificazione di gruppi di variabili ridondanti</li>
+</ul>
+<h3 id="93-validazione-di-ipotesi"><strong>9.3. Validazione di Ipotesi</strong></h3>
+<ul>
+<li>Verifica di relazioni teoriche tra variabili</li>
+<li>Test di ipotesi scientifiche</li>
+<li>Analisi di serie temporali (autocorrelazione)</li>
+</ul>
+<h3 id="94-diagnostica-di-modelli"><strong>9.4. Diagnostica di Modelli</strong></h3>
+<ul>
+<li>Analisi dei residui nella regressione</li>
+<li>Verifica dell&rsquo;indipendenza degli errori</li>
+<li>Identificazione di pattern non catturati dal modello</li>
+</ul>
+<h2 id="10-conclusioni"><strong>10. Conclusioni</strong></h2>
+<p>La correlazione è uno strumento fondamentale per:
+- Quantificare relazioni lineari tra variabili
+- Guidare l&rsquo;analisi esplorativa e la modellazione
+- Identificare potenziali relazioni causali (che richiedono ulteriori indagini)</p>
+<p><strong>Punti chiave da ricordare:</strong>
+- Correlazione ≠ Causalità
+- Il coefficiente di Pearson misura solo relazioni lineari
+- Utilizzare misure alternative (Spearman, Kendall) per dati non parametrici
+- Verificare sempre la significatività statistica
+- Considerare la correlazione parziale per controllare variabili confondenti
+- Esplorare visivamente i dati prima di interpretare la correlazione</p>
+<p><strong>Risorse aggiuntive:</strong>
+- <em>Statistical Methods</em> - Snedecor &amp; Cochran
+- <em>The Elements of Statistical Learning</em> - Hastie, Tibshirani, Friedman
+- <em>Introduction to Statistical Learning</em> - James, Witten, Hastie, Tibshirani</p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> mathematics, machine learning, linear algebra, calculus, statistics, model, data, learning</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/math-for-ml/Statistica/Correlazione">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'Correlazione',
+          page_location: 'http://localhost:3000/theory/math-for-ml/Statistica/Correlazione'
+        });
+      }
+    </script>
+</body>
+</html>

@@ -471,6 +471,52 @@ $$\boxed{\text{BN}(\mathbf{A}\mathbf{x} + \mathbf{b}) = \text{sign}(\mathbf{A}) 
 
 dove $\text{sign}(\mathbf{A}) = \text{diag}(\text{sign}(a_1), \ldots, \text{sign}(a_d))$
 
+### BatchNorm come Trasformazione Affine Condizionata
+
+Come per la Layer Normalization, la Batch Normalization applica centering, scaling e shifting, ma la normalizzazione avviene **lungo la dimensione del batch** per ogni feature. Per un batch di dimensione $m$ e una feature $x$:
+
+$$
+\mu_B = \frac{1}{m} \sum_{i=1}^{m} x_i, \quad
+\sigma_B^2 = \frac{1}{m} \sum_{i=1}^{m} (x_i - \mu_B)^2
+$$
+
+$$
+\hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}, \quad
+y_i = \gamma \hat{x}_i + \beta
+$$
+
+In forma matriciale, per un batch di vettori $\mathbf{X} \in \mathbb{R}^{m \times H}$:
+
+$$
+\mathbf{Y} = \text{diag}(\gamma) \frac{(\mathbf{I} - \frac{1}{m} \mathbf{1}\mathbf{1}^\top)\mathbf{X}}{\sigma_B} + \beta
+$$
+
+- L’operatore $\frac{(\mathbf{I} - \frac{1}{m} \mathbf{1}\mathbf{1}^\top)}{\sigma_B}$ dipende dai valori del batch corrente, quindi la trasformazione è **affine condizionata sui dati del batch**.  
+- L’applicazione dei parametri $\gamma$ e $\beta$ permette al layer di apprendere uno **scaling e shift ottimale**, rendendo l’operazione equivalente a una **trasformazione affine trainabile**.
+
+Possiamo quindi riscrivere la Batch Normalization come:
+
+$$
+\mathbf{Y} = A(\mathbf{X}) \mathbf{X} + \mathbf{B}, \quad
+A(\mathbf{X}) = \frac{\text{diag}(\gamma) \, (\mathbf{I} - \frac{1}{m} \mathbf{1}\mathbf{1}^\top)}{\sigma_B}, \quad
+\mathbf{B} = \beta
+$$
+
+dove:
+
+- $\mathbf{X} \in \mathbb{R}^{m \times H}$ è il batch di input,
+- $\sigma_B$ è la deviazione standard calcolata lungo il batch per ogni feature,
+- $\mathbf{1}\mathbf{1}^\top / m$ rappresenta il centering sul batch,
+- $\gamma$ e $\beta$ sono i parametri di scaling e shift trainabili.  
+
+**Differenze chiave rispetto a LayerNorm**:
+
+1. LN normalizza le feature di ogni singolo esempio, BN normalizza lungo il batch per ogni feature.
+2. In fase di inference, BN utilizza le statistiche di training ($\mu_{running}, \sigma_{running}$), rendendo la trasformazione affine “fissa”, mentre LN rimane affine condizionata sull’input.
+3. BN introduce dipendenza tra gli esempi del batch, LN no.
+
+In sintesi, anche BatchNorm può essere vista come una trasformazione affine condizionata, con comportamenti diversi a seconda che si consideri la fase di training o inference.
+
 ---
 
 ### Effetto sulla Distribuzione dei Gradienti

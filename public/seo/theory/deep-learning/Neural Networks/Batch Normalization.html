@@ -35,7 +35,7 @@
       "headline": "Batch Normalization",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/deep-learning/Neural Networks/Batch Normalization",
-      "datePublished": "2025-09-25T14:48:27.754Z",
+      "datePublished": "2025-11-24T18:40:44.625Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -133,7 +133,7 @@
                 <h1>Batch Normalization</h1>
                 <div class="meta">
                     <strong>Topic:</strong> Deep Learning | 
-                    <strong>Updated:</strong> 25/09/2025
+                    <strong>Updated:</strong> 24/11/2025
                 </div>
             </header>
             
@@ -687,6 +687,44 @@ $$= \text{sign}(\mathbf{A}) \odot \frac{\mathbf{x}_i - \boldsymbol{\mu}}{\sqrt{\
 <p>Per $|\mathbf{A}| \gg \sqrt{\epsilon} \mathbf{1}$: $\epsilon \mathbf{A}^{-2} \to \mathbf{0}$</p>
 $$\boxed{\text{BN}(\mathbf{A}\mathbf{x} + \mathbf{b}) = \text{sign}(\mathbf{A}) \odot \text{BN}(\mathbf{x})}$$
 <p>dove $\text{sign}(\mathbf{A}) = \text{diag}(\text{sign}(a_1), \ldots, \text{sign}(a_d))$</p>
+<h3 id="batchnorm-come-trasformazione-affine-condizionata">BatchNorm come Trasformazione Affine Condizionata</h3>
+<p>Come per la Layer Normalization, la Batch Normalization applica centering, scaling e shifting, ma la normalizzazione avviene <strong>lungo la dimensione del batch</strong> per ogni feature. Per un batch di dimensione $m$ e una feature $x$:</p>
+$$
+\mu_B = \frac{1}{m} \sum_{i=1}^{m} x_i, \quad
+\sigma_B^2 = \frac{1}{m} \sum_{i=1}^{m} (x_i - \mu_B)^2
+$$
+$$
+\hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}, \quad
+y_i = \gamma \hat{x}_i + \beta
+$$
+<p>In forma matriciale, per un batch di vettori $\mathbf{X} \in \mathbb{R}^{m \times H}$:</p>
+$$
+\mathbf{Y} = \text{diag}(\gamma) \frac{(\mathbf{I} - \frac{1}{m} \mathbf{1}\mathbf{1}^\top)\mathbf{X}}{\sigma_B} + \beta
+$$
+<ul>
+<li>L’operatore $\frac{(\mathbf{I} - \frac{1}{m} \mathbf{1}\mathbf{1}^\top)}{\sigma_B}$ dipende dai valori del batch corrente, quindi la trasformazione è <strong>affine condizionata sui dati del batch</strong>.  </li>
+<li>L’applicazione dei parametri $\gamma$ e $\beta$ permette al layer di apprendere uno <strong>scaling e shift ottimale</strong>, rendendo l’operazione equivalente a una <strong>trasformazione affine trainabile</strong>.</li>
+</ul>
+<p>Possiamo quindi riscrivere la Batch Normalization come:</p>
+$$
+\mathbf{Y} = A(\mathbf{X}) \mathbf{X} + \mathbf{B}, \quad
+A(\mathbf{X}) = \frac{\text{diag}(\gamma) \, (\mathbf{I} - \frac{1}{m} \mathbf{1}\mathbf{1}^\top)}{\sigma_B}, \quad
+\mathbf{B} = \beta
+$$
+<p>dove:</p>
+<ul>
+<li>$\mathbf{X} \in \mathbb{R}^{m \times H}$ è il batch di input,</li>
+<li>$\sigma_B$ è la deviazione standard calcolata lungo il batch per ogni feature,</li>
+<li>$\mathbf{1}\mathbf{1}^\top / m$ rappresenta il centering sul batch,</li>
+<li>$\gamma$ e $\beta$ sono i parametri di scaling e shift trainabili.  </li>
+</ul>
+<p><strong>Differenze chiave rispetto a LayerNorm</strong>:</p>
+<ol>
+<li>LN normalizza le feature di ogni singolo esempio, BN normalizza lungo il batch per ogni feature.</li>
+<li>In fase di inference, BN utilizza le statistiche di training ($\mu_{running}, \sigma_{running}$), rendendo la trasformazione affine “fissa”, mentre LN rimane affine condizionata sull’input.</li>
+<li>BN introduce dipendenza tra gli esempi del batch, LN no.</li>
+</ol>
+<p>In sintesi, anche BatchNorm può essere vista come una trasformazione affine condizionata, con comportamenti diversi a seconda che si consideri la fase di training o inference.</p>
 <hr />
 <h3 id="effetto-sulla-distribuzione-dei-gradienti">Effetto sulla Distribuzione dei Gradienti</h3>
 <p>La <strong>Batch Normalization (BN)</strong> non agisce solo sulla distribuzione degli attivazioni forward, ma ha anche un impatto fondamentale sulla <strong>propagazione dei gradienti</strong> durante il backpropagation. Analizziamo nel dettaglio.</p>
@@ -828,7 +866,7 @@ $$
 <h2 id="backpropagation-attraverso-la-batch-normalization">Backpropagation attraverso la Batch Normalization</h2>
 <h3 id="derivate-parziali">Derivate Parziali</h3>
 <p>Per implementare correttamente la batch normalization, è necessario calcolare le derivate parziali per tutti i parametri coinvolti.</p>
-<h4 id="derivata-rispetto-a-math_inline_191-e-math_inline_192">Derivata rispetto a $\gamma$ e $\beta$</h4>
+<h4 id="derivata-rispetto-a-math_inline_207-e-math_inline_208">Derivata rispetto a $\gamma$ e $\beta$</h4>
 $$\frac{\partial L}{\partial \gamma} = \sum_{i=1}^{m} \frac{\partial L}{\partial y_i} \hat{x}_i$$
 $$\frac{\partial L}{\partial \beta} = \sum_{i=1}^{m} \frac{\partial L}{\partial y_i}$$
 <h4 id="derivata-rispetto-allinput-normalizzato">Derivata rispetto all&rsquo;input normalizzato</h4>

@@ -72,4 +72,16 @@
   "url": "https://www.udemy.com/course/machine-learning-algoritmo-k-nearest-neighbors-knn/",
   "status": "available",
   "link": "https://www.udemy.com/course/machine-learning-algoritmo-k-nearest-neighbors-knn/"
+},
+{
+  "_id": "python-base",
+  "title": "Python Base",
+  "description": "Sintassi, strutture dati, funzioni e programmazione orientata agli oggetti",
+  "category": "Python",
+  "level": "beginner",
+  "duration": "2 hours",
+  "price": "Free",
+  "instructor": "Lorenzo Arcioni",
+  "image_url": "https://4kwallpapers.com/images/wallpapers/python-dark-3840x2160-16018.png",
+  "status": "available"
 }]

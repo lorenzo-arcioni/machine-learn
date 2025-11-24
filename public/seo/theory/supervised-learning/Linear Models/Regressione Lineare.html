@@ -35,7 +35,7 @@
       "headline": "Regressione Lineare",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Lineare",
-      "datePublished": "2025-09-25T14:48:27.967Z",
+      "datePublished": "2025-11-24T18:40:44.811Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -133,7 +133,7 @@
                 <h1>Regressione Lineare</h1>
                 <div class="meta">
                     <strong>Topic:</strong> Supervised Learning | 
-                    <strong>Updated:</strong> 25/09/2025
+                    <strong>Updated:</strong> 24/11/2025
                 </div>
             </header>
             
@@ -301,28 +301,42 @@ details.code-container .code-wrapper {
     margin: 0;
 }
 </style>
-<p>La <strong>Regressione Lineare</strong> è un modello statistico utilizzato per descrivere la relazione tra una variabile dipendente (target) e una o più variabili indipendenti (predittori). Assume una relazione lineare tra le variabili e minimizza l&rsquo;errore quadratico medio.</p>
+<p>La <strong>Regressione Lineare</strong> è un modello statistico utilizzato per descrivere la relazione tra una variabile dipendente (target) e una o più variabili indipendenti (predittori). Assume una relazione lineare tra le variabili e minimizza l&rsquo;errore quadratico medio. Quindi la regressione lineare studia la dipendenza in media tra fenomeni, cercando una funzione che esprima tale dipendenza in modo lineare.</p>
 <h2 id="1-formulazione-generale"><strong>1. Formulazione Generale</strong></h2>
 <p>Assumiamo di avere un dataset $\mathcal{D} = \{(x_i, y_i)\}_{i=1}^n$, dove $x_i \in \mathbb R$ sono le variabili indipendenti e $y_i \in \mathbb R$ la variabile dipendente.
 Un modello di regressione lineare ha la forma:</p>
 $$
-y_i = f(\mathbf{x}_i) + \epsilon_i = \mathbf{x}_i^T \mathbf{w} + \epsilon_i = (1)w_0 + x_iw_1 + \epsilon_i
+y_i = f(\mathbf{x}_i) + \epsilon_i = \mathbf{x}_i^T \mathbf{w} + \epsilon_i = 1 \cdot w_0 + x_iw_1 + \epsilon_i
 $$
-<p>Dove:
-- $y_i \in \mathbb R$ è la variabile target,
-- $\mathbf{x}_i = \begin{bmatrix} 1 \\ x_i \end{bmatrix}$, dove gli $x_i$ sono le variabili indipendenti (features),
-- $\mathbf{w} = \begin{bmatrix} w_0 \\ w_1 \end{bmatrix} \in \mathbb R^2$ sono i coefficienti del modello (parametri da stimare),
-- $1$ è il cosi detto bias,
-- $\epsilon_i$ è l&rsquo;errore (rumore) che segue una <a href="/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale" class="text-blue-600 hover:underline">distribuzione normale</a> $\mathcal{N}(0, \sigma^2)$.</p>
+<p>Dove:</p>
+<ul>
+<li>$y_i \in \mathbb R$ è la variabile target,</li>
+<li>$\mathbf{x}_i = \begin{bmatrix} 1 \\ x_i \end{bmatrix}$, dove gli $x_i$ sono le variabili indipendenti (features),</li>
+<li>$\mathbf{w} = \begin{bmatrix} w_0 \\ w_1 \end{bmatrix} \in \mathbb R^2$ sono i coefficienti del modello (parametri da stimare),</li>
+<li>$w_0$ è l&rsquo;intercetta, che rappresenta il valore previsto di $y$ quando $x = 0$,</li>
+<li>$w_1$ rappresenta la pendenza, che rappresenta quanto $y$ cresce per ogni unita di aumento di $x$.</li>
+<li>$1$ è il cosi detto bias,</li>
+<li>$\epsilon_i$ è l&rsquo;errore (rumore) che segue una <a href="/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale" class="text-blue-600 hover:underline">distribuzione normale</a> $\mathcal{N}(0, \sigma^2)$.</li>
+</ul>
+<hr />
+<h3 id="approfondimento-sul-rumore">Approfondimento sul rumore</h3>
+<p>Il termine $\epsilon_i$ incapsula <strong>tutte</strong> le fonti di variabilità non spiegate dal modello: rumore di misura, fattori non osservati, approssimazioni del modello, ecc. L&rsquo;ipotesi sulla distribuzione di $\epsilon_i$ è quindi l&rsquo;ipotesi fondamentale che determina sia la funzione di verosimiglianza sia le proprietà inferenziali.</p>
+<p>Se il rumore osservato è il risultato della <strong>somma di molti piccoli contributi indipendenti</strong> (errori di misura multipli, micro‑fluttuazioni, componenti di variabili non modellate), il <strong>Teorema del Limite Centrale</strong> (CLT) dice che la somma (appropriatamente normalizzata) tende in distribuzione a una normale.</p>
+<p>Quindi, dal punto di vista modellistico, <strong>assumere $\epsilon_i$ normale è spesso una buona approssimazione naturale</strong>. Per la dimostrazione formale e le condizioni precise (Lindeberg, Lindeberg–Feller, indipendenza, varianze finite, ecc.) vedi la nota <strong><span class="text-gray-600">Teorema del Limite Centrale</span></strong>.</p>
+<p><strong>Nota sui limiti del CLT:</strong> il CLT richiede (in qualche forma) che i contributi abbiano varianza finita e che non ci siano dipendenze troppo forti; in presenza di code pesanti con varianza infinita (es. alcune leggi di potenza) o di forti dipendenze, il risultato può non essere la normale ma una legge stabile diversa (es. Lévy stable).</p>
+<p>Un&rsquo;altra giustificazione elegante è il <strong><span class="text-gray-600">Principio di Massima Entropia</span></strong>: tra tutte le distribuzioni con media e varianza fissate, quella che massimizza l&rsquo;entropia è la normale. Pertanto la normale è la scelta “meno informativa” coerente con conoscere solo media e varianza del rumore.</p>
+<hr />
 <p>Quindi possiamo riscrivere il modello in forma matriciale come:</p>
 $$
 \mathbf{y} = \mathbf{X} \mathbf{w} + \mathbf{\epsilon}
 $$
-<p>Dove:
-- $\mathbf{y}$è il vettore delle variabili dipendenti $n \times 1$,
-- $\mathbf{X} = \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ \vdots & \vdots \\ 1 & x_n \end{bmatrix}$è la matrice delle variabili indipendenti $n \times 2$,
-- $\mathbf{w}$è il vettore dei parametri $2 \times 1$,
-- $\mathbf{\epsilon}$ è il vettore degli errori $n \times 1$.</p>
+<p>Dove:</p>
+<ul>
+<li>$\mathbf{y}$è il vettore delle variabili dipendenti $n \times 1$,</li>
+<li>$\mathbf{X} = \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ \vdots & \vdots \\ 1 & x_n \end{bmatrix}$è la matrice delle variabili indipendenti $n \times 2$,</li>
+<li>$\mathbf{w}$è il vettore dei parametri $2 \times 1$,</li>
+<li>$\mathbf{\epsilon}$ è il vettore degli errori $n \times 1$.</li>
+</ul>
 <p>Nel caso più generale (<strong>regressione multipla</strong>), considerando il dataset diventa $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^n$. In questo caso, la formula vettoriale diventa:</p>
 $$
 y_i = \mathbf{x}_i^T \mathbf{w} + \mathbf{\epsilon}_i
@@ -331,8 +345,9 @@ $$
 $$
 \mathbf{y} = \mathbf{X} \mathbf{w} + \mathbf{\epsilon}
 $$
-<p>Dove:
-- $\mathbf{y}$è il vettore delle variabili dipendenti $n \times 1$,
+<p>Dove:</p>
+<ul>
+<li>$\mathbf{y}$è il vettore delle variabili dipendenti $n \times 1$,
 $$
 \mathbf{X} = \begin{bmatrix}
 1 & \text{------} \mathbf{x}_1^T \text{------} \\
@@ -341,9 +356,10 @@ $$
 1 & \text{------} \mathbf{x}_n^T \text{------}
 \end{bmatrix}
 $$ 
-è la matrice dei dati con dimensioni $n \times (m+1)$, dove $m$ sono le variabili indipendenti.
-- $\mathbf{w} = \begin{bmatrix} w_0 \\ w_1 \\ \vdots \\ w_m \end{bmatrix} \in \mathbb R^{m+1}$ sono i coefficienti del modello (parametri da stimare),
-- $\boldsymbol{\epsilon} = \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n \end{bmatrix} \in \mathbb R^n$ sono i rumori (errore) che seguono una distribuzione normale $\mathcal{N}(0, \sigma^2)$.</p>
+è la matrice dei dati con dimensioni $n \times (m+1)$, dove $m$ sono le variabili indipendenti.</li>
+<li>$\mathbf{w} = \begin{bmatrix} w_0 \\ w_1 \\ \vdots \\ w_m \end{bmatrix} \in \mathbb R^{m+1}$ sono i coefficienti del modello (parametri da stimare),</li>
+<li>$\boldsymbol{\epsilon} = \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n \end{bmatrix} \in \mathbb R^n$ sono i rumori (errore) che seguono una distribuzione normale $\mathcal{N}(0, \sigma^2)$.</li>
+</ul>
 <p>Nel caso <strong>multivariato</strong>, il dataset diventa $\mathcal{D} = \{(\mathbf{x}_i, \mathbf y_i)\}_{i=1}^n$, dove $\mathbf x_i \in \mathbb R^m$ sono i vettori di variabili indipendenti e $\mathbf y_i \in \mathbb R^p$ i vettori di variabili dipendenti. In questo caso, la formula vettoriale diventa:</p>
 $$
 \mathbf{y}_i = \mathbf{x}_i^T \mathbf{W} + \mathbf{\large \epsilon}_i
@@ -470,16 +486,20 @@ $$
    $$
    \min_{W} \|Y -XW\|^2_F
    $$
-   Dove:
-   - $Y$ è la matrice delle osservazioni $n \times p$
-   - $X$ è la matrice dei regressori $n \times (m+1)$
-   - $W$è la matrice dei coefficienti $(m+1) \times p$, e $w_i = \begin{bmatrix} w_{0,i} \\ w_{1,i} \\ \vdots \\ w_{m,i} \end{bmatrix}$ con $i \in [p]$</p>
-<ol>
-<li><strong>Il fattore $2\sigma^2$ non influisce sull&rsquo;argomento del minimo</strong> <ul>
+   Dove:</p>
+<ul>
+<li>$Y$ è la matrice delle osservazioni $n \times p$</li>
+<li>$X$ è la matrice dei regressori $n \times (m+1)$</li>
+<li>
+<p>$W$è la matrice dei coefficienti $(m+1) \times p$, e $w_i = \begin{bmatrix} w_{0,i} \\ w_{1,i} \\ \vdots \\ w_{m,i} \end{bmatrix}$ con $i \in [p]$</p>
+</li>
+<li>
+<p><strong>Il fattore $2\sigma^2$ non influisce sull&rsquo;argomento del minimo</strong> </p>
+<ul>
 <li>Il termine è diviso per $2\sigma^2$, ma poiché la varianza $\sigma^2$ è una costante positiva, rimuoverlo <strong>non cambia la posizione del minimo</strong>. Quindi, il problema di <strong>massima verosimiglianza</strong> si riduce esattamente alla minimizzazione della somma dei quadrati degli errori, che è la funzione di costo dell&rsquo;<strong>errore quadratico medio (MSE)</strong> nella regressione lineare.</li>
 </ul>
 </li>
-</ol>
+</ul>
 <p>Dividendo per $N$ otteniamo la funzione di costo <strong>MSE</strong> (<strong>Mean Squared Error</strong>):</p>
 $$
 MSE = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
@@ -641,7 +661,7 @@ $$
 RMSE = \sqrt{MSE}
 $$
 <hr />
-<h3 id="52-coefficiente-di-determinazione-math_inline_188"><strong>5.2. Coefficiente di Determinazione ($R^2$)</strong></h3>
+<h3 id="52-coefficiente-di-determinazione-math_inline_197"><strong>5.2. Coefficiente di Determinazione ($R^2$)</strong></h3>
 <p>Il coefficiente di determinazione $R^2$ misura <strong>la proporzione della varianza della variabile dipendente spiegata dal modello</strong>:  </p>
 $$
 R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
@@ -851,9 +871,11 @@ $$
 <li>Richiede l&rsquo;analisi delle <strong>assunzioni</strong> per evitare problemi di interpretabilità.</li>
 <li>Può essere estesa con <strong>regolarizzazione</strong> e <strong>modelli polinomiali</strong> per migliorare le prestazioni</li>
 </ul>
-<p><strong>Risorse aggiuntive:</strong>
-- <em>The Elements of Statistical Learning</em> - Hastie, Tibshirani, Friedman.
-- <em>Introduction to Statistical Learning</em> - James, Witten, Hastie, Tibshirani.</p>
+<p><strong>Risorse aggiuntive:</strong></p>
+<ul>
+<li><em>The Elements of Statistical Learning</em> - Hastie, Tibshirani, Friedman.</li>
+<li><em>Introduction to Statistical Learning</em> - James, Witten, Hastie, Tibshirani.</li>
+</ul>
             </div>
             
             <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">

@@ -35,7 +35,7 @@
       "headline": "Regressione Logistica",
       "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
       "url": "http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Logistica",
-      "datePublished": "2025-09-25T14:48:27.958Z",
+      "datePublished": "2025-11-24T18:40:44.806Z",
       "author": {
         "@type": "Organization",
         "name": "ML Theory Platform"
@@ -133,7 +133,7 @@
                 <h1>Regressione Logistica</h1>
                 <div class="meta">
                     <strong>Topic:</strong> Supervised Learning | 
-                    <strong>Updated:</strong> 25/09/2025
+                    <strong>Updated:</strong> 24/11/2025
                 </div>
             </header>
             
@@ -301,7 +301,7 @@ details.code-container .code-wrapper {
     margin: 0;
 }
 </style>
-<p>La <strong>regressione logistica</strong> è un modello di classificazione che stima direttamente la probabilità di appartenenza a una classe, basandosi su un approccio <strong>discriminativo</strong>. Questo la differenzia da metodi <strong>generativi</strong> come l&rsquo;Analisi Discriminante Lineare (LDA), che modellano esplicitamente le distribuzioni delle features condizionate alle classi. Per una trattazione dettagliata del quadro probabilistico, consulta la <a href="/theory/introduction/Tipologie di Problemi/Classificazione Binaria" class="text-blue-600 hover:underline">Classificazione Binaria</a>.</p>
+<p>La <strong>regressione logistica</strong> è un modello di classificazione che stima direttamente la probabilità di appartenenza a una classe, basandosi su un approccio <strong>discriminativo</strong>. Questo la differenzia da metodi <strong>generativi</strong> come l&rsquo;Analisi Discriminante Lineare (LDA), che modellano esplicitamente le distribuzioni delle features condizionate alle classi. Per una trattazione dettagliata del quadro probabilistico, consulta la <a href="/theory/introduction/Tipologie di Problemi/Classificazione/Classificazione Binaria" class="text-blue-600 hover:underline">Classificazione Binaria</a>.</p>
 <h2 id="fondamenti-probabilistici"><strong>Fondamenti Probabilistici</strong></h2>
 <h3 id="collegamento-con-il-logit-e-la-sigmoide">Collegamento con il Logit e la Sigmoide</h3>
 <p>Il <strong>logit</strong> rappresenta il <em>logaritmo del rapporto delle probabilità</em> (log-odds) tra classe positiva e negativa:
@@ -408,7 +408,7 @@ p = \sigma(\mathbf x^\top \mathbf{w} + b) = \frac{1}{1 + e^{-(\mathbf x^\top \ma
 $$</p>
 <p><img alt="Funzione sigmoide" src="/images/tikz/Logistic-curve.svg" /></p>
 <p><em>Figura 2.1: Funzione sigmoide.</em></p>
-<p>Questa relazione deriva direttamente dalla massimizzazione della <em>verosimiglianza</em> (MLE) sotto un modello lineare generalizzato (GLM). Per i dettagli analitici, vedi la <a href="/theory/introduction/Tipologie di Problemi/Classificazione Binaria" class="text-blue-600 hover:underline">Classificazione Binaria</a>.</p>
+<p>Questa relazione deriva direttamente dalla massimizzazione della <em>verosimiglianza</em> (MLE) sotto un modello lineare generalizzato (GLM). Per i dettagli analitici, vedi la <a href="/theory/introduction/Tipologie di Problemi/Classificazione/Classificazione Binaria" class="text-blue-600 hover:underline">Classificazione Binaria</a>.</p>
 <h2 id="definizioni-generali"><strong>Definizioni Generali</strong></h2>
 <p>Dato un dataset $\mathcal D = \{(\mathbf x_i, y_i)\}_{i=1}^n$, una regressione logistica classifica le osservazioni in due classi: $y_i \in \{0, 1\}$. La funzione stimata $\hat{f}_\mathbf w$ utilizza la funzione sigmoide per mappare i vettori $\mathbf x_i \in \mathbb R^{(m+1)}$ in probabilità tramite un vettore di pesi $\mathbf w \in \mathbb R^{m+1}$. Per semplicità, assumeremo che i vettori siano:</p>
 $$

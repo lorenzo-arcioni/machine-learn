@@ -1,6 +1,15 @@
 {
   "deep-learning": {
     "subcategories": {
+      "Convolutional Neural Networks": {
+        "subcategories": {},
+        "files": [
+          {
+            "name": "CNN14",
+            "path": "deep-learning/Convolutional Neural Networks/CNN14.md"
+          }
+        ]
+      },
       "Transformers": {
         "subcategories": {
           "Attention": {
@@ -23,9 +32,34 @@
                 "path": "deep-learning/Transformers/Attention/Multi-Head Attention.md"
               }
             ]
+          },
+          "Swin Transformers": {
+            "subcategories": {},
+            "files": [
+              {
+                "name": "Relative Position Bias",
+                "path": "deep-learning/Transformers/Swin Transformers/Relative Position Bias.md"
+              },
+              {
+                "name": "Swin Transformer",
+                "path": "deep-learning/Transformers/Swin Transformers/Swin Transformer.md"
+              },
+              {
+                "name": "Hierarchical Token-Semantic Audio Transformer",
+                "path": "deep-learning/Transformers/Swin Transformers/Hierarchical Token-Semantic Audio Transformer.md"
+              }
+            ]
           }
         },
         "files": [
+          {
+            "name": "Residual Connection",
+            "path": "deep-learning/Transformers/Residual Connection.md"
+          },
+          {
+            "name": "Drop Path",
+            "path": "deep-learning/Transformers/Drop Path.md"
+          },
           {
             "name": "Positional Encoding",
             "path": "deep-learning/Transformers/Positional Encoding.md"
@@ -89,27 +123,46 @@
   "introduction": {
     "subcategories": {
       "Tipologie di Problemi": {
-        "subcategories": {},
+        "subcategories": {
+          "Regressione": {
+            "subcategories": {},
+            "files": [
+              {
+                "name": "Regressione",
+                "path": "introduction/Tipologie di Problemi/Regressione/Regressione.md"
+              },
+              {
+                "name": "Regression Metrics",
+                "path": "introduction/Tipologie di Problemi/Regressione/Regression Metrics.md"
+              }
+            ]
+          },
+          "Classificazione": {
+            "subcategories": {},
+            "files": [
+              {
+                "name": "Classificazione",
+                "path": "introduction/Tipologie di Problemi/Classificazione/Classificazione.md"
+              },
+              {
+                "name": "Classificazione Binaria",
+                "path": "introduction/Tipologie di Problemi/Classificazione/Classificazione Binaria.md"
+              },
+              {
+                "name": "Classification Metrics",
+                "path": "introduction/Tipologie di Problemi/Classificazione/Classification Metrics.md"
+              }
+            ]
+          }
+        },
         "files": [
           {
             "name": "Probabilistic Generative Models",
             "path": "introduction/Tipologie di Problemi/Probabilistic Generative Models.md"
           },
           {
-            "name": "Regressione",
-            "path": "introduction/Tipologie di Problemi/Regressione.md"
-          },
-          {
             "name": "Linear Discriminant Functions",
             "path": "introduction/Tipologie di Problemi/Linear Discriminant Functions.md"
-          },
-          {
-            "name": "Classificazione",
-            "path": "introduction/Tipologie di Problemi/Classificazione.md"
-          },
-          {
-            "name": "Classificazione Binaria",
-            "path": "introduction/Tipologie di Problemi/Classificazione Binaria.md"
           }
         ]
       }
@@ -227,6 +280,15 @@
           {
             "name": "Dimostrazione di Invertibilità Ridge",
             "path": "math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge.md"
+          }
+        ]
+      },
+      "Statistica": {
+        "subcategories": {},
+        "files": [
+          {
+            "name": "Correlazione",
+            "path": "math-for-ml/Statistica/Correlazione.md"
           }
         ]
       },

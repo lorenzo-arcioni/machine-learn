@@ -32,7 +32,7 @@ const About = () => {
       <div className="container mx-auto py-12 px-4">
         <div className="mb-10">
           <h1 className="text-4xl font-bold mb-4">Il Machine Learning che Funziona Davvero</h1>
-          <p className="text-lg text-gray-600 max-w-3xl">
+          <p className="text-lg text-gray-600">
             Il 90% dei professionisti ML fallisce quando deve andare oltre le librerie standard. 
             ML Learn colma il gap critico tra teoria superficiale e competenza industriale reale.
           </p>
@@ -65,7 +65,7 @@ const About = () => {
 
           {/* Tab Content - La Piattaforma */}
           {activeTab === 'piattaforma' && (
-            <div className="mt-0 max-w-4xl space-y-8">
+            <div className="mt-0 w-full space-y-8">
               <div>
                 <h2 className="text-2xl font-bold mb-4">Il Problema che Nessuno Vuole Affrontare</h2>
                 <p className="text-gray-600 mb-4">
@@ -86,24 +86,24 @@ const About = () => {
                   librerie black-box, la esponiamo gradualmente fino a renderla padroneggiabile. Il risultato è una 
                   comprensione profonda che ti permette di dominare qualsiasi scenario ML.
                 </p>
-                <div className="space-y-4">
-                  <div className="p-4 border-l-4 border-gray-400 bg-gray-50">
-                    <h3 className="font-semibold mb-2">🧠 Teoria che Conta</h3>
-                    <p className="text-gray-600 text-sm">
+                <div className="grid lg:grid-cols-3 gap-6">
+                  <div className="p-6 border-l-4 border-gray-400 bg-gray-50">
+                    <h3 className="font-semibold mb-3">🧠 Teoria che Conta</h3>
+                    <p className="text-gray-600">
                       Matematica spiegata attraverso intuizione e visualizzazione. Capisci il "perché" prima del "come", 
                       così sai quando modificare e quando applicare ogni tecnica.
                     </p>
                   </div>
-                  <div className="p-4 border-l-4 border-gray-500 bg-gray-50">
-                    <h3 className="font-semibold mb-2">⚡ Implementazione da Zero</h3>
-                    <p className="text-gray-600 text-sm">
+                  <div className="p-6 border-l-4 border-gray-500 bg-gray-50">
+                    <h3 className="font-semibold mb-3">⚡ Implementazione da Zero</h3>
+                    <p className="text-gray-600">
                       Costruisci ogni algoritmo partendo solo da NumPy. Poi ottimizzi, debuggi e scali. 
                       Solo quando domini il meccanismo interno passi alle librerie enterprise.
                     </p>
                   </div>
-                  <div className="p-4 border-l-4 border-gray-600 bg-gray-50">
-                    <h3 className="font-semibold mb-2">🎯 Problemi Industriali Reali</h3>
-                    <p className="text-gray-600 text-sm">
+                  <div className="p-6 border-l-4 border-gray-600 bg-gray-50">
+                    <h3 className="font-semibold mb-3">🎯 Problemi Industriali Reali</h3>
+                    <p className="text-gray-600">
                       Dataset sporchi, vincoli di memoria, trade-off business, deadline impossibili. 
                       Affronti gli stessi problemi che determineranno il successo della tua carriera.
                     </p>
@@ -111,48 +111,50 @@ const About = () => {
                 </div>
               </div>
 
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Chi Trasformiamo</h2>
-                <p className="text-gray-600 mb-4">
-                  Data scientist bloccati su problemi di debugging, ingegneri che vogliono smettere di dipendere 
-                  da consulenti esterni, professionisti che aspirano a ruoli senior ma non hanno la competenza 
-                  tecnica necessaria per guidare team e architettare soluzioni scalabili.
-                </p>
-                <p className="text-gray-600">
-                  Se ti riconosci in questo profilo, ML Learn è la differenza tra rimanere un utilizzatore 
-                  di strumenti e diventare un creatore di soluzioni.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Risultati Verificabili</h2>
-                <div className="grid md:grid-cols-3 gap-4 mb-6">
-                  <div className="text-center p-4 border rounded-lg bg-gray-50">
-                    <div className="text-2xl font-bold text-gray-900">94%</div>
-                    <div className="text-sm text-gray-600">Promozione o cambio lavoro in 6 mesi</div>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg bg-gray-50">
-                    <div className="text-2xl font-bold text-gray-900">40%</div>
-                    <div className="text-sm text-gray-600">Aumento velocità deployment</div>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg bg-gray-50">
-                    <div className="text-2xl font-bold text-gray-900">60%</div>
-                    <div className="text-sm text-gray-600">Riduzione tempi onboarding</div>
-                  </div>
+              <div className="grid lg:grid-cols-2 gap-8">
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">Chi Trasformiamo</h2>
+                  <p className="text-gray-600 mb-4">
+                    Data scientist bloccati su problemi di debugging, ingegneri che vogliono smettere di dipendere 
+                    da consulenti esterni, professionisti che aspirano a ruoli senior ma non hanno la competenza 
+                    tecnica necessaria per guidare team e architettare soluzioni scalabili.
+                  </p>
+                  <p className="text-gray-600">
+                    Se ti riconosci in questo profilo, ML Learn è la differenza tra rimanere un utilizzatore 
+                    di strumenti e diventare un creatore di soluzioni.
+                  </p>
                 </div>
-                <p className="text-gray-600 text-sm">
-                  I dati provengono dal tracking di oltre 500 alumni che hanno completato i percorsi specialistici 
-                  negli ultimi 18 mesi.
-                </p>
+
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">Risultati Verificabili</h2>
+                  <div className="grid grid-cols-3 gap-4 mb-6">
+                    <div className="text-center p-4 border rounded-lg bg-gray-50">
+                      <div className="text-2xl font-bold text-gray-900">94%</div>
+                      <div className="text-sm text-gray-600">Promozione o cambio lavoro in 6 mesi</div>
+                    </div>
+                    <div className="text-center p-4 border rounded-lg bg-gray-50">
+                      <div className="text-2xl font-bold text-gray-900">40%</div>
+                      <div className="text-sm text-gray-600">Aumento velocità deployment</div>
+                    </div>
+                    <div className="text-center p-4 border rounded-lg bg-gray-50">
+                      <div className="text-2xl font-bold text-gray-900">60%</div>
+                      <div className="text-sm text-gray-600">Riduzione tempi onboarding</div>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 text-sm">
+                    I dati provengono dal tracking di oltre 500 alumni che hanno completato i percorsi specialistici 
+                    negli ultimi 18 mesi.
+                  </p>
+                </div>
               </div>
             </div>
           )}
 
           {/* Tab Content - Founder */}
           {activeTab === 'founder' && (
-            <div className="mt-0 max-w-4xl">
-              <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-10">
-                <div className="flex flex-col items-center md:self-start">
+            <div className="mt-0 w-full">
+              <div className="grid lg:grid-cols-5 gap-8 items-start">
+                <div className="lg:col-span-2 flex flex-col items-center">
                   <img
                     src="https://lorenzo-arcioni.github.io/images/profile.jpg"
                     alt="Foto di Lorenzo Arcioni"
@@ -160,7 +162,7 @@ const About = () => {
                   />
                   
                   {/* Info GitHub Style */}
-                  <div className="mt-4 p-4 bg-gray-100 rounded-lg border text-sm space-y-2 w-80">
+                  <div className="mt-4 p-4 bg-gray-100 rounded-lg border text-sm space-y-2 w-full max-w-sm">
                     <div className="flex items-center text-gray-600">
                       <span className="w-4 h-4 mr-2">🇮🇹</span>
                       Italy
@@ -196,9 +198,9 @@ const About = () => {
                   </div>
                 </div>
                 
-                <div>
-                  <h2 className="text-2xl font-bold mb-4 text-center md:text-left">Lorenzo Arcioni</h2>
-                  <h3 className="text-lg font-medium text-gray-700 mb-4 text-center md:text-left">
+                <div className="lg:col-span-3">
+                  <h2 className="text-2xl font-bold mb-4">Lorenzo Arcioni</h2>
+                  <h3 className="text-lg font-medium text-gray-700 mb-4">
                     Professionista che ha Vissuto il Problema sulla Propria Pelle
                   </h3>
                   
@@ -239,7 +241,7 @@ const About = () => {
         </div>
 
         {/* Sezione Contatti Social */}
-        <div className="mt-16 pt-8 border-t max-w-4xl">
+        <div className="mt-16 pt-8 border-t w-full">
           <h2 className="text-2xl font-bold mb-4">Seguici sui nostri canali</h2>
           <p className="text-gray-600 mb-6">
             Resta aggiornato sui nostri contenuti, progetti e opportunità seguendoci sui nostri canali ufficiali.

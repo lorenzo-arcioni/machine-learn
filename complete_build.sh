@@ -69,14 +69,14 @@ else
     exit 1
 fi
 
-# Step 5: Copy server file
-print_step "Setting up development server..."
-if cp server.py ./dist/; then
-    print_success "Server file copied to dist/"
-else
-    print_error "Failed to copy server file"
-    exit 1
-fi
+# Step 5a: Copy server file
+# print_step "Setting up development server..."
+# if cp server.py ./dist/; then
+#     print_success "Server file copied to dist/"
+# else
+#     print_error "Failed to copy server file"
+#     exit 1
+# fi
 
 # Step 6: Final summary
 print_separator
@@ -85,5 +85,14 @@ print_info "📁 Files ready in: ./dist/"
 print_info "🌐 Starting development server..."
 print_separator
 
+# Step 5b: Build React app
+print_step "Building React application..."
+if npm run dev; then
+    print_success "React app built successfully"
+else
+    print_error "Failed to build React app"
+    exit 1
+fi
+
 # Optional: avvio server locale
-cd ./dist && python server.py
+#cd ./dist && python server.py

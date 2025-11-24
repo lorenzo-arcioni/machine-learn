@@ -63,13 +63,13 @@ $$
 dove:  
 - $w[n]$ è la finestra di analisi (ad esempio Hann),  
 - $N = 1024$ è la dimensione della finestra FFT,  
-- $H$ è l’hop size tra finestre,  
-- $L_{samples}$ è la lunghezza della waveform.  
+- $H$ è l’hop size tra finestre,
+- $k$ è l’indice di frequenza.
 
 Le dimensioni del tensore risultante sono:
 
 $$
-X_{STFT} \in \mathbb{C}^{B \times 1 \times T_{frames} \times F_{bins}}
+\mathbf{X_{STFT}} \in \mathbb{C}^{B \times 1 \times T_{frames} \times F_{bins}}
 $$
 
 con $T_{frames} = \lfloor L_{samples}/H \rfloor = 469$ e $F_{bins} = 513$. La STFT fornisce una **rappresentazione tempo-frequenza**, essenziale per catturare le caratteristiche acustiche dei segnali audio.
@@ -132,7 +132,7 @@ $$
 quindi
 
 $$
-M_{norm}[b, 1, t, f] = \gamma_f \frac{M[b, 1, t, f] - \mu_f}{\sqrt{\sigma_f^2 + \epsilon}} + \beta_f
+\mathbf{M}_{norm}[b, 1, t, f] = \gamma_f \frac{M[b, 1, t, f] - \mu_f}{\sqrt{\sigma_f^2 + \epsilon}} + \beta_f
 $$
 
 dove $\mu_f$ e $\sigma_f^2$ sono media e varianza calcolate sul batch per la frequenza $f$, e $\gamma_f, \beta_f$ sono parametri apprendibili.  
@@ -185,11 +185,13 @@ $$
 
 Questa gerarchia permette al modello di catturare pattern audio a diverse scale temporali e frequenziali, dai dettagli locali alle caratteristiche globali.
 
-**Temporal Pooling**  
+Quindi ora si ha: $x_6$ di dimensioni ${B \times 2048 \times 14 \times 2}$ che per semplicità indicheremo con $B, C, T, F$.
+
+**Frequency Pooling (chiamato anche Temporal Pooling nel codice)**  
 Per aggregare l’informazione lungo la dimensione delle frequenze, si calcola la media sul bin di frequenza:
 
 $$
-x_{temp}[b, c, t] = \frac{1}{2} \sum_{f=1}^{2} x_6[b, c, t, f] \in \mathbb{R}^{B \times 2048 \times 14}
+x_{temp}[b, c, t] = \frac{1}{F} \sum_{f=1}^{F} x_6[b, c, t, f] = \frac{1}{2} \sum_{f=1}^{2} x_6[b, c, t, f] \in \mathbb{R}^{B \times 2048 \times 14}
 $$
 
 Così otteniamo una rappresentazione temporale compressa ma ricca di caratteristiche.
@@ -199,8 +201,8 @@ Per ottenere un embedding fisso indipendente dalla lunghezza temporale, si appli
 
 $$
 \begin{aligned}
-x_{max}[b, c] &= \max_{t=1}^{14} x_{temp}[b, c, t] \\
-x_{avg}[b, c] &= \frac{1}{14} \sum_{t=1}^{14} x_{temp}[b, c, t] \\
+x_{max}[b, c] &= \max_{t=1}^{T} x_{temp}[b, c, t] = \max_{t=1}^{14} x_{temp}[b, c, t]\\
+x_{avg}[b, c] &= \frac{1}{T} \sum_{t=1}^{T} x_{temp}[b, c, t] = \frac{1}{14} \sum_{t=1}^{14} x_{temp}[b, c, t] \\
 x_{global}[b, c] &= x_{max}[b, c] + x_{avg}[b, c] \in \mathbb{R}^{B \times 2048}
 \end{aligned}
 $$
@@ -211,7 +213,7 @@ Questa combinazione preserva sia le caratteristiche più forti sia la media info
 Infine, si applica un layer fully connected con ReLU per ottenere l’embedding finale:
 
 $$
-\phi_{audio}^{PANN}(x_{raw}) = \text{ReLU}(W_{fc1} \, x_{global} + b_{fc1}) \in \mathbb{R}^{B \times 2048}
+\phi_{audio}^{PANN}(x_{raw}) = \text{ReLU}(\text{Linear}(x_{global})) = \text{ReLU}(W_{fc1} \, x_{global} + b_{fc1}) \in \mathbb{R}^{B \times 2048}
 $$
 
 Qui:  
