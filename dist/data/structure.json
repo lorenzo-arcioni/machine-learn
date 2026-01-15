@@ -149,6 +149,10 @@
                 "path": "introduction/Tipologie di Problemi/Classificazione/Classificazione Binaria.md"
               },
               {
+                "name": "Biometric Metrics",
+                "path": "introduction/Tipologie di Problemi/Classificazione/Biometric Metrics.md"
+              },
+              {
                 "name": "Classification Metrics",
                 "path": "introduction/Tipologie di Problemi/Classificazione/Classification Metrics.md"
               }
@@ -490,10 +494,1490 @@
             "path": "supervised-learning/Non-Linear Models/Non-Linear Models.md"
           },
           {
+            "name": "XGBoost",
+            "path": "supervised-learning/Non-Linear Models/XGBoost.md"
+          },
+          {
+            "name": "CatBoost",
+            "path": "supervised-learning/Non-Linear Models/CatBoost.md"
+          },
+          {
             "name": "Locally Weighted Linear Regression",
             "path": "supervised-learning/Non-Linear Models/Locally Weighted Linear Regression.md"
           }
         ]
+      },
+      "machine-learning-supervisionato": {
+        "subcategories": {
+          "04-algoritmi-lineari": {
+            "subcategories": {
+              "regressione-lineare": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "ols-method",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/ols-method.md"
+                  },
+                  {
+                    "name": "assumptions",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/assumptions.md"
+                  },
+                  {
+                    "name": "multiple-linear-regression",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/multiple-linear-regression.md"
+                  },
+                  {
+                    "name": "simple-linear-regression",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/simple-linear-regression.md"
+                  },
+                  {
+                    "name": "polynomial-regression",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/polynomial-regression.md"
+                  },
+                  {
+                    "name": "gradient-descent",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/gradient-descent.md"
+                  }
+                ]
+              },
+              "variants": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "sgd-classifier",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/variants/sgd-classifier.md"
+                  },
+                  {
+                    "name": "perceptron",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/variants/perceptron.md"
+                  },
+                  {
+                    "name": "passive-aggressive",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/variants/passive-aggressive.md"
+                  }
+                ]
+              },
+              "regressione-logistica": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "sigmoid-function",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/sigmoid-function.md"
+                  },
+                  {
+                    "name": "log-loss",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/log-loss.md"
+                  },
+                  {
+                    "name": "binary-logistic-regression",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/binary-logistic-regression.md"
+                  },
+                  {
+                    "name": "decision-boundary",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/decision-boundary.md"
+                  },
+                  {
+                    "name": "multinomial-logistic-regression",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/multinomial-logistic-regression.md"
+                  }
+                ]
+              },
+              "regularizzazione": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "lasso-l1",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regularizzazione/lasso-l1.md"
+                  },
+                  {
+                    "name": "hyperparameter-tuning",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regularizzazione/hyperparameter-tuning.md"
+                  },
+                  {
+                    "name": "ridge-l2",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regularizzazione/ridge-l2.md"
+                  },
+                  {
+                    "name": "elastic-net",
+                    "path": "supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regularizzazione/elastic-net.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "09-naive-bayes": {
+            "subcategories": {
+              "variants": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "bernoulli-naive-bayes",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/variants/bernoulli-naive-bayes.md"
+                  },
+                  {
+                    "name": "multinomial-naive-bayes",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/variants/multinomial-naive-bayes.md"
+                  },
+                  {
+                    "name": "complement-naive-bayes",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/variants/complement-naive-bayes.md"
+                  },
+                  {
+                    "name": "gaussian-naive-bayes",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/variants/gaussian-naive-bayes.md"
+                  }
+                ]
+              },
+              "applications": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "sentiment-analysis",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/applications/sentiment-analysis.md"
+                  },
+                  {
+                    "name": "text-classification",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/applications/text-classification.md"
+                  },
+                  {
+                    "name": "spam-detection",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/applications/spam-detection.md"
+                  }
+                ]
+              },
+              "limitations": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "zero-frequency-problem",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/limitations/zero-frequency-problem.md"
+                  },
+                  {
+                    "name": "feature-correlation",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/limitations/feature-correlation.md"
+                  }
+                ]
+              },
+              "teoria": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "prior-likelihood-posterior",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/teoria/prior-likelihood-posterior.md"
+                  },
+                  {
+                    "name": "bayes-theorem",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/teoria/bayes-theorem.md"
+                  },
+                  {
+                    "name": "independence-assumption",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/teoria/independence-assumption.md"
+                  },
+                  {
+                    "name": "laplace-smoothing",
+                    "path": "supervised-learning/machine-learning-supervisionato/09-naive-bayes/teoria/laplace-smoothing.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "02-preprocessing": {
+            "subcategories": {
+              "feature-engineering": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "log-transforms",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/log-transforms.md"
+                  },
+                  {
+                    "name": "polynomial-features",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/polynomial-features.md"
+                  },
+                  {
+                    "name": "interaction-features",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/interaction-features.md"
+                  },
+                  {
+                    "name": "domain-specific-features",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/domain-specific-features.md"
+                  },
+                  {
+                    "name": "binning-discretization",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/binning-discretization.md"
+                  }
+                ]
+              },
+              "encoding": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "one-hot-encoding",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/one-hot-encoding.md"
+                  },
+                  {
+                    "name": "ordinal-encoding",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/ordinal-encoding.md"
+                  },
+                  {
+                    "name": "label-encoding",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/label-encoding.md"
+                  },
+                  {
+                    "name": "frequency-encoding",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/frequency-encoding.md"
+                  },
+                  {
+                    "name": "target-encoding",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/target-encoding.md"
+                  }
+                ]
+              },
+              "outlier-detection": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "iqr-method",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/outlier-detection/iqr-method.md"
+                  },
+                  {
+                    "name": "z-score-method",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/outlier-detection/z-score-method.md"
+                  },
+                  {
+                    "name": "isolation-forest",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/outlier-detection/isolation-forest.md"
+                  },
+                  {
+                    "name": "local-outlier-factor",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/outlier-detection/local-outlier-factor.md"
+                  }
+                ]
+              },
+              "feature-scaling": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "robust-scaling",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-scaling/robust-scaling.md"
+                  },
+                  {
+                    "name": "normalization",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-scaling/normalization.md"
+                  },
+                  {
+                    "name": "standardization",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-scaling/standardization.md"
+                  },
+                  {
+                    "name": "quando-usare-quale",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-scaling/quando-usare-quale.md"
+                  }
+                ]
+              },
+              "gestione-missing-values": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "advanced-imputation",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/gestione-missing-values/advanced-imputation.md"
+                  },
+                  {
+                    "name": "deletion-methods",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/gestione-missing-values/deletion-methods.md"
+                  },
+                  {
+                    "name": "imputation-methods",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/gestione-missing-values/imputation-methods.md"
+                  },
+                  {
+                    "name": "knn-imputation",
+                    "path": "supervised-learning/machine-learning-supervisionato/02-preprocessing/gestione-missing-values/knn-imputation.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "01-fondamenti": {
+            "subcategories": {
+              "metriche-valutazione": {
+                "subcategories": {
+                  "classificazione": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "precision-recall-f1",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/precision-recall-f1.md"
+                      },
+                      {
+                        "name": "pr-curve",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/pr-curve.md"
+                      },
+                      {
+                        "name": "confusion-matrix",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/confusion-matrix.md"
+                      },
+                      {
+                        "name": "metriche-multiclasse",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/metriche-multiclasse.md"
+                      },
+                      {
+                        "name": "roc-auc",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/roc-auc.md"
+                      },
+                      {
+                        "name": "accuracy",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/accuracy.md"
+                      }
+                    ]
+                  },
+                  "regressione": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "r-squared",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/regressione/r-squared.md"
+                      },
+                      {
+                        "name": "mse-rmse-mae",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/regressione/mse-rmse-mae.md"
+                      },
+                      {
+                        "name": "residual-analysis",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/regressione/residual-analysis.md"
+                      },
+                      {
+                        "name": "mape",
+                        "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/regressione/mape.md"
+                      }
+                    ]
+                  }
+                },
+                "files": []
+              }
+            },
+            "files": [
+              {
+                "name": "definizione-e-concetti",
+                "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/definizione-e-concetti.md"
+              },
+              {
+                "name": "bias-variance-tradeoff",
+                "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/bias-variance-tradeoff.md"
+              },
+              {
+                "name": "overfitting-underfitting",
+                "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/overfitting-underfitting.md"
+              },
+              {
+                "name": "cross-validation",
+                "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/cross-validation.md"
+              },
+              {
+                "name": "train-validation-test-split",
+                "path": "supervised-learning/machine-learning-supervisionato/01-fondamenti/train-validation-test-split.md"
+              }
+            ]
+          },
+          "03-feature-selection": {
+            "subcategories": {
+              "dimensionality-reduction": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "factor-analysis",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/dimensionality-reduction/factor-analysis.md"
+                  },
+                  {
+                    "name": "feature-agglomeration",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/dimensionality-reduction/feature-agglomeration.md"
+                  },
+                  {
+                    "name": "pca",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/dimensionality-reduction/pca.md"
+                  },
+                  {
+                    "name": "lda",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/dimensionality-reduction/lda.md"
+                  }
+                ]
+              },
+              "wrapper-methods": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "backward-elimination",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/wrapper-methods/backward-elimination.md"
+                  },
+                  {
+                    "name": "exhaustive-search",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/wrapper-methods/exhaustive-search.md"
+                  },
+                  {
+                    "name": "recursive-feature-elimination",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/wrapper-methods/recursive-feature-elimination.md"
+                  },
+                  {
+                    "name": "forward-selection",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/wrapper-methods/forward-selection.md"
+                  }
+                ]
+              },
+              "filter-methods": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "variance-threshold",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/variance-threshold.md"
+                  },
+                  {
+                    "name": "chi-squared-test",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/chi-squared-test.md"
+                  },
+                  {
+                    "name": "correlation-analysis",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/correlation-analysis.md"
+                  },
+                  {
+                    "name": "mutual-information",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/mutual-information.md"
+                  },
+                  {
+                    "name": "anova-f-test",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/anova-f-test.md"
+                  }
+                ]
+              },
+              "embedded-methods": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "ridge-regularization",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/embedded-methods/ridge-regularization.md"
+                  },
+                  {
+                    "name": "lasso-regularization",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/embedded-methods/lasso-regularization.md"
+                  },
+                  {
+                    "name": "elastic-net",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/embedded-methods/elastic-net.md"
+                  },
+                  {
+                    "name": "tree-based-importance",
+                    "path": "supervised-learning/machine-learning-supervisionato/03-feature-selection/embedded-methods/tree-based-importance.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "10-perceptron": {
+            "subcategories": {},
+            "files": [
+              {
+                "name": "activation-functions-basic",
+                "path": "supervised-learning/machine-learning-supervisionato/10-perceptron/activation-functions-basic.md"
+              },
+              {
+                "name": "limitations",
+                "path": "supervised-learning/machine-learning-supervisionato/10-perceptron/limitations.md"
+              },
+              {
+                "name": "single-layer-perceptron",
+                "path": "supervised-learning/machine-learning-supervisionato/10-perceptron/single-layer-perceptron.md"
+              }
+            ]
+          },
+          "14-advanced-topics": {
+            "subcategories": {
+              "multi-task-learning": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "hard-parameter-sharing",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/multi-task-learning/hard-parameter-sharing.md"
+                  },
+                  {
+                    "name": "soft-parameter-sharing",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/multi-task-learning/soft-parameter-sharing.md"
+                  }
+                ]
+              },
+              "semi-supervised-learning": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "co-training",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/semi-supervised-learning/co-training.md"
+                  },
+                  {
+                    "name": "self-training",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/semi-supervised-learning/self-training.md"
+                  },
+                  {
+                    "name": "label-propagation",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/semi-supervised-learning/label-propagation.md"
+                  }
+                ]
+              },
+              "online-learning": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "incremental-learning",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/online-learning/incremental-learning.md"
+                  },
+                  {
+                    "name": "concept-drift-handling",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/online-learning/concept-drift-handling.md"
+                  },
+                  {
+                    "name": "streaming-data",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/online-learning/streaming-data.md"
+                  }
+                ]
+              },
+              "active-learning": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "uncertainty-sampling",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/active-learning/uncertainty-sampling.md"
+                  },
+                  {
+                    "name": "expected-model-change",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/active-learning/expected-model-change.md"
+                  },
+                  {
+                    "name": "query-by-committee",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/active-learning/query-by-committee.md"
+                  }
+                ]
+              },
+              "workflow-orchestration": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "airflow",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/workflow-orchestration/airflow.md"
+                  },
+                  {
+                    "name": "kubeflow",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/workflow-orchestration/kubeflow.md"
+                  },
+                  {
+                    "name": "prefect",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/workflow-orchestration/prefect.md"
+                  }
+                ]
+              },
+              "fairness-ethics": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "privacy-preservation",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/fairness-ethics/privacy-preservation.md"
+                  },
+                  {
+                    "name": "debiasing-techniques",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/fairness-ethics/debiasing-techniques.md"
+                  },
+                  {
+                    "name": "fairness-metrics",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/fairness-ethics/fairness-metrics.md"
+                  },
+                  {
+                    "name": "algorithmic-bias",
+                    "path": "supervised-learning/machine-learning-supervisionato/14-advanced-topics/fairness-ethics/algorithmic-bias.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "07-ensemble-methods": {
+            "subcategories": {
+              "voting": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "soft-voting",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/voting/soft-voting.md"
+                  },
+                  {
+                    "name": "weighted-voting",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/voting/weighted-voting.md"
+                  },
+                  {
+                    "name": "hard-voting",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/voting/hard-voting.md"
+                  }
+                ]
+              },
+              "stacking": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "blending",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/stacking/blending.md"
+                  },
+                  {
+                    "name": "multi-level-stacking",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/stacking/multi-level-stacking.md"
+                  },
+                  {
+                    "name": "meta-learner",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/stacking/meta-learner.md"
+                  },
+                  {
+                    "name": "feature-weighted-stacking",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/stacking/feature-weighted-stacking.md"
+                  }
+                ]
+              },
+              "bagging": {
+                "subcategories": {
+                  "random-forest": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "oob-error",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/oob-error.md"
+                      },
+                      {
+                        "name": "hyperparameters",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/hyperparameters.md"
+                      },
+                      {
+                        "name": "algorithm",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/algorithm.md"
+                      },
+                      {
+                        "name": "extremely-randomized-trees",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/extremely-randomized-trees.md"
+                      },
+                      {
+                        "name": "feature-importance",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/feature-importance.md"
+                      }
+                    ]
+                  }
+                },
+                "files": [
+                  {
+                    "name": "bootstrap-aggregating",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/bootstrap-aggregating.md"
+                  },
+                  {
+                    "name": "bagged-decision-trees",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/bagged-decision-trees.md"
+                  }
+                ]
+              },
+              "boosting": {
+                "subcategories": {
+                  "xgboost": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "handling-missing-values",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/handling-missing-values.md"
+                      },
+                      {
+                        "name": "tree-pruning",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/tree-pruning.md"
+                      },
+                      {
+                        "name": "custom-objectives",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/custom-objectives.md"
+                      },
+                      {
+                        "name": "regularization",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/regularization.md"
+                      },
+                      {
+                        "name": "parallel-processing",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/parallel-processing.md"
+                      }
+                    ]
+                  },
+                  "catboost": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "ordered-boosting",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/catboost/ordered-boosting.md"
+                      },
+                      {
+                        "name": "symmetric-trees",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/catboost/symmetric-trees.md"
+                      },
+                      {
+                        "name": "prediction-shift",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/catboost/prediction-shift.md"
+                      },
+                      {
+                        "name": "categorical-features",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/catboost/categorical-features.md"
+                      }
+                    ]
+                  },
+                  "lightgbm": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "goss",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/lightgbm/goss.md"
+                      },
+                      {
+                        "name": "histogram-based-learning",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/lightgbm/histogram-based-learning.md"
+                      },
+                      {
+                        "name": "leaf-wise-growth",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/lightgbm/leaf-wise-growth.md"
+                      },
+                      {
+                        "name": "efb",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/lightgbm/efb.md"
+                      }
+                    ]
+                  },
+                  "gradient-boosting": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "early-stopping",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/early-stopping.md"
+                      },
+                      {
+                        "name": "subsample",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/subsample.md"
+                      },
+                      {
+                        "name": "gbm-algorithm",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/gbm-algorithm.md"
+                      },
+                      {
+                        "name": "learning-rate",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/learning-rate.md"
+                      },
+                      {
+                        "name": "loss-functions",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/loss-functions.md"
+                      }
+                    ]
+                  },
+                  "adaboost": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "stagewise-additive",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/adaboost/stagewise-additive.md"
+                      },
+                      {
+                        "name": "weight-updates",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/adaboost/weight-updates.md"
+                      },
+                      {
+                        "name": "algorithm",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/adaboost/algorithm.md"
+                      },
+                      {
+                        "name": "weak-learners",
+                        "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/adaboost/weak-learners.md"
+                      }
+                    ]
+                  }
+                },
+                "files": [
+                  {
+                    "name": "histogram-gradient-boosting",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/histogram-gradient-boosting.md"
+                  }
+                ]
+              },
+              "teoria": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "ensemble-size",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/teoria/ensemble-size.md"
+                  },
+                  {
+                    "name": "diversity-importance",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/teoria/diversity-importance.md"
+                  },
+                  {
+                    "name": "bias-variance-ensemble",
+                    "path": "supervised-learning/machine-learning-supervisionato/07-ensemble-methods/teoria/bias-variance-ensemble.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "12-hyperparameter-tuning": {
+            "subcategories": {
+              "validation-strategies": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "time-series-cv",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/validation-strategies/time-series-cv.md"
+                  },
+                  {
+                    "name": "stratified-k-fold",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/validation-strategies/stratified-k-fold.md"
+                  },
+                  {
+                    "name": "nested-cv",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/validation-strategies/nested-cv.md"
+                  },
+                  {
+                    "name": "k-fold-cv",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/validation-strategies/k-fold-cv.md"
+                  }
+                ]
+              },
+              "search-strategies": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "grid-search",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/grid-search.md"
+                  },
+                  {
+                    "name": "optuna-frameworks",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/optuna-frameworks.md"
+                  },
+                  {
+                    "name": "genetic-algorithms",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/genetic-algorithms.md"
+                  },
+                  {
+                    "name": "bayesian-optimization",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/bayesian-optimization.md"
+                  },
+                  {
+                    "name": "hyperband",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/hyperband.md"
+                  },
+                  {
+                    "name": "random-search",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/random-search.md"
+                  }
+                ]
+              },
+              "tools": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "sklearn-gridsearch",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/tools/sklearn-gridsearch.md"
+                  },
+                  {
+                    "name": "optuna",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/tools/optuna.md"
+                  },
+                  {
+                    "name": "ray-tune",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/tools/ray-tune.md"
+                  },
+                  {
+                    "name": "hyperopt",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/tools/hyperopt.md"
+                  }
+                ]
+              },
+              "best-practices": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "parallel-search",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/best-practices/parallel-search.md"
+                  },
+                  {
+                    "name": "search-space-definition",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/best-practices/search-space-definition.md"
+                  },
+                  {
+                    "name": "computational-budget",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/best-practices/computational-budget.md"
+                  },
+                  {
+                    "name": "early-stopping-strategies",
+                    "path": "supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/best-practices/early-stopping-strategies.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "05-support-vector-machines": {
+            "subcategories": {
+              "optimization": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "hyperparameter-c",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/optimization/hyperparameter-c.md"
+                  },
+                  {
+                    "name": "hyperparameter-gamma",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/optimization/hyperparameter-gamma.md"
+                  },
+                  {
+                    "name": "class-weight-balancing",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/optimization/class-weight-balancing.md"
+                  },
+                  {
+                    "name": "smo-algorithm",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/optimization/smo-algorithm.md"
+                  }
+                ]
+              },
+              "svm-variants": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "svr-regression",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/svm-variants/svr-regression.md"
+                  },
+                  {
+                    "name": "one-class-svm",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/svm-variants/one-class-svm.md"
+                  },
+                  {
+                    "name": "nu-svc",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/svm-variants/nu-svc.md"
+                  },
+                  {
+                    "name": "c-svc",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/svm-variants/c-svc.md"
+                  }
+                ]
+              },
+              "kernel-methods": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "kernel-trick",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/kernel-trick.md"
+                  },
+                  {
+                    "name": "rbf-gaussian-kernel",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/rbf-gaussian-kernel.md"
+                  },
+                  {
+                    "name": "linear-kernel",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/linear-kernel.md"
+                  },
+                  {
+                    "name": "polynomial-kernel",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/polynomial-kernel.md"
+                  },
+                  {
+                    "name": "sigmoid-kernel",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/sigmoid-kernel.md"
+                  }
+                ]
+              },
+              "concetti-base": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "support-vectors",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/concetti-base/support-vectors.md"
+                  },
+                  {
+                    "name": "soft-margin",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/concetti-base/soft-margin.md"
+                  },
+                  {
+                    "name": "maximum-margin",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/concetti-base/maximum-margin.md"
+                  },
+                  {
+                    "name": "hyperplane-separation",
+                    "path": "supervised-learning/machine-learning-supervisionato/05-support-vector-machines/concetti-base/hyperplane-separation.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "13-interpretability": {
+            "subcategories": {
+              "model-agnostic": {
+                "subcategories": {
+                  "shap": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "kernel-shap",
+                        "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/shap/kernel-shap.md"
+                      },
+                      {
+                        "name": "shapley-values",
+                        "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/shap/shapley-values.md"
+                      },
+                      {
+                        "name": "deep-shap",
+                        "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/shap/deep-shap.md"
+                      },
+                      {
+                        "name": "tree-shap",
+                        "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/shap/tree-shap.md"
+                      }
+                    ]
+                  },
+                  "feature-importance": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "permutation-importance",
+                        "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/feature-importance/permutation-importance.md"
+                      },
+                      {
+                        "name": "drop-column-importance",
+                        "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/feature-importance/drop-column-importance.md"
+                      }
+                    ]
+                  }
+                },
+                "files": [
+                  {
+                    "name": "ice-plots",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/ice-plots.md"
+                  },
+                  {
+                    "name": "partial-dependence-plots",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/partial-dependence-plots.md"
+                  },
+                  {
+                    "name": "anchor-explanations",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/anchor-explanations.md"
+                  },
+                  {
+                    "name": "lime",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/lime.md"
+                  }
+                ]
+              },
+              "global-interpretability": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "feature-importance-ranking",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/global-interpretability/feature-importance-ranking.md"
+                  },
+                  {
+                    "name": "surrogate-models",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/global-interpretability/surrogate-models.md"
+                  },
+                  {
+                    "name": "interaction-effects",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/global-interpretability/interaction-effects.md"
+                  }
+                ]
+              },
+              "model-specific": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "rule-extraction",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-specific/rule-extraction.md"
+                  },
+                  {
+                    "name": "linear-coefficients",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-specific/linear-coefficients.md"
+                  },
+                  {
+                    "name": "tree-visualization",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-specific/tree-visualization.md"
+                  },
+                  {
+                    "name": "attention-mechanisms",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/model-specific/attention-mechanisms.md"
+                  }
+                ]
+              },
+              "local-interpretability": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "prototypes-criticisms",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/local-interpretability/prototypes-criticisms.md"
+                  },
+                  {
+                    "name": "instance-explanations",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/local-interpretability/instance-explanations.md"
+                  },
+                  {
+                    "name": "counterfactual-explanations",
+                    "path": "supervised-learning/machine-learning-supervisionato/13-interpretability/local-interpretability/counterfactual-explanations.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "08-nearest-neighbors": {
+            "subcategories": {
+              "variants": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "radius-neighbors",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/variants/radius-neighbors.md"
+                  },
+                  {
+                    "name": "nearest-centroid",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/variants/nearest-centroid.md"
+                  },
+                  {
+                    "name": "large-margin-knn",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/variants/large-margin-knn.md"
+                  }
+                ]
+              },
+              "applications": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "anomaly-detection",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/applications/anomaly-detection.md"
+                  },
+                  {
+                    "name": "regression",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/applications/regression.md"
+                  },
+                  {
+                    "name": "classification",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/applications/classification.md"
+                  }
+                ]
+              },
+              "optimization": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "locality-sensitive-hashing",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/optimization/locality-sensitive-hashing.md"
+                  },
+                  {
+                    "name": "kd-trees",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/optimization/kd-trees.md"
+                  },
+                  {
+                    "name": "ball-trees",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/optimization/ball-trees.md"
+                  },
+                  {
+                    "name": "approximate-neighbors",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/optimization/approximate-neighbors.md"
+                  }
+                ]
+              },
+              "knn": {
+                "subcategories": {
+                  "distance-metrics": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "euclidean",
+                        "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/euclidean.md"
+                      },
+                      {
+                        "name": "chebyshev",
+                        "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/chebyshev.md"
+                      },
+                      {
+                        "name": "cosine-similarity",
+                        "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/cosine-similarity.md"
+                      },
+                      {
+                        "name": "minkowski",
+                        "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/minkowski.md"
+                      },
+                      {
+                        "name": "hamming",
+                        "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/hamming.md"
+                      },
+                      {
+                        "name": "manhattan",
+                        "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/manhattan.md"
+                      }
+                    ]
+                  }
+                },
+                "files": [
+                  {
+                    "name": "algorithm",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/algorithm.md"
+                  },
+                  {
+                    "name": "curse-of-dimensionality",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/curse-of-dimensionality.md"
+                  },
+                  {
+                    "name": "weighted-voting",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/weighted-voting.md"
+                  },
+                  {
+                    "name": "k-selection",
+                    "path": "supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/k-selection.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "11-class-imbalance": {
+            "subcategories": {
+              "resampling": {
+                "subcategories": {
+                  "undersampling": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "tomek-links",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/tomek-links.md"
+                      },
+                      {
+                        "name": "random-undersampling",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/random-undersampling.md"
+                      },
+                      {
+                        "name": "cluster-centroids",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/cluster-centroids.md"
+                      },
+                      {
+                        "name": "ncr",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/ncr.md"
+                      },
+                      {
+                        "name": "enn",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/enn.md"
+                      }
+                    ]
+                  },
+                  "combined-methods": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "smote-enn",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/combined-methods/smote-enn.md"
+                      },
+                      {
+                        "name": "smote-tomek",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/combined-methods/smote-tomek.md"
+                      }
+                    ]
+                  },
+                  "oversampling": {
+                    "subcategories": {},
+                    "files": [
+                      {
+                        "name": "borderline-smote",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/borderline-smote.md"
+                      },
+                      {
+                        "name": "smote-variants",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/smote-variants.md"
+                      },
+                      {
+                        "name": "smote",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/smote.md"
+                      },
+                      {
+                        "name": "adasyn",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/adasyn.md"
+                      },
+                      {
+                        "name": "random-oversampling",
+                        "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/random-oversampling.md"
+                      }
+                    ]
+                  }
+                },
+                "files": []
+              },
+              "evaluation": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "confusion-matrix-analysis",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/evaluation/confusion-matrix-analysis.md"
+                  },
+                  {
+                    "name": "stratified-sampling",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/evaluation/stratified-sampling.md"
+                  },
+                  {
+                    "name": "appropriate-metrics",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/evaluation/appropriate-metrics.md"
+                  }
+                ]
+              },
+              "detection": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "class-distribution",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/detection/class-distribution.md"
+                  },
+                  {
+                    "name": "imbalance-ratio",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/detection/imbalance-ratio.md"
+                  }
+                ]
+              },
+              "algorithmic-approaches": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "cost-sensitive-learning",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/algorithmic-approaches/cost-sensitive-learning.md"
+                  },
+                  {
+                    "name": "ensemble-balancing",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/algorithmic-approaches/ensemble-balancing.md"
+                  },
+                  {
+                    "name": "threshold-moving",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/algorithmic-approaches/threshold-moving.md"
+                  },
+                  {
+                    "name": "class-weights",
+                    "path": "supervised-learning/machine-learning-supervisionato/11-class-imbalance/algorithmic-approaches/class-weights.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          },
+          "06-decision-trees": {
+            "subcategories": {
+              "algoritmi": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "id3",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/algoritmi/id3.md"
+                  },
+                  {
+                    "name": "chaid",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/algoritmi/chaid.md"
+                  },
+                  {
+                    "name": "c45",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/algoritmi/c45.md"
+                  },
+                  {
+                    "name": "cart",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/algoritmi/cart.md"
+                  }
+                ]
+              },
+              "hyperparameters": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "min-samples-leaf",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/min-samples-leaf.md"
+                  },
+                  {
+                    "name": "max-depth",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/max-depth.md"
+                  },
+                  {
+                    "name": "criterion",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/criterion.md"
+                  },
+                  {
+                    "name": "min-samples-split",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/min-samples-split.md"
+                  },
+                  {
+                    "name": "max-features",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/max-features.md"
+                  }
+                ]
+              },
+              "pruning": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "post-pruning",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/pruning/post-pruning.md"
+                  },
+                  {
+                    "name": "pre-pruning",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/pruning/pre-pruning.md"
+                  },
+                  {
+                    "name": "cost-complexity-pruning",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/pruning/cost-complexity-pruning.md"
+                  },
+                  {
+                    "name": "reduced-error-pruning",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/pruning/reduced-error-pruning.md"
+                  }
+                ]
+              },
+              "fondamenti": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "tree-structure",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/tree-structure.md"
+                  },
+                  {
+                    "name": "variance-reduction",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/variance-reduction.md"
+                  },
+                  {
+                    "name": "entropy-information-gain",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/entropy-information-gain.md"
+                  },
+                  {
+                    "name": "gini-impurity",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/gini-impurity.md"
+                  },
+                  {
+                    "name": "splitting-criteria",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/splitting-criteria.md"
+                  }
+                ]
+              },
+              "vantaggi-svantaggi": {
+                "subcategories": {},
+                "files": [
+                  {
+                    "name": "instability",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/vantaggi-svantaggi/instability.md"
+                  },
+                  {
+                    "name": "interpretability",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/vantaggi-svantaggi/interpretability.md"
+                  },
+                  {
+                    "name": "quando-usarli",
+                    "path": "supervised-learning/machine-learning-supervisionato/06-decision-trees/vantaggi-svantaggi/quando-usarli.md"
+                  }
+                ]
+              }
+            },
+            "files": []
+          }
+        },
+        "files": []
       }
     },
     "files": []

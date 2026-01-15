@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XGBoost: Un Sistema Scalabile di Tree Boosting | Supervised Learning | ML Theory</title>
+    <meta name="description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta name="keywords" content="supervised learning, labeled data, classification, regression, algorithm, model, data, neural">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="XGBoost: Un Sistema Scalabile di Tree Boosting">
+    <meta property="og:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    <meta property="og:url" content="http://localhost:3000/theory/supervised-learning/Non-Linear Models/XGBoost">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Machine Learning Theory">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="XGBoost: Un Sistema Scalabile di Tree Boosting">
+    <meta name="twitter:description" content="pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/XGBoost">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "XGBoost: Un Sistema Scalabile di Tree Boosting",
+      "description": "pre { line-height: 125%; } td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; } span.linenos {...",
+      "url": "http://localhost:3000/theory/supervised-learning/Non-Linear Models/XGBoost",
+      "datePublished": "2026-01-15T00:29:00.303Z",
+      "author": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ML Theory Platform"
+      }
+    }
+    </script>
+    
+    <!-- Critical CSS -->
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 20px;
+        background: #fafafa;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h1 { 
+        color: #1a1a1a; 
+        margin-bottom: 20px; 
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .meta { 
+        color: #666; 
+        margin-bottom: 30px; 
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .content h2, .content h3 { 
+        color: #2c3e50; 
+        margin-top: 40px; 
+        margin-bottom: 16px;
+      }
+      .content p { 
+        margin-bottom: 16px; 
+        color: #333;
+      }
+      .content code { 
+        background: #f8f9fa; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+      .content pre { 
+        background: #f8f9fa; 
+        padding: 20px; 
+        border-radius: 8px; 
+        overflow-x: auto;
+        border: 1px solid #e9ecef;
+      }
+      .react-redirect {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007acc;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,122,204,0.3);
+        transition: transform 0.2s;
+      }
+      .react-redirect:hover {
+        transform: translateY(-1px);
+      }
+      @media (max-width: 768px) { 
+        body { padding: 10px; }
+        .container { padding: 20px; }
+        h1 { font-size: 2rem; }
+        .react-redirect { position: static; display: block; text-align: center; margin-bottom: 20px; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Link per versione interattiva -->
+    <a href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/XGBoost" class="react-redirect">🚀 View Interactive Version</a>
+    
+    <div class="container">
+        <article>
+            <header>
+                <h1>XGBoost: Un Sistema Scalabile di Tree Boosting</h1>
+                <div class="meta">
+                    <strong>Topic:</strong> Supervised Learning | 
+                    <strong>Updated:</strong> 15/01/2026
+                </div>
+            </header>
+            
+            <div class="content">
+                <style>pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #f8f8f8; }
+.codehilite .c { color: #3D7B7B; font-style: italic } /* Comment */
+.codehilite .err { border: 1px solid #F00 } /* Error */
+.codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+.codehilite .o { color: #666 } /* Operator */
+.codehilite .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #9C6500 } /* Comment.Preproc */
+.codehilite .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #A00000 } /* Generic.Deleted */
+.codehilite .ge { font-style: italic } /* Generic.Emph */
+.codehilite .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.codehilite .gr { color: #E40000 } /* Generic.Error */
+.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gi { color: #008400 } /* Generic.Inserted */
+.codehilite .go { color: #717171 } /* Generic.Output */
+.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.codehilite .gt { color: #04D } /* Generic.Traceback */
+.codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+.codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #B00040 } /* Keyword.Type */
+.codehilite .m { color: #666 } /* Literal.Number */
+.codehilite .s { color: #BA2121 } /* Literal.String */
+.codehilite .na { color: #687822 } /* Name.Attribute */
+.codehilite .nb { color: #008000 } /* Name.Builtin */
+.codehilite .nc { color: #00F; font-weight: bold } /* Name.Class */
+.codehilite .no { color: #800 } /* Name.Constant */
+.codehilite .nd { color: #A2F } /* Name.Decorator */
+.codehilite .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.codehilite .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.codehilite .nf { color: #00F } /* Name.Function */
+.codehilite .nl { color: #767600 } /* Name.Label */
+.codehilite .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.codehilite .nv { color: #19177C } /* Name.Variable */
+.codehilite .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.codehilite .w { color: #BBB } /* Text.Whitespace */
+.codehilite .mb { color: #666 } /* Literal.Number.Bin */
+.codehilite .mf { color: #666 } /* Literal.Number.Float */
+.codehilite .mh { color: #666 } /* Literal.Number.Hex */
+.codehilite .mi { color: #666 } /* Literal.Number.Integer */
+.codehilite .mo { color: #666 } /* Literal.Number.Oct */
+.codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+.codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+.codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+.codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+.codehilite .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.codehilite .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.codehilite .sx { color: #008000 } /* Literal.String.Other */
+.codehilite .sr { color: #A45A77 } /* Literal.String.Regex */
+.codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+.codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+.codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #00F } /* Name.Function.Magic */
+.codehilite .vc { color: #19177C } /* Name.Variable.Class */
+.codehilite .vg { color: #19177C } /* Name.Variable.Global */
+.codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+.codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+.codehilite .il { color: #666 } /* Literal.Number.Integer.Long */
+
+/* Styling per blocchi di codice */
+.codehilite {
+    background: transparent !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.codehilite pre {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    overflow-x: auto !important;
+    color: inherit !important;
+}
+.codehilite code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+}
+
+
+.code-wrapper { 
+    position: relative; 
+}
+.copy-button {
+    position: absolute; 
+    top: 12px; 
+    right: 12px; 
+    padding: 6px 12px; 
+    font-size: 12px;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 4px; 
+    background: rgba(255,255,255,0.9);
+    color: #374151; 
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.copy-button:hover { 
+    background: rgba(255,255,255,1);
+    transform: translateY(-1px);
+}
+
+
+details.code-container {
+    border: 1px solid #e5e7eb; 
+    border-radius: 12px; 
+    background: #f9fafb;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+details.code-container summary {
+    padding: 12px 16px;
+    font-size: 14px; 
+    color: #6b7280; 
+    cursor: pointer; 
+    outline: none; 
+    user-select: none;
+    font-weight: 500;
+}
+details.code-container[open] summary::after { 
+    content: " (Hide Code)"; 
+    color: #9ca3af; 
+}
+details.code-container:not([open]) summary::after { 
+    content: " (Show Code)"; 
+    color: #d1d5db; 
+}
+details.code-container .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+/* Blocchi di codice sempre visibili */
+.code-visible {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin: 16px 0;
+}
+.code-visible .code-wrapper {
+    padding: 0;
+    margin: 0;
+}
+</style>
+<h2 id="indice">Indice</h2>
+<ol>
+<li><a href="#introduzione">Introduzione</a></li>
+<li><a href="#fondamenti">Fondamenti del Tree Boosting</a></li>
+<li><a href="#obiettivo">Obiettivo Regolarizzato</a></li>
+<li><a href="#split-finding">Algoritmi di Split Finding</a></li>
+<li><a href="#system-design">Design del Sistema</a></li>
+<li><a href="#ottimizzazioni">Ottimizzazioni Avanzate</a></li>
+<li><a href="#risultati">Risultati Sperimentali</a></li>
+</ol>
+<hr />
+<h2 id="introduzione">1. Introduzione</h2>
+<h3 id="cose-xgboost">Cos&rsquo;è XGBoost?</h3>
+<p>XGBoost (eXtreme Gradient Boosting) è un sistema di machine learning altamente efficiente e scalabile basato sul <strong>gradient tree boosting</strong>. Sviluppato da Tianqi Chen e Carlos Guestrin all&rsquo;Università di Washington, è diventato lo strumento di riferimento per competizioni di machine learning e applicazioni industriali.</p>
+<h3 id="perche-xgboost-e-importante">Perché XGBoost è importante?</h3>
+<p>Nel 2015, <strong>17 delle 29 soluzioni vincenti</strong> su Kaggle hanno utilizzato XGBoost. Questa predominanza dimostra l&rsquo;efficacia del sistema in una vasta gamma di problemi:
+- Classificazione di eventi in fisica delle alte energie
+- Previsione di vendite
+- Click-through rate prediction
+- Classificazione di malware
+- Rilevamento del movimento
+- E molti altri</p>
+<h3 id="principali-innovazioni">Principali Innovazioni</h3>
+<p>XGBoost introduce quattro innovazioni fondamentali:</p>
+<ol>
+<li><strong>Algoritmo sparsity-aware</strong>: gestisce in modo efficiente dati sparsi (missing values, encoding one-hot)</li>
+<li><strong>Weighted quantile sketch</strong>: permette l&rsquo;apprendimento approssimato con garanzie teoriche</li>
+<li><strong>Struttura a blocchi cache-aware</strong>: ottimizza l&rsquo;accesso alla memoria</li>
+<li><strong>Out-of-core computation</strong>: gestisce dataset che non entrano in memoria</li>
+</ol>
+<hr />
+<h2 id="fondamenti">2. Fondamenti del Tree Boosting</h2>
+<h3 id="cose-il-gradient-boosting">Cos&rsquo;è il Gradient Boosting?</h3>
+<p>Il gradient boosting è una tecnica di <strong>ensemble learning</strong> che combina più modelli deboli (tipicamente alberi di decisione) per creare un modello forte. L&rsquo;idea chiave è aggiungere iterativamente nuovi modelli che correggono gli errori dei modelli precedenti.</p>
+<h3 id="il-modello-ensemble">Il Modello Ensemble</h3>
+<p>Dato un dataset $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}$ con $n$ esempi e $m$ features ($|\mathcal{D}| = n$, $\mathbf{x}_i \in \mathbb{R}^m$, $y_i \in \mathbb{R}$), XGBoost usa un modello ensemble di $K$ alberi:</p>
+$$\hat{y}_i = \phi(\mathbf{x}_i) = \sum_{k=1}^K f_k(\mathbf{x}_i), \quad f_k \in \mathcal{F}$$
+<p>dove $\mathcal{F} = \{f(\mathbf{x}) = w_{q(\mathbf{x})}\}$ è lo spazio degli alberi di regressione (CART - Classification And Regression Trees).</p>
+<h4 id="componenti-di-un-albero">Componenti di un Albero</h4>
+<p>Ogni funzione $f_k$ è definita da:
+- <strong>Struttura $q$</strong>: mappa un esempio a un indice di foglia ($q: \mathbb{R}^m \rightarrow T$)
+- <strong>Pesi delle foglie $w$</strong>: vettore di $T$ valori reali ($w \in \mathbb{R}^T$)
+- $T$ è il numero di foglie nell&rsquo;albero</p>
+<p><strong>Differenza con alberi di decisione classici</strong>: A differenza degli alberi di decisione che assegnano categorie, gli alberi di regressione assegnano un <strong>punteggio continuo</strong> $w_i$ a ogni foglia.</p>
+<hr />
+<h2 id="obiettivo">3. Obiettivo Regolarizzato</h2>
+<h3 id="funzione-obiettivo">Funzione Obiettivo</h3>
+<p>XGBoost minimizza un obiettivo <strong>regolarizzato</strong> che bilancia accuratezza e complessità del modello:</p>
+$$\mathcal{L}(\phi) = \sum_{i} l(\hat{y}_i, y_i) + \sum_{k} \Omega(f_k)$$
+<p>dove:
+- $l$ è una <strong>funzione di loss differenziabile e convessa</strong> (es. errore quadratico, log-loss)
+- $\Omega(f) = \gamma T + \frac{1}{2}\lambda \|w\|^2$ è il <strong>termine di regolarizzazione</strong></p>
+<h4 id="interpretazione-del-termine-di-regolarizzazione">Interpretazione del Termine di Regolarizzazione</h4>
+$$\Omega(f) = \gamma T + \frac{1}{2}\lambda \|w\|^2$$
+<ul>
+<li>$\gamma T$: penalizza il <strong>numero di foglie</strong> (favorisce alberi più semplici)</li>
+<li>$\frac{1}{2}\lambda \|w\|^2$: penalizza <strong>pesi grandi</strong> (regolarizzazione L2, simile a Ridge)</li>
+</ul>
+<p><strong>Perché la regolarizzazione è importante?</strong>
+- Previene l&rsquo;overfitting
+- Favorisce modelli più semplici e interpretabili
+- Migliora la generalizzazione</p>
+<p>Quando $\lambda = \gamma = 0$, l&rsquo;obiettivo si riduce al gradient boosting tradizionale.</p>
+<h3 id="apprendimento-additivo">Apprendimento Additivo</h3>
+<p>Poiché ottimizzare direttamente $K$ alberi è intrattabile, XGBoost usa un approccio <strong>greedy additivo</strong>:</p>
+<ol>
+<li>Inizia con $\hat{y}_i^{(0)} = 0$</li>
+<li>A ogni iterazione $t$, aggiungi un albero $f_t$ che minimizza:</li>
+</ol>
+$$\mathcal{L}^{(t)} = \sum_{i=1}^n l(y_i, \hat{y}_i^{(t-1)} + f_t(\mathbf{x}_i)) + \Omega(f_t)$$
+<h3 id="approssimazione-di-taylor-del-secondo-ordine">Approssimazione di Taylor del Secondo Ordine</h3>
+<p>Per ottimizzare velocemente l&rsquo;obiettivo, XGBoost usa l&rsquo;<strong>espansione di Taylor</strong> del secondo ordine:</p>
+$$\mathcal{L}^{(t)} \simeq \sum_{i=1}^n \left[l(y_i, \hat{y}^{(t-1)}) + g_i f_t(\mathbf{x}_i) + \frac{1}{2}h_i f_t^2(\mathbf{x}_i)\right] + \Omega(f_t)$$
+<p>dove:
+- $g_i = \frac{\partial l(y_i, \hat{y}^{(t-1)})}{\partial \hat{y}^{(t-1)}}$ è il <strong>gradiente primo</strong>
+- $h_i = \frac{\partial^2 l(y_i, \hat{y}^{(t-1)})}{\partial (\hat{y}^{(t-1)})^2}$ è il <strong>gradiente secondo</strong> (Hessiana)</p>
+<p><strong>Perché il secondo ordine?</strong>
+- Convergenza più rapida (come il metodo di Newton vs. gradient descent)
+- Migliore approssimazione locale della funzione di loss
+- Maggiore stabilità numerica</p>
+<p>Rimuovendo i termini costanti:</p>
+$$\tilde{\mathcal{L}}^{(t)} = \sum_{i=1}^n \left[g_i f_t(\mathbf{x}_i) + \frac{1}{2}h_i f_t^2(\mathbf{x}_i)\right] + \Omega(f_t)$$
+<h3 id="calcolo-dei-pesi-ottimali">Calcolo dei Pesi Ottimali</h3>
+<p>Definiamo $I_j = \{i | q(\mathbf{x}_i) = j\}$ come l&rsquo;insieme di esempi assegnati alla foglia $j$.</p>
+<p>Riscriviamo l&rsquo;obiettivo raggruppando per foglie:</p>
+$$\tilde{\mathcal{L}}^{(t)} = \sum_{j=1}^T \left[\left(\sum_{i \in I_j} g_i\right)w_j + \frac{1}{2}\left(\sum_{i \in I_j} h_i + \lambda\right)w_j^2\right] + \gamma T$$
+<p>Questa è una <strong>funzione quadratica</strong> in $w_j$. Per ogni foglia $j$, il peso ottimale è:</p>
+$$w_j^* = -\frac{\sum_{i \in I_j} g_i}{\sum_{i \in I_j} h_i + \lambda}$$
+<p><strong>Interpretazione</strong>:
+- Numeratore: somma dei gradienti (direzione di &ldquo;correzione&rdquo;)
+- Denominatore: somma delle Hessiane + regolarizzazione (scala di &ldquo;confidenza&rdquo;)</p>
+<p>Sostituendo $w_j^*$ nell&rsquo;obiettivo, otteniamo il <strong>punteggio di qualità</strong> della struttura:</p>
+$$\tilde{\mathcal{L}}^{(t)}(q) = -\frac{1}{2}\sum_{j=1}^T \frac{\left(\sum_{i \in I_j} g_i\right)^2}{\sum_{i \in I_j} h_i + \lambda} + \gamma T$$
+<p>Questo punteggio misura quanto è &ldquo;buona&rdquo; una particolare struttura di albero $q$.</p>
+<h3 id="valutazione-degli-split">Valutazione degli Split</h3>
+<p>Per decidere dove dividere un nodo, calcoliamo il <strong>guadagno</strong> dello split:</p>
+<p>Sia $I = I_L \cup I_R$ l&rsquo;insieme di esempi prima dello split, e $I_L$, $I_R$ gli insiemi dopo. Il guadagno è:</p>
+$$\mathcal{L}_{split} = \frac{1}{2}\left[\frac{\left(\sum_{i \in I_L} g_i\right)^2}{\sum_{i \in I_L} h_i + \lambda} + \frac{\left(\sum_{i \in I_R} g_i\right)^2}{\sum_{i \in I_R} h_i + \lambda} - \frac{\left(\sum_{i \in I} g_i\right)^2}{\sum_{i \in I} h_i + \lambda}\right] - \gamma$$
+<p><strong>Interpretazione</strong>:
+- Primi due termini: qualità dei due nodi figli
+- Terzo termine: qualità del nodo padre
+- $-\gamma$: penalità per aver aggiunto una foglia</p>
+<p>Uno split è vantaggioso se $\mathcal{L}_{split} > 0$.</p>
+<h3 id="tecniche-aggiuntive-di-regolarizzazione">Tecniche Aggiuntive di Regolarizzazione</h3>
+<h4 id="1-shrinkage-learning-rate">1. Shrinkage (Learning Rate)</h4>
+<p>Dopo ogni iterazione, i pesi dei nuovi alberi sono scalati di un fattore $\eta$ (tipicamente 0.01-0.3):</p>
+$$\hat{y}_i^{(t)} = \hat{y}_i^{(t-1)} + \eta f_t(\mathbf{x}_i)$$
+<p><strong>Effetto</strong>: riduce l&rsquo;influenza di ogni singolo albero, lasciando spazio agli alberi futuri per miglioramenti incrementali.</p>
+<h4 id="2-column-subsampling">2. Column Subsampling</h4>
+<p>A ogni iterazione (o split), si seleziona casualmente una frazione delle features (tipicamente 50-80%).</p>
+<p><strong>Vantaggi</strong>:
+- Previene l&rsquo;overfitting (simile a Random Forest)
+- Accelera il calcolo
+- Secondo il feedback degli utenti, è più efficace del row subsampling</p>
+<hr />
+<h2 id="split-finding">4. Algoritmi di Split Finding</h2>
+<h3 id="41-exact-greedy-algorithm">4.1 Exact Greedy Algorithm</h3>
+<p>L&rsquo;algoritmo <strong>exact greedy</strong> enumera tutti i possibili split per ogni feature:</p>
+<p><strong>Procedimento</strong>:
+1. Per ogni feature $k = 1, \ldots, m$:
+   - Ordina gli esempi per il valore della feature $k$
+   - Scansiona linearmente per calcolare le statistiche di gradiente cumulative
+   - Valuta tutti i possibili split usando la formula del guadagno</p>
+<p><strong>Complessità</strong>: $O(n \cdot m \cdot \log n)$ per albero (dominato dall&rsquo;ordinamento)</p>
+<p><strong>Vantaggi</strong>:
+- Trova sempre lo split ottimale
+- Semplice da implementare</p>
+<p><strong>Svantaggi</strong>:
+- Non scalabile per dati enormi
+- Problematico quando i dati non entrano in memoria</p>
+<h3 id="42-approximate-algorithm">4.2 Approximate Algorithm</h3>
+<p>Per dataset grandi, XGBoost propone un algoritmo <strong>approssimato</strong> basato su quantili:</p>
+<p><strong>Idea chiave</strong>: Invece di considerare tutti i possibili valori di split, proponi un insieme di $l$ <strong>candidati</strong> $S_k = \{s_{k1}, s_{k2}, \ldots, s_{kl}\}$ per ogni feature $k$.</p>
+<p><strong>Varianti</strong>:</p>
+<ol>
+<li><strong>Global proposal</strong>: i candidati sono proposti una sola volta all&rsquo;inizio e usati per tutti i livelli dell&rsquo;albero</li>
+<li><strong>Local proposal</strong>: i candidati sono ri-proposti dopo ogni split (più costoso ma più accurato per alberi profondi)</li>
+</ol>
+<p><strong>Procedimento</strong>:
+1. Proponi candidati basati sui percentili della distribuzione
+2. Mappa i valori continui in bucket definiti dai candidati
+3. Aggrega le statistiche per bucket
+4. Trova il miglior split tra i candidati</p>
+<p><strong>Parametro chiave</strong>: $\epsilon$ (precisione dell&rsquo;approssimazione)
+- Approssimativamente $1/\epsilon$ candidati per feature
+- $\epsilon = 0.1$ → circa 10 bucket per feature
+- $\epsilon$ più piccolo → più accurato ma più costoso</p>
+<h3 id="43-weighted-quantile-sketch">4.3 Weighted Quantile Sketch</h3>
+<p><strong>Problema</strong>: Come selezionare i candidati in modo che rappresentino bene i dati?</p>
+<p>XGBoost usa i <strong>quantili pesati</strong> invece dei semplici percentili.</p>
+<h4 id="perche-pesati">Perché Pesati?</h4>
+<p>Riscriviamo l&rsquo;obiettivo approssimato come:</p>
+$$\tilde{\mathcal{L}}^{(t)} = \sum_{i=1}^n \frac{1}{2}h_i\left(f_t(\mathbf{x}_i) - \frac{g_i}{h_i}\right)^2 + \Omega(f_t) + \text{const}$$
+<p>Questa è una <strong>weighted squared loss</strong> con:
+- Etichette: $g_i / h_i$
+- Pesi: $h_i$</p>
+<p>Quindi gli esempi con Hessiana maggiore dovrebbero avere più influenza nella selezione dei candidati.</p>
+<h4 id="rank-function">Rank Function</h4>
+<p>Definiamo la <strong>rank function pesata</strong> per la feature $k$:</p>
+$$r_k(z) = \frac{1}{\sum_{(x,h) \in \mathcal{D}_k} h} \sum_{(x,h) \in \mathcal{D}_k, x < z} h$$
+<p>dove $\mathcal{D}_k = \{(x_{1k}, h_1), (x_{2k}, h_2), \ldots, (x_{nk}, h_n)\}$.</p>
+<p><strong>Obiettivo</strong>: Trovare candidati $\{s_{k1}, s_{k2}, \ldots, s_{kl}\}$ tali che:</p>
+$$|r_k(s_{k,j}) - r_k(s_{k,j+1})| < \epsilon$$
+<p>con $s_{k1} = \min_i x_{ik}$ e $s_{kl} = \max_i x_{ik}$.</p>
+<p><strong>Innovazione</strong>: XGBoost introduce un nuovo algoritmo distribuibile con garanzie teoriche per calcolare questi quantili pesati (descritto nell&rsquo;appendix del paper).</p>
+<h3 id="44-sparsity-aware-split-finding">4.4 Sparsity-Aware Split Finding</h3>
+<p><strong>Problema</strong>: I dati reali sono spesso <strong>sparsi</strong> a causa di:
+- Missing values
+- Zero frequenti nelle statistiche
+- Feature engineering (es. one-hot encoding)</p>
+<p><strong>Soluzione</strong>: Algoritmo che impara una <strong>direzione di default</strong> per ogni split.</p>
+<h4 id="come-funziona">Come Funziona</h4>
+<p>Per ogni split candidato:
+1. Assegna gli esempi <strong>non-missing</strong> ai nodi sinistro/destro normalmente
+2. Prova <strong>due scenari</strong>:
+   - Esempi missing vanno a <strong>sinistra</strong>
+   - Esempi missing vanno a <strong>destra</strong>
+3. Scegli la direzione che massimizza il guadagno</p>
+<p><strong>Vantaggi</strong>:
+- Complessità <strong>lineare</strong> nel numero di valori non-missing: $O(\|x\|_0)$ invece di $O(n)$
+- Gestisce naturalmente tutti i pattern di sparsità
+- 50x più veloce su dati sparsi (come dimostrato su Allstate dataset)</p>
+<p><strong>Dettaglio tecnico</strong>: Durante la scansione, consideriamo solo $I_k = \{i \in I | x_{ik} \neq \text{missing}\}$.</p>
+<hr />
+<h2 id="system-design">5. Design del Sistema</h2>
+<h3 id="51-column-block-structure">5.1 Column Block Structure</h3>
+<p><strong>Problema</strong>: L&rsquo;ordinamento dei dati è l&rsquo;operazione più costosa nel tree learning.</p>
+<p><strong>Soluzione</strong>: Struttura a <strong>blocchi</strong> con dati pre-ordinati.</p>
+<h4 id="caratteristiche">Caratteristiche</h4>
+<ul>
+<li>Dati memorizzati in blocchi in-memory</li>
+<li>Formato <strong>Compressed Sparse Column (CSC)</strong></li>
+<li>Ogni colonna ordinata per valore della feature</li>
+<li>Ordinamento fatto <strong>una sola volta</strong> prima del training</li>
+</ul>
+<h4 id="vantaggi">Vantaggi</h4>
+<ol>
+<li><strong>Exact greedy</strong>: un singolo blocco con scan lineare</li>
+<li><strong>Approximate</strong>: più blocchi distribuibili o su disco</li>
+<li><strong>Parallelizzazione</strong>: ogni colonna può essere processata in parallelo</li>
+<li><strong>Column subsampling</strong>: facile selezionare subset di colonne</li>
+</ol>
+<h4 id="complessita-temporale">Complessità Temporale</h4>
+<p><strong>Senza block structure</strong>:
+- Exact greedy: $O(Kd\|\mathbf{x}\|_0 \log n)$ dove:
+  - $K$ = numero di alberi
+  - $d$ = profondità massima
+  - $\|\mathbf{x}\|_0$ = numero di entry non-missing</p>
+<p><strong>Con block structure</strong>:
+- Exact greedy: $O(Kd\|\mathbf{x}\|_0 + \|\mathbf{x}\|_0 \log n)$
+- Approximate: $O(Kd\|\mathbf{x}\|_0 + \|\mathbf{x}\|_0 \log B)$ dove $B$ = max righe per blocco</p>
+<p><strong>Risparmio</strong>: fattore $\log n$ (o $\log q$ per approximate), significativo per $n$ grande.</p>
+<h3 id="52-cache-aware-access">5.2 Cache-Aware Access</h3>
+<p><strong>Problema</strong>: La struttura a blocchi richiede accessi alla memoria <strong>non contigui</strong> per le statistiche di gradiente.</p>
+<h4 id="pattern-di-accesso">Pattern di Accesso</h4>
+<p>Durante lo split finding:
+1. Le features sono accedute in ordine (dal blocco ordinato)
+2. Gli indici di riga sono <strong>sparsi</strong> e non sequenziali
+3. Le statistiche di gradiente ($g_i$, $h_i$) sono accedute per indice di riga
+4. Questo crea <strong>cache miss</strong> frequenti</p>
+<p><strong>Dipendenza read/write immediata</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code>Per ogni valore in colonna ordinata:
+    Leggi indice riga i (non contiguo)
+    Fetch g_i, h_i (cache miss!)
+    Accumula statistiche (scrittura)
+</code></pre></div>
+</div>
+</details>
+
+<h4 id="soluzione-prefetching">Soluzione: Prefetching</h4>
+<p><strong>Algoritmo cache-aware</strong>:
+1. Alloca un <strong>buffer interno</strong> per ogni thread
+2. Fetch delle statistiche di gradiente in <strong>mini-batch</strong>
+3. Accumula su batch invece che elemento per elemento</p>
+<p><strong>Effetto</strong>: trasforma la dipendenza read/write da immediata a più lunga, riducendo l&rsquo;overhead.</p>
+<p><strong>Risultati</strong>: 2x più veloce su dataset grandi (10M+ esempi).</p>
+<h4 id="scelta-della-block-size">Scelta della Block Size</h4>
+<p>Per l&rsquo;algoritmo approssimato, la dimensione del blocco è critica:</p>
+<ul>
+<li><strong>Troppo piccola</strong>: parallelizzazione inefficiente</li>
+<li><strong>Troppo grande</strong>: cache miss (le statistiche non entrano in cache)</li>
+</ul>
+<p><strong>Scelta ottimale</strong>: $2^{16}$ (65,536) esempi per blocco
+- Bilancia cache e parallelizzazione
+- Confermato empiricamente su diversi dataset</p>
+<h3 id="53-out-of-core-computation">5.3 Out-of-Core Computation</h3>
+<p><strong>Obiettivo</strong>: Processare dataset che non entrano in RAM.</p>
+<h4 id="strategia-base">Strategia Base</h4>
+<ol>
+<li>Dividi i dati in <strong>multipli blocchi</strong></li>
+<li>Memorizza ogni blocco su disco</li>
+<li>Usa un <strong>thread indipendente</strong> per prefetch dei blocchi in memoria</li>
+<li>Computa mentre leggi da disco (overlapping I/O e computation)</li>
+</ol>
+<p><strong>Problema</strong>: Il disk I/O domina il tempo di calcolo.</p>
+<h4 id="ottimizzazione-1-block-compression">Ottimizzazione 1: Block Compression</h4>
+<p><strong>Tecnica</strong>:
+- Comprimi ogni blocco per colonne
+- Decomprimi on-the-fly con thread indipendente durante il caricamento</p>
+<p><strong>Compressione utilizzata</strong>:
+- Feature values: algoritmo general-purpose
+- Row indices: offset a 16-bit ($2^{16}$ esempi per blocco)</p>
+<p><strong>Risultati</strong>:
+- <strong>26-29% compression ratio</strong> sui dataset testati
+- Trade-off: computation (decompressione) vs. disk reading</p>
+<h4 id="ottimizzazione-2-block-sharding">Ottimizzazione 2: Block Sharding</h4>
+<p><strong>Tecnica</strong>:
+- Distribuisci i dati su <strong>multipli dischi</strong> in modo alternato
+- Thread di prefetch dedicato per ogni disco
+- Thread di training legge alternativamente da ogni buffer</p>
+<p><strong>Vantaggi</strong>:
+- Aumenta il <strong>throughput</strong> di lettura
+- Parallelizza l&rsquo;I/O su più dispositivi</p>
+<p><strong>Risultati combinati</strong>:
+- Compression: 3x speedup
+- Sharding (2 dischi): ulteriori 2x speedup
+- <strong>6x più veloce</strong> dell&rsquo;approccio base</p>
+<hr />
+<h2 id="ottimizzazioni">6. Ottimizzazioni Avanzate</h2>
+<h3 id="61-confronto-con-altri-sistemi">6.1 Confronto con Altri Sistemi</h3>
+<p>XGBoost è l&rsquo;unico sistema che combina tutte le seguenti capacità:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>XGBoost</th>
+<th>pGBRT</th>
+<th>Spark MLLib</th>
+<th>H2O</th>
+<th>scikit-learn</th>
+<th>R gbm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exact greedy</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Approximate global</td>
+<td>✓</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Approximate local</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Out-of-core</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Sparsity-aware</td>
+<td>✓</td>
+<td>✗</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>✗</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td>Parallel</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-integrazione-e-portabilita">6.2 Integrazione e Portabilità</h3>
+<p>XGBoost è disponibile in molteplici ecosistemi:</p>
+<p><strong>Linguaggi</strong>:
+- Python (con integrazione scikit-learn)
+- R
+- Julia
+- Java/Scala</p>
+<p><strong>Piattaforme distribuite</strong>:
+- Hadoop
+- Apache Spark
+- Apache Flink
+- MPI
+- Sun Grid Engine</p>
+<p><strong>Libreria base</strong>: rabit per operazioni allreduce distribuite</p>
+<hr />
+<h2 id="risultati">7. Risultati Sperimentali</h2>
+<h3 id="71-dataset-utilizzati">7.1 Dataset Utilizzati</h3>
+<h4 id="allstate-insurance-10m">Allstate Insurance (10M)</h4>
+<ul>
+<li><strong>Task</strong>: Classificazione probabilità di claim assicurativo</li>
+<li><strong>Features</strong>: 4,227 (principalmente sparse da one-hot encoding)</li>
+<li><strong>Uso</strong>: Valutare sparsity-aware algorithm</li>
+</ul>
+<h4 id="higgs-boson-10m">Higgs Boson (10M)</h4>
+<ul>
+<li><strong>Task</strong>: Classificazione eventi fisici</li>
+<li><strong>Features</strong>: 28 (21 cinetiche + 7 derivate)</li>
+<li><strong>Uso</strong>: Confronti con baseline, cache evaluation</li>
+</ul>
+<h4 id="yahoo-ltrc-473k">Yahoo LTRC (473K)</h4>
+<ul>
+<li><strong>Task</strong>: Learning to rank</li>
+<li><strong>Features</strong>: 700</li>
+<li><strong>Query</strong>: ~20K con ~22 documenti ciascuna</li>
+<li><strong>Uso</strong>: Confronto con pGBRT</li>
+</ul>
+<h4 id="criteo-17b">Criteo (1.7B)</h4>
+<ul>
+<li><strong>Task</strong>: Click-through rate prediction</li>
+<li><strong>Features</strong>: 67 (13 integer + 26 CTR stats + 26 counts)</li>
+<li><strong>Dimensione</strong>: &gt; 1 TB in formato LibSVM</li>
+<li><strong>Uso</strong>: Scalabilità distribuita e out-of-core</li>
+</ul>
+<h3 id="72-risultati-di-classificazione">7.2 Risultati di Classificazione</h3>
+<p><strong>Higgs-1M (500 alberi)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Metodo</th>
+<th>Tempo per albero (sec)</th>
+<th>Test AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XGBoost</td>
+<td>0.684</td>
+<td>0.8304</td>
+</tr>
+<tr>
+<td>XGBoost (colsample=0.5)</td>
+<td>0.640</td>
+<td>0.8245</td>
+</tr>
+<tr>
+<td>scikit-learn</td>
+<td>28.51</td>
+<td>0.8302</td>
+</tr>
+<tr>
+<td>R gbm</td>
+<td>1.032</td>
+<td>0.6224</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Osservazioni</strong>:
+- XGBoost è <strong>10x più veloce</strong> di scikit-learn con accuratezza simile
+- Column subsampling migliora velocità con minima perdita di accuratezza
+- R gbm è più veloce ma molto meno accurato (usa greedy one-side)</p>
+<h3 id="73-learning-to-rank">7.3 Learning to Rank</h3>
+<p><strong>Yahoo LTRC (500 alberi)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Metodo</th>
+<th>Tempo per albero (sec)</th>
+<th>NDCG@10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XGBoost</td>
+<td>0.826</td>
+<td>0.7892</td>
+</tr>
+<tr>
+<td>XGBoost (colsample=0.5)</td>
+<td>0.506</td>
+<td>0.7913</td>
+</tr>
+<tr>
+<td>pGBRT</td>
+<td>2.576</td>
+<td>0.7915</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Osservazioni</strong>:
+- XGBoost exact greedy batte pGBRT approximate in velocità
+- Column subsampling <strong>migliora</strong> leggermente l&rsquo;accuratezza (previene overfitting)</p>
+<h3 id="74-impatto-sparsity-aware">7.4 Impatto Sparsity-Aware</h3>
+<p><strong>Allstate-10K</strong>:
+- Sparsity-aware algorithm: <strong>50x più veloce</strong> della versione naive
+- Conferma l&rsquo;importanza critica dell&rsquo;ottimizzazione per dati sparsi</p>
+<h3 id="75-out-of-core-performance">7.5 Out-of-Core Performance</h3>
+<p><strong>Criteo (subsets crescenti su singola macchina)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Metodo</th>
+<th>100M</th>
+<th>200M</th>
+<th>400M</th>
+<th>1.7B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Basic</td>
+<td>OK</td>
+<td>OK</td>
+<td>Slow</td>
+<td>OOM</td>
+</tr>
+<tr>
+<td>+Compression</td>
+<td>3x faster</td>
+<td>3x faster</td>
+<td>OK</td>
+<td>OK</td>
+</tr>
+<tr>
+<td>+Sharding (2 disks)</td>
+<td>6x faster</td>
+<td>6x faster</td>
+<td>2x faster</td>
+<td>OK</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Macchina</strong>: AWS c3.8xlarge (32 vcore, 2x320GB SSD, 60GB RAM)</p>
+<p><strong>Osservazioni</strong>:
+- Compression da sola: 3x speedup
+- Sharding aggiunge ulteriore 2x
+- Gestisce 1.7B esempi su singola macchina desktop</p>
+<h3 id="76-performance-distribuita">7.6 Performance Distribuita</h3>
+<p><strong>Criteo completo (32 nodi EC2 m3.2xlarge, 10 iterazioni)</strong>:</p>
+<h4 id="end-to-end-time-incluso-data-loading">End-to-end time (incluso data loading):</h4>
+<ul>
+<li><strong>Spark MLLib</strong>: Out of memory a 400M</li>
+<li><strong>H2O</strong>: Molto lento nel loading, out of memory a 800M</li>
+<li><strong>XGBoost</strong>: Scala linearmente fino a 1.7B</li>
+</ul>
+<h4 id="per-iteration-time">Per-iteration time:</h4>
+<ul>
+<li>XGBoost è <strong>10x più veloce di Spark</strong> per iterazione</li>
+<li>XGBoost è <strong>2.2x più veloce di H2O</strong> per iterazione</li>
+</ul>
+<h4 id="scaling-con-numero-di-macchine-dataset-completo-17b">Scaling con numero di macchine (dataset completo 1.7B):</h4>
+<ul>
+<li><strong>4 macchine</strong>: Gestisce l&rsquo;intero dataset</li>
+<li><strong>8 macchine</strong>: ~1.8x speedup</li>
+<li><strong>16 macchine</strong>: ~3.5x speedup</li>
+<li><strong>32 macchine</strong>: ~6.5x speedup</li>
+</ul>
+<p>Scaling leggermente super-lineare grazie a maggiore file cache disponibile.</p>
+<hr />
+<h2 id="8-dettagli-implementativi-importanti">8. Dettagli Implementativi Importanti</h2>
+<h3 id="81-calcolo-delle-statistiche-di-gradiente">8.1 Calcolo delle Statistiche di Gradiente</h3>
+<p>Per ogni loss function, dobbiamo calcolare:</p>
+<p><strong>Loss quadratica</strong> $l(y, \hat{y}) = (y - \hat{y})^2$:
+- $g_i = -2(y_i - \hat{y}_i^{(t-1)})$
+- $h_i = 2$</p>
+<p><strong>Log-loss</strong> (classificazione binaria) $l(y, \hat{y}) = y\log(1 + e^{-\hat{y}}) + (1-y)\log(1 + e^{\hat{y}})$:
+- $g_i = p_i - y_i$ dove $p_i = 1/(1 + e^{-\hat{y}_i^{(t-1)}})$
+- $h_i = p_i(1 - p_i)$</p>
+<h3 id="82-gestione-di-missing-values">8.2 Gestione di Missing Values</h3>
+<p>L&rsquo;algoritmo sparsity-aware gestisce tre scenari:</p>
+<ol>
+<li><strong>Valore realmente mancante</strong>: impara direzione ottimale</li>
+<li><strong>Zero in sparse matrix</strong>: trattato come missing, impara direzione</li>
+<li><strong>Valore specifico dell&rsquo;utente</strong>: può essere configurato</li>
+</ol>
+<h3 id="83-parallelizzazione">8.3 Parallelizzazione</h3>
+<p><strong>Level di parallelizzazione</strong>:
+1. <strong>Feature-level</strong>: ogni feature processata da thread diverso
+2. <strong>Tree-level</strong>: multipli alberi costruiti in parallelo (meno comune)
+3. <strong>Data-level</strong>: dati partizionati tra nodi (distributed)</p>
+<p><strong>Sincronizzazione</strong>: AllReduce per aggregare statistiche di gradiente</p>
+<hr />
+<h2 id="9-confronto-con-random-forest">9. Confronto con Random Forest</h2>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>XGBoost</th>
+<th>Random Forest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Costruzione alberi</strong></td>
+<td>Sequenziale (boosting)</td>
+<td>Parallela (bagging)</td>
+</tr>
+<tr>
+<td><strong>Dipendenza</strong></td>
+<td>Ogni albero dipende dai precedenti</td>
+<td>Alberi indipendenti</td>
+</tr>
+<tr>
+<td><strong>Profondità</strong></td>
+<td>Tipicamente limitata (3-10)</td>
+<td>Alberi completi</td>
+</tr>
+<tr>
+<td><strong>Prediction</strong></td>
+<td>Somma pesata</td>
+<td>Media semplice</td>
+</tr>
+<tr>
+<td><strong>Overfitting</strong></td>
+<td>Controllato con regolarizzazione</td>
+<td>Controllato con randomness</td>
+</tr>
+<tr>
+<td><strong>Interpretabilità</strong></td>
+<td>Difficile (ensemble sequenziale)</td>
+<td>Media (aggregazione)</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Generalmente migliore su strutturati</td>
+<td>Buona baseline</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-best-practices-e-tuning">10. Best Practices e Tuning</h2>
+<h3 id="101-parametri-chiave">10.1 Parametri Chiave</h3>
+<p><strong>Struttura albero</strong>:
+- <code>max_depth</code>: 3-10 (default 6)
+- <code>min_child_weight</code>: sum of instance weight needed in a child
+- <code>gamma</code>: minimum loss reduction required for split</p>
+<p><strong>Regolarizzazione</strong>:
+- <code>lambda</code>: L2 reg on weights (default 1)
+- <code>alpha</code>: L1 reg on weights (default 0)
+- <code>eta</code>: learning rate 0.01-0.3 (default 0.3)</p>
+<p><strong>Sampling</strong>:
+- <code>subsample</code>: row sampling ratio 0.5-1.0
+- <code>colsample_bytree</code>: column sampling per tree 0.5-1.0
+- <code>colsample_bylevel</code>: column sampling per level</p>
+<h3 id="102-strategia-di-tuning">10.2 Strategia di Tuning</h3>
+<p><strong>Step 1</strong>: Fissa parametri conservativi
+- <code>max_depth</code>: 6
+- <code>eta</code>: 0.3
+- <code>subsample</code>, <code>colsample_bytree</code>: 0.8</p>
+<p><strong>Step 2</strong>: Ottimizza struttura albero
+- Varia <code>max_depth</code> (3-10)
+- Varia <code>min_child_weight</code> (1-6)
+- Usa cross-validation</p>
+<p><strong>Step 3</strong>: Aggiungi regolarizzazione
+- Aumenta <code>lambda</code> se overfitting
+- Aggiungi <code>alpha</code> per feature selection</p>
+<p><strong>Step 4</strong>: Riduci learning rate e aumenta alberi
+- Riduci <code>eta</code> a 0.01-0.1
+- Aumenta numero alberi di conseguenza
+- Early stopping per evitare overfitting</p>
+<h3 id="103-segni-di-overfitting">10.3 Segni di Overfitting</h3>
+<ul>
+<li>Train error molto &lt; validation error</li>
+<li>Validation error aumenta mentre train error diminuisce</li>
+<li>Performance degrada su test set</li>
+</ul>
+<p><strong>Soluzioni</strong>:
+1. Aumenta <code>lambda</code>, <code>alpha</code>
+2. Riduci <code>max_depth</code>
+3. Aumenta <code>min_child_weight</code>
+4. Usa <code>subsample</code>, <code>colsample_bytree</code> &lt; 1.0
+5. Riduci <code>eta</code> e usa early stopping</p>
+<hr />
+<h2 id="11-vantaggi-e-limitazioni">11. Vantaggi e Limitazioni</h2>
+<h3 id="111-vantaggi-di-xgboost">11.1 Vantaggi di XGBoost</h3>
+<p><strong>Performance</strong>:
+- State-of-the-art su dati tabulari
+- Velocità superiore ai competitor
+- Scala a miliardi di esempi</p>
+<p><strong>Flessibilità</strong>:
+- Supporta custom loss functions
+- Gestisce missing values nativamente
+- Funziona con dati sparsi</p>
+<p><strong>Robustezza</strong>:
+- Regolarizzazione built-in
+- Meno propenso a overfitting
+- Gestisce outliers bene</p>
+<p><strong>Praticità</strong>:
+- Pochi hyperparameter da tunare
+- Feature importance automatica
+- Integrazione in molti ecosistemi</p>
+<h3 id="112-limitazioni">11.2 Limitazioni</h3>
+<p><strong>Interpretabilità</strong>:
+- Modelli complessi difficili da interpretare
+- Ensemble di centinaia di alberi
+- Non lineare e non parametrico</p>
+<p><strong>Dati non strutturati</strong>:
+- Non ottimale per immagini, testo, audio
+- Deep learning preferibile per questi domini
+- Richiede feature engineering manuale</p>
+<p><strong>Memoria</strong>:
+- Richiede tutto il dataset in memoria (o out-of-core)
+- Alberi memorizzati interamente
+- Può essere memory-intensive</p>
+<p><strong>Training time</strong>:
+- Più lento di linear models
+- Sequenziale per natura (boosting)
+- Non parallelizzabile quanto Random Forest</p>
+<p><strong>Extrapolation</strong>:
+- Non estrapolano bene fuori dal range di training
+- Previsioni limitate ai valori visti
+- Problematico per serie temporali con trend</p>
+<hr />
+<h2 id="12-applicazioni-pratiche">12. Applicazioni Pratiche</h2>
+<h3 id="121-quando-usare-xgboost">12.1 Quando Usare XGBoost</h3>
+<p><strong>Ideale per</strong>:
+- Dati tabulari strutturati
+- Classification e regression
+- Ranking problems
+- Competizioni Kaggle
+- Feature importance analysis
+- Dataset medi-grandi (1K - 100M+ rows)</p>
+<p><strong>Esempi di successo</strong>:
+- Click-through rate prediction (advertising)
+- Credit scoring (finanza)
+- Fraud detection (sicurezza)
+- Customer churn prediction (business)
+- Medical diagnosis (healthcare)
+- Energy consumption forecasting</p>
+<h3 id="122-quando-non-usare-xgboost">12.2 Quando NON Usare XGBoost</h3>
+<p><strong>Alternative migliori</strong>:
+- <strong>Immagini/Video</strong>: CNN (Convolutional Neural Networks)
+- <strong>Testo/NLP</strong>: Transformers (BERT, GPT)
+- <strong>Audio</strong>: RNN, WaveNet
+- <strong>Dati piccoli (&lt; 1000 rows)</strong>: Linear models, SVM
+- <strong>Real-time inference critico</strong>: Linear models, decision trees singoli
+- <strong>Interpretabilità critica</strong>: Linear models, GAMs, single decision trees</p>
+<hr />
+<h2 id="13-innovazioni-tecniche-dettagliate">13. Innovazioni Tecniche Dettagliate</h2>
+<h3 id="131-weighted-quantile-sketch">13.1 Weighted Quantile Sketch</h3>
+<p><strong>Problema formale</strong>:
+Dato un multi-set $\mathcal{D}_k = \{(x_{1k}, h_1), (x_{2k}, h_2), \ldots, (x_{nk}, h_n)\}$, definire:</p>
+<p>$r_k(z) = \frac{1}{\sum_{(x,h) \in \mathcal{D}_k} h} \sum_{(x,h) \in \mathcal{D}_k, x < z} h$</p>
+<p><strong>Obiettivo</strong>: Trovare $\{s_{k1}, s_{k2}, \ldots, s_{kl}\}$ tale che:</p>
+<p>$|r_k(s_{k,j}) - r_k(s_{k,j+1})| < \epsilon$</p>
+<p><strong>Proprietà chiave</strong>:
+- <strong>Merge operation</strong>: Combina due summary con errore $\max(\epsilon_1, \epsilon_2)$
+- <strong>Prune operation</strong>: Riduce elementi mantenendo garanzie di errore
+- <strong>Distribuibile</strong>: Può essere calcolato in parallelo</p>
+<p><strong>Algoritmo</strong>:
+1. Costruisci summary locale per ogni partizione
+2. Merge dei summary con garanzie di errore
+3. Prune per ridurre dimensione mantenendo precisione</p>
+<h3 id="132-column-block-dettagli-implementativi">13.2 Column Block - Dettagli Implementativi</h3>
+<p><strong>Struttura dati</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code>Block = {
+    feature_columns: [Column_1, Column_2, ..., Column_m]
+    row_indices: sorted per ogni colonna
+    gradient_stats: [g_1, g_2, ..., g_n], [h_1, h_2, ..., h_n]
+}
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Processo di costruzione</strong>:
+1. Per ogni feature $k$:
+   - Crea coppie $(valore_{ik}, indice_i)$
+   - Ordina per valore
+   - Memorizza in formato compresso
+2. Un solo ordinamento iniziale
+3. Riutilizzato per tutte le iterazioni</p>
+<p><strong>Accesso durante split finding</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code>Per ogni feature k:
+    Per ogni valore v in column k (già ordinato):
+        i = get_row_index(v)
+        g_L += g[i]
+        h_L += h[i]
+        Calcola gain per split
+</code></pre></div>
+</div>
+</details>
+
+<h3 id="133-gestione-missing-values-algoritmo-completo">13.3 Gestione Missing Values - Algoritmo Completo</h3>
+<p><strong>Procedura per ogni split candidato</strong>:</p>
+<ol>
+<li>
+<p><strong>Raccogli statistiche non-missing</strong>:
+   $G_{present} = \sum_{i: x_{ik} \neq missing} g_i$
+   $H_{present} = \sum_{i: x_{ik} \neq missing} h_i$</p>
+</li>
+<li>
+<p><strong>Scenario A - Missing vanno a sinistra</strong>:</p>
+</li>
+<li>Scansiona valori in ordine crescente</li>
+<li>
+<p>Per ogni threshold $t$:</p>
+<ul>
+<li>$G_L = G_{missing} + \sum_{i: x_{ik} < t} g_i$</li>
+<li>$G_R = \sum_{i: x_{ik} \geq t} g_i$</li>
+<li>Calcola gain</li>
+</ul>
+</li>
+<li>
+<p><strong>Scenario B - Missing vanno a destra</strong>:</p>
+</li>
+<li>Scansiona valori in ordine decrescente</li>
+<li>
+<p>Per ogni threshold $t$:</p>
+<ul>
+<li>$G_R = G_{missing} + \sum_{i: x_{ik} \geq t} g_i$</li>
+<li>$G_L = \sum_{i: x_{ik} < t} g_i$</li>
+<li>Calcola gain</li>
+</ul>
+</li>
+<li>
+<p><strong>Scegli direzione ottimale</strong>: quella che massimizza il gain</p>
+</li>
+</ol>
+<p><strong>Complessità</strong>: $O(|I_k|)$ dove $I_k$ sono gli esempi non-missing (invece di $O(|I|)$)</p>
+<hr />
+<h2 id="14-matematica-avanzata">14. Matematica Avanzata</h2>
+<h3 id="141-derivazione-completa-dellobiettivo">14.1 Derivazione Completa dell&rsquo;Obiettivo</h3>
+<p>Partiamo dalla funzione obiettivo generale:</p>
+<p>$\mathcal{L}^{(t)} = \sum_{i=1}^n l(y_i, \hat{y}_i^{(t-1)} + f_t(\mathbf{x}_i)) + \Omega(f_t)$</p>
+<p><strong>Espansione di Taylor al secondo ordine</strong> intorno a $\hat{y}_i^{(t-1)}$:</p>
+<p>$l(y_i, \hat{y}_i^{(t-1)} + f_t(\mathbf{x}_i)) \approx l(y_i, \hat{y}_i^{(t-1)}) + \frac{\partial l}{\partial \hat{y}_i^{(t-1)}} f_t(\mathbf{x}_i) + \frac{1}{2} \frac{\partial^2 l}{\partial (\hat{y}_i^{(t-1)})^2} f_t^2(\mathbf{x}_i)$</p>
+<p>Definendo:
+- $g_i = \frac{\partial l(y_i, \hat{y}_i^{(t-1)})}{\partial \hat{y}_i^{(t-1)}}$
+- $h_i = \frac{\partial^2 l(y_i, \hat{y}_i^{(t-1)})}{\partial (\hat{y}_i^{(t-1)})^2}$</p>
+<p>Otteniamo:</p>
+<p>$\mathcal{L}^{(t)} \approx \sum_{i=1}^n [l(y_i, \hat{y}_i^{(t-1)}) + g_i f_t(\mathbf{x}_i) + \frac{1}{2} h_i f_t^2(\mathbf{x}_i)] + \Omega(f_t)$</p>
+<p>Rimuovendo il termine costante $l(y_i, \hat{y}_i^{(t-1)})$:</p>
+<p>$\tilde{\mathcal{L}}^{(t)} = \sum_{i=1}^n [g_i f_t(\mathbf{x}_i) + \frac{1}{2} h_i f_t^2(\mathbf{x}_i)] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2$</p>
+<p><strong>Raggruppando per foglie</strong> con $I_j = \{i | q(\mathbf{x}_i) = j\}$ e $f_t(\mathbf{x}_i) = w_{q(\mathbf{x}_i)}$:</p>
+<p>$\tilde{\mathcal{L}}^{(t)} = \sum_{j=1}^T \left[\left(\sum_{i \in I_j} g_i\right) w_j + \frac{1}{2}\left(\sum_{i \in I_j} h_i + \lambda\right) w_j^2\right] + \gamma T$</p>
+<p><strong>Minimizzazione rispetto a $w_j$</strong>:</p>
+<p>$\frac{\partial \tilde{\mathcal{L}}^{(t)}}{\partial w_j} = \sum_{i \in I_j} g_i + \left(\sum_{i \in I_j} h_i + \lambda\right) w_j = 0$</p>
+<p>$w_j^* = -\frac{\sum_{i \in I_j} g_i}{\sum_{i \in I_j} h_i + \lambda}$</p>
+<p><strong>Sostituendo nell&rsquo;obiettivo</strong>:</p>
+<p>$\tilde{\mathcal{L}}^{(t)}(q) = -\frac{1}{2} \sum_{j=1}^T \frac{(\sum_{i \in I_j} g_i)^2}{\sum_{i \in I_j} h_i + \lambda} + \gamma T$</p>
+<h3 id="142-interpretazione-geometrica">14.2 Interpretazione Geometrica</h3>
+<p>Il termine di regolarizzazione può essere visto come:</p>
+<p>$\Omega(f) = \gamma T + \frac{1}{2}\lambda \|w\|^2$</p>
+<p><strong>Interpretazione bayesiana</strong>:
+- Prior gaussiano sui pesi: $w_j \sim \mathcal{N}(0, 1/\lambda)$
+- Penalità sul numero di foglie: preference per alberi semplici
+- MAP estimation invece di MLE</p>
+<p><strong>Interpretazione MDL</strong> (Minimum Description Length):
+- $\gamma T$: costo di codifica della struttura
+- $\frac{1}{2}\lambda \|w\|^2$: costo di codifica dei pesi
+- Minimizzare $\mathcal{L}$ = minimizzare lunghezza descrizione</p>
+<hr />
+<h2 id="15-confronto-con-altre-tecniche-di-boosting">15. Confronto con Altre Tecniche di Boosting</h2>
+<h3 id="151-adaboost-vs-xgboost">15.1 AdaBoost vs XGBoost</h3>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>AdaBoost</th>
+<th>XGBoost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Loss</strong></td>
+<td>Exponential loss</td>
+<td>Generic differentiable loss</td>
+</tr>
+<tr>
+<td><strong>Ottimizzazione</strong></td>
+<td>Peso esempi</td>
+<td>Gradient descent in function space</td>
+</tr>
+<tr>
+<td><strong>Weak learners</strong></td>
+<td>Tipicamente stumps</td>
+<td>Regression trees con depth</td>
+</tr>
+<tr>
+<td><strong>Regolarizzazione</strong></td>
+<td>Implicita</td>
+<td>Esplicita (L1, L2, gamma)</td>
+</tr>
+<tr>
+<td><strong>Robustezza</strong></td>
+<td>Sensibile a outliers</td>
+<td>Più robusto</td>
+</tr>
+<tr>
+<td><strong>Flessibilità</strong></td>
+<td>Limitata</td>
+<td>Alta (custom objectives)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="152-gradient-boosting-sklearn-vs-xgboost">15.2 Gradient Boosting (sklearn) vs XGBoost</h3>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>sklearn GBM</th>
+<th>XGBoost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Regolarizzazione</strong></td>
+<td>Solo max_depth, min_samples</td>
+<td>L1, L2, gamma, alpha</td>
+</tr>
+<tr>
+<td><strong>Secondo ordine</strong></td>
+<td>No</td>
+<td>Sì (Newton boosting)</td>
+</tr>
+<tr>
+<td><strong>Parallelizzazione</strong></td>
+<td>No</td>
+<td>Sì</td>
+</tr>
+<tr>
+<td><strong>Missing values</strong></td>
+<td>No (errore)</td>
+<td>Sì (learn direction)</td>
+</tr>
+<tr>
+<td><strong>Sparsità</strong></td>
+<td>Ignora</td>
+<td>Ottimizzato</td>
+</tr>
+<tr>
+<td><strong>Cache optimization</strong></td>
+<td>No</td>
+<td>Sì</td>
+</tr>
+<tr>
+<td><strong>Out-of-core</strong></td>
+<td>No</td>
+<td>Sì</td>
+</tr>
+<tr>
+<td><strong>Velocità</strong></td>
+<td>1x</td>
+<td>10-40x</td>
+</tr>
+</tbody>
+</table>
+<h3 id="153-lightgbm-vs-xgboost">15.3 LightGBM vs XGBoost</h3>
+<p><strong>LightGBM</strong> (Microsoft, 2017):</p>
+<p><strong>Vantaggi di LightGBM</strong>:
+- <strong>Leaf-wise</strong> growth invece di level-wise (più veloce)
+- <strong>GOSS</strong> (Gradient-based One-Side Sampling)
+- <strong>EFB</strong> (Exclusive Feature Bundling)
+- Più veloce su dataset molto grandi
+- Usa meno memoria</p>
+<p><strong>Vantaggi di XGBoost</strong>:
+- Più maturo e testato
+- Level-wise growth più conservativo (meno overfitting)
+- Migliore supporto distribuito
+- Più opzioni di regolarizzazione</p>
+<p><strong>Quando usare quale</strong>:
+- <strong>XGBoost</strong>: Dataset medio-grandi, bisogno di stabilità
+- <strong>LightGBM</strong>: Dataset enormi (&gt; 10M rows), bisogno di velocità</p>
+<h3 id="154-catboost-vs-xgboost">15.4 CatBoost vs XGBoost</h3>
+<p><strong>CatBoost</strong> (Yandex, 2017):</p>
+<p><strong>Vantaggi di CatBoost</strong>:
+- <strong>Categorical features</strong> gestite nativamente (senza encoding)
+- <strong>Ordered boosting</strong> riduce overfitting
+- <strong>Symmetric trees</strong> più veloci in inference
+- Meno tuning richiesto (buoni defaults)</p>
+<p><strong>Vantaggi di XGBoost</strong>:
+- Più veloce su dati non categorici
+- Migliore per dati sparsi
+- Ecosistema più maturo
+- Più flessibile</p>
+<hr />
+<h2 id="16-feature-importance-in-xgboost">16. Feature Importance in XGBoost</h2>
+<h3 id="161-metriche-di-importanza">16.1 Metriche di Importanza</h3>
+<p><strong>1. Gain (default)</strong>:
+- Media del guadagno di loss quando feature è usata per split
+- Formula: $\frac{1}{K} \sum_{k=1}^K \sum_{\text{splits on feature}} \mathcal{L}_{split}$
+- <strong>Pro</strong>: Misura impatto reale sulla loss
+- <strong>Contro</strong>: Bias verso features con molti possibili split</p>
+<p><strong>2. Weight (Frequency)</strong>:
+- Numero di volte che feature appare negli split
+- <strong>Pro</strong>: Semplice, intuitivo
+- <strong>Contro</strong>: Non considera qualità degli split</p>
+<p><strong>3. Cover</strong>:
+- Media del numero di esempi affetti da split sulla feature
+- Formula: $\frac{1}{K} \sum_{k=1}^K \sum_{\text{splits on feature}} |I|$
+- <strong>Pro</strong>: Considera distribuzione dei dati
+- <strong>Contro</strong>: Bias verso features comuni</p>
+<h3 id="162-shap-values-per-xgboost">16.2 SHAP Values per XGBoost</h3>
+<p><strong>TreeSHAP</strong> (Lundberg &amp; Lee, 2017):</p>
+<p>Calcola contributi Shapley per ogni feature:</p>
+<p>$\phi_j(x) = \sum_{S \subseteq F \setminus \{j\}} \frac{|S|!(|F| - |S| - 1)!}{|F|!} [f_{S \cup \{j\}}(x_S) - f_S(x_S)]$</p>
+<p><strong>Vantaggi</strong>:
+- Garanzie teoriche (unico metodo con proprietà desiderabili)
+- Additive: $\sum_j \phi_j(x) = f(x) - E[f(X)]$
+- Consistenza: se feature contribuisce di più, ha SHAP maggiore</p>
+<p><strong>Implementazione efficiente</strong> per trees:
+- Complexity $O(TLD^2)$ invece di $O(TL2^M)$
+  - $T$ = numero alberi
+  - $L$ = max numero foglie
+  - $D$ = max profondità
+  - $M$ = numero features</p>
+<hr />
+<h2 id="17-ottimizzazioni-pratiche">17. Ottimizzazioni Pratiche</h2>
+<h3 id="171-early-stopping">17.1 Early Stopping</h3>
+<p><strong>Strategia</strong>:
+1. Dividi dati in train/validation
+2. Monitora metrica su validation set
+3. Ferma training se metrica non migliora per $n$ rounds</p>
+<p><strong>Implementazione</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code>Parametri:
+- early_stopping_rounds: numero iterazioni senza miglioramento
+- eval_metric: metrica da monitorare
+- eval_set: validation set
+
+Processo:
+For each iteration t:
+    Construisci albero f_t su train
+    Valuta su eval_set
+    Se metrica non migliora per n rounds:
+        STOP e return best iteration
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Benefici</strong>:
+- Previene overfitting automaticamente
+- Riduce tempo training
+- Trova numero ottimale alberi</p>
+<h3 id="172-cross-validation">17.2 Cross-Validation</h3>
+<p><strong>CV distribuito in XGBoost</strong>:
+- Ogni fold processato in parallelo
+- Stratified CV per classification
+- Supporto per custom folds</p>
+<p><strong>Utilizzo ottimale</strong>:
+1. CV per hyperparameter tuning
+2. Train finale su tutti i dati
+3. Early stopping su separate validation</p>
+<h3 id="173-monotonic-constraints">17.3 Monotonic Constraints</h3>
+<p><strong>Problema</strong>: In alcuni domini, relazioni devono essere monotone
+- Es: Credit scoring - income ↑ → credit score ↑
+- Es: Insurance - age ↑ → premium ↑</p>
+<p><strong>Soluzione in XGBoost</strong>:</p>
+<details class="code-container">
+<summary>Code</summary>
+<div class="code-wrapper">
+<button class="copy-button" onclick="
+                const code = this.parentElement.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.innerText);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 2000);
+                }
+            ">Copy</button>
+<div class="codehilite"><pre><span></span><code>Parametro monotone_constraints:
+- +1: relazione crescente
+- -1: relazione decrescente
+-  0: nessun constraint
+</code></pre></div>
+</div>
+</details>
+
+<p><strong>Implementazione</strong>:
+- Durante split finding, considera solo split che rispettano constraint
+- Garantisce monotonia globale del modello</p>
+<hr />
+<h2 id="18-casi-duso-avanzati">18. Casi d&rsquo;Uso Avanzati</h2>
+<h3 id="181-custom-objective-functions">18.1 Custom Objective Functions</h3>
+<p>XGBoost permette di definire loss custom fornendo:</p>
+<p><strong>Gradient</strong>:
+$g_i = \frac{\partial l(y_i, \hat{y}_i)}{\partial \hat{y}_i}$</p>
+<p><strong>Hessian</strong>:
+$h_i = \frac{\partial^2 l(y_i, \hat{y}_i)}{\partial \hat{y}_i^2}$</p>
+<p><strong>Esempio - Huber Loss</strong> (robusto a outliers):</p>
+<p>$l(y, \hat{y}) = \begin{cases}
+\frac{1}{2}(y - \hat{y})^2 & \text{if } |y - \hat{y}| \leq \delta \\
+\delta(|y - \hat{y}| - \frac{1}{2}\delta) & \text{otherwise}
+\end{cases}$</p>
+<p>$g = \begin{cases}
+\hat{y} - y & \text{if } |y - \hat{y}| \leq \delta \\
+\delta \cdot \text{sign}(\hat{y} - y) & \text{otherwise}
+\end{cases}$</p>
+<p>$h = \begin{cases}
+1 & \text{if } |y - \hat{y}| \leq \delta \\
+0 & \text{otherwise}
+\end{cases}$</p>
+<h3 id="182-multi-output-regression">18.2 Multi-output Regression</h3>
+<p>Per predire $K$ output simultaneamente:</p>
+<p><strong>Approccio 1 - Modelli separati</strong>:
+- Train $K$ modelli XGBoost indipendenti
+- <strong>Pro</strong>: Semplice, parallelizzabile
+- <strong>Contro</strong>: Ignora correlazioni tra output</p>
+<p><strong>Approccio 2 - Multi-task learning</strong>:
+- Custom objective che considera tutti $K$ output
+- <strong>Pro</strong>: Sfrutta correlazioni
+- <strong>Contro</strong>: Più complesso, richiede tuning</p>
+<h3 id="183-imbalanced-classification">18.3 Imbalanced Classification</h3>
+<p><strong>Problema</strong>: Classi sbilanciate (es. fraud: 0.1% positivi)</p>
+<p><strong>Soluzioni</strong>:</p>
+<p><strong>1. Scale_pos_weight</strong>:
+$\text{scale_pos_weight} = \frac{\text{count}(y=0)}{\text{count}(y=1)}$
+- Aumenta peso degli esempi positivi</p>
+<p><strong>2. Custom weighted loss</strong>:
+- Penalizza errori su classe minoritaria di più</p>
+<p><strong>3. Threshold tuning</strong>:
+- XGBoost produce probabilità
+- Ottimizza threshold per F1, precision, recall</p>
+<p><strong>4. Focal Loss</strong>:
+$FL(p_t) = -(1-p_t)^\gamma \log(p_t)$
+- Focalizza su esempi difficili
+- $\gamma$ controlla focus (tipicamente 2)</p>
+<hr />
+<h2 id="19-limitazioni-teoriche-e-pratiche">19. Limitazioni Teoriche e Pratiche</h2>
+<h3 id="191-limiti-teorici">19.1 Limiti Teorici</h3>
+<p><strong>1. Capacità di Approssimazione</strong>:
+- Alberi CART possono approssimare funzioni continue (teorema di approssimazione universale)
+- MA richiedono numero esponenziale di foglie per alcune funzioni
+- Particolarmente inefficienti per funzioni molto smooth</p>
+<p><strong>2. Sample Complexity</strong>:
+- Numero di esempi necessari cresce con complessità della funzione target
+- Per funzioni con interazioni di alto ordine, serve $O(2^d)$ esempi
+- Non efficiente quanto metodi parametrici quando assumptions sono corretti</p>
+<p><strong>3. Generalizzazione</strong>:
+- Bound di generalizzazione dipendono da:
+  - Numero alberi $K$
+  - Profondità $d$
+  - Numero esempi $n$
+- Trade-off bias-variance esplicito</p>
+<h3 id="192-limiti-pratici">19.2 Limiti Pratici</h3>
+<p><strong>1. Tempo di Training</strong>:
+- $O(nmd)$ per iterazione nel caso base
+- Con $K$ alberi: $O(Knmd)$
+- Non scala bene con numero di features $m$</p>
+<p><strong>2. Consumo Memoria</strong>:
+- Block structure richiede $O(nm)$ memoria
+- Gradient stats: $O(n)$ per iterazione
+- Alberi: $O(KT)$ dove $T$ = foglie medie
+- Total: $O(nm + Kn + KT)$</p>
+<p><strong>3. Hyperparameter Sensitivity</strong>:
+- Molti parametri da tunare
+- Interazioni complesse tra parametri
+- Richiede expertise per tuning ottimale</p>
+<p><strong>4. Interpretabilità</strong>:
+- Ensemble di centinaia di alberi
+- Impossibile visualizzare completamente
+- SHAP values aiutano ma sono computazionalmente costosi</p>
+<hr />
+<h2 id="20-conclusioni-e-direzioni-future">20. Conclusioni e Direzioni Future</h2>
+<h3 id="201-contributi-chiave-di-xgboost">20.1 Contributi Chiave di XGBoost</h3>
+<ol>
+<li><strong>Sistema end-to-end</strong> che combina algoritmi e ottimizzazioni di sistema</li>
+<li><strong>Scalabilità</strong> senza precedenti (billions di esempi, single machine)</li>
+<li><strong>Innovazioni algoritmiche</strong>: sparsity-aware, weighted quantile sketch</li>
+<li><strong>Innovazioni di sistema</strong>: cache-aware, out-of-core, block structure</li>
+<li><strong>Impatto pratico</strong>: dominanza in competizioni ML e industry adoption</li>
+</ol>
+<h3 id="202-lezioni-apprese">20.2 Lezioni Apprese</h3>
+<p><strong>Design di Sistemi ML</strong>:
+- <strong>Co-design</strong> algoritmo-sistema è cruciale
+- Ottimizzazioni hardware (cache, I/O) fanno differenza enorme
+- Scalabilità richiede attenzione a ogni livello dello stack</p>
+<p><strong>Machine Learning Pratico</strong>:
+- Regolarizzazione è essenziale per generalizzazione
+- Gestione sparsità e missing values deve essere first-class
+- Flessibilità (custom objectives) abilita nuove applicazioni</p>
+<h3 id="203-sviluppi-post-paper">20.3 Sviluppi Post-Paper</h3>
+<p><strong>LightGBM</strong> (2017):
+- Leaf-wise growth
+- Histogram-based learning
+- Più veloce su dataset enormi</p>
+<p><strong>CatBoost</strong> (2017):
+- Ordered boosting
+- Categorical features native
+- Symmetric trees</p>
+<p><strong>XGBoost Improvements</strong>:
+- GPU acceleration
+- Federated learning support
+- Categorical features support (2022)
+- Distributed training migliorato</p>
+<h3 id="204-quando-xgboost-rimane-la-scelta-migliore">20.4 Quando XGBoost Rimane la Scelta Migliore</h3>
+<p><strong>Nel 2024-2026</strong>:
+- <strong>Dati tabulari strutturati</strong>: ancora SOTA
+- <strong>Interpretabilità importante</strong>: con SHAP
+- <strong>Risorse limitate</strong>: efficiente su singola macchina
+- <strong>Production stability</strong>: maturo e testato
+- <strong>Integrazione ecosistema</strong>: supporto ovunque</p>
+<p><strong>Alternative emergenti</strong>:
+- <strong>TabNet, FT-Transformer</strong>: neural networks per tabular data
+- <strong>AutoML</strong>: automated feature engineering + XGBoost
+- <strong>Deep learning</strong>: quando dati non-strutturati o huge scale</p>
+<h3 id="205-direzioni-di-ricerca">20.5 Direzioni di Ricerca</h3>
+<p><strong>Aperte</strong>:
+1. <strong>Theoretical understanding</strong>: perché boosting funziona così bene?
+2. <strong>Automated tuning</strong>: come ridurre necessità di expertise?
+3. <strong>Neural-symbolic hybrid</strong>: combinare trees e neural nets?
+4. <strong>Causal inference</strong>: usare trees per causal discovery?
+5. <strong>Online learning</strong>: incremental boosting efficiente?</p>
+<hr />
+<h2 id="appendice-formule-di-riferimento-rapido">Appendice: Formule di Riferimento Rapido</h2>
+<h3 id="loss-functions-comuni">Loss Functions Comuni</h3>
+<p><strong>Regression</strong>:
+- Square loss: $l(y, \hat{y}) = \frac{1}{2}(y - \hat{y})^2$
+  - $g = \hat{y} - y$, $h = 1$</p>
+<p><strong>Binary Classification</strong>:
+- Logistic loss: $l(y, \hat{y}) = y\log(1 + e^{-\hat{y}}) + (1-y)\log(1 + e^{\hat{y}})$
+  - $p = 1/(1 + e^{-\hat{y}})$
+  - $g = p - y$, $h = p(1-p)$</p>
+<p><strong>Multi-class</strong> (softmax):
+- $l = -\sum_k y_k \log(p_k)$ dove $p_k = \frac{e^{\hat{y}_k}}{\sum_j e^{\hat{y}_j}}$
+  - $g_k = p_k - y_k$
+  - $h_k = p_k(1 - p_k)$</p>
+<h3 id="formule-chiave">Formule Chiave</h3>
+<p><strong>Peso ottimale foglia</strong>:
+$w_j^* = -\frac{\sum_{i \in I_j} g_i}{\sum_{i \in I_j} h_i + \lambda}$</p>
+<p><strong>Score struttura</strong>:
+$\text{Score}(q) = -\frac{1}{2}\sum_{j=1}^T \frac{(\sum_{i \in I_j} g_i)^2}{\sum_{i \in I_j} h_i + \lambda} + \gamma T$</p>
+<p><strong>Gain split</strong>:
+$\text{Gain} = \frac{1}{2}\left[\frac{G_L^2}{H_L + \lambda} + \frac{G_R^2}{H_R + \lambda} - \frac{G^2}{H + \lambda}\right] - \gamma$</p>
+<p>dove $G = \sum_i g_i$, $H = \sum_i h_i$ per il rispettivo set.</p>
+<hr />
+<h2 id="riferimenti-e-risorse">Riferimenti e Risorse</h2>
+<h3 id="paper-originale">Paper Originale</h3>
+<ul>
+<li>Chen, T., &amp; Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. KDD &lsquo;16.</li>
+</ul>
+<h3 id="risorse-online">Risorse Online</h3>
+<ul>
+<li>Documentazione ufficiale: https://xgboost.readthedocs.io/</li>
+<li>Repository GitHub: https://github.com/dmlc/xgboost</li>
+<li>Tutorial: https://xgboost.readthedocs.io/en/latest/tutorials/</li>
+</ul>
+<h3 id="paper-correlati">Paper Correlati</h3>
+<ul>
+<li>Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine</li>
+<li>Friedman, J. H. (2002). Stochastic gradient boosting</li>
+<li>Breiman, L. (2001). Random forests</li>
+<li>Ke, G., et al. (2017). LightGBM: A highly efficient gradient boosting decision tree</li>
+<li>Prokhorenkova, L., et al. (2018). CatBoost: unbiased boosting with categorical features</li>
+</ul>
+<hr />
+<p><strong>Fine della Nota Completa su XGBoost</strong></p>
+            </div>
+            
+            <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p><strong>Keywords:</strong> supervised learning, labeled data, classification, regression, algorithm, model, data, neural</p>
+                <p><small>This is the SEO-optimized version. <a href="http://localhost:3000/theory/supervised-learning/Non-Linear Models/XGBoost">Click here for the interactive experience</a>.</small></p>
+            </footer>
+        </article>
+    </div>
+    
+    <!-- Vercel Analytics (opzionale) -->
+    <script>
+      // Track SEO page views
+      if (window.gtag) {
+        gtag('config', 'GA_TRACKING_ID', {
+          page_title: 'XGBoost: Un Sistema Scalabile di Tree Boosting',
+          page_location: 'http://localhost:3000/theory/supervised-learning/Non-Linear Models/XGBoost'
+        });
+      }
+    </script>
+</body>
+</html>
