@@ -2,2383 +2,2383 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Convolutional Neural Networks/CNN14</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Residual Connection</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Drop Path</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Positional Encoding</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Introduzione ai Transformers</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Attention/Masked Self-Attention</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Attention/Self-Attention</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Attention/Cross-Attention</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Attention/Multi-Head Attention</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Swin Transformers/Relative Position Bias</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Swin Transformers/Swin Transformer</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Transformers/Swin Transformers/Hierarchical Token-Semantic Audio Transformer</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Neural Networks/Batch Normalization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Neural Networks/Introduzione alle reti neurali</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Neural Networks/Multi-Layer Perceptron</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Neural Networks/Perceptron</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Neural Networks/Layer Normalization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Multimodal Models/CLAP</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Recurrent Neural Networks/LSTM</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/deep-learning/Recurrent Neural Networks/GRU</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Regolarizzazione</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Overfitting e Underfitting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Tipologie di Problemi/Probabilistic Generative Models</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Tipologie di Problemi/Linear Discriminant Functions</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Tipologie di Problemi/Regressione/Regressione</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Tipologie di Problemi/Regressione/Regression Metrics</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Tipologie di Problemi/Classificazione/Classificazione</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Tipologie di Problemi/Classificazione/Classificazione Binaria</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Tipologie di Problemi/Classificazione/Biometric Metrics</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/introduction/Tipologie di Problemi/Classificazione/Classification Metrics</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Teorema di Rolle</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Teorema di Lagrange</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Funzioni Convesse e Convessità</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Sottoderivata e Sottogradiente</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Chain Rule</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Calcolo Matriciale/Norme</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Calcolo Matriciale/Introduzione al Calcolo Matriciale</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Calcolo Matriciale/Traccia</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Calcolo Matriciale/Differenziazione Automatica</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Calcolo Matriciale/Tipi di Matrici</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Calcolo Matriciale/Definizione di Scalare, Vettore, Matrice e Tensore</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Calcolo Matriciale/Operazioni Elementari su Scalari, Vettori, Matrici e Tensori</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Calcolo/Calcolo Matriciale/Relazione tra derivata direzionale e gradiente</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Ottimizzazione/Minimi Quadrati Ordinari</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Ottimizzazione/Dimostrazione di Invertibilità Ridge</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Ottimizzazione/Non-Lineare/Discesa del Gradiente</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Ottimizzazione/Non-Lineare/Ottimizzazione non Lineare</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Ottimizzazione/Non-Lineare/Introduzione all'Ottimizzazione non Lineare</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Ottimizzazione/Lineare/Ottimizzazione Lineare</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Statistica/Correlazione</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Chain Rule (Probabilità)</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Covarianza</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Probabilità Condizionata e Indipendenza</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Variabili Aleatorie</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Correzione di Bessel</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Entropia, Cross Entropy e Divergenza di Kullback-Leibler</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Basi di Probabilità</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Introduzione alla Probabilità</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli Generalizzata</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzioni</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzione Normale</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Distribuzioni/Distribuzione di Bernoulli</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Processo di Wiener</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Processo di Ornstein-Uhlenbeck</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Probabilità/Processi Stocastici/Moto Browniano</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Algebra/Singular Value Decomposition</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Algebra/Vettori</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/math-for-ml/Algebra/Metriche, Norme e Distanze</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Clustering/K-means++</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Clustering/Hierarchical Clustering</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Clustering/Scelta numero di clusters</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Clustering/Clustering</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Clustering/Partitioning-based Clustering</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Clustering/Valutazione dei Clusterings</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Clustering/K-Means</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Clustering/Algoritmo di Lloyd-Forgy</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Dimensionality Reduction/Principal Component Analysis</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Dimensionality Reduction/Manifold Hypothesis</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/unsupervised-learning/Dimensionality Reduction/Introduction</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Linear Models/Multicollinearità</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Logistica</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Linear Models/Weighted Linear Regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Linear Models/Regressione Lineare</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Linear Models/Generalised Linear Models</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Non-Linear Models/Regressione Polinomiale</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Non-Linear Models/Maximum Entropy Models</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Non-Linear Models/Non-Linear Models</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Non-Linear Models/XGBoost</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Non-Linear Models/CatBoost</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/Non-Linear Models/Locally Weighted Linear Regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/ols-method</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/assumptions</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/multiple-linear-regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/simple-linear-regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/polynomial-regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-lineare/gradient-descent</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/variants/sgd-classifier</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/variants/perceptron</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/variants/passive-aggressive</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/sigmoid-function</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/log-loss</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/binary-logistic-regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/decision-boundary</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regressione-logistica/multinomial-logistic-regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regularizzazione/lasso-l1</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regularizzazione/hyperparameter-tuning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regularizzazione/ridge-l2</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/04-algoritmi-lineari/regularizzazione/elastic-net</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/variants/bernoulli-naive-bayes</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/variants/multinomial-naive-bayes</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/variants/complement-naive-bayes</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/variants/gaussian-naive-bayes</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/applications/sentiment-analysis</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/applications/text-classification</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/applications/spam-detection</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/limitations/zero-frequency-problem</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/limitations/feature-correlation</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/teoria/prior-likelihood-posterior</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/teoria/bayes-theorem</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/teoria/independence-assumption</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/09-naive-bayes/teoria/laplace-smoothing</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/log-transforms</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/polynomial-features</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/interaction-features</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/domain-specific-features</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-engineering/binning-discretization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/one-hot-encoding</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/ordinal-encoding</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/label-encoding</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/frequency-encoding</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/encoding/target-encoding</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/outlier-detection/iqr-method</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/outlier-detection/z-score-method</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/outlier-detection/isolation-forest</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/outlier-detection/local-outlier-factor</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-scaling/robust-scaling</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-scaling/normalization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-scaling/standardization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/feature-scaling/quando-usare-quale</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/gestione-missing-values/advanced-imputation</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/gestione-missing-values/deletion-methods</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/gestione-missing-values/imputation-methods</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/02-preprocessing/gestione-missing-values/knn-imputation</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/definizione-e-concetti</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/bias-variance-tradeoff</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/overfitting-underfitting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/cross-validation</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/train-validation-test-split</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/precision-recall-f1</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/pr-curve</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/confusion-matrix</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/metriche-multiclasse</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/roc-auc</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/classificazione/accuracy</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/regressione/r-squared</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/regressione/mse-rmse-mae</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/regressione/residual-analysis</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/01-fondamenti/metriche-valutazione/regressione/mape</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/dimensionality-reduction/factor-analysis</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/dimensionality-reduction/feature-agglomeration</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/dimensionality-reduction/pca</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/dimensionality-reduction/lda</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/wrapper-methods/backward-elimination</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/wrapper-methods/exhaustive-search</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/wrapper-methods/recursive-feature-elimination</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/wrapper-methods/forward-selection</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/variance-threshold</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/chi-squared-test</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/correlation-analysis</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/mutual-information</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/filter-methods/anova-f-test</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/embedded-methods/ridge-regularization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/embedded-methods/lasso-regularization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/embedded-methods/elastic-net</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/03-feature-selection/embedded-methods/tree-based-importance</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/10-perceptron/activation-functions-basic</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/10-perceptron/limitations</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/10-perceptron/single-layer-perceptron</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/multi-task-learning/hard-parameter-sharing</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/multi-task-learning/soft-parameter-sharing</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/semi-supervised-learning/co-training</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/semi-supervised-learning/self-training</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/semi-supervised-learning/label-propagation</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/online-learning/incremental-learning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/online-learning/concept-drift-handling</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/online-learning/streaming-data</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/active-learning/uncertainty-sampling</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/active-learning/expected-model-change</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/active-learning/query-by-committee</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/workflow-orchestration/airflow</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/workflow-orchestration/kubeflow</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/workflow-orchestration/prefect</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/fairness-ethics/privacy-preservation</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/fairness-ethics/debiasing-techniques</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/fairness-ethics/fairness-metrics</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/14-advanced-topics/fairness-ethics/algorithmic-bias</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/voting/soft-voting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/voting/weighted-voting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/voting/hard-voting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/stacking/blending</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/stacking/multi-level-stacking</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/stacking/meta-learner</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/stacking/feature-weighted-stacking</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/bootstrap-aggregating</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/bagged-decision-trees</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/oob-error</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/hyperparameters</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/algorithm</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/extremely-randomized-trees</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/bagging/random-forest/feature-importance</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/histogram-gradient-boosting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/handling-missing-values</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/tree-pruning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/custom-objectives</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/regularization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/xgboost/parallel-processing</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/catboost/ordered-boosting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/catboost/symmetric-trees</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/catboost/prediction-shift</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/catboost/categorical-features</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/lightgbm/goss</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/lightgbm/histogram-based-learning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/lightgbm/leaf-wise-growth</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/lightgbm/efb</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/early-stopping</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/subsample</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/gbm-algorithm</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/learning-rate</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/gradient-boosting/loss-functions</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/adaboost/stagewise-additive</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/adaboost/weight-updates</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/adaboost/algorithm</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/boosting/adaboost/weak-learners</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/teoria/ensemble-size</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/teoria/diversity-importance</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/07-ensemble-methods/teoria/bias-variance-ensemble</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/validation-strategies/time-series-cv</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/validation-strategies/stratified-k-fold</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/validation-strategies/nested-cv</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/validation-strategies/k-fold-cv</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/grid-search</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/optuna-frameworks</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/genetic-algorithms</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/bayesian-optimization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/hyperband</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/search-strategies/random-search</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/tools/sklearn-gridsearch</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/tools/optuna</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/tools/ray-tune</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/tools/hyperopt</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/best-practices/parallel-search</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/best-practices/search-space-definition</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/best-practices/computational-budget</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/12-hyperparameter-tuning/best-practices/early-stopping-strategies</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/optimization/hyperparameter-c</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/optimization/hyperparameter-gamma</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/optimization/class-weight-balancing</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/optimization/smo-algorithm</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/svm-variants/svr-regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/svm-variants/one-class-svm</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/svm-variants/nu-svc</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/svm-variants/c-svc</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/kernel-trick</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/rbf-gaussian-kernel</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/linear-kernel</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/polynomial-kernel</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/kernel-methods/sigmoid-kernel</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/concetti-base/support-vectors</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/concetti-base/soft-margin</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/concetti-base/maximum-margin</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/05-support-vector-machines/concetti-base/hyperplane-separation</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/ice-plots</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/partial-dependence-plots</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/anchor-explanations</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/lime</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/shap/kernel-shap</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/shap/shapley-values</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/shap/deep-shap</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/shap/tree-shap</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/feature-importance/permutation-importance</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-agnostic/feature-importance/drop-column-importance</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/global-interpretability/feature-importance-ranking</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/global-interpretability/surrogate-models</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/global-interpretability/interaction-effects</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-specific/rule-extraction</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-specific/linear-coefficients</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-specific/tree-visualization</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/model-specific/attention-mechanisms</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/local-interpretability/prototypes-criticisms</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/local-interpretability/instance-explanations</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/13-interpretability/local-interpretability/counterfactual-explanations</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/variants/radius-neighbors</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/variants/nearest-centroid</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/variants/large-margin-knn</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/applications/anomaly-detection</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/applications/regression</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/applications/classification</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/optimization/locality-sensitive-hashing</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/optimization/kd-trees</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/optimization/ball-trees</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/optimization/approximate-neighbors</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/algorithm</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/curse-of-dimensionality</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/weighted-voting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/k-selection</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/euclidean</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/chebyshev</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/cosine-similarity</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/minkowski</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/hamming</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/08-nearest-neighbors/knn/distance-metrics/manhattan</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/tomek-links</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/random-undersampling</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/cluster-centroids</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/ncr</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/undersampling/enn</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/combined-methods/smote-enn</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/combined-methods/smote-tomek</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/borderline-smote</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/smote-variants</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/smote</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/adasyn</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/resampling/oversampling/random-oversampling</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/evaluation/confusion-matrix-analysis</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/evaluation/stratified-sampling</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/evaluation/appropriate-metrics</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/detection/class-distribution</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/detection/imbalance-ratio</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/algorithmic-approaches/cost-sensitive-learning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/algorithmic-approaches/ensemble-balancing</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/algorithmic-approaches/threshold-moving</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/11-class-imbalance/algorithmic-approaches/class-weights</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/algoritmi/id3</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/algoritmi/chaid</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/algoritmi/c45</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/algoritmi/cart</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/min-samples-leaf</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/max-depth</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/criterion</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/min-samples-split</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/hyperparameters/max-features</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/pruning/post-pruning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/pruning/pre-pruning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/pruning/cost-complexity-pruning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/pruning/reduced-error-pruning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/tree-structure</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/variance-reduction</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/entropy-information-gain</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/gini-impurity</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/fondamenti/splitting-criteria</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/vantaggi-svantaggi/instability</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/vantaggi-svantaggi/interpretability</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/supervised-learning/machine-learning-supervisionato/06-decision-trees/vantaggi-svantaggi/quando-usarli</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Legge di Zipf</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Byte-pair Encoding</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Modelli di rappresentazione del testo</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Introduzione all'NLP</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Spelling Correction and Minimum Edit Distance</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Parole, Corpora, Tokenizzazione e Normalizzazione</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Word Sense Disambiguation</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/WordNet</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Introduzione alla Semantica</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Lambda Calcolo per NLP</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Entity Linking</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Ontology Learning</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/BabelNet</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Semantica Lessicale</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Misure di Similarità Vettoriale</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Modelli di Spazio Semantico</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Tecniche di Weighting</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Dense Word Embeddings</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Latent Semantic Analysis</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Word2Vec-skipgram-softmax</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Introduzione alla Semantica Vettoriale</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Semantica/Vector Semantics/Sparse Word Embeddings</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Modelli di Linguaggio/Valutazione dei Modelli di Linguaggio</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Modelli di Linguaggio/Smoothing nei Modelli Linguistici</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Modelli di Linguaggio/Interpolazione Lineare nei Modelli Linguistici</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Modelli di Linguaggio/Esercizio sui Language Models</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Modelli di Linguaggio/The Berkeley Restourant Project</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Modelli di Linguaggio/Modelli di Linguaggio</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Modelli di Linguaggio/Backoff nei Modelli Linguistici</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Espressioni Regolari/Automi a Stati Finiti</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Espressioni Regolari/Espressioni Regolari</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Espressioni Regolari/Operazioni sui Linguaggi Regolari</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Espressioni Regolari/Applicazioni Pratiche delle Regex</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Sintassi/Grammatiche Formali</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Sintassi/Introduzione</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Sintassi/Algoritmo CKY</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Sintassi/Parsing Sintattico</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Sintassi/Algoritmo di CKY Probabilistico</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Sintassi/Grammatiche Context-free</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Sintassi/Forma Normale di Chomsky</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Part-of-Speech Tagging</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Part-of-Speech Tagging/Hidden Markov Models in PoS Tagging</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://localhost:3000/theory/nlp/Part-of-Speech Tagging/MaxEnt models in PoS Tagging</loc>
-    <lastmod>2026-01-15</lastmod>
+    <lastmod>2026-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

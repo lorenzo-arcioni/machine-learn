@@ -161,13 +161,13 @@ I sistemi biometrici operano principalmente in tre modalità, ciascuna con carat
 - Decisioni: (1) il soggetto è/non è in galleria, (2) se sì, quale identità
 - Esempio pratico: Sorveglianza in aeroporto - il sistema cerca di identificare se una persona è presente in una watchlist
 
-**Watch list**:
-  - Il sistema possiede una lista di soggetti di interesse
-  - Verifica se il *probe* appartiene alla lista
+  **Watch list**:
+    - Il sistema possiede una lista di soggetti di interesse
+    - Verifica se il *probe* appartiene alla lista
 
-  Tipologie di watch list:
-  - **White list**: i soggetti presenti nella lista sono **autorizzati** e l’accesso viene consentito
-  - **Black list**: i soggetti presenti nella lista sono **non autorizzati**; il riconoscimento può generare un **allarme**
+    Tipologie di watch list:
+    - **White list**: i soggetti presenti nella lista sono **autorizzati** e l’accesso viene consentito
+    - **Black list**: i soggetti presenti nella lista sono **non autorizzati**; il riconoscimento può generare un **allarme**
 
 
 **Identificazione Closed-Set (1:N forzata)**:
@@ -412,7 +412,7 @@ Ad esempio, nel riconoscimento delle impronte digitali:
 
 👉 Vedi: [[Matching di Minuzie]]
 
-## Dopo il Confronto
+### Dopo il Confronto
 
 Una volta calcolato uno score di **similarità** o **distanza**, questo viene confrontato con una **soglia di accettazione**:
 
@@ -424,7 +424,7 @@ L’analisi delle prestazioni studia il comportamento del sistema al variare del
 - errori del sistema
 - compromesso tra falsi accettati e falsi rifiutati
 
-## In Sintesi
+### In Sintesi
 
 - Selezionare ed estrarre **feature sufficientemente discriminative**
 - Definire una **strategia di matching appropriata**
@@ -484,15 +484,6 @@ Siano:
 - **FR (False Rejection)**: Utente legittimo erroneamente respinto - **impatto: usabilità, frustrazione utente**
 - **FA (False Acceptance)**: Impostore erroneamente accettato - **impatto: SICUREZZA, accesso non autorizzato**
 
-**Esempio concreto**:
-Consideriamo uno smartphone con riconoscimento facciale usato da 100 persone diverse in un giorno:
-- 10 utilizzi sono dal proprietario (genuine attempts)
-- 90 tentativi sono da altre persone che trovano il telefono (impostor attempts)
-
-Se il sistema ha FAR = 0.01 e FRR = 0.05:
-- Il proprietario verrà bloccato circa 0.5 volte (5% di 10 tentativi)
-- Circa 0.9 impostori entreranno nel telefono (1% di 90 tentativi)
-
 ### 2.3 Metriche Fondamentali
 
 #### 2.3.1 False Acceptance Rate (FAR)
@@ -531,7 +522,16 @@ $$\text{FRR}(\tau) = P(D_0 | H_1) = P(\text{Reject} | \text{genuine})$$
 
 Probabilità che un utente genuino venga erroneamente rifiutato.
 
-**Esempio pratico**: FRR = 0.05 (5%) significa che in media 1 utente legittimo su 20 viene respinto. Se un utente tenta l'accesso 10 volte al giorno, verrà bloccato circa una volta ogni due giorni, causando frustrazione.
+**Quindi**: FRR = 0.05 (5%) significa che in media 1 utente legittimo su 20 viene respinto. Se un utente tenta l'accesso 10 volte al giorno, verrà bloccato circa una volta ogni due giorni, causando frustrazione.
+
+**Esempio concreto**:
+Consideriamo uno smartphone con riconoscimento facciale usato da 100 persone diverse in un giorno:
+- 10 utilizzi sono dal proprietario (genuine attempts)
+- 90 tentativi sono da altre persone che trovano il telefono (impostor attempts)
+
+Se il sistema ha FAR = 0.01 e FRR = 0.05:
+- Il proprietario verrà bloccato circa 0.5 volte (5% di 10 tentativi)
+- Circa 0.9 impostori entreranno nel telefono (1% di 90 tentativi)
 
 **Relazione con la distribuzione**:
 $$\text{FRR}(\tau) = \int_{\tau}^{\infty} p(d|H_1) \, dd = P(d > \tau | H_1)$$
@@ -548,7 +548,7 @@ Il FRR è l'area sotto la curva della distribuzione genuine a destra della sogli
 Il GAR è la metrica complementare al FRR e misura il successo del sistema nel riconoscere utenti legittimi.
 
 **Definizione**:
-$$\text{GAR}(\tau) = 1 - \text{FRR}(\tau) = P(D_1 | H_1)$$
+$$\text{GAR}(\tau) = \frac{\text{\# Genuine Accepts}}{\text{\# Genuine Attempts}} = \frac{|\{(p,i) : \text{id}(p) = i \land d(p,i) \leq \tau\}|}{|\{(p,i) : \text{id}(p) = i\}|}= 1 - \text{FRR}(\tau) = P(D_1 | H_1)$$
 
 **Relazione complementare**:
 $$\text{GAR}(\tau) + \text{FRR}(\tau) = 1$$
@@ -564,7 +564,7 @@ Il GAR è spesso preferito nelle presentazioni perché è una metrica "positiva"
 Il GRR misura quanto efficacemente il sistema respinge impostori.
 
 **Definizione**:
-$$\text{GRR}(\tau) = 1 - \text{FAR}(\tau) = P(D_0 | H_0)$$
+$$\text{GRR}(\tau) = \frac{\text{\# Genuine Rejections}}{\text{\# Impostors Attempts}} = \frac{|\{(p,i) : \text{id}(p) \neq i \land d(p,i) > \tau\}|}{|\{(p,i) : \text{id}(p) \neq i\}|}= 1 - \text{FAR}(\tau) = P(D_0 | H_0)$$
 
 **Relazione complementare**:
 $$\text{GRR}(\tau) + \text{FAR}(\tau) = 1$$
@@ -659,27 +659,6 @@ $$
 \end{cases} \quad \text{(rifiuta tutti - sistema inutile per accesso)}
 $$
 
-**Visualizzazione del trade-off**:
-
-```
-Rate
- 1.0 |     FRR
-     |       /
-     |      /
-     |     /
-     |    /
-     |   /  
-     |  / X (EER)
-     | /   \
-     |/     \
-     |\      \
-     | \      \_____ FAR
- 0.0 |__\___________\________> Threshold
-     0              τ*       ∞
-```
-
-Il punto X rappresenta l'Equal Error Rate (EER), dove FAR = FRR. Questo è spesso usato come punto di riferimento, ma non necessariamente il punto operativo ottimale.
-
 ### 2.6 Equal Error Rate (EER)
 
 L'EER è la metrica scalare più comunemente usata per riassumere la performance di un sistema biometrico in un singolo numero.
@@ -721,6 +700,70 @@ EER ≈ 0.027 alla soglia ≈ 0.42 (interpolando tra 0.4 e 0.5)
 - Sistema B: EER = 5% - Buono
 - Sistema C: EER = 10% - Accettabile per applicazioni non critiche
 - Sistema D: EER = 20% - Scadente, non utilizzabile
+
+**Esempio**: Il seguente codice mostra un semplice esempio di calcolo e visualizzazione dell’**Equal Error Rate (EER)** a partire da valori discreti di FAR e FRR misurati a diverse soglie operative.  
+L’EER viene stimato come il punto in cui la differenza tra FAR e FRR è minima e viene rappresentato graficamente come il punto di equilibrio tra le due curve di errore.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Soglie operative
+thresholds = np.array([
+    0.1, 0.2, 0.3, 0.4, 0.5, 0.6
+])
+
+# False Acceptance Rate (FAR)
+far = np.array([
+    0.250, 0.100, 0.050, 0.020, 0.010, 0.005
+])
+
+# False Rejection Rate (FRR)
+frr = np.array([
+    0.001, 0.005, 0.015, 0.035, 0.070, 0.150
+])
+
+# Differenza assoluta tra FAR e FRR
+difference = np.abs(far - frr)
+
+# Indice della soglia ottimale
+eer_index = np.argmin(difference)  # es: np.argmin(difference)
+
+# Soglia di EER
+eer_threshold = thresholds[eer_index]  # thresholds[eer_index]
+
+# Valore di EER
+eer = (far[eer_index] + frr[eer_index]) / 2
+
+plt.figure(figsize=(8, 5))
+
+plt.plot(thresholds, far, marker='o', label='FAR')
+plt.plot(thresholds, frr, marker='o', label='FRR')
+
+# Punto EER
+plt.scatter(
+    eer_threshold,
+    eer,
+    color='red',
+    zorder=5,
+    label=f'EER ≈ {eer:.3f}'
+)
+
+# Linee guida
+plt.axvline(eer_threshold, linestyle='--', alpha=0.6)
+plt.axhline(eer, linestyle='--', alpha=0.6)
+
+plt.xlabel('Threshold (τ)')
+plt.ylabel('Error Rate')
+plt.title('Equal Error Rate (EER)')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+```
+
+<img src="../../../../../images/eer.png" style="display: block; margin-left: auto; margin-right: auto; width: 60%;">
 
 ### 2.7 Punti Operativi Speciali
 
@@ -809,30 +852,59 @@ $\text{AUC} = P(d_{\text{genuine}} < d_{\text{impostor}})$
 
 **Confronto tra sistemi usando ROC**:
 
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import auc  # per calcolare AUC
+
+# ============================================
+# Dati esempio: Sistema A
+# ============================================
+far_A = np.array([0.00, 0.01, 0.03, 0.08, 0.15, 0.30, 1.00])
+frr_A = np.array([1.00, 0.40, 0.20, 0.10, 0.05, 0.02, 0.00])
+gar_A = 1 - frr_A
+
+# ============================================
+# Dati esempio: Sistema B
+# ============================================
+far_B = np.array([0.00, 0.02, 0.05, 0.10, 0.20, 0.40, 1.00])
+frr_B = np.array([1.00, 0.50, 0.30, 0.15, 0.08, 0.03, 0.00])
+gar_B = 1 - frr_B
+
+# ============================================
+# Calcolo AUC
+# ============================================
+auc_A = auc(far_A, gar_A)
+auc_B = auc(far_B, gar_B)
+
+# ============================================
+# Visualizzazione ROC
+# ============================================
+plt.figure(figsize=(8, 6))
+
+# Curva ROC Sistema A
+plt.plot(far_A, gar_A, marker='o', label=f'Sistema A (AUC={auc_A:.2f})')
+
+# Curva ROC Sistema B
+plt.plot(far_B, gar_B, marker='s', label=f'Sistema B (AUC={auc_B:.2f})')
+
+# Diagonale del classificatore casuale
+plt.plot([0, 1], [0, 1], linestyle='--', alpha=0.7, label='Random classifier')
+
+plt.xlabel('False Acceptance Rate (FAR)')
+plt.ylabel('Genuine Acceptance Rate (GAR)')
+plt.title('Receiver Operating Characteristic (ROC)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
 ```
-GAR
- 1.0|    Sistema A (migliore)
-    |      _.-'''
-    |    _/
-    |   /      Sistema B
-    | _/     _/
-    |/    _/
-    |  _/  Diagonale (casuale)
-    |_/
- 0.0|__________________ FAR
-   0.0               1.0
-```
+
+<img src="../../../../../images/roc-auc.png" style="display: block; margin-left: auto; margin-right: auto; width: 60%;">
+
+<br>
 
 Sistema A domina Sistema B: per ogni valore di FAR, Sistema A ha GAR più alto.
-
-**Esempio pratico**:
-Confronto di tre algoritmi di face recognition:
-
-| Sistema | AUC | EER | Interpretazione |
-|---------|-----|-----|-----------------|
-| Deep CNN | 0.998 | 0.5% | Stato dell'arte |
-| Traditional Features | 0.950 | 3% | Buono, ma superato |
-| Baseline | 0.850 | 8% | Accettabile per applicazioni non critiche |
 
 ### 2.9 Detection Error Tradeoff (DET)
 
@@ -862,27 +934,105 @@ Permette di distinguere $10^{-3}$ da $10^{-4}$ (cruciale in sicurezza), cosa dif
 
 **Interpretazione DET**:
 
-```
-FRR (log)
- 10%|
-    |  \
-    |   \  Sistema B (peggiore)
-    |    \
- 1% |     \
-    |   \  \ Sistema A (migliore)
-    |    \  \
-0.1%|     \  \
-    |      \  \
-0.01|_______\__\_______ FAR (log)
-    0.01  0.1  1%  10%
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Genera dati di esempio per due sistemi biometrici
+np.random.seed(42)
+
+# Sistema A (migliore) - punteggi genuini e impostori
+genuine_scores_A = np.random.normal(0.8, 0.15, 1000)
+impostor_scores_A = np.random.normal(0.3, 0.12, 1000)
+
+# Sistema B (peggiore) - punteggi genuini e impostori
+genuine_scores_B = np.random.normal(0.7, 0.20, 1000)
+impostor_scores_B = np.random.normal(0.4, 0.15, 1000)
+
+def calcola_det_curve(genuine, impostor):
+    """Calcola la curva DET (FAR vs FRR)"""
+    # Crea un range di soglie
+    thresholds = np.linspace(0, 1, 200)
+    
+    FAR = []
+    FRR = []
+    
+    for tau in thresholds:
+        # False Accept Rate: impostori accettati / totale impostori
+        fa = np.sum(impostor >= tau) / len(impostor)
+        FAR.append(fa)
+        
+        # False Reject Rate: genuini rifiutati / totale genuini
+        fr = np.sum(genuine < tau) / len(genuine)
+        FRR.append(fr)
+    
+    return np.array(FAR), np.array(FRR)
+
+# Calcola le curve DET per entrambi i sistemi
+FAR_A, FRR_A = calcola_det_curve(genuine_scores_A, impostor_scores_A)
+FAR_B, FRR_B = calcola_det_curve(genuine_scores_B, impostor_scores_B)
+
+# Visualizzazione
+plt.figure(figsize=(10, 8))
+
+# Plot delle curve DET con scala logaritmica
+plt.plot(FAR_A * 100, FRR_A * 100, 'b-', linewidth=2, label='Sistema A (migliore)')
+plt.plot(FAR_B * 100, FRR_B * 100, 'r--', linewidth=2, label='Sistema B (peggiore)')
+
+# Scala logaritmica su entrambi gli assi
+plt.xscale('log')
+plt.yscale('log')
+
+# Etichette e titolo
+plt.xlabel('False Accept Rate - FAR (%)', fontsize=12)
+plt.ylabel('False Reject Rate - FRR (%)', fontsize=12)
+plt.title('Curva DET (Detection Error Tradeoff)', fontsize=14, fontweight='bold')
+
+# Griglia
+plt.grid(True, which='both', alpha=0.3, linestyle='-')
+
+# Limiti degli assi (da 0.01% a 50%)
+plt.xlim([0.01, 150])
+plt.ylim([0.01, 150])
+
+# Legenda
+plt.legend(loc='upper right', fontsize=11)
+
+# Aggiungi annotazioni
+plt.text(0.015, 30, 'Scala logaritmica:\n- Evidenzia differenze\n  a bassi error rate\n- Curva più bassa\n  e a sinistra è migliore', 
+         fontsize=9, bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+# Evidenzia alcuni punti operativi
+idx_1 = np.argmin(np.abs(FAR_A - 0.01))  # FAR ~ 1%
+idx_2 = np.argmin(np.abs(FAR_A - 0.001))  # FAR ~ 0.1%
+
+plt.plot(FAR_A[idx_1] * 100, FRR_A[idx_1] * 100, 'bo', markersize=8)
+plt.plot(FAR_A[idx_2] * 100, FRR_A[idx_2] * 100, 'go', markersize=8)
+
+plt.tight_layout()
+plt.show()
+
+# Stampa alcune statistiche
+print("=== Confronto Sistemi ===")
+print(f"\nSistema A (FAR=1%): FRR={FRR_A[idx_1]*100:.3f}%")
+print(f"Sistema B (FAR=1%): FRR={FRR_B[np.argmin(np.abs(FAR_B - 0.01))]*100:.3f}%")
+print(f"\nSistema A (FAR=0.1%): FRR={FRR_A[idx_2]*100:.3f}%")
+print(f"Sistema B (FAR=0.1%): FRR={FRR_B[np.argmin(np.abs(FAR_B - 0.001))]*100:.3f}%")
 ```
 
-Sistema A ha errori più bassi per tutte le soglie operative.
+<img src="../../../../../images/det.png" style="display: block; margin-left: auto; margin-right: auto; width: 60%;">
 
-**Esempio**: Sistema di riconoscimento iris:
-- Su scala lineare: differenza tra FAR=0.0001 e FAR=0.00001 invisibile
-- Su scala log DET: differenza chiaramente visibile (ordine di grandezza)
-- Critico per applicazioni ad alta sicurezza dove questi numeri contano
+<br>
+
+```{visible}
+=== Confronto Sistemi ===
+
+Sistema A (FAR=1%): FRR=6.300%
+Sistema B (FAR=1%): FRR=55.400%
+
+Sistema A (FAR=0.1%): FRR=19.800%
+Sistema B (FAR=0.1%): FRR=81.900%
+```
 
 ### 2.10 Scelta della Soglia Ottimale
 
@@ -907,7 +1057,9 @@ $\tau^* = \arg\min_\tau R(\tau)$
 **Teorema 2.2** (Soglia di Neyman-Pearson):
 *Data la loss matrix asimmetrica, la soglia ottimale soddisfa:*
 
-$\frac{p(d|\text{genuine})}{p(d|\text{impostor})} = \frac{C_{FA} \cdot \pi_I}{C_{FR} \cdot \pi_G}$
+$$
+\frac{p(d|\text{genuine})}{p(d|\text{impostor})} = \frac{C_{FA} \cdot \pi_I}{C_{FR} \cdot \pi_G}
+$$
 
 valutata in $d = \tau^*$.
 
@@ -991,32 +1143,38 @@ L'identificazione open-set è la modalità operativa più complessa e realistica
 
 **Algoritmo dettagliato**:
 
-```
-Input: 
-  - probe p (campione biometrico da identificare)
-  - gallery G = {g₁, g₂, ..., g|G|} (database template)
-  - threshold τ (soglia di decisione)
+$$
+\begin{algorithm}[H]
+\caption{Verifica biometrica di un probe contro una gallery}
+\begin{algorithmic}[1]
+\Require probe $p$ (campione biometrico da identificare)
+\Require gallery $G = \{g_1, g_2, \dots, g_{|G|}\}$ (database di template)
+\Require threshold $\tau$ (soglia di decisione)
+\Ensure Identità di $p$ o ``not in gallery''
 
-Output: 
-  - identity or "not in gallery"
+\State Calcola tutte le distanze: 
+\[
+D = \{ d(p, g_1), d(p, g_2), \dots, d(p, g_{|G|}) \}
+\]
 
-1. Compute all distances:
-   D = {d(p, g₁), d(p, g₂), ..., d(p, g|G|)}
+\State Ordina $D$ in ordine crescente:
+\[
+d_1 \le d_2 \le \dots \le d_{|G|}
+\]
+\State Ottieni la ranked list:
+\[
+[(g_1, d_1), (g_2, d_2), \dots, (g_{|G|}, d_{|G|})]
+\]
+dove $g_1$ è il template più simile a $p$
 
-2. Sort D in ascending order:
-   d₁ ≤ d₂ ≤ ... ≤ d|G|
-   
-   Otteniamo ranked list: [(g₁, d₁), (g₂, d₂), ..., (g|G|, d|G|)]
-   dove g₁ è il template più simile a p
-
-3. Decision logic:
-   If d₁ > τ:
-     Return "not in gallery" (no detection)
-     // Nemmeno il match migliore supera la soglia
-   Else:
-     // Detection positivo, ora verifichiamo l'identità
-     Return id(g₁)  // Identità del template con distanza minima
-```
+\If{$d_1 > \tau$}
+    \State \Return ``not in gallery'' \Comment{Nessun match supera la soglia}
+\Else
+    \State \Return $\text{id}(g_1)$ \Comment{Identità del template più vicino}
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+$$
 
 **Ruolo critico della soglia**:
 - Funge da **presence detector** - decide se il probe appartiene a qualcuno in galleria
